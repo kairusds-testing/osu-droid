@@ -44,7 +44,7 @@
             android:key="showfirstapproachcircle" android:defaultValue="false"/>
         <CheckBoxPreference android:key="hideReplayMarquee" android:title="@string/opt_hide_replay_marquee_title"
             android:summary="@string/opt_hide_replay_marquee_summary" android:defaultValue="false"/>
-        <CheckBoxPreference android:key="hideingameui" android:title="@string/opt_hide_ingame_ui_title"
+        <CheckBoxPreference android:key="hideInGameUI" android:title="@string/opt_hide_ingame_ui_title"
             android:summary="@string/opt_hide_ingame_ui_summary" android:defaultValue="false"/>
         <CheckBoxPreference android:summary="@string/opt_skin_summary" android:title="@string/opt_skin_title"
             android:key="skin" android:defaultValue="false"/>
