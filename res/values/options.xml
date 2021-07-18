@@ -319,5 +319,5 @@
     <string name="opt_hide_replay_marquee_summary">Hide the scrolling text when watching replays</string>
 
     <string name="opt_hide_ingame_ui_title">Hide ingame ui</string>
-    <string name="opt_hide_ingame_ui_summary">Hide the score, accuracy and combo counter along with the healthbar ingame</string>
+    <string name="opt_hide_ingame_ui_summary">Hide the score, accuracy and combo counter along with the healthbar when ingame</string>
 </resources>
