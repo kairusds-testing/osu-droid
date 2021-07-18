@@ -820,7 +820,7 @@ public class Config {
         return hideReplayMarquee;
     }
 
-    public static boolean setHideReplayMarquee(boolean hideReplayMarquee) {
+    public static void setHideReplayMarquee(boolean hideReplayMarquee) {
         Config.hideReplayMarquee = hideReplayMarquee;
     }
 
@@ -828,7 +828,7 @@ public class Config {
         return hideInGameUI;
     }
 
-    public static boolean setHideInGameUI(boolean hideInGameUI) {
-        return Config.hideInGameUI = hideInGameUI;
+    public static void setHideInGameUI(boolean hideInGameUI) {
+        Config.hideInGameUI = hideInGameUI;
     }
 }
