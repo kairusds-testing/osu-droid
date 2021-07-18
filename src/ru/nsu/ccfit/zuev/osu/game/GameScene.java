@@ -731,7 +731,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         }
         setBackground();
 
-        if (Config.isShowFPS() && !Config.isHideInGameUI()) {
+        if (Config.isShowFPS()) {
             final Font font = ResourceManager.getInstance().getFont(
                     "smallFont");
             final ChangeableText fpsText = new ChangeableText(Utils.toRes(790),
