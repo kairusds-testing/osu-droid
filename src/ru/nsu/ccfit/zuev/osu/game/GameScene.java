@@ -1488,33 +1488,30 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             hitErrorMeter.update(dt);
         }
 
-
-        //连击数////////////////////////
-        final StringBuilder comboBuilder = new StringBuilder();
-        comboBuilder.setLength(0);
-        comboBuilder.append(stat.getCombo());
-        while (comboBuilder.length() < 5) {
-            comboBuilder.append('*');
-        }
-        if (Config.isComplexAnimations()) {
-            scoreShadow.changeText(comboBuilder);
-            scoreShadow.registerEntityModifier(new DelayModifier(0.2f, new IEntityModifier.IEntityModifierListener() {
-                @Override
-                public void onModifierStarted(IModifier<IEntity> iModifier, IEntity iEntity) {
-
-                }
-
-                @Override
-                public void onModifierFinished(IModifier<IEntity> iModifier, IEntity iEntity) {
-                    //当CB数字阴影缩小完成的时候 更改CB数字
-                    comboText.changeText(comboBuilder);
-                }
-            }));
-        } else {
-            comboText.changeText(comboBuilder);
-        }
-
         if(!Config.isHideInGameUI()) {
+            //连击数////////////////////////
+            final StringBuilder comboBuilder = new StringBuilder();
+            comboBuilder.setLength(0);
+            comboBuilder.append(stat.getCombo());
+            while (comboBuilder.length() < 5) {
+                comboBuilder.append('*');
+            }
+            if (Config.isComplexAnimations()) {
+                scoreShadow.changeText(comboBuilder);
+                scoreShadow.registerEntityModifier(new DelayModifier(0.2f, new IEntityModifier.IEntityModifierListener() {
+                    @Override
+                    public void onModifierStarted(IModifier<IEntity> iModifier, IEntity iEntity) { 
+                    }
+                    @Override
+                    public void onModifierFinished(IModifier<IEntity> iModifier, IEntity iEntity) {
+                        //当CB数字阴影缩小完成的时候 更改CB数字
+                        comboText.changeText(comboBuilder);
+                    }
+                }));
+            } else {
+                comboText.changeText(comboBuilder);
+            }
+
             //连击数////////////////////////
             strBuilder.setLength(0);
             float rawAccuracy = stat.getAccuracy() * 100f;
