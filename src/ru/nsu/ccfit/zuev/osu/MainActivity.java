@@ -641,9 +641,16 @@ public class MainActivity extends BaseGameActivity implements
         }
     }
 
-    @Override
+    /* @Override
     public void onPause() {
         super.onPause();
+        activityVisible = false;
+    } */
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        activityVisible = false;
         if (this.mEngine == null) {
             return;
         }
@@ -682,13 +689,6 @@ public class MainActivity extends BaseGameActivity implements
                 }
             }
         }
-        activityVisible = false;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        activityVisible = false;
     }
 
     @Override
