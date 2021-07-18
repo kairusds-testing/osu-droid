@@ -731,7 +731,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         }
         setBackground();
 
-        if (Config.isShowFPS()) {
+        if (Config.isShowFPS() && !Config.isHideInGameUI()) {
             final Font font = ResourceManager.getInstance().getFont(
                     "smallFont");
             final ChangeableText fpsText = new ChangeableText(Utils.toRes(790),
@@ -929,52 +929,55 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         GameHelper.setGlobalTime(0);
         scorebar = new ScoreBar(this, fgScene, stat);
         addPassiveObject(scorebar);
-        final TextureRegion scoreDigitTex = ResourceManager.getInstance()
-                .getTexture("score-0");
-        accText = new GameScoreText(Config.getRES_WIDTH()
-                - scoreDigitTex.getWidth() * 4.75f, 50,
-                "000.00%", 0.6f);
-        comboText = new GameScoreText(Utils.toRes(2), Config.getRES_HEIGHT()
-                - Utils.toRes(95), "0000x", 1.5f);
-        comboText.changeText(new StringBuilder("0****"));
-        scoreText = new GameScoreText(Config.getRES_WIDTH()
-                - scoreDigitTex.getWidth() * 7.25f, 0, "0000000000", 0.9f);
-        comboText.attachToScene(fgScene);
-        accText.attachToScene(fgScene);
-        scoreText.attachToScene(fgScene);
-        if (Config.isComplexAnimations()) {
-            scoreShadow = new GameScoreTextShadow(0, Config.getRES_HEIGHT()
-                    - Utils.toRes(90), "0000x", 1.5f);
-            scoreShadow.attachToScene(bgScene);
-            passiveObjects.add(scoreShadow);
-        }
-        breakAnimator = new BreakAnimator(this, fgScene, stat, beatmapData
-                .getData("General", "LetterboxInBreaks").equals("1"), bgSprite);
 
-        float effectOffset = 155 - 25;
-        if (stat.getMod().contains(GameMod.MOD_AUTO)) {
-            final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-                    Utils.toRes(100), ResourceManager.getInstance().getTexture(
-                    "selection-mod-autoplay"));
-            bgScene.attachChild(autoIcon);
-            effectOffset += 25;
-        } else if (stat.getMod().contains(GameMod.MOD_RELAX)) {
-            final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-                    Utils.toRes(98), ResourceManager.getInstance().getTexture(
-                    "selection-mod-relax"));
-            bgScene.attachChild(autoIcon);
-            effectOffset += 25;
-        } else if (stat.getMod().contains(GameMod.MOD_AUTOPILOT)) {
-            final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-                    Utils.toRes(98), ResourceManager.getInstance().getTexture(
-                    "selection-mod-relax2"));
-            bgScene.attachChild(autoIcon);
-            effectOffset += 25;
-        }
-
-        if (Config.isComboburst()) {
-            comboBurst = new ComboBurst(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
-            comboBurst.attachAll(bgScene);
+        if(!Config.isHideInGameUI()){
+            final TextureRegion scoreDigitTex = ResourceManager.getInstance()
+                    .getTexture("score-0");
+            accText = new GameScoreText(Config.getRES_WIDTH()
+                    - scoreDigitTex.getWidth() * 4.75f, 50,
+                    "000.00%", 0.6f);
+            comboText = new GameScoreText(Utils.toRes(2), Config.getRES_HEIGHT()
+                    - Utils.toRes(95), "0000x", 1.5f);
+            comboText.changeText(new StringBuilder("0****"));
+            scoreText = new GameScoreText(Config.getRES_WIDTH()
+                    - scoreDigitTex.getWidth() * 7.25f, 0, "0000000000", 0.9f);
+            comboText.attachToScene(fgScene);
+            accText.attachToScene(fgScene);
+            scoreText.attachToScene(fgScene);
+            if (Config.isComplexAnimations()) {
+                scoreShadow = new GameScoreTextShadow(0, Config.getRES_HEIGHT()
+                        - Utils.toRes(90), "0000x", 1.5f);
+                scoreShadow.attachToScene(bgScene);
+                passiveObjects.add(scoreShadow);
+            }
+            breakAnimator = new BreakAnimator(this, fgScene, stat, beatmapData
+                    .getData("General", "LetterboxInBreaks").equals("1"), bgSprite);
+    
+            float effectOffset = 155 - 25;
+            if (stat.getMod().contains(GameMod.MOD_AUTO)) {
+                final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+                        Utils.toRes(100), ResourceManager.getInstance().getTexture(
+                        "selection-mod-autoplay"));
+                bgScene.attachChild(autoIcon);
+                effectOffset += 25;
+            } else if (stat.getMod().contains(GameMod.MOD_RELAX)) {
+                final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+                        Utils.toRes(98), ResourceManager.getInstance().getTexture(
+                        "selection-mod-relax"));
+                bgScene.attachChild(autoIcon);
+                effectOffset += 25;
+            } else if (stat.getMod().contains(GameMod.MOD_AUTOPILOT)) {
+                final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+                        Utils.toRes(98), ResourceManager.getInstance().getTexture(
+                        "selection-mod-relax2"));
+                bgScene.attachChild(autoIcon);
+                effectOffset += 25;
+            }
+    
+            if (Config.isComboburst()) {
+                comboBurst = new ComboBurst(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
+                comboBurst.attachAll(bgScene);
+            }
         }
 
         float timeOffset = 0;
