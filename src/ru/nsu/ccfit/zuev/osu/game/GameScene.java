@@ -930,6 +930,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         scorebar = new ScoreBar(this, fgScene, stat);
         addPassiveObject(scorebar);
 
+        float effectOffset = 155 - 25;
         if(!Config.isHideInGameUI()){
             final TextureRegion scoreDigitTex = ResourceManager.getInstance()
                     .getTexture("score-0");
@@ -952,8 +953,6 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             }
             breakAnimator = new BreakAnimator(this, fgScene, stat, beatmapData
                     .getData("General", "LetterboxInBreaks").equals("1"), bgSprite);
-    
-            float effectOffset = 155 - 25;
             if (stat.getMod().contains(GameMod.MOD_AUTO)) {
                 final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
                         Utils.toRes(100), ResourceManager.getInstance().getTexture(
