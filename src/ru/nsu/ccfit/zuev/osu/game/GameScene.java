@@ -1512,38 +1512,41 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             comboText.changeText(comboBuilder);
         }
 
-        //连击数////////////////////////
-        strBuilder.setLength(0);
-        float rawAccuracy = stat.getAccuracy() * 100f;
-        strBuilder.append((int) rawAccuracy);
-        if ((int) rawAccuracy < 10) {
-            strBuilder.insert(0, '0');
-        }
-        strBuilder.append('.');
-        rawAccuracy -= (int) rawAccuracy;
-        rawAccuracy *= 100;
-        if ((int) rawAccuracy < 10) {
-            strBuilder.append('0');
-        }
-        strBuilder.append((int) rawAccuracy);
-        if (strBuilder.length() < 6) {
-            strBuilder.insert(0, '*');
-        }
-        accText.changeText(strBuilder);
-        strBuilder.setLength(0);
-        strBuilder.append(stat.getAutoTotalScore());
-        while (strBuilder.length() < 8) {
-            strBuilder.insert(0, '0');
-        }
-        int scoreTextOffset = 0;
-        while (strBuilder.length() < 10) {
-            strBuilder.insert(0, '*');
-            scoreTextOffset++;
+        if(!Config.isHideInGameUI()) {
+            //连击数////////////////////////
+            strBuilder.setLength(0);
+            float rawAccuracy = stat.getAccuracy() * 100f;
+            strBuilder.append((int) rawAccuracy);
+            if ((int) rawAccuracy < 10) {
+                strBuilder.insert(0, '0');
+            }
+            strBuilder.append('.');
+            rawAccuracy -= (int) rawAccuracy;
+            rawAccuracy *= 100;
+            if ((int) rawAccuracy < 10) {
+                strBuilder.append('0');
+            }
+            strBuilder.append((int) rawAccuracy);
+            if (strBuilder.length() < 6) {
+                strBuilder.insert(0, '*');
+            }
+            accText.changeText(strBuilder);
+            strBuilder.setLength(0);
+            strBuilder.append(stat.getAutoTotalScore());
+            while (strBuilder.length() < 8) {
+                strBuilder.insert(0, '0');
+            }
+            int scoreTextOffset = 0;
+            while (strBuilder.length() < 10) {
+                strBuilder.insert(0, '*');
+                scoreTextOffset++;
+            }
+    
+            scoreText.setPosition(Config.getRES_WIDTH()
+                    - ResourceManager.getInstance().getTexture("score-0").getWidth() * (9.25f - scoreTextOffset), 0);
+            scoreText.changeText(strBuilder);
         }
 
-        scoreText.setPosition(Config.getRES_WIDTH()
-                - ResourceManager.getInstance().getTexture("score-0").getWidth() * (9.25f - scoreTextOffset), 0);
-        scoreText.changeText(strBuilder);
         if (comboBurst != null) {
             if (stat.getCombo() == 0) {
                 comboBurst.breakCombo();

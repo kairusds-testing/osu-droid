@@ -85,6 +85,7 @@ public class Config {
     private static boolean calculateSliderPathInGameStart = false;
     private static boolean displayScorePP = false;
     private static boolean hideReplayMarquee = false;
+    private static boolean hideInGameUI = false;
 
     private static float cursorSize = 1;
 
@@ -95,7 +96,7 @@ public class Config {
     private static Context context;
 
     public static void loadConfig(final Context context) {
-        Config.context = context;
+        this.context = context;
         final SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         String s;
@@ -271,7 +272,8 @@ public class Config {
         calculateSliderPathInGameStart = prefs.getBoolean("calculateSliderPathInGameStart", false);
         displayScorePP = prefs.getBoolean("displayScorePP", false);
         hideReplayMarquee = prefs.getBoolean("hideReplayMarquee", false);
-      
+        hideInGameUI = prefs.getBoolean("hideInGameUI", false);
+
         //Init
         onlineDeviceID = prefs.getString("installID", null);
         if (onlineDeviceID == null) {
@@ -319,7 +321,7 @@ public class Config {
     }
 
     public static void setEnableStoryboard(boolean enableStoryboard) {
-        Config.enableStoryboard = enableStoryboard;
+        this.enableStoryboard = enableStoryboard;
     }
 
     public static boolean isUseSuperSlider() {
@@ -342,16 +344,12 @@ public class Config {
         return displayScorePP;
     }
 
-    public static boolean isHideReplayMarquee() {
-        return hideReplayMarquee;
-    }
-
     public static boolean isEnableExtension() {
         return enableExtension;
     }
 
     public static void setEnableExtension(boolean enableExtension) {
-        Config.enableExtension = enableExtension;
+        this.enableExtension = enableExtension;
     }
 
     public static int getSkipOffset() {
@@ -359,7 +357,7 @@ public class Config {
     }
 
     public static void setSkipOffset(final int skipOffset) {
-        Config.skipOffset = skipOffset;
+        this.skipOffset = skipOffset;
     }
 
     public static boolean isShowFPS() {
@@ -367,7 +365,7 @@ public class Config {
     }
 
     public static void setShowFPS(final boolean showFPS) {
-        Config.showFPS = showFPS;
+        this.showFPS = showFPS;
     }
 
     public static boolean isShowScoreboard() {
@@ -375,7 +373,7 @@ public class Config {
     }
 
     public static void setShowScoreboard(final boolean showScoreboard) {
-        Config.showScoreboard = showScoreboard;
+        this.showScoreboard = showScoreboard;
     }
 
     public static boolean isDoubleSound() {
@@ -383,7 +381,7 @@ public class Config {
     }
 
     public static void setDoubleSound(final boolean doubleSound) {
-        Config.doubleSound = doubleSound;
+        this.doubleSound = doubleSound;
     }
 
     public static boolean isCorovans() {
@@ -391,7 +389,7 @@ public class Config {
     }
 
     public static void setCorovans(final boolean corovans) {
-        Config.corovans = corovans;
+        this.corovans = corovans;
     }
 
     public static float getSoundVolume() {
@@ -399,7 +397,7 @@ public class Config {
     }
 
     public static void setSoundVolume(final float volume) {
-        Config.soundVolume = volume;
+        this.soundVolume = volume;
     }
 
     public static float getBgmVolume() {
@@ -407,7 +405,7 @@ public class Config {
     }
 
     public static void setBgmVolume(float bgmVolume) {
-        Config.bgmVolume = bgmVolume;
+        this.bgmVolume = bgmVolume;
     }
 
     public static float getOffset() {
@@ -415,7 +413,7 @@ public class Config {
     }
 
     public static void setOffset(final float offset) {
-        Config.offset = offset;
+        this.offset = offset;
     }
 
     public static int getBackgroundQuality() {
@@ -423,7 +421,7 @@ public class Config {
     }
 
     public static void setBackgroundQuality(final int backgroundQuality) {
-        Config.backgroundQuality = backgroundQuality;
+        this.backgroundQuality = backgroundQuality;
     }
 
     public static String getCorePath() {
@@ -431,7 +429,7 @@ public class Config {
     }
 
     public static void setCorePath(final String corePath) {
-        Config.corePath = corePath;
+        this.corePath = corePath;
     }
 
     public static String getBeatmapPath() {
@@ -479,7 +477,7 @@ public class Config {
     }
 
     public static void setUseCustomSkins(final boolean useCustomSkins) {
-        Config.useCustomSkins = useCustomSkins;
+        this.useCustomSkins = useCustomSkins;
     }
 
     public static boolean isUseCustomSounds() {
@@ -487,7 +485,7 @@ public class Config {
     }
 
     public static void setUseCustomSounds(boolean useCustomSounds) {
-        Config.useCustomSounds = useCustomSounds;
+        this.useCustomSounds = useCustomSounds;
     }
 
     public static int getTextureQuality() {
@@ -495,7 +493,7 @@ public class Config {
     }
 
     public static void setTextureQuality(final int textureQuality) {
-        Config.textureQuality = textureQuality;
+        this.textureQuality = textureQuality;
     }
 
     public static boolean isUseNativePlayer() {
@@ -503,7 +501,7 @@ public class Config {
     }
 
     public static void setUseNativePlayer(final boolean useNativePlayer) {
-        Config.useNativePlayer = useNativePlayer;
+        this.useNativePlayer = useNativePlayer;
     }
 
     public static float getBackgroundBrightness() {
@@ -511,7 +509,7 @@ public class Config {
     }
 
     public static void setBackgroundBrightness(final float backgroundBrightness) {
-        Config.backgroundBrightness = backgroundBrightness;
+        this.backgroundBrightness = backgroundBrightness;
     }
 
     public static int getVbrOffset() {
@@ -519,7 +517,7 @@ public class Config {
     }
 
     public static void setVbrOffset(final int vbrOffect) {
-        Config.vbrOffset = vbrOffect;
+        this.vbrOffset = vbrOffect;
     }
 
     public static boolean isSliderBorders() {
@@ -527,7 +525,7 @@ public class Config {
     }
 
     public static void setSliderBorders(final boolean sliderBorders) {
-        Config.sliderBorders = sliderBorders;
+        this.sliderBorders = sliderBorders;
     }
 
     public static boolean isComplexAnimations() {
@@ -535,7 +533,7 @@ public class Config {
     }
 
     public static void setComplexAnimations(final boolean complexAnimations) {
-        Config.complexAnimations = complexAnimations;
+        this.complexAnimations = complexAnimations;
     }
 
     public static boolean isMultitouch() {
@@ -543,7 +541,7 @@ public class Config {
     }
 
     public static void setMultitouch(final boolean multitouch) {
-        Config.multitouch = multitouch;
+        this.multitouch = multitouch;
     }
 
     public static int getOggOffset() {
@@ -551,7 +549,7 @@ public class Config {
     }
 
     public static void setOggOffset(final int oggOffset) {
-        Config.oggOffset = oggOffset;
+        this.oggOffset = oggOffset;
     }
 
     public static int getPauseOffset() {
@@ -559,7 +557,7 @@ public class Config {
     }
 
     public static void setPauseOffset(final int pauseOffset) {
-        Config.pauseOffset = pauseOffset;
+        this.pauseOffset = pauseOffset;
     }
 
     public static boolean isPlayMusicPreview() {
@@ -567,7 +565,7 @@ public class Config {
     }
 
     public static void setPlayMusicPreview(final boolean playMusicPreview) {
-        Config.playMusicPreview = playMusicPreview;
+        this.playMusicPreview = playMusicPreview;
     }
 
     public static String getLocalUsername() {
@@ -575,7 +573,7 @@ public class Config {
     }
 
     public static void setLocalUsername(final String localUsername) {
-        Config.localUsername = localUsername;
+        this.localUsername = localUsername;
     }
 
     public static boolean isShowCursor() {
@@ -583,7 +581,7 @@ public class Config {
     }
 
     public static void setShowCursor(final boolean showCursor) {
-        Config.showCursor = showCursor;
+        this.showCursor = showCursor;
     }
 
     public static boolean isAccurateSlider() {
@@ -591,7 +589,7 @@ public class Config {
     }
 
     public static void setAccurateSlider(final boolean accurateSlider) {
-        Config.accurateSlider = accurateSlider;
+        this.accurateSlider = accurateSlider;
     }
 
     public static float getScaleMultiplier() {
@@ -599,7 +597,7 @@ public class Config {
     }
 
     public static void setScaleMultiplier(final float scaleMultiplier) {
-        Config.scaleMultiplier = scaleMultiplier;
+        this.scaleMultiplier = scaleMultiplier;
     }
 
     public static String getOnlineUsername() {
@@ -607,7 +605,7 @@ public class Config {
     }
 
     public static void setOnlineUsername(String onlineUsername) {
-        Config.onlineUsername = onlineUsername;
+        this.onlineUsername = onlineUsername;
     }
 
     public static String getOnlinePassword() {
@@ -615,7 +613,7 @@ public class Config {
     }
 
     public static void setOnlinePassword(String onlinePassword) {
-        Config.onlinePassword = onlinePassword;
+        this.onlinePassword = onlinePassword;
     }
 
     public static boolean isStayOnline() {
@@ -623,7 +621,7 @@ public class Config {
     }
 
     public static void setStayOnline(boolean stayOnline) {
-        Config.stayOnline = stayOnline;
+        this.stayOnline = stayOnline;
     }
 
     public static boolean getLoadAvatar() {
@@ -631,7 +629,7 @@ public class Config {
     }
 
     public static void setLoadAvatar(boolean loadAvatar) {
-        Config.loadAvatar = loadAvatar;
+        this.loadAvatar = loadAvatar;
     }
 
     public static String getOnlineDeviceID() {
@@ -643,7 +641,7 @@ public class Config {
     }
 
     public static void setSyncMusic(boolean syncMusic) {
-        Config.syncMusic = syncMusic;
+        this.syncMusic = syncMusic;
     }
 
     public static String getCachePath() {
@@ -651,7 +649,7 @@ public class Config {
     }
 
     public static void setCachePath(String cachePath) {
-        Config.cachePath = cachePath;
+        this.cachePath = cachePath;
     }
 
     public static boolean isBurstEffects() {
@@ -659,7 +657,7 @@ public class Config {
     }
 
     public static void setBurstEffects(boolean burstEffects) {
-        Config.burstEffects = burstEffects;
+        this.burstEffects = burstEffects;
     }
 
     public static boolean isHitLighting() {
@@ -667,7 +665,7 @@ public class Config {
     }
 
     public static void setHitLighting(boolean hitLighting) {
-        Config.hitLighting = hitLighting;
+        this.hitLighting = hitLighting;
     }
 
     public static boolean isUseDither() {
@@ -675,7 +673,7 @@ public class Config {
     }
 
     public static void setUseDither(boolean useDither) {
-        Config.useDither = useDither;
+        this.useDither = useDither;
     }
 
     public static boolean isUseParticles() {
@@ -683,7 +681,7 @@ public class Config {
     }
 
     public static void setUseParticles(boolean useParticles) {
-        Config.useParticles = useParticles;
+        this.useParticles = useParticles;
     }
 
     public static boolean isUseLongTrail() {
@@ -691,7 +689,7 @@ public class Config {
     }
 
     public static void setUseLongTrail(boolean useLongTrail) {
-        Config.useLongTrail = useLongTrail;
+        this.useLongTrail = useLongTrail;
     }
 
     public static String getSkinPath() {
@@ -699,7 +697,7 @@ public class Config {
     }
 
     public static void setSkinPath(String skinPath) {
-        Config.skinPath = skinPath;
+        this.skinPath = skinPath;
     }
 
     public static String getSkinTopPath() {
@@ -707,7 +705,7 @@ public class Config {
     }
 
     public static void setSkinTopPath(String skinTopPath) {
-        Config.skinTopPath = skinTopPath;
+        this.skinTopPath = skinTopPath;
     }
 
     public static boolean isHideNaviBar() {
@@ -715,7 +713,7 @@ public class Config {
     }
 
     public static void setHideNaviBar(boolean hideNaviBar) {
-        Config.hideNaviBar = hideNaviBar;
+        this.hideNaviBar = hideNaviBar;
     }
 
     public static boolean isEnablePP() {
@@ -723,7 +721,7 @@ public class Config {
     }
 
     public static void setEnablePP(boolean enablePP) {
-        Config.enablePP = enablePP;
+        this.enablePP = enablePP;
     }
 
     public static String getScorePath() {
@@ -731,7 +729,7 @@ public class Config {
     }
 
     public static void setScorePath(String scorePath) {
-        Config.scorePath = scorePath;
+        this.scorePath = scorePath;
     }
 
     public static boolean isUseCustomComboColors() {
@@ -739,7 +737,7 @@ public class Config {
     }
 
     public static void setUseCustomComboColors(boolean useCustomComboColors) {
-        Config.useCustomComboColors = useCustomComboColors;
+        this.useCustomComboColors = useCustomComboColors;
     }
 
     public static RGBColor[] getComboColors() {
@@ -751,7 +749,7 @@ public class Config {
     }
 
     public static void setErrorMeter(int errorMeter) {
-        Config.errorMeter = errorMeter;
+        this.errorMeter = errorMeter;
     }
 
     public static int getSpinnerStyle() {
@@ -759,7 +757,7 @@ public class Config {
     }
 
     public static void setSpinnerStyle(int spinnerStyle) {
-        Config.spinnerStyle = spinnerStyle;
+        this.spinnerStyle = spinnerStyle;
     }
 
     public static boolean isShowFirstApproachCircle() {
@@ -767,7 +765,7 @@ public class Config {
     }
 
     public static void setShowFirstApproachCircle(boolean showFirstApproachCircle) {
-        Config.showFirstApproachCircle = showFirstApproachCircle;
+        this.showFirstApproachCircle = showFirstApproachCircle;
     }
 
     public static int getMetronomeSwitch() {
@@ -775,7 +773,7 @@ public class Config {
     }
 
     public static void setMetronomeSwitch(int metronomeSwitch) {
-        Config.metronomeSwitch = metronomeSwitch;
+        this.metronomeSwitch = metronomeSwitch;
     }
 
     public static boolean isComboburst() {
@@ -783,7 +781,7 @@ public class Config {
     }
 
     public static void setComboburst(boolean comboburst) {
-        Config.comboburst = comboburst;
+        this.comboburst = comboburst;
     }
 
     public static boolean isForceRomanized() {
@@ -791,7 +789,7 @@ public class Config {
     }
 
     public static void setForceRomanized(boolean forceRomanized) {
-        Config.forceRomanized = forceRomanized;
+        this.forceRomanized = forceRomanized;
     }
 
     public static float getCursorSize() {
@@ -799,22 +797,38 @@ public class Config {
     }
 
     public static void setCursorSize() {
-        Config.cursorSize = cursorSize;
+        this.cursorSize = cursorSize;
     }
 
     public static float getPlayfieldSize() {
         return playfieldSize;
     }
 
-    public static void setPlayfieldSize(final float playfieldSize){
-        Config.playfieldSize = playfieldSize;
+    public static void setPlayfieldSize(final float playfieldSize) {
+        this.playfieldSize = playfieldSize;
     }
 
-    public static boolean isShrinkPlayfieldDownwards(){
+    public static boolean isShrinkPlayfieldDownwards() {
         return shrinkPlayfieldDownwards;
     }
 
-    public static void setShrinkPlayfieldDownwards(boolean shrinkPlayfieldDownwards){
-        Config.shrinkPlayfieldDownwards = shrinkPlayfieldDownwards;
+    public static void setShrinkPlayfieldDownwards(boolean shrinkPlayfieldDownwards) {
+        this.shrinkPlayfieldDownwards = shrinkPlayfieldDownwards;
+    }
+
+    public static boolean isHideReplayMarquee() {
+        return hideReplayMarquee;
+    }
+
+    public static boolean setHideReplayMarquee(boolean hideReplayMarquee) {
+        this.hideReplayMarquee = hideReplayMarquee;
+    }
+
+    public static boolean isHideInGameUI() {
+        return hideInGameUI;
+    }
+
+    public static boolean setHideInGameUI(boolean hideInGameUI) {
+        this.hideInGameUI = hideInGameUI;
     }
 }
