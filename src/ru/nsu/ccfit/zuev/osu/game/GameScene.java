@@ -927,11 +927,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             }*/
         }
         GameHelper.setGlobalTime(0);
-        scorebar = new ScoreBar(this, fgScene, stat);
-        addPassiveObject(scorebar);
 
         float effectOffset = 155 - 25;
         if(!Config.isHideInGameUI()){
+            scorebar = new ScoreBar(this, fgScene, stat);
+            addPassiveObject(scorebar);
             final TextureRegion scoreDigitTex = ResourceManager.getInstance()
                     .getTexture("score-0");
             accText = new GameScoreText(Config.getRES_WIDTH()
@@ -1449,13 +1449,13 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     mainCursorId = -1;
                     flashlightSprite.updateBreak(true);
                 }
-                scorebar.setVisible(false);
+                if(scorebar != null) scorebar.setVisible(false);
                 breakPeriods.poll();
             }
         }
         if (breakAnimator.isOver()) {
             gameStarted = true;
-            scorebar.setVisible(true);
+            if(scorebar != null) scorebar.setVisible(true);
             if(GameHelper.isFlashLight()){
                 mainCursorId = -1;
                 flashlightSprite.updateBreak(false);
@@ -2455,7 +2455,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             EdExtensionHelper.onGameover(lastTrack);
         }
 
-        scorebar.flush();
+        if(scorebar != null) scorebar.flush();
         ResourceManager.getInstance().getSound("failsound").play();
         final PauseMenu menu = new PauseMenu(engine, this, true);
         gameStarted = false;
