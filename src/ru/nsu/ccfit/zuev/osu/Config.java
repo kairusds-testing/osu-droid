@@ -829,6 +829,6 @@ public class Config {
     }
 
     public static boolean setHideInGameUI(boolean hideInGameUI) {
-        Config.hideInGameUI = hideInGameUI;
+        return Config.hideInGameUI = hideInGameUI;
     }
 }
