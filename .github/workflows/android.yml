@@ -28,7 +28,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleA_GithubDebug
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
