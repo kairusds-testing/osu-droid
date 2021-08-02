@@ -226,7 +226,8 @@ public class BassAudioFunc {
     }
 
     public float getVolume() {
-        float volume = 0f;
+        BASS.FloatValue volume = new BASS.FloatValue();
+        volume.value = 0f;
         if (channel != 0) {
             BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_VOL, volume);
         }
