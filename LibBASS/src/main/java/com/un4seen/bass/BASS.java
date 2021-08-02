@@ -650,10 +650,6 @@ public class BASS
 		public String file;
 	}
 
-	public static class FloatValue {
-		public float value;
-	}
-
 	public static native boolean BASS_SetConfig(int option, int value);
 	public static native int BASS_GetConfig(int option);
 	public static native boolean BASS_SetConfigPtr(int option, Object value);
@@ -676,7 +672,7 @@ public class BASS
 	public static native float BASS_GetVolume();
 
 	public static native boolean BASS_Set3DFactors(float distf, float rollf, float doppf);
-	public static native boolean BASS_Get3DFactors(FloatValue distf, FloatValue rollf, FloatValue doppf);
+	public static native boolean BASS_Get3DFactors(float distf, float rollf, float doppf);
 	public static native boolean BASS_Set3DPosition(BASS_3DVECTOR pos, BASS_3DVECTOR vel, BASS_3DVECTOR front, BASS_3DVECTOR top);
 	public static native boolean BASS_Get3DPosition(BASS_3DVECTOR pos, BASS_3DVECTOR vel, BASS_3DVECTOR front, BASS_3DVECTOR top);
 	public static native void BASS_Apply3D();
@@ -726,7 +722,7 @@ public class BASS
 	public static native boolean BASS_RecordGetInfo(BASS_RECORDINFO info);
 	public static native String BASS_RecordGetInputName(int input);
 	public static native boolean BASS_RecordSetInput(int input, int flags, float volume);
-	public static native int BASS_RecordGetInput(int input, FloatValue volume);
+	public static native int BASS_RecordGetInput(int input, float volume);
 	public static native int BASS_RecordStart(int freq, int chans, int flags, RECORDPROC proc, Object user);
 
 	public static native double BASS_ChannelBytes2Seconds(int handle, long pos);
@@ -744,13 +740,13 @@ public class BASS
 	public static native boolean BASS_ChannelPause(int handle);
 	public static native boolean BASS_ChannelUpdate(int handle, int length);
 	public static native boolean BASS_ChannelSetAttribute(int handle, int attrib, float value);
-	public static native boolean BASS_ChannelGetAttribute(int handle, int attrib, FloatValue value);
+	public static native boolean BASS_ChannelGetAttribute(int handle, int attrib, float value);
 	public static native boolean BASS_ChannelSlideAttribute(int handle, int attrib, float value, int time);
 	public static native boolean BASS_ChannelIsSliding(int handle, int attrib);
 	public static native boolean BASS_ChannelSetAttributeEx(int handle, int attrib, ByteBuffer value, int size);
 	public static native int BASS_ChannelGetAttributeEx(int handle, int attrib, ByteBuffer value, int size);
 	public static native boolean BASS_ChannelSet3DAttributes(int handle, int mode, float min, float max, int iangle, int oangle, float outvol);
-	public static native boolean BASS_ChannelGet3DAttributes(int handle, Integer mode, FloatValue min, FloatValue max, Integer iangle, Integer oangle, FloatValue outvol);
+	public static native boolean BASS_ChannelGet3DAttributes(int handle, Integer mode, float min, float max, Integer iangle, Integer oangle, float outvol);
 	public static native boolean BASS_ChannelSet3DPosition(int handle, BASS_3DVECTOR pos, BASS_3DVECTOR orient, BASS_3DVECTOR vel);
 	public static native boolean BASS_ChannelGet3DPosition(int handle, BASS_3DVECTOR pos, BASS_3DVECTOR orient, BASS_3DVECTOR vel);
 	public static native long BASS_ChannelGetLength(int handle, int mode);
