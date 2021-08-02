@@ -18,7 +18,7 @@ public class BassAudioProvider {
     public static final int WINDOW_FFT = 1024;
 
     private int channel = 0;
-    private BASS.FloatValue freq = new BASS.FloatValue();
+    private float freq = 1.0f;
     private int fileFlag = 0;
     private int decoder = 0;
     private int multiplier = 0;
@@ -26,7 +26,6 @@ public class BassAudioProvider {
     private ByteBuffer buffer = null;
 
     public BassAudioProvider() {
-        freq.value = 1.0f;
         BASS.BASS_Init(-1, 44100, BASS.BASS_DEVICE_LATENCY);
         BASS.BASS_SetConfig(BASS.BASS_CONFIG_DEV_BUFFER, 0);
         // BASS.BASS_SetConfig(BASS.BASS_CONFIG_BUFFER, 100);
@@ -195,11 +194,10 @@ public class BassAudioProvider {
 
     public float getVolume() {
         BASS.FloatValue volume = new BASS.FloatValue();
-        volume.value = 0f;
         if (channel != 0) {
             BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_VOL, volume);
         }
-        return volume;
+        return volume.value;
     }
 
     public void setVolume(float volume) {
