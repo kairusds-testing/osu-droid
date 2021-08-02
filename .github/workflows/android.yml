@@ -20,13 +20,16 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew assembleDebug
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Upload binaries to a release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: build/outputs/apk/a_github/debug/*.apk
         file_glob: true
-        tag: ${{ github.ref }}
+        tag: ${{ steps.vars.outputs.sha_short }}
         overwrite: true
         body: "Built using Github Actions."
     - name: Upload artifact
