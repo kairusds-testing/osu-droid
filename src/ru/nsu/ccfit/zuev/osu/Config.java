@@ -304,17 +304,18 @@ public class Config {
         final DisplayMetrics dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = Math.max(dm.widthPixels, dm.heightPixels), height = Math.min(dm.widthPixels, dm.heightPixels);
+        // int width = Math.max(dm.widthPixels, dm.heightPixels), height = Math.min(dm.widthPixels, dm.heightPixels);
         //int width = dm.widthPixels, height =  dm.heightPixels;
-        setSize(width, height);
+        // setSize(width, height);
         //ToastLogger.showText("width=" + dm.widthPixels + " height=" + dm.heightPixels, true);
+        RES_HEIGHT = dm.heightPixels;
         Debug.i("width=" + dm.widthPixels + " height=" + dm.heightPixels);
     }
 
-    public static void setSize(int width, int height) {
+    /*public static void setSize(int width, int height) {
         RES_WIDTH = 1280;
         RES_HEIGHT = 1280 * height / width;
-    }
+    }*/
 
     public static boolean isEnableStoryboard() {
         return backgroundBrightness > 0.02 && enableStoryboard;
