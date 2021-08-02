@@ -40,7 +40,7 @@ jobs:
         file_glob: true
         tag: ${{ steps.vars.outputs.sha_short }}
         overwrite: true
-        body: "Built using Github Actions."
+        body: ${{ github.event.head_commit.message }}
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
