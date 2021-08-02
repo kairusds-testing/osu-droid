@@ -19,7 +19,6 @@ public class BassAudioProvider {
 
     private int channel = 0;
     private BASS.FloatValue freq = new BASS.FloatValue();
-    freq.value = 1.0f;
     private int fileFlag = 0;
     private int decoder = 0;
     private int multiplier = 0;
@@ -27,6 +26,7 @@ public class BassAudioProvider {
     private ByteBuffer buffer = null;
 
     public BassAudioProvider() {
+        freq.value = 1.0f;
         BASS.BASS_Init(-1, 44100, BASS.BASS_DEVICE_LATENCY);
         BASS.BASS_SetConfig(BASS.BASS_CONFIG_DEV_BUFFER, 0);
         // BASS.BASS_SetConfig(BASS.BASS_CONFIG_BUFFER, 100);
