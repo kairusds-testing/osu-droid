@@ -18,7 +18,7 @@ public class BassAudioProvider {
     public static final int WINDOW_FFT = 1024;
 
     private int channel = 0;
-    private Float freq = 1.0f;
+    private BASS.FloatValue freq = 1.0f;
     private int fileFlag = 0;
     private int decoder = 0;
     private int multiplier = 0;
@@ -193,7 +193,7 @@ public class BassAudioProvider {
     }
 
     public float getVolume() {
-        Float volume = 0f;
+        BASS.FloatValue volume = 0f;
         if (channel != 0) {
             BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_VOL, volume);
         }
