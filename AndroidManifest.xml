@@ -27,7 +27,6 @@
         tools:ignore="UnusedAttribute">
         <service android:name="ru.nsu.ccfit.zuev.audio.serviceAudio.SongService"/>
 
-        <meta-data android:name="android.max_aspect" android:value="4.3"/>
         <meta-data android:name="UMENG_APPKEY" android:value="54eb1969fd98c572df00001e"/>
         <meta-data android:name="UMENG_CHANNEL" android:value="PostBar"/>
 
@@ -98,8 +97,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="sensorLandscape"
             android:label="@string/app_name"
-            tools:ignore="LockedOrientationActivity"
-            android:maxAspectRatio="4.3">
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
