@@ -308,6 +308,7 @@ public class Config {
         //int width = dm.widthPixels, height =  dm.heightPixels;
         // setSize(width, height);
         //ToastLogger.showText("width=" + dm.widthPixels + " height=" + dm.heightPixels, true);
+        RES_WIDTH = dm.widthPixels;
         RES_HEIGHT = dm.heightPixels;
         Debug.i("width=" + dm.widthPixels + " height=" + dm.heightPixels);
     }
