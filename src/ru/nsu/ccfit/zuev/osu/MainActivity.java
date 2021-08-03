@@ -41,7 +41,7 @@ import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.SmoothCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
-import org.anddev.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
+import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouch;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouchController;
@@ -124,8 +124,8 @@ public class MainActivity extends BaseGameActivity implements
         Camera mCamera = new SmoothCamera(0, 0, Config.getRES_WIDTH(),
                 Config.getRES_HEIGHT(), 0, 1800, 1);
         final EngineOptions opt = new EngineOptions(true,
-                null, new FillResolutionPolicy(
-                /* Config.getRES_WIDTH(), Config.getRES_HEIGHT() */),
+                null, new RatioResolutionPolicy(
+                Config.getRES_WIDTH(), Config.getRES_HEIGHT()),
                 mCamera);
         opt.setNeedsMusic(true);
         opt.setNeedsSound(true);

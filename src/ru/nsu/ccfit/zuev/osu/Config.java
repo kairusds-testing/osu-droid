@@ -116,7 +116,7 @@ public class Config {
         showScoreboard = prefs.getBoolean("showscoreboard", true);
         enableStoryboard = prefs.getBoolean("enableStoryboard", false);
 
-        // setSize();
+        setSize();
 
         setBackgroundBrightness(Integer.parseInt(prefs.getString(
                 "bgbrightness", "25")) / 100f);
@@ -300,16 +300,18 @@ public class Config {
         loadAvatar = prefs.getBoolean("loadAvatar",false);
     }
 
-    /*public static void setSize() {
+    public static void setSize() {
         final DisplayMetrics dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = Math.max(dm.widthPixels, dm.heightPixels), height = Math.min(dm.widthPixels, dm.heightPixels);
-        setSize(width, height);
+        // int width = Math.max(dm.widthPixels, dm.heightPixels), height = Math.min(dm.widthPixels, dm.heightPixels);
+        // setSize(width, height);
+        RES_WIDTH = dm.widthPixels;
+        RES_HEIGHT = dm.heightPixels;
         Debug.i("width=" + dm.widthPixels + " height=" + dm.heightPixels);
     }
 
-    public static void setSize(int width, int height) {
+    /*public static void setSize(int width, int height) {
         RES_WIDTH = 1280;
         RES_HEIGHT = 1280 * height / width;
     }*/
