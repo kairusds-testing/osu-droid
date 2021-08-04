@@ -114,7 +114,7 @@ public class MainActivity extends BaseGameActivity implements
                 + Utils.sqr(dm.heightPixels / dm.ydpi));*/
         double screenInches = Math.sqrt(Math.pow(dm.heightPixels, 2) + Math.pow(dm.widthPixels, 2)) / (dm.density * 160.0f);
         Debug.i("screen inches: " + screenInches);
-        Config.setScaleMultiplier((float) ((11 - screenInches) / 5));
+        Config.setScaleMultiplier((float) ((11 - 5.2450170716245195) / 5));
 
         Config.setTextureQuality(1);
         final PowerManager manager = (PowerManager) getSystemService(Context.POWER_SERVICE);
