@@ -129,7 +129,7 @@ public class MainActivity extends BaseGameActivity implements
                 mCamera);
         opt.setNeedsMusic(true);
         opt.setNeedsSound(true);
-        // opt.getRenderOptions().disableExtensionVertexBufferObjects();
+        opt.getRenderOptions().disableExtensionVertexBufferObjects();
         opt.getTouchOptions().enableRunOnUpdateThread();
         final Engine engine = new Engine(opt);
 
