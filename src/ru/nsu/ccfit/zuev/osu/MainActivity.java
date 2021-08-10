@@ -129,7 +129,7 @@ public class MainActivity extends BaseGameActivity implements
                 mCamera);
         opt.setNeedsMusic(true);
         opt.setNeedsSound(true);
-        opt.getRenderOptions().disableExtensionVertexBufferObjects();
+        // opt.getRenderOptions().disableExtensionVertexBufferObjects();
         opt.getTouchOptions().enableRunOnUpdateThread();
         final Engine engine = new Engine(opt);
 
@@ -567,7 +567,7 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        if (this.mEngine == null) {
+        /*if (this.mEngine == null) {
             return;
         }
         if (GlobalManager.getInstance().getSkinNow() != null) {
@@ -592,7 +592,7 @@ public class MainActivity extends BaseGameActivity implements
                     GlobalManager.getInstance().getMainScene().musicControl(MainScene.MusicOption.SYNC);
                 }
             }
-        }
+        }*/
         activityVisible = true;
         //HideNaviBar
         if (Config.isHideNaviBar()) {
@@ -644,7 +644,7 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     public void onPause() {
         super.onPause();
-        if (this.mEngine == null) {
+        /* if (this.mEngine == null) {
             return;
         }
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
@@ -681,7 +681,7 @@ public class MainActivity extends BaseGameActivity implements
                     songService.pause();
                 }
             }
-        }
+        } */
         activityVisible = false;
     }
 
