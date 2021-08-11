@@ -60,13 +60,8 @@ public class SettingsMenu extends PreferenceActivity {
 
             skinToppref.setText(newValue.toString());
             Config.loadConfig(SettingsMenu.this);
-            GlobalManager.getInstance().setSkinNow(newValue.toString());
-            ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
-            ResourceManager.getInstance().loadCustomSkin(newValue.toString());
             reloadSkinList();
-            SpritePool.getInstance().purge();
-            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-            return true;
+            return false;
         });
 
         final Preference pref = findPreference("clear");
@@ -189,6 +184,10 @@ public class SettingsMenu extends PreferenceActivity {
             skinPathPref.setEntries(entries);
             skinPathPref.setEntryValues(entryValues);
             skinPathPref.setValue(Config.getSkinPath());
+            skinPathPref.setIndexValue(skinPathPref.findIndexOfValue(Config.getSkinPath()));
+            skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                ToastLogger.showText(newValue.toString(), true);
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
