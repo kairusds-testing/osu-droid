@@ -19,6 +19,7 @@ import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.LibraryManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
+import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
@@ -64,8 +65,8 @@ public class SettingsMenu extends PreferenceActivity {
                 ResourceManager.getInstance().loadCustomSkin(newValue);
                 reloadSkinList();
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                return false;
             }
+            return true;
         });
 
         final Preference pref = findPreference("clear");
