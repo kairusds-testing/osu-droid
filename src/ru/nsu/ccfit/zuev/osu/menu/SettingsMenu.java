@@ -7,6 +7,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.tencent.bugly.beta.Beta;
 import com.umeng.analytics.MobclickAgent;
