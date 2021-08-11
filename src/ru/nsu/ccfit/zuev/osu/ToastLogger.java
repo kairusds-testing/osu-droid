@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 
-public class ToastLogger implements Runnable {
+public class ToastLogger /*implements Runnable */{
     private static ToastLogger instance = null;
     Activity activty;
     String message = "";
@@ -27,10 +27,13 @@ public class ToastLogger implements Runnable {
         if (instance == null) {
             return;
         }
-        instance.message = message;
+        /* instance.message = message;
         instance.showlong = showlong;
-        instance.activty.runOnUiThread(instance);
-
+        instance.activty.runOnUiThread(instance);*/
+        instance.activity.runOnUiThread(new Runnable(){
+            Toast.makeText(instance.activty, message,
+                showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+        });
     }
 
     public static void showTextId(final int resID, final boolean showlong) {
@@ -68,8 +71,8 @@ public class ToastLogger implements Runnable {
         instance.percentage = perc;
     }
 
-    public void run() {
+    /* public void run() {
         Toast.makeText(instance.activty, message,
                 showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
-    }
+    } */
 }
