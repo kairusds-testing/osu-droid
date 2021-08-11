@@ -45,7 +45,7 @@ public class SettingsMenu extends PreferenceActivity {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
                 Config.loadConfig(SettingsMenu.this);
                 reloadSkinList();
-                // return false;
+                return false;
             }
 
             if(GlobalManager.getInstance().getSkinNow() != newValue) {
@@ -53,7 +53,7 @@ public class SettingsMenu extends PreferenceActivity {
                 if (!file.exists()) {
                     if (!file.mkdirs()) {
                         ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
-                        return;
+                        return false;
                     }
                 }
 
@@ -64,26 +64,26 @@ public class SettingsMenu extends PreferenceActivity {
                 ResourceManager.getInstance().loadCustomSkin(newValue);
                 reloadSkinList();
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                // return false;
+                return false;
             }
         });
 
         final Preference pref = findPreference("clear");
         pref.setOnPreferenceClickListener(preference -> {
             LibraryManager.getInstance().clearCache(SettingsMenu.this);
-            // return true;
+            return true;
         });
         final Preference clearProps = findPreference("clear_properties");
         clearProps.setOnPreferenceClickListener(preference -> {
             PropertiesLibrary.getInstance()
                     .clear(SettingsMenu.this);
-            // return true;
+            return true;
         });
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
             OnlineInitializer initializer = new OnlineInitializer(SettingsMenu.this);
             initializer.createInitDialog();
-            // return true;
+            return true;
         });
         //final Preference downloadExtension = findPreference("downloadExtension");
         //downloadExtension.setOnPreferenceClickListener(preference -> EdExtensionHelper.downloadExtension());
@@ -117,7 +117,7 @@ public class SettingsMenu extends PreferenceActivity {
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
             Beta.checkUpgrade();
-            // return true;
+            return true;
         });
     }
 
