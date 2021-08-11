@@ -21,6 +21,7 @@ import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
+import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -49,23 +50,22 @@ public class SettingsMenu extends PreferenceActivity {
                 return false;
             }
 
-            if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                File file = new File(newValue.toString());
-                if (!file.exists()) {
-                    if (!file.mkdirs()) {
-                        ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
-                        return false;
-                    }
+            File file = new File(newValue.toString());
+            if (!file.exists()) {
+                if (!file.mkdirs()) {
+                    ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
+                    return false;
                 }
-
-                skinToppref.setText(newValue.toString());
-                Config.loadConfig(SettingsMenu.this);
-                GlobalManager.getInstance().setSkinNow(newValue.toString());
-                ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
-                ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                reloadSkinList();
-                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
             }
+
+            skinToppref.setText(newValue.toString());
+            Config.loadConfig(SettingsMenu.this);
+            GlobalManager.getInstance().setSkinNow(newValue.toString());
+            ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
+            ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+            reloadSkinList();
+            SpritePool.getInstance().purge();
+            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
             return true;
         });
 

@@ -604,7 +604,7 @@ public class MainActivity extends BaseGameActivity implements
         }
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
                 && GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
-            SpritePool.getInstance().purge();
+            // SpritePool.getInstance().purge();
             GlobalManager.getInstance().getGameScene().pause();
         }
         if (GlobalManager.getInstance().getMainScene() != null) {
