@@ -45,39 +45,45 @@ public class SettingsMenu extends PreferenceActivity {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
                 Config.loadConfig(SettingsMenu.this);
                 reloadSkinList();
-                return false;
+                // return false;
             }
 
-            File file = new File(newValue.toString());
-            if (!file.exists()) {
-                if (!file.mkdirs()) {
-                    ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
-                    return false;
+            if(GlobalManager.getInstance().getSkinNow() != newValue) {
+                File file = new File(newValue.toString());
+                if (!file.exists()) {
+                    if (!file.mkdirs()) {
+                        ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
+                        return;
+                    }
                 }
-            }
 
-            skinToppref.setText(newValue.toString());
-            Config.loadConfig(SettingsMenu.this);
-            reloadSkinList();
-            return false;
+                skinToppref.setText(newValue.toString());
+                Config.loadConfig(SettingsMenu.this);
+                GlobalManager.getInstance().setSkinNow(newValue);
+                ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
+                ResourceManager.getInstance().loadCustomSkin(newValue);
+                reloadSkinList();
+                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                // return false;
+            }
         });
 
         final Preference pref = findPreference("clear");
         pref.setOnPreferenceClickListener(preference -> {
             LibraryManager.getInstance().clearCache(SettingsMenu.this);
-            return true;
+            // return true;
         });
         final Preference clearProps = findPreference("clear_properties");
         clearProps.setOnPreferenceClickListener(preference -> {
             PropertiesLibrary.getInstance()
                     .clear(SettingsMenu.this);
-            return true;
+            // return true;
         });
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
             OnlineInitializer initializer = new OnlineInitializer(SettingsMenu.this);
             initializer.createInitDialog();
-            return true;
+            // return true;
         });
         //final Preference downloadExtension = findPreference("downloadExtension");
         //downloadExtension.setOnPreferenceClickListener(preference -> EdExtensionHelper.downloadExtension());
@@ -111,7 +117,7 @@ public class SettingsMenu extends PreferenceActivity {
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
             Beta.checkUpgrade();
-            return true;
+            // return true;
         });
     }
 

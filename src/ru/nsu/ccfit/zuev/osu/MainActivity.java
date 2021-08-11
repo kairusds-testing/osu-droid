@@ -567,7 +567,7 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        /*if (this.mEngine == null) {
+        /* if (this.mEngine == null) {
             return;
         }
         if (GlobalManager.getInstance().getSkinNow() != null) {
@@ -580,7 +580,7 @@ public class MainActivity extends BaseGameActivity implements
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
                 && GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
             GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-        }
+        } */
         if (GlobalManager.getInstance().getMainScene() != null) {
             if (songService != null && Build.VERSION.SDK_INT > 10) {
                 if (songService.hideNotifyPanel()) {
@@ -592,59 +592,14 @@ public class MainActivity extends BaseGameActivity implements
                     GlobalManager.getInstance().getMainScene().musicControl(MainScene.MusicOption.SYNC);
                 }
             }
-        }*/
-        activityVisible = true;
-        //HideNaviBar
-        if (Config.isHideNaviBar()) {
-            if (Build.VERSION.SDK_INT >= 11) {
-                // BEGIN_INCLUDE (get_current_ui_flags)
-                // The UI options currently enabled are represented by a bitfield.
-                // getSystemUiVisibility() gives us that bitfield.
-                int uiOptions = this.getWindow().getDecorView().getSystemUiVisibility();
-                int newUiOptions = uiOptions;
-                // END_INCLUDE (get_current_ui_flags)
-                // BEGIN_INCLUDE (toggle_ui_flags)
-                boolean isImmersiveModeEnabled =
-                        ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
-
-                // Navigation bar hiding:  Backwards compatible to ICS.
-                if (Build.VERSION.SDK_INT >= 14) {
-                    if((newUiOptions | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != newUiOptions){
-                        newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-                    }
-                }
-
-                // Status bar hiding: Backwards compatible to Jellybean
-                if (Build.VERSION.SDK_INT >= 16) {
-                    if((newUiOptions | View.SYSTEM_UI_FLAG_FULLSCREEN) != newUiOptions){
-                        newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
-                    }
-                }
-
-                // Immersive mode: Backward compatible to KitKat.
-                // Note that this flag doesn't do anything by itself, it only augments the behavior
-                // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
-                // all three flags are being toggled together.
-                // Note that there are two immersive mode UI flags, one of which is referred to as "sticky".
-                // Sticky immersive mode differs in that it makes the navigation and status bars
-                // semi-transparent, and the UI flag does not get cleared when the user interacts with
-                // the screen.
-                if (Build.VERSION.SDK_INT >= 18) {
-                    if((newUiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) != newUiOptions){
-                        newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-                    }
-                }
-
-                this.getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
-                //END_INCLUDE (set_ui_flags)
-            }
         }
+        activityVisible = true;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        /* if (this.mEngine == null) {
+        if (this.mEngine == null) {
             return;
         }
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
@@ -681,7 +636,7 @@ public class MainActivity extends BaseGameActivity implements
                     songService.pause();
                 }
             }
-        } */
+        }
         activityVisible = false;
     }
 
