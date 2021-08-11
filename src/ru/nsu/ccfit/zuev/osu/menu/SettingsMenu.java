@@ -60,9 +60,9 @@ public class SettingsMenu extends PreferenceActivity {
 
                 skinToppref.setText(newValue.toString());
                 Config.loadConfig(SettingsMenu.this);
-                GlobalManager.getInstance().setSkinNow(newValue);
+                GlobalManager.getInstance().setSkinNow(newValue.toString());
                 ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
-                ResourceManager.getInstance().loadCustomSkin(newValue);
+                ResourceManager.getInstance().loadCustomSkin(newValue.toString());
                 reloadSkinList();
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
             }
