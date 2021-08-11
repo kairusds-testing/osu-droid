@@ -184,9 +184,10 @@ public class SettingsMenu extends PreferenceActivity {
             skinPathPref.setEntries(entries);
             skinPathPref.setEntryValues(entryValues);
             skinPathPref.setValue(Config.getSkinPath());
-            skinPathPref.setIndexValue(skinPathPref.findIndexOfValue(Config.getSkinPath()));
+            skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
             skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 ToastLogger.showText(newValue.toString(), true);
+                return true;
             });
 
         } catch (Exception e) {
