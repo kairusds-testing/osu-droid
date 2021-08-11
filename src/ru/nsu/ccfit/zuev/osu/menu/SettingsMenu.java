@@ -190,7 +190,6 @@ public class SettingsMenu extends PreferenceActivity {
                 SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(newValue.toString());
                 ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                reloadSkinList();
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                 return true;
             });
