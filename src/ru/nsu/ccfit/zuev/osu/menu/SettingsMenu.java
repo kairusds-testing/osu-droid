@@ -49,7 +49,7 @@ public class SettingsMenu extends PreferenceActivity {
                 return false;
             }
 
-            if(GlobalManager.getInstance().getSkinNow() != newValue) {
+            if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
                 File file = new File(newValue.toString());
                 if (!file.exists()) {
                     if (!file.mkdirs()) {
