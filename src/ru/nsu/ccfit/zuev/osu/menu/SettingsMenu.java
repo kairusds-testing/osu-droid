@@ -184,9 +184,14 @@ public class SettingsMenu extends PreferenceActivity {
             skinPathPref.setEntries(entries);
             skinPathPref.setEntryValues(entryValues);
             skinPathPref.setValue(Config.getSkinPath());
-            skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
+            // int currentSkin = skinPathPref.findIndexOfValue(Config.getSkinPath());
+            skinPathPref.setDefaultValue(Config.getSkinPath());
             skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                ToastLogger.showText(newValue.toString(), true);
+                GlobalManager.getInstance().getMainActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(GlobalManager.getInstance().getMainActivity(), newValue.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 return true;
             });
 
