@@ -1,0 +1,11 @@
+name: Clear Gradle cache
+
+on: workflow_dispatch
+
+jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        rm -f ~/.gradle/caches/modules-2/modules-2.lock
+        rm -f ~/.gradle/caches/modules-2/gc.properties

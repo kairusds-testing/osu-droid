@@ -179,7 +179,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
     implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    implementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     implementation 'com.umeng.umsdk:common:9.1.0'
     implementation 'com.umeng.umsdk:asms:1.1.3'
