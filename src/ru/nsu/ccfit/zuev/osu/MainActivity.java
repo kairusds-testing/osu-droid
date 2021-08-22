@@ -95,7 +95,7 @@ public class MainActivity extends BaseGameActivity implements
     private Handler handler;
     private boolean willReplay = false;
     private static boolean activityVisible = true;
-    private volatile boolean dialogShown = false;
+    private boolean dialogShown = false;
 
     @Override
     public Engine onLoadEngine() {
