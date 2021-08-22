@@ -795,7 +795,7 @@ public class MainActivity extends BaseGameActivity implements
 
     private void initAccessibilityDetector() {
         AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        ArrayList<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+        List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getInstalledAccessibilityServiceList());
         /*handler.post(new Runnable() {
             @Override
             public void run() {*/
@@ -805,7 +805,7 @@ public class MainActivity extends BaseGameActivity implements
                         | (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         ToastLogger.showText("Detected autoclicker/screen reader", true);
                         handler.removeCallbacks(this);*/
-                        Debug.i(activeServices.get(i).getDescription() + activeServices.get(i).getCapabilities());
+                        Debug.i("initAccessibilityDetector(): " + activeServices.get(i).getDescription() + activeServices.get(i).getCapabilities());
                     }
                 /*}
                 handler.postDelayed(this, 1000);
