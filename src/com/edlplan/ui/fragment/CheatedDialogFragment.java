@@ -18,7 +18,7 @@ public class CheatedDialogFragment extends ConfirmDialogFragment {
                     wakeLock.release();
                 }
             }
-        });
+        };
         super.show();
     }
 
