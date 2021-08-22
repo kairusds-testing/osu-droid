@@ -94,7 +94,7 @@ public class MainActivity extends BaseGameActivity implements
     private IntentFilter filter;
     private Handler handler;
     private boolean willReplay = false;
-    private static boolean activityVisible = true;
+    private static volatile boolean activityVisible = true;
     private volatile boolean dialogShown = false;
 
     @Override
@@ -812,7 +812,7 @@ public class MainActivity extends BaseGameActivity implements
                         }
                     }
                 }
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 900);
             }
         });
     }
