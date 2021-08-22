@@ -94,14 +94,16 @@ public class MainActivity extends BaseGameActivity implements
     private IntentFilter filter;
     private Handler handler;
     private boolean willReplay = false;
-    private static volatile boolean activityVisible = true;
-    private volatile boolean dialogShown = false;
+    private static boolean activityVisible = true;
+    private boolean dialogShown = false;
 
     @Override
     public Engine onLoadEngine() {
         if (!checkPermissions()) {
             return null;
         }
+        handler = new Handler();
+        initAccessibilityDetector();
         Config.loadConfig(this);
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
@@ -503,8 +505,6 @@ public class MainActivity extends BaseGameActivity implements
             } catch (IOException e) {
             }
         }
-        handler = new Handler();
-        initAccessibilityDetector();
         onBeginBindService();
     }
 
