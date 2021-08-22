@@ -19,8 +19,8 @@ public class CheatedDialogFragment extends ConfirmDialogFragment {
 
     @Override
     public void dismiss() {
-        super.dismiss();
         exitGame();
+        super.dismiss();
     }
 
 }
