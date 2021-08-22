@@ -95,6 +95,7 @@ public class MainActivity extends BaseGameActivity implements
     private Handler handler;
     private boolean willReplay = false;
     private static boolean activityVisible = true;
+    private volatile boolean dialogShown = false;
 
     @Override
     public Engine onLoadEngine() {
@@ -795,7 +796,6 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        final boolean dialogShown = false;
         handler.post(new Runnable() {
             @Override
             public void run() {
