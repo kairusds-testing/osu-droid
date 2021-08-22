@@ -1095,10 +1095,6 @@ public class MainScene implements IUpdateHandler {
                     isAccepted -> {
                         if (isAccepted) {
                             exit();
-                            PowerManager.WakeLock wakeLock = GlobalManager.getInstance().getMainActivity().getWakeLock();
-                            if (wakeLock != null && wakeLock.isHeld()) {
-                                wakeLock.release();
-                            }
                         }
                     }
                 );
@@ -1111,6 +1107,11 @@ public class MainScene implements IUpdateHandler {
             return;
         }
         isOnExitAnim = true;
+
+        PowerManager.WakeLock wakeLock = GlobalManager.getInstance().getMainActivity().getWakeLock();
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
+        }
 
         scene.unregisterTouchArea(play);
         scene.unregisterTouchArea(options);
