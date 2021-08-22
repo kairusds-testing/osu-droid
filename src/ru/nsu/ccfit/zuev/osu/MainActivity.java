@@ -795,22 +795,21 @@ public class MainActivity extends BaseGameActivity implements
 
     private void initAccessibilityDetector() {
         AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getInstalledAccessibilityServiceList());
-        /*handler.post(new Runnable() {
+        List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+        handler.post(new Runnable() {
             @Override
-            public void run() {*/
+            public void run() {
                 for(int i = 0; i < activeServices.size(); i++) {
-                     /*int capabilities = activeServices.get(i).getCapabilities();
+                     int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
-                        | (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
+                        || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         ToastLogger.showText("Detected autoclicker/screen reader", true);
-                        handler.removeCallbacks(this);*/
-                        Debug.i("initAccessibilityDetector(): " + activeServices.get(i).getDescription() + activeServices.get(i).getCapabilities());
+                        Debug.i("initAccessibilityDetector(): " + activeServices.get(i).getDescription() + " Capabilities:" + activeServices.get(i).getCapabilities());
                     }
-                /*}
+                }
                 handler.postDelayed(this, 1000);
             }
-        });*/
+        });
     }
 
     private boolean checkPermissions() {
