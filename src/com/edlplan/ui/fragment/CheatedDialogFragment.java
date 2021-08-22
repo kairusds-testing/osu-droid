@@ -11,7 +11,7 @@ public class CheatedDialogFragment extends ConfirmDialogFragment {
 
     private void exitGame() {
         if(GlobalManager.getInstance().getEngine().getScene() != GlobalManager.getInstance().getGameScene().getScene()) {
-            GameSceneGlobalManager.getInstance().getGameScene().quit();
+            GlobalManager.getInstance().getGameScene().quit();
         }
         GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
         GlobalManager.getInstance().getMainScene().exit();
