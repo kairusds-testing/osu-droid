@@ -92,7 +92,7 @@ public class MainActivity extends BaseGameActivity implements
     private String beatmapToAdd = null;
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
-    private Handler handler;
+    private Handler handler = new Handler();
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private volatile boolean dialogShown = false;
@@ -503,7 +503,6 @@ public class MainActivity extends BaseGameActivity implements
             } catch (IOException e) {
             }
         }
-        handler = new Handler();
         initAccessibilityDetector();
         onBeginBindService();
     }
