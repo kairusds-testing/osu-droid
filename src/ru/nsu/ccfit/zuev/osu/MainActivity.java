@@ -102,8 +102,6 @@ public class MainActivity extends BaseGameActivity implements
         if (!checkPermissions()) {
             return null;
         }
-        handler = new Handler();
-        initAccessibilityDetector();
         Config.loadConfig(this);
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
@@ -505,6 +503,8 @@ public class MainActivity extends BaseGameActivity implements
             } catch (IOException e) {
             }
         }
+        handler = new Handler();
+        initAccessibilityDetector();
         onBeginBindService();
     }
 
@@ -806,13 +806,13 @@ public class MainActivity extends BaseGameActivity implements
                      int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        if(!dialogShown && activityVisible) {
+                        if(!dialogShown && MainActivity.isActivityVisible()) {
                             new CheatedDialogFragment().show();
                             dialogShown = true;
                         }
                     }
                 }
-                handler.postDelayed(this, 900);
+                handler.postDelayed(this, 1000);
             }
         });
     }
