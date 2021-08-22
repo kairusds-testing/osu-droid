@@ -95,7 +95,7 @@ public class MainActivity extends BaseGameActivity implements
     private Handler handler = new Handler();
     private boolean willReplay = false;
     private static boolean activityVisible = true;
-    private volatile boolean dialogShown = false;
+    private boolean dialogShown = false;
 
     @Override
     public Engine onLoadEngine() {
@@ -795,7 +795,6 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        ToastLogger.showText("Started initAccessibilityDetector()", true);
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -806,11 +805,10 @@ public class MainActivity extends BaseGameActivity implements
                      int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        //if(!dialogShown && MainActivity.isActivityVisible()) {
-                            // new CheatedDialogFragment().show();
-                            ToastLogger.showText("ITS WORKING!!!", true);
-                            // dialogShown = true;
-                        //}
+                        if(!dialogShown && activityVisible) {
+                            new CheatedDialogFragment().show();
+                            dialogShown = true;
+                        }
                     }
                 }
                 handler.postDelayed(this, 1000);
