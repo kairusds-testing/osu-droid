@@ -797,7 +797,7 @@ public class MainActivity extends BaseGameActivity implements
     private void initAccessibilityDetector() {
         AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
-        handler.post(new Runnable() {
+        Runnable detectionTask = new Runnable() {
             @Override
             public void run() {
                 for(int i = 0; i < activeServices.size(); i++) {
@@ -805,12 +805,13 @@ public class MainActivity extends BaseGameActivity implements
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         new CheatedDialogFragment().show();
-                        handler.removeCallbacks(this);
+                        handler.removeCallbacks(detectionTask);
                     }
                 }
                 handler.postDelayed(this, 1000);
             }
-        });
+        };
+        handler.post(detectionTask);
     }
 
     private boolean checkPermissions() {
