@@ -806,6 +806,8 @@ public class MainActivity extends BaseGameActivity implements
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!dialogShown && activityVisible) {
+                            if(GlobalManager.getInstance().getEngine().getScene() != GlobalManager.getInstance().getMainScene().getScene())
+                                GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
                             new CheatedDialogFragment().show();
                             dialogShown = true;
                         }

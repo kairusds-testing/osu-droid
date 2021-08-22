@@ -1092,15 +1092,15 @@ public class MainScene implements IUpdateHandler {
         GlobalManager.getInstance().getMainActivity().runOnUiThread(new Runnable() {
             public void run() {
                 new ConfirmDialogFragment().setMessage(R.string.dialog_exit_message).showForResult(
-                        isAccepted -> {
-                            if (isAccepted) {
-                                exit();
-                                PowerManager.WakeLock wakeLock = GlobalManager.getInstance().getMainActivity().getWakeLock();
-                                if (wakeLock != null && wakeLock.isHeld()) {
-                                    wakeLock.release();
-                                }
+                    isAccepted -> {
+                        if (isAccepted) {
+                            exit();
+                            PowerManager.WakeLock wakeLock = GlobalManager.getInstance().getMainActivity().getWakeLock();
+                            if (wakeLock != null && wakeLock.isHeld()) {
+                                wakeLock.release();
                             }
                         }
+                    }
                 );
             }
         });
@@ -1186,8 +1186,8 @@ public class MainScene implements IUpdateHandler {
                     GlobalManager.getInstance().getMainScene().setBeatmap(track.getBeatmap());
                     GlobalManager.getInstance().getSongMenu().select();
                     ResourceManager.getInstance().loadBackground(track.getBackground());
-                    ru.nsu.ccfit.zuev.osu.GlobalManager.getInstance().getSongService().preLoad(track.getBeatmap().getMusic());
-                    ru.nsu.ccfit.zuev.osu.GlobalManager.getInstance().getSongService().play();
+                    GlobalManager.getInstance().getSongService().preLoad(track.getBeatmap().getMusic());
+                    GlobalManager.getInstance().getSongService().play();
                     scorescene.load(stat, null, ru.nsu.ccfit.zuev.osu.GlobalManager.getInstance().getSongService(), replayFile, null, track);
                     GlobalManager.getInstance().getEngine().setScene(scorescene.getScene());
                 }
