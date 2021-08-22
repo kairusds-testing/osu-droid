@@ -795,7 +795,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        ToastLogger.showText("Started initAccessibilityDetector()");
+        ToastLogger.showText("Started initAccessibilityDetector()", true);
         handler.post(new Runnable() {
             @Override
             public void run() {
