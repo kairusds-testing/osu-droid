@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
 	<string name="message_error">Error: %s</string>
 	<string name="message_error_createdir">Cannot create %s</string>
 	<string name="message_error_multitouch">Multitouch is not supported by your device</string>
@@ -163,7 +162,6 @@
     <string name="menu_map_updatable">Update beatmap</string>
     <string name="message_loading_skin">Applying new skin</string>
 
-
 	<string name="message_error_dir_not_found">Directory is not found</string>
 
 	<string name="message_update_hint">Long press to update</string>
@@ -182,4 +180,6 @@
     <string name="str_save_failed_replay">Click here to save replay</string>
     <string name="message_save_replay_successful">Save failed replay success!</string>
 	<string name="message_save_replay_failed">Save replay failed</string>
+
+    <string name="message_cheat_detected">The game has detected an active screen reader/auto clicker. Please disable them before playing.</string>
 </resources>

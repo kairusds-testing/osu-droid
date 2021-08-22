@@ -34,6 +34,7 @@ import android.widget.RelativeLayout;
 
 import android.widget.Toast;
 import com.edlplan.ui.ActivityOverlay;
+import com.edlplan.ui.fragment.CheatedDialogFragment;
 import com.edlplan.ui.fragment.BuildTypeNoticeFragment;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
@@ -803,8 +804,8 @@ public class MainActivity extends BaseGameActivity implements
                      int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        ToastLogger.showText("Detected autoclicker/screen reader", true);
-                        Debug.i("initAccessibilityDetector(): " + activeServices.get(i).getDescription() + " Capabilities:" + activeServices.get(i).getCapabilities());
+                        new CheatedDialogFragment().show();
+                        handler.removeCallbacks(this);
                     }
                 }
                 handler.postDelayed(this, 1000);
