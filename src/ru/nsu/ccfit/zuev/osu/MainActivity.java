@@ -795,7 +795,7 @@ public class MainActivity extends BaseGameActivity implements
 
     private void initAccessibilityDetector() {
         AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        ArrayList<AccessibilityServiceInfo> activeServices = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+        ArrayList<AccessibilityServiceInfo> activeServices = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
         handler.post(new Runnable() {
             @Override
             public void run() {
