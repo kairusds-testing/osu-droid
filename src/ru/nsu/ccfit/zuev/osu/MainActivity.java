@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.zuev.osu;
 
 import android.Manifest;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -26,6 +27,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -89,6 +91,7 @@ public class MainActivity extends BaseGameActivity implements
     private String beatmapToAdd = null;
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
+    private Handler handler;
     private boolean willReplay = false;
     private static boolean activityVisible = true;
 
@@ -97,6 +100,8 @@ public class MainActivity extends BaseGameActivity implements
         if (!checkPermissions()) {
             return null;
         }
+        handler = new Handler();
+        initAccessibilityDetector();
         Config.loadConfig(this);
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
@@ -786,6 +791,25 @@ public class MainActivity extends BaseGameActivity implements
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void initAccessibilityDetector() {
+        AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+        ArrayList<AccessibilityServiceInfo> activeServices = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0; i < activeServices.size(); i++) {
+                    int capabilities = activeServices.get(i).getCapabilities();
+                    if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
+                        | (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
+                        ToastLogger.showText("Detected autoclicker/screen reader", true);
+                        handler.removeCallbacks(this);
+                    }
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
     }
 
     private boolean checkPermissions() {
