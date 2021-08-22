@@ -796,6 +796,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
+        ToastLogger.showText("Started initAccessibilityDetector()");
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -806,10 +807,11 @@ public class MainActivity extends BaseGameActivity implements
                      int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        if(!dialogShown && MainActivity.isActivityVisible()) {
-                            new CheatedDialogFragment().show();
-                            dialogShown = true;
-                        }
+                        //if(!dialogShown && MainActivity.isActivityVisible()) {
+                            // new CheatedDialogFragment().show();
+                            ToastLogger.showText("ITS WORKING!!!", true);
+                            // dialogShown = true;
+                        //}
                     }
                 }
                 handler.postDelayed(this, 1000);
