@@ -14,7 +14,7 @@ public class CheatedDialogFragment extends ConfirmDialogFragment {
     @Override
     public void dismiss() {
         super.dismiss();
-        GlobalManager.getMainActivity().finish();
+        GlobalManager.getInstance().getMainActivity().finish();
         System.exit(0);
     }
 
