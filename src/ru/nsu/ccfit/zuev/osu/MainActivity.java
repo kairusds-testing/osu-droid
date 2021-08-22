@@ -805,7 +805,7 @@ public class MainActivity extends BaseGameActivity implements
                         | (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         ToastLogger.showText("Detected autoclicker/screen reader", true);
                         handler.removeCallbacks(this);*/
-                        Log.i(activeServices.get(i).loadDescription(android.content.pm.PackageManager) + activeServices.get(i).getCapabilities());
+                        Debug.i(activeServices.get(i).getDescription() + activeServices.get(i).getCapabilities());
                     }
                 /*}
                 handler.postDelayed(this, 1000);
