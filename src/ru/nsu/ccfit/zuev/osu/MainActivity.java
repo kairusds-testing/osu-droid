@@ -795,7 +795,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        boolean dialogShown = false;
+        final boolean dialogShown = false;
         handler.post(new Runnable() {
             @Override
             public void run() {
