@@ -6,7 +6,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class CheatedDialogFragment extends ConfirmDialogFragment {
 
     public void init() {
-        setMessage(R.string.message_cheat_detected).showForResult(isAccepted -> exitGame());
+        setMessage(R.string.message_suspicious_accessibility_services).showForResult(isAccepted -> exitGame());
     }
 
     private void exitGame() {
