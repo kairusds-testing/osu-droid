@@ -184,7 +184,6 @@ public class SettingsMenu extends PreferenceActivity {
             Arrays.sort(entryValues, 1, entryValues.length);
             skinPathPref.setEntries(entries);
             skinPathPref.setEntryValues(entryValues);
-            skinPathPref.setValue(Config.getSkinPath());
             skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
                 SpritePool.getInstance().purge();
@@ -193,6 +192,7 @@ public class SettingsMenu extends PreferenceActivity {
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                 return true;
             });
+            skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
 
         } catch (Exception e) {
             e.printStackTrace();
