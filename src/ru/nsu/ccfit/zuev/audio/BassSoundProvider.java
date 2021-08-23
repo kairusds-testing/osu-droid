@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.zuev.audio;
 
+import ru.nsu.ccfit.zuev.osu.Config;
+
 import android.content.res.AssetManager;
 
 import com.un4seen.bass.BASS;
