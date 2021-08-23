@@ -192,7 +192,8 @@ public class SettingsMenu extends PreferenceActivity {
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                 return true;
             });
-            skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
+            int skinIndex = skinPathPref.findIndexOfValue(Config.getSkinPath());
+            skinPathPref.setValueIndex((skinIndex > -1) ? skinIndex : 0);
 
         } catch (Exception e) {
             e.printStackTrace();
