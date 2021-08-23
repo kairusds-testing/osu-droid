@@ -93,8 +93,8 @@
     <string name="opt_largeimages_title">Countdown</string>
     <string name="opt_largeimages_summary">Show countdown at the beginning of a map that has it enabled</string>
 
-    <string name="opt_sound_volume_title">Hit sound volume</string>
-    <string name="opt_sound_volume_summary">Volume of hit sounds (0-100), need to restart to take effect</string>
+    <string name="opt_sound_volume_title">Sound volume</string>
+    <string name="opt_sound_volume_summary">Volume of sound effects or hit sounds (0-100)</string>
 
     <string name="opt_bgm_volume_title">BGM volume</string>
     <string name="opt_bgm_volume_summary">Volume of the background music (0-100)</string>
