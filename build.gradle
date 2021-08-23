@@ -51,6 +51,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion '28.0.3'
+    ndkVersion '22.1.7171670'
 
     defaultConfig {
         minSdkVersion 14
