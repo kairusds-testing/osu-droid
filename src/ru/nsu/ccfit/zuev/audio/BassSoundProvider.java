@@ -13,15 +13,10 @@ public class BassSoundProvider {
 
     private int sample = 0;
     private int channel = 0;
-    private float volumeLimit = 0;
 
     public BassSoundProvider() {
         BASS.BASS_Init(-1, 44100, BASS.BASS_DEVICE_LATENCY);
         BASS.BASS_SetConfig(BASS.BASS_CONFIG_DEV_BUFFER, 0);
-    }
-
-    public BassSoundProvider(float volumeLimit) {
-        this.volumeLimit = volumeLimit;
     }
 
     public boolean prepare(final String fileName) {
@@ -42,7 +37,7 @@ public class BassSoundProvider {
     }
 
     public void play() {
-        play(volumeLimit);
+        play(Config.getSoundVolume());
     }
 
     public void play(float volume) {
@@ -50,7 +45,7 @@ public class BassSoundProvider {
             channel = BASS.BASS_SampleGetChannel(sample, false);
             BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
             BASS.BASS_ChannelPlay(channel, false);
-            BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_VOL, volume * volumeLimit);
+            BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_VOL, volume);
         }
     }
 

@@ -601,7 +601,7 @@ public class ResourceManager {
 
     public BassSoundProvider loadSound(final String resname, final String file,
                                        final boolean external) {
-        BassSoundProvider snd = new BassSoundProvider(Config.getSoundVolume());
+        BassSoundProvider snd = new BassSoundProvider();
         if (external) {
             //若是来自储存文件
             try {
@@ -638,7 +638,7 @@ public class ResourceManager {
     }
 
     public void loadCustomSound(final File file) {
-        BassSoundProvider snd = new BassSoundProvider(Config.getSoundVolume());
+        BassSoundProvider snd = new BassSoundProvider();
         String resName = file.getName();
         resName = resName.substring(0, resName.length() - 4);
         if (resName.length() == 0) {
