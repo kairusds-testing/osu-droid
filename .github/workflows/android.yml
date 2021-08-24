@@ -24,7 +24,7 @@ jobs:
         distributions-cache-enabled: true
         dependencies-cache-enabled: true
         configuration-cache-enabled: true
-        arguments: buildA_githubReleasePreBundle
+        arguments: build
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
