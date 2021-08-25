@@ -58,7 +58,7 @@ public class ConfirmDialogFragment extends BaseFragment {
                 }
                 super.dismiss();
             }
-        }
+        });
     }
 
     public ConfirmDialogFragment setMessage(@StringRes int text) {
