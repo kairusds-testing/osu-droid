@@ -743,12 +743,13 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             fgScene.attachChild(fpsText);
             fgScene.attachChild(accText);
 
-            volatile ChangeableText memText = null;
+            ChangeableText memText = null;
             if (BuildConfig.DEBUG) {
                 memText = new ChangeableText(Utils.toRes(780),
                         Utils.toRes(520), font, "M: 100/100");
                 fgScene.attachChild(memText);
             }
+            final ChangeableText fmemText = memText;
             fgScene.registerUpdateHandler(new FPSCounter() {
                 @Override
                 public void onUpdate(final float pSecondsElapsed) {
@@ -762,11 +763,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
                     accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());
 
-                    if (memText != null) {
-                        memText.setText("M: "
+                    if (fmemText != null) {
+                        fmemText.setText("M: "
                                 + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024
                                 + "/" + Runtime.getRuntime().totalMemory() / 1024 / 1024);
-                        memText.setPosition(Config.getRES_WIDTH() - memText.getWidth() - 5, accText.getY() - memText.getHeight());
+                        fmemText.setPosition(Config.getRES_WIDTH() - fmemText.getWidth() - 5, accText.getY() - fmemText.getHeight());
                     }
 
                 }
