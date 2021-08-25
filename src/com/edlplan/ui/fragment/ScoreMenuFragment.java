@@ -57,7 +57,7 @@ public class ScoreMenuFragment extends BaseFragment {
                     }
                     OsuDroidReplayPack.packTo(file, replay);
 
-                    Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), 2750).setAction("分享", new View.OnClickListener() {
+                    Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), 2750).setAction("Share", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent();
