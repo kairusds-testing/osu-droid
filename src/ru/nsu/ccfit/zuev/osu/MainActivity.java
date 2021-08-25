@@ -696,6 +696,10 @@ public class MainActivity extends BaseGameActivity implements
             return false;
         }
 
+        if(dialogShown) {
+            return false;
+        }
+
         if (event.getAction() != KeyEvent.ACTION_DOWN) {
             return super.onKeyDown(keyCode, event);
         }
