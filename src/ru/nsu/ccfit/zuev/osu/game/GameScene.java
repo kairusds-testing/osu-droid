@@ -743,7 +743,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             fgScene.attachChild(fpsText);
             fgScene.attachChild(accText);
 
-            ChangeableText memText = null;
+            volatile ChangeableText memText = null;
             if (BuildConfig.DEBUG) {
                 memText = new ChangeableText(Utils.toRes(780),
                         Utils.toRes(520), font, "M: 100/100");
