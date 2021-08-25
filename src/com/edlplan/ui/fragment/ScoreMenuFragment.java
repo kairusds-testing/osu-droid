@@ -3,6 +3,7 @@ package com.edlplan.ui.fragment;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Environment;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.FileProvider;
 import android.view.View;
@@ -57,7 +58,7 @@ public class ScoreMenuFragment extends BaseFragment {
                     }
                     OsuDroidReplayPack.packTo(file, replay);
 
-                    Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), Snackbar.LENGTH_LONG).setAction("分享", new View.OnClickListener() {
+                    Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), BaseTransientBottomBar.LENGTH_LONG).setAction("分享", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent();
@@ -86,10 +87,10 @@ public class ScoreMenuFragment extends BaseFragment {
                     } else {
                         try {
                             if (OdrDatabase.get().deleteReplay(scoreId) == 0) {
-                                Snackbar.make(v, "Failed to delete replay!", Snackbar.LENGTH_SHORT)
+                                Snackbar.make(v, "Failed to delete replay!", BaseTransientBottomBar.LENGTH_SHORT)
                                         .show();
                             } else {
-                                Snackbar.make(v, getResources().getString(R.string.menu_deletescore_delete_success), Snackbar.LENGTH_SHORT)
+                                Snackbar.make(v, getResources().getString(R.string.menu_deletescore_delete_success), BaseTransientBottomBar.LENGTH_SHORT)
                                         .show();
                             }
                             ScoreMenuFragment.this.dismiss();
