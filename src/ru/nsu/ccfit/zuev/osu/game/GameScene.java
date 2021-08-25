@@ -751,7 +751,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             }
             fgScene.registerUpdateHandler(new FPSCounter() {
                 @Override
-                protected void onLogFPS() {
+                public void onUpdate(final float pSecondsElapsed) {
+                    super.onUpdate(pSecondsElapsed);
                     fpsText.setText("FPS: " + Math.round(this.getFPS()));
                     if (offsetRegs != 0) {
                         accText.setText("Avg offset: "
