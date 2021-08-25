@@ -794,6 +794,14 @@ public class MainActivity extends BaseGameActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
+    private void cheatedExit() {
+        if(GlobalManager.getInstance().getEngine().getScene() != GlobalManager.getInstance().getGameScene().getScene()) {
+            GlobalManager.getInstance().getGameScene().quit();
+        }
+        GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
+        GlobalManager.getInstance().getMainScene().exit();
+    }
+
     private void initAccessibilityDetector() {
         handler.post(new Runnable() {
             @Override
@@ -806,7 +814,9 @@ public class MainActivity extends BaseGameActivity implements
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
                         || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!dialogShown && activityVisible) {
-                            new CheatedDialogFragment().init();
+                            new ConfirmDialogFragment.setMessage(R.string.message_suspicious_accessibility_services)
+                                .setOnDismissListener(fragment -> cheatedExit())
+                                .showForResult(isAccepted -> cheatedExit());
                             dialogShown = true;
                         }
                     }

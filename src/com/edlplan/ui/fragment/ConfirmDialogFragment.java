@@ -14,6 +14,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class ConfirmDialogFragment extends BaseFragment {
 
+    private OnDismissListener dismissListener;
     private OnResult onResult;
 
     @StringRes
@@ -42,9 +43,22 @@ public class ConfirmDialogFragment extends BaseFragment {
         playOnLoadAnim();
     }
 
+    public void setOnDismissListener(OnDismissListener listener) {
+        this.dismissListener = listener;
+        return this;
+    }
+
     @Override
     public void dismiss() {
-        playOnDismissAnim(super::dismiss);
+        playOnDismissAnim(new Runnable() {
+            @Override
+            public void run() {
+                if(this.dismissListener != null) {
+                    dismissListener.onDismiss(this);
+                }
+                super.dismiss();
+            }
+        }
     }
 
     public ConfirmDialogFragment setMessage(@StringRes int text) {
@@ -94,5 +108,9 @@ public class ConfirmDialogFragment extends BaseFragment {
 
     public interface OnResult {
         void onAccept(boolean isAccepted);
+    }
+
+    public interface OnDismissListener {
+        void onDismiss(ConfirmDialogFragment fragment);
     }
 }
