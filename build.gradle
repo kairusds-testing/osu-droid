@@ -54,7 +54,7 @@ android {
     ndkVersion '22.1.7171670'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode getReleaseVersionCode()
         versionName getReleaseVersionName()
@@ -119,7 +119,7 @@ android {
             versionNameSuffix '-github'
         }
 
-        qq {
+        /* qq {
             dimension "download_channel"
             versionNameSuffix '-qq'
         }
@@ -132,7 +132,7 @@ android {
         website {
             dimension "download_channel"
             versionNameSuffix '-website'
-        }
+        } */
     }
 
     sourceSets {
