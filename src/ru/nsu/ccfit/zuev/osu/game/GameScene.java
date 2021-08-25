@@ -30,7 +30,7 @@ import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.scene.background.SpriteBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.ChangeableText;
-import org.anddev.andengine.entity.util.FPSLogger;
+import org.anddev.andengine.entity.util.FPSCounter;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
@@ -749,12 +749,10 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                         Utils.toRes(520), font, "M: 100/100");
                 fgScene.attachChild(memText);
             }
-            final ChangeableText fmemText = memText;
-            fgScene.registerUpdateHandler(new FPSLogger(0.5f) {
+            fgScene.registerUpdateHandler(new FPSCounter() {
                 @Override
                 protected void onLogFPS() {
-                    fpsText.setText("FPS: " + this.mFrames
-                            / this.mSecondsElapsed);
+                    fpsText.setText("FPS: " + Math.round(this.getFPS()));
                     if (offsetRegs != 0) {
                         accText.setText("Avg offset: "
                                 + (int) (avgOffset * 1000f / offsetRegs)
@@ -763,11 +761,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
                     accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());
 
-                    if (fmemText != null) {
-                        fmemText.setText("M: "
+                    if (memText != null) {
+                        memText.setText("M: "
                                 + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024
                                 + "/" + Runtime.getRuntime().totalMemory() / 1024 / 1024);
-                        fmemText.setPosition(Config.getRES_WIDTH() - fmemText.getWidth() - 5, accText.getY() - fmemText.getHeight());
+                        memText.setPosition(Config.getRES_WIDTH() - memText.getWidth() - 5, accText.getY() - memText.getHeight());
                     }
 
                 }
