@@ -17,11 +17,14 @@ public class ConfirmDialogFragment extends BaseFragment {
     private OnDismissListener dismissListener;
     private OnResult onResult;
 
+    private ConfirmDialogFragment that;
+
     @StringRes
     private int text;
 
     public ConfirmDialogFragment() {
         setDismissOnBackgroundClick(true);
+        that = this;
     }
 
     @Override
@@ -53,10 +56,10 @@ public class ConfirmDialogFragment extends BaseFragment {
         playOnDismissAnim(new Runnable() {
             @Override
             public void run() {
-                if(this.dismissListener != null) {
-                    dismissListener.onDismiss(ConfirmDialogFragment.this);
+                if(dismissListener != null) {
+                    dismissListener.onDismiss(that);
                 }
-                super.dismiss();
+                that.super.dismiss();
             }
         });
     }
