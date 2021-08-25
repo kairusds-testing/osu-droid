@@ -34,7 +34,7 @@ import android.widget.RelativeLayout;
 
 import android.widget.Toast;
 import com.edlplan.ui.ActivityOverlay;
-import com.edlplan.ui.fragment.CheatedDialogFragment;
+import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.edlplan.ui.fragment.BuildTypeNoticeFragment;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;

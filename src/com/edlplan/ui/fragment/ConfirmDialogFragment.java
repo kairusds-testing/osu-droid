@@ -54,7 +54,7 @@ public class ConfirmDialogFragment extends BaseFragment {
             @Override
             public void run() {
                 if(this.dismissListener != null) {
-                    dismissListener.onDismiss(this);
+                    dismissListener.onDismiss(ConfirmDialogFragment.this);
                 }
                 super.dismiss();
             }
