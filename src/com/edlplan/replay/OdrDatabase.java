@@ -38,7 +38,7 @@ public class OdrDatabase {
 
     private static int getInt(Cursor cursor, String c) {
         int index = cursor.getColumnIndex(c);
-        return cursor.getString((index > 0) ? index : 0);
+        return cursor.getInt((index > 0) ? index : 0);
     }
 
     private static long getLong(Cursor cursor, String c) {
