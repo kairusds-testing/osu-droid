@@ -400,26 +400,26 @@ public class ScoreBoard implements ScrollDetector.IScrollDetectorListener {
             scoresSet.moveToPosition(i);
             final int scoreID = scoresSet.getInt(0);
 
-            String totalScore = formatScore(scoresSet.getInt(scoresSet.getColumnIndex("score")));
-            long currTotalScore = scoresSet.getLong(scoresSet.getColumnIndex("score"));
+            String totalScore = formatScore(scoresSet.getInt(scoresSet.getColumnIndexOrThrow("score")));
+            long currTotalScore = scoresSet.getLong(scoresSet.getColumnIndexOrThrow("score"));
             String titleStr = "#"
                     + (i + 1)
                     + " "
-                    + scoresSet.getString(scoresSet.getColumnIndex("playername"))
+                    + scoresSet.getString(scoresSet.getColumnIndexOrThrow("playername"))
                     + "\n"
                     + StringTable.format(R.string.menu_score,
-                    totalScore, scoresSet.getInt(scoresSet.getColumnIndex("combo")));
+                    totalScore, scoresSet.getInt(scoresSet.getColumnIndexOrThrow("combo")));
             long diffTotalScore = currTotalScore - lastTotalScore;
-            @SuppressLint("DefaultLocale") String accStr = ConvertModString(scoresSet.getString(scoresSet.getColumnIndex("mode"))) + "\n"
-                    + String.format("%.2f", GameHelper.Round( scoresSet.getFloat(scoresSet.getColumnIndex("accuracy")) * 100, 2)) + "%" + "\n"
+            @SuppressLint("DefaultLocale") String accStr = ConvertModString(scoresSet.getString(scoresSet.getColumnIndexOrThrow("mode"))) + "\n"
+                    + String.format("%.2f", GameHelper.Round( scoresSet.getFloat(scoresSet.getColumnIndexOrThrow("accuracy")) * 100, 2)) + "%" + "\n"
                     + (lastTotalScore == 0 ? "-" : ((diffTotalScore != 0 ? "+" : "") + diffTotalScore));
             lastTotalScore = currTotalScore;
-            initSprite(i, titleStr, accStr, scoresSet.getString(scoresSet.getColumnIndex("mark")),
+            initSprite(i, titleStr, accStr, scoresSet.getString(scoresSet.getColumnIndexOrThrow("mark")),
                     false, scoreID, null, null);
             scoreItems[i] = new ScoreBoardItems();
-            scoreItems[i].set(scoresSet.getString(scoresSet.getColumnIndex("playername")),
-                    scoresSet.getInt(scoresSet.getColumnIndex("combo")),
-                    scoresSet.getInt(scoresSet.getColumnIndex("score")),
+            scoreItems[i].set(scoresSet.getString(scoresSet.getColumnIndexOrThrow("playername")),
+                    scoresSet.getInt(scoresSet.getColumnIndexOrThrow("combo")),
+                    scoresSet.getInt(scoresSet.getColumnIndexOrThrow("score")),
                     scoreID);
         }
         scoresSet.close();
