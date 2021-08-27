@@ -582,11 +582,12 @@ public class MainActivity extends BaseGameActivity implements
                 ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
                 ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
             }
-        }
+        } */
+        activityVisible = true;
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
                 && GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
             GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-        } */
+        }
         if (GlobalManager.getInstance().getMainScene() != null) {
             if (songService != null && Build.VERSION.SDK_INT > 10) {
                 if (songService.hideNotifyPanel()) {
@@ -599,12 +600,12 @@ public class MainActivity extends BaseGameActivity implements
                 }
             }
         }
-        activityVisible = true;
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        activityVisible = false;
         if (this.mEngine == null) {
             return;
         }
@@ -643,7 +644,6 @@ public class MainActivity extends BaseGameActivity implements
                 }
             }
         }
-        activityVisible = false;
     }
 
     @Override

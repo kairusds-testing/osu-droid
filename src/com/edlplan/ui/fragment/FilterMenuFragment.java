@@ -284,10 +284,6 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
                 });
             });
             filter.setOnEditorActionListener((v, actionId, event) -> {
-                if (event == null) {
-                    System.out.println("fuck sogou, sb ime");
-                    return false;
-                }
                 if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     hideMenu();
                     return true;
