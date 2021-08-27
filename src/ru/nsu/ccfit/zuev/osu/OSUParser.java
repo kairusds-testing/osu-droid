@@ -5,10 +5,13 @@ import android.util.Log;
 
 import org.anddev.andengine.util.Debug;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,9 +53,9 @@ public class OSUParser {
     }
 
     public boolean openFile() {
-        try {
-            FileReader fileReader = new FileReader(file);
-            reader = new BufferedReader(fileReader);
+        try {            
+            InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+            reader = new BufferedReader(new InputStreamReader(bufferedInputStream, "UTF-8"));
         } catch (final FileNotFoundException e) {
             Debug.e("OSUParser.openFile: " + e.getMessage(), e);
             return false;
@@ -152,8 +155,7 @@ public class OSUParser {
         final ArrayList<String> list = new ArrayList<>();
 
         try {
-            while (true) {
-                String s = reader.readLine();
+            while ((s = reader.readLine()) != null) {
 
                 // If s is null, it means we've reached the end of the file.
                 // End the loop and don't forget to add the last section,

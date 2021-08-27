@@ -2,10 +2,13 @@ package ru.nsu.ccfit.zuev.osu.storyboard;
 
 import com.dgsrz.bancho.ui.StoryBoardTestActivity;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +58,9 @@ public class OsbParser {
             }
         });
         if (files.length > 0) {
-            BufferedReader buff = new BufferedReader(new FileReader(files[0]));
+            InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(files[0]));
+            BufferedReader buff = new BufferedReader(new InputStreamReader(bufferedInputStream, "UTF-8"));
+
             Pattern pattern;
             Matcher matcher;
             String line;
@@ -353,7 +358,8 @@ public class OsbParser {
 
 
     public void loadBeatmap(File file) throws IOException {
-        BufferedReader buff = new BufferedReader(new FileReader(file));
+        InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+        BufferedReader buff = new BufferedReader(new InputStreamReader(bufferedInputStream, "UTF-8"));
 
         String header = buff.readLine().trim();
         Pattern pattern;
