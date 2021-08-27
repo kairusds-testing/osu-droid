@@ -185,16 +185,11 @@ public class SettingsMenu extends PreferenceActivity {
             skinPathPref.setEntries(entries);
             skinPathPref.setEntryValues(entryValues);
             skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
-                        SpritePool.getInstance().purge();
-                        GlobalManager.getInstance().setSkinNow(newValue.toString());
-                        ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                    }
-                }).start();
+                SpritePool.getInstance().purge();
+                GlobalManager.getInstance().setSkinNow(newValue.toString());
+                ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                ToastLogger.showText(StringTable.get(R.string.message_loaded_skin), true);
                 return true;
             });
             skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
