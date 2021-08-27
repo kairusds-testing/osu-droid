@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
 
+import com.edlplan.ui.fragment.InGameSettingMenu;
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.umeng.analytics.MobclickAgent;
 
@@ -135,6 +136,7 @@ public class MainScene implements IUpdateHandler {
         Debug.i("Load: mainMenuLoaded()");
         scene = new Scene();
         final TextureRegion tex = ResourceManager.getInstance().getTexture("menu-background");
+        InGameSettingMenu.getInstance().dismiss();
         if (tex != null) {
             float height = tex.getHeight();
             height *= Config.getRES_WIDTH()

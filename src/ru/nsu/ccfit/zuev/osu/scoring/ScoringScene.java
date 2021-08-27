@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.zuev.osu.scoring;
 
+import com.edlplan.ui.fragment.InGameSettingMenu;
 import com.edlplan.framework.utils.functionality.SmartIterator;
 
 import org.anddev.andengine.engine.Engine;
