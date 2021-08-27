@@ -8,7 +8,6 @@ import org.anddev.andengine.util.Debug;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,10 +52,10 @@ public class OSUParser {
     }
 
     public boolean openFile() {
-        try {            
+        try {
             InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
             reader = new BufferedReader(new InputStreamReader(bufferedInputStream, "UTF-8"));
-        } catch (final FileNotFoundException e) {
+        } catch (final Exception e) {
             Debug.e("OSUParser.openFile: " + e.getMessage(), e);
             return false;
         }
