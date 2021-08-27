@@ -68,6 +68,7 @@ public class ModMenu implements IModSwitcher {
     public void hide() {
         if (menu != null) {
             menu.getScene().clearChildScene();
+            menu = null;
         }
         InGameSettingMenu.getInstance().dismiss();
     }
@@ -75,6 +76,7 @@ public class ModMenu implements IModSwitcher {
     public void hideByFrag() {
         if (menu != null) {
             menu.getScene().clearChildScene();
+            menu = null;
         }
     }
 

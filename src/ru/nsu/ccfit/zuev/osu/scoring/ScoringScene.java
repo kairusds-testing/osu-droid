@@ -61,6 +61,7 @@ public class ScoringScene {
         if (replay != null && track == null) {
             replayStat = stat;
         }
+        InGameSettingMenu.getInstance().dismiss();
         TextureRegion tex = ResourceManager.getInstance()
                 .getTextureIfLoaded("::background");
         if (tex == null) {
