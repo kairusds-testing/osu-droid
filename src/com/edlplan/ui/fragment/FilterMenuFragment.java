@@ -37,7 +37,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
     private SongMenu menu;
     private CheckBox favoritesOnly;
     private TextView favoriteFolder;
-    private TextView orderText;
+    private Button orderButton;
     //private TextView openMapInfo;
 
     private Updater updater;
@@ -97,7 +97,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
                 R.string.menu_search_favsenabled : R.string.menu_search_favsdisabled);
     }
 
-    private void updateOrderText() {
+    private void updateOrderButton() {
         SongMenu.SortOrder order = getOrder();
         @StringRes int s;
         switch (order) {
@@ -123,7 +123,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
                 s = R.string.menu_search_sort_creator;
                 break;
         }
-        orderText.setText(s);
+        orderButton.setText(s);
     }
 
     private void updateFavFolderText() {
@@ -261,7 +261,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
         if (isCreated()) {
             filter = findViewById(R.id.searchEditText);
             favoritesOnly = findViewById(R.id.showFav);
-            orderText = findViewById(R.id.sortText);
+            orderButton = findViewById(R.id.sortButton);
             favoriteFolder = findViewById(R.id.favFolder);
             //openMapInfo = findViewById(R.id.openMapInfo);
 
@@ -270,9 +270,9 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
                 updateUpdater();
                 savedFavOnly = isChecked;
             });
-            orderText.setOnClickListener(v -> {
+            orderButton.setOnClickListener(v -> {
                 nextOrder();
-                updateOrderText();
+                updateOrderButton();
                 updateUpdater();
             });
             findViewById(R.id.favFolderLayout).setOnClickListener(v -> {
@@ -321,7 +321,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
             if (savedFilter != null && savedFilter.length() > 0) {
                 filter.setText(savedFilter);
             }
-            updateOrderText();
+            updateOrderButton();
             updateFavChecked();
             updateFavFolderText();
         }

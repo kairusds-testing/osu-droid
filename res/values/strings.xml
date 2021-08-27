@@ -160,7 +160,7 @@
 	<string name="beta_download_error">Download failed</string>
 	<string name="beta_have_new_version">New version available</string>
     <string name="menu_map_updatable">Update beatmap</string>
-    <string name="message_loading_skin">Applying new skin</string>
+    <string name="message_loaded_skin">Successfully applied new skin!</string>
 
 	<string name="message_error_dir_not_found">Directory is not found</string>
 
