@@ -154,8 +154,8 @@ public class OSUParser {
         final ArrayList<String> list = new ArrayList<>();
 
         try {
-            String s;
-            while ((s = reader.readLine()) != null) {
+            while (true) {
+                String s = reader.readLine();
 
                 // If s is null, it means we've reached the end of the file.
                 // End the loop and don't forget to add the last section,
