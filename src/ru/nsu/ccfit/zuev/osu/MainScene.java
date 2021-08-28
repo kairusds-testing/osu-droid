@@ -314,8 +314,8 @@ public class MainScene implements IUpdateHandler {
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
                                          final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_website).showForResult(
-                    	isAccepted -> {
+                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_osu_website_message).showForResult(
+                        isAccepted -> {
                             if(isAccepted) {
                                 final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
                                 GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
@@ -337,9 +337,14 @@ public class MainScene implements IUpdateHandler {
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
                                          final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    final Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://ops.dgsrz.com"));
-                    GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_osudroid_website_message).showForResult(
+                        isAccepted -> {
+                            if(isAccepted) {
+                                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ops.dgsrz.com"));
+                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                            }
+                        }
+                    );
                     return true;
                 }
                 return false;
