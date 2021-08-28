@@ -65,7 +65,7 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         super.onActivityResult(requestCode, resultCode, data);  
         if(requestCode == 2444) {
-            Log.i("PermissionActivity.onActivityResult",
+            Log.i("PAonActivityResult",
                 String.format("requestCode: %d, resultCode: %d, data: %s, dataData: %s",
                     requestCode,
                     resultCode,
