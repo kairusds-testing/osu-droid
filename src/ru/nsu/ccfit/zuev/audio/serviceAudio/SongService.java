@@ -283,10 +283,10 @@ public class SongService extends Service {
         notifyView_Small.setOnClickPendingIntent(R.id.notify_small_icon, pendingIntent);
 
         //开始创建Notify
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "o!dAudioService")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "osu!droid AudioService")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setTicker("Background playing~ ///w///");
-            .setSmallIcon(R.drawable.notify_inso);
+            .setTicker("Background playing~ ///w///")
+            .setSmallIcon(R.drawable.notify_inso)
             .setOngoing(true);
         notification = builder.build();
         notification.contentView = notifyView_Small;
