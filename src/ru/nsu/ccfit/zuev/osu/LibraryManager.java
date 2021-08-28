@@ -78,7 +78,7 @@ public class LibraryManager {
             );
             if(oldLib.exists() && !lib.exists()){
                 oldLib.renameTo(getLibraryCacheFile());
-            }else if (!oldLib.toFile().exists() && !lib.exists()) {
+            }else if (!oldLib.exists() && !lib.exists()) {
                 lib.createNewFile();
             }
             final ObjectInputStream istream = new ObjectInputStream(
