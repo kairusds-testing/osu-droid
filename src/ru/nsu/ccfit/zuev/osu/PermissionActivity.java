@@ -3,6 +3,7 @@ package ru.nsu.ccfit.zuev.osu;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
 
 import java.util.List;
+
+import org.anddev.andengine.util.Debug;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -39,11 +42,37 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
     }
 
     private void checkPermissions() {
-        if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PermissionChecker.PERMISSION_GRANTED) {
-            startGameActivity();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2333);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+                    == PermissionChecker.PERMISSION_GRANTED) {
+                startGameActivity();
+            } else {
+                Uri uri = Uri.parse("package:" + getPackageName());
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                startActivityForResult(intent, 2444);
+            }
+        }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PermissionChecker.PERMISSION_GRANTED) {
+                startGameActivity();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2333);
+            }
+        }
+    }
+
+    @Override  
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+        super.onActivityResult(requestCode, resultCode, data);  
+        if(requestCode == 2444) {
+            Debug.i(
+                String.format("PermissionActivity.onActivityResult| requestCode: %d, resultCode: %d, data: %s, dataData: %s",
+                    requestCode,
+                    resultCode,
+                    data.toString(),
+                    data.getData().toString()
+                )
+            );
         }
     }
 

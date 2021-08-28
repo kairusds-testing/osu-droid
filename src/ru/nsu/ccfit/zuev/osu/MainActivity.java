@@ -832,8 +832,12 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private boolean checkPermissions() {
-        String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+                PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+                == PermissionChecker.PERMISSION_GRANTED) {
+            return true;
+        }else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R &&
+                PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PermissionChecker.PERMISSION_GRANTED) {
             return true;
         } else {
