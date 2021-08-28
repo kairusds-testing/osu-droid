@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.zuev.audio.serviceAudio;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -199,6 +200,14 @@ public class SongService extends Service {
             Log.w("SongService", "NOT SHOW THE NOTIFY CUZ IS GAMING");
             return;
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "osu!droid AudioService", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("AudioService for osu!droid");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
         if (notification == null) createNotifyPanel();
         startForeground(9, notification);
         manager.notify(9, notification);
@@ -274,16 +283,15 @@ public class SongService extends Service {
         notifyView_Small.setOnClickPendingIntent(R.id.notify_small_icon, pendingIntent);
 
         //开始创建Notify
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setTicker("Background playing~ ///w///");
-        builder.setSmallIcon(R.drawable.notify_inso);
-        builder.setOngoing(true);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "o!dAudioService")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setTicker("Background playing~ ///w///");
+            .setSmallIcon(R.drawable.notify_inso);
+            .setOngoing(true);
         notification = builder.build();
         notification.contentView = notifyView_Small;
         //notification.contentIntent = pendingIntent;
         notification.flags = Notification.FLAG_FOREGROUND_SERVICE;
-
-
     }
 
     public boolean checkFileExist(String path) {
