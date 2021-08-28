@@ -44,7 +44,7 @@
 	<string name="dialog_exit_no">No</string>
 
 	<string name="dialog_visit_osu_website_message">Do you want to visit the official osu! website?</string>
-	<string name="dialog_visit_osudroid_website_message">Do you want to visit the official osu!droid website</string>
+	<string name="dialog_visit_osudroid_website_message">Do you want to visit the official osu!droid website?</string>
 
 	<string name="favorite_folder">Folder:</string>
 	<string name="favorite_default">Default</string>

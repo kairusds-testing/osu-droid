@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/frg_body"
         android:background="@drawable/rounded_rect_small"
-        android:layout_width="320dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="40dp"
@@ -20,14 +20,14 @@
         android:orientation="vertical">
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="320dp"
+            android:layout_width="340dp"
             android:layout_height="120dp"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
 
         <View
             android:id="@+id/confirm_card"
-            android:layout_width="260dp"
+            android:layout_width="280dp"
             android:layout_height="110dp"
             android:layout_marginBottom="10dp"
             android:layout_centerInParent="true"/>
@@ -36,7 +36,7 @@
             android:alpha="0.7"
             android:layout_alignTop="@id/confirm_card"
             android:layout_centerHorizontal="true"
-            android:layout_width="260dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content">
 
             <View
@@ -51,12 +51,11 @@
         </RelativeLayout>
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="320dp"
+            android:layout_width="280dp"
             android:layout_height="120dp"
             edl:freeze="true"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
-
 
         <LinearLayout
             android:layout_width="wrap_content"
