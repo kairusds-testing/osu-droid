@@ -37,8 +37,8 @@ import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.edlplan.ui.fragment.BuildTypeNoticeFragment;
 import com.tencent.bugly.Bugly;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
+// import com.umeng.analytics.MobclickAgent;
+// import com.umeng.commonsdk.UMConfigure;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
@@ -833,8 +833,7 @@ public class MainActivity extends BaseGameActivity implements
 
     private boolean checkPermissions() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
-                PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)
-                == PermissionChecker.PERMISSION_GRANTED) {
+                Environment.isExternalStorageManager()) {
             return true;
         }else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R &&
                 PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)

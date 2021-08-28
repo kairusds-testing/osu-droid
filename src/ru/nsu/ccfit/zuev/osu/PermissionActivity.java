@@ -42,8 +42,7 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
 
     private void checkPermissions() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)
-                    == PermissionChecker.PERMISSION_GRANTED) {
+            if (Environment.isExternalStorageManager()) {
                 startGameActivity();
             } else {
                 Uri uri = Uri.parse("package:" + getPackageName());
