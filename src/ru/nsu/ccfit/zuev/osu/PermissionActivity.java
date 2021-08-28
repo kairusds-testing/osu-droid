@@ -16,8 +16,6 @@ import androidx.core.content.PermissionChecker;
 
 import java.util.List;
 
-import org.anddev.andengine.util.Debug;
-
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -67,14 +65,15 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         super.onActivityResult(requestCode, resultCode, data);  
         if(requestCode == 2444) {
-            Debug.i(
-                String.format("PermissionActivity.onActivityResult| requestCode: %d, resultCode: %d, data: %s, dataData: %s",
+            Log.i("PermissionActivity.onActivityResult",
+                String.format("requestCode: %d, resultCode: %d, data: %s, dataData: %s",
                     requestCode,
                     resultCode,
                     data.toString(),
                     data.getData().toString()
                 )
             );
+            checkPermissions();
         }
     }
 
