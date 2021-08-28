@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,14 +64,6 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         super.onActivityResult(requestCode, resultCode, data);  
         if(requestCode == 2444) {
-            Log.i("PAonActivityResult",
-                String.format("requestCode: %d, resultCode: %d, data: %s, dataData: %s",
-                    requestCode,
-                    resultCode,
-                    data.toString(),
-                    data.getData().toString()
-                )
-            );
             checkPermissions();
         }
     }
