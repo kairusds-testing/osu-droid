@@ -314,7 +314,7 @@ public class MainScene implements IUpdateHandler {
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
                                          final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_osu_website_message).showForResult(
+                    new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
                                 final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
@@ -337,7 +337,7 @@ public class MainScene implements IUpdateHandler {
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
                                          final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_osudroid_website_message).showForResult(
+                    new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osudroid_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
                                 final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ops.dgsrz.com"));
