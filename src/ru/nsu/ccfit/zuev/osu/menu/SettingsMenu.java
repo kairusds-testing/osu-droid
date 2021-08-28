@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.tencent.bugly.beta.Beta;
-import com.umeng.analytics.MobclickAgent;
+// import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.util.Arrays;
@@ -121,13 +121,13 @@ public class SettingsMenu extends PreferenceActivity {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
+        // MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
+        // MobclickAgent.onPause(this);
     }
 
     @Override
