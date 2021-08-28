@@ -13,10 +13,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -76,12 +72,12 @@ public class LibraryManager {
             return false;
         }
         try {
-            final Path oldLib = Paths.get(
-                GlobalManager.getInstance().getMainActivity().getFilesDir().getAbsolutePath(),
+            final File oldLib = new File(
+                GlobalManager.getInstance().getMainActivity().getFilesDir(),
                 String.format("library.%s.dat", VERSION)
             );
-            if(oldLib.toFile().exists() && !lib.exists()){
-                Files.move(oldLib, Paths.get(getLibraryCacheFile().getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            if(oldLib.exists() && !lib.exists()){
+                oldLib.renameTo(getLibraryCacheFile());
             }else if (!oldLib.toFile().exists() && !lib.exists()) {
                 lib.createNewFile();
             }
