@@ -39,6 +39,7 @@ public class SongService extends Service {
     private IntentFilter filter = null;
     private BroadcastReceiver onNotifyButtonClick = null;
     private long lastHit = 0;
+    private static final String CHANNEL_ID = "ru.nsu.ccfit.zuev.audio";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -283,7 +284,7 @@ public class SongService extends Service {
         notifyView_Small.setOnClickPendingIntent(R.id.notify_small_icon, pendingIntent);
 
         //开始创建Notify
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "osu!droid AudioService")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setTicker("Background playing~ ///w///")
             .setSmallIcon(R.drawable.notify_inso)
