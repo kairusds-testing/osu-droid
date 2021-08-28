@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.edlplan.ui.fragment.InGameSettingMenu;
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.umeng.analytics.MobclickAgent;
 
@@ -136,7 +135,7 @@ public class MainScene implements IUpdateHandler {
         Debug.i("Load: mainMenuLoaded()");
         scene = new Scene();
         final TextureRegion tex = ResourceManager.getInstance().getTexture("menu-background");
-        InGameSettingMenu.getInstance().dismiss();
+        
         if (tex != null) {
             float height = tex.getHeight();
             height *= Config.getRES_WIDTH()
@@ -315,9 +314,14 @@ public class MainScene implements IUpdateHandler {
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
                                          final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    final Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://osu.ppy.sh"));
-                    GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                    new ConfirmDialogFragment().setMessage(R.strig.dialog_visit_website).showForResult(
+                    	isAccepted -> {
+                            if(isAccepted) {
+                                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
+                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                            }
+                        }
+                    );
                     return true;
                 }
                 return false;
