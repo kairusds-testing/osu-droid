@@ -70,20 +70,19 @@ public class LibraryManager {
         }
 
         final File lib = getLibraryCacheFile();
-        final Path oldLib = Paths.get(
-            GlobalManager.getInstance().getMainActivity().getFilesDir().getAbsolutePath(),
-            String.format("library.%s.dat", VERSION)
-        );
         //Log.i("ed-d", "load cache from " + lib.getAbsolutePath());
         final File dir = new File(Config.getBeatmapPath());
         if (!dir.exists()) {
             return false;
         }
-        if(oldLib.toFile().exists() && !lib.exists()){
-            Files.move(oldLib, Paths.get(getLibraryCacheFile().getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-        }
         try {
-            if (!lib.exists()) {
+            final Path oldLib = Paths.get(
+                GlobalManager.getInstance().getMainActivity().getFilesDir().getAbsolutePath(),
+                String.format("library.%s.dat", VERSION)
+            );
+            if(oldLib.toFile().exists() && !lib.exists()){
+                Files.move(oldLib, Paths.get(getLibraryCacheFile().getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            }else if (!oldLib.toFile().exists() && !lib.exists()) {
                 lib.createNewFile();
             }
             final ObjectInputStream istream = new ObjectInputStream(
