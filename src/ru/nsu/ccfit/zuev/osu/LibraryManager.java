@@ -1,8 +1,6 @@
 package ru.nsu.ccfit.zuev.osu;
 
 import android.app.Activity;
-import androidx.core.app.ActivityCompat;
-import android.Manifest;
 
 import org.anddev.andengine.util.Debug;
 
@@ -15,6 +13,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,7 +34,6 @@ public class LibraryManager {
     private int currentIndex = 0;
 
     private LibraryManager() {
-
     }
 
     public static LibraryManager getInstance() {
@@ -41,8 +41,7 @@ public class LibraryManager {
     }
 
     public File getLibraryCacheFile() {
-        // sorry for the janky code
-        return new File(GlobalManager.getInstance().getMainActivity().getFilesDir(), String.format("library.%s.dat", VERSION));
+        return new File(Config.getCorePath() + "/databases", String.format("library.%s.dat", VERSION));
     }
     
     @SuppressWarnings("unchecked")
@@ -70,10 +69,17 @@ public class LibraryManager {
         }
 
         final File lib = getLibraryCacheFile();
+        final Path oldLib = Paths.get(
+            GlobalManager.getInstance().getMainActivity().getFilesDir(),
+            String.format("library.%s.dat", VERSION)
+        );
         //Log.i("ed-d", "load cache from " + lib.getAbsolutePath());
         final File dir = new File(Config.getBeatmapPath());
         if (!dir.exists()) {
             return false;
+        }
+        if(oldLib.toFile().exists() && !lib.exists()){
+            Files.move(oldLib, Paths.get(getLibraryCacheFile().getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
         }
         try {
             if (!lib.exists()) {
@@ -280,8 +286,7 @@ public class LibraryManager {
         }
     }
 
-    public void savetoCache(final Activity activity) {
-
+    public void savetoCache(final Activity activity) {        
         if (library.isEmpty()) {
             return;
         }
@@ -452,9 +457,7 @@ public class LibraryManager {
     public int findBeatmap(BeatmapInfo info) {
         if (library != null && library.size() > 0) {
             for (int i = 0; i < library.size(); i++) {
-                if (library.get(i).getArtist().equals(info.getArtist()) &&
-                        library.get(i).getTitle().equals(info.getTitle()) &&
-                        library.get(i).getCreator().equals(info.getCreator())) {
+                if (library.get(i).equals(info)) {
                     return currentIndex = i;
                 }
             }
