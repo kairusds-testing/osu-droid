@@ -184,5 +184,5 @@
     <string name="message_save_replay_successful">Save failed replay success!</string>
 	<string name="message_save_replay_failed">Save replay failed</string>
 
-    <string name="message_suspicious_accessibility_services">Please disable all of your auto clicker or screen reader (e.g. Select to Speak) accessibility services before playing the game.</string>
+    <string name="message_autoclicker_detected">Please disable your auto-clicker before playing the game.</string>
 </resources>
