@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.*;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.PermissionChecker;
@@ -816,10 +815,9 @@ public class MainActivity extends BaseGameActivity implements
 
                 for(int i = 0; i < activeServices.size(); i++) {
                      int capabilities = activeServices.get(i).getCapabilities();
-                    if((AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
-                        || (AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
+                    if(/*(AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
+                        || */(AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities) == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!dialogShown && activityVisible) {
-                            Debug.i("initAccessibilityDetector: " + TextUtils.join(", ", activeServices.get(i).packageNames));
                             new ConfirmDialogFragment()
                                 .setMessage(R.string.message_suspicious_accessibility_services)
                                 .setOnDismissListener(fragment -> cheatedExit())
