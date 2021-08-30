@@ -285,6 +285,10 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
                 });
             });
             filter.setOnEditorActionListener((v, actionId, event) -> {
+                if (event == null) {
+                    return false;
+                }
+
                 if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     hideMenu();
                     return true;
@@ -294,12 +298,10 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
             filter.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 }
 
                 @Override
