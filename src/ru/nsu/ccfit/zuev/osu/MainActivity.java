@@ -201,7 +201,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAnalytics() {
-        Tracker tacker = null;
+        Tracker tracker = null;
         CoreConfigurationBuilder acraBuilder = null;
 
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
