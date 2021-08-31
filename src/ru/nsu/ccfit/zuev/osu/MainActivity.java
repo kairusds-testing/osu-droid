@@ -56,6 +56,7 @@ import org.anddev.andengine.util.Debug;
 import org.matomo.sdk.Matomo;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
+import org.matomo.sdk.extra.TrackHelper;
 import org.matomo.sdk.extra.DownloadTracker;
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
@@ -206,10 +207,13 @@ public class MainActivity extends BaseGameActivity implements
 
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
-                tracker = new TrackerBuilder("https://acivev.com/matomo.php",
-                1,
-                "osudroid").build(Matomo.getInstance(this));
-                acraBuilder = new CoreConfigurationBuilder(this);
+                Context appContext = MainActivity.this.getApplicationContext();
+                tracker = new TrackerBuilder(
+                    "https://acivev.com/matomo.php",
+                    1,
+                    "osudroid"
+                ).build(Matomo.getInstance(appContext));
+                acraBuilder = new CoreConfigurationBuilder(appContext);
                 acraBuilder.withBuildConfigClass(BuildConfig.class)
                     .withReportFormat(StringFormat.JSON);
             }
@@ -235,9 +239,9 @@ public class MainActivity extends BaseGameActivity implements
                     .withBasicAuthPassword("GqrqobzGXywXIQr6")
                     .withEnabled(true);
                 acraBuilder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
-                    .withResText("test")
+                    .withResText(R.string.acra_dialog_text)
                     .withEnabled(true);
-                ACRA.init(MainActivity.this, acraBuilder);
+                ACRA.init(MainActivity.this.getApplication(), acraBuilder);
                 ACRA.getErrorReporter().handleSilentException(null);
             }
         });
