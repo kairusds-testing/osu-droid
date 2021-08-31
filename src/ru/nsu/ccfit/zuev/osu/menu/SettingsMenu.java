@@ -114,6 +114,7 @@ public class SettingsMenu extends PreferenceActivity {
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
             // Beta.checkUpgrade();
+            throw new RuntimeException("Crash test");
             return true;
         });
     }
