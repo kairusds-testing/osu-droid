@@ -104,6 +104,8 @@ public class MainActivity extends BaseGameActivity implements
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;
+    private Tracker tracker;
+    private CoreConfigurationBuilder acraBuilder;
 
     @Override
     public Engine onLoadEngine() {
@@ -202,9 +204,6 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAnalytics() {
-        Tracker tracker = null;
-        CoreConfigurationBuilder acraBuilder = null;
-
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 Context appContext = MainActivity.this.getApplicationContext();
