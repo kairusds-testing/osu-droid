@@ -207,8 +207,8 @@ public class MainActivity extends BaseGameActivity implements
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 tracker = new TrackerBuilder("https://acivev.com/matomo.php",
-                int siteID,
-                String trackerName).build(Matomo.getInstance(this));
+                1,
+                "osudroid").build(Matomo.getInstance(this));
                 acraBuilder = new CoreConfigurationBuilder(this);
                 acraBuilder.withBuildConfigClass(BuildConfig.class)
                     .withReportFormat(StringFormat.JSON);
