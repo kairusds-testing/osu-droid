@@ -9,7 +9,7 @@ import android.preference.PreferenceActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.tencent.bugly.beta.Beta;
+// import com.tencent.bugly.beta.Beta;
 // import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -33,7 +33,7 @@ public class SettingsMenu extends PreferenceActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        resetBetaStrings();
+        // resetBetaStrings();
         addPreferencesFromResource(R.xml.options);
         reloadSkinList();
 
@@ -113,7 +113,7 @@ public class SettingsMenu extends PreferenceActivity {
 		*/
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            Beta.checkUpgrade();
+            // Beta.checkUpgrade();
             return true;
         });
     }
@@ -147,23 +147,25 @@ public class SettingsMenu extends PreferenceActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+/*
     private void resetBetaStrings() {
+
         Beta.strToastYourAreTheLatestVersion = StringTable.get(R.string.beta_you_are_the_latest_version);
         Beta.strToastCheckUpgradeError = StringTable.get(R.string.beta_check_upgrade_error);
         Beta.strToastCheckingUpgrade = StringTable.get(R.string.beta_checking_upgrade);
 
-//      just wasn't sure if "NOTIFICATION" translations might exceed given spaces. Toast strings are otherwise
+      just wasn't sure if "NOTIFICATION" translations might exceed given spaces. Toast strings are otherwise
 
-//		Beta.strNotificationDownloading = StringTable.get(R.string.beta_downloading);
-//		Beta.strNotificationClickToView = StringTable.get(R.string.beta_click_to_view);
-//		Beta.strNotificationClickToInstall = StringTable.get(R.string.beta_click_to_install);
-//		Beta.strNotificationClickToRetry = StringTable.get(R.string.beta_click_to_retry);
-//		Beta.strNotificationClickToContinue = StringTable.get(R.string.beta_click_to_continue);
-//		Beta.strNotificationDownloadSucc = StringTable.get(R.string.beta_download_success);
-//		Beta.strNotificationDownloadError = StringTable.get(R.string.beta_download_error);
-//		Beta.strNotificationHaveNewVersion = StringTable.get(R.string.beta_have_new_version);
+		Beta.strNotificationDownloading = StringTable.get(R.string.beta_downloading);
+		Beta.strNotificationClickToView = StringTable.get(R.string.beta_click_to_view);
+		Beta.strNotificationClickToInstall = StringTable.get(R.string.beta_click_to_install);
+		Beta.strNotificationClickToRetry = StringTable.get(R.string.beta_click_to_retry);
+		Beta.strNotificationClickToContinue = StringTable.get(R.string.beta_click_to_continue);
+		Beta.strNotificationDownloadSucc = StringTable.get(R.string.beta_download_success);
+		Beta.strNotificationDownloadError = StringTable.get(R.string.beta_download_error);
+		Beta.strNotificationHaveNewVersion = StringTable.get(R.string.beta_have_new_version);
 
-    }
+    }*/
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void reloadSkinList() {
