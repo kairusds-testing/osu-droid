@@ -36,9 +36,6 @@ import android.widget.Toast;
 import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.edlplan.ui.fragment.BuildTypeNoticeFragment;
-import com.tencent.bugly.Bugly;
-// import com.umeng.analytics.MobclickAgent;
-// import com.umeng.commonsdk.UMConfigure;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
@@ -55,6 +52,16 @@ import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
 import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
+
+import org.matomo.sdk.Matomo;
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.TrackerBuilder;
+import org.matomo.sdk.extra.DownloadTracker;
+import org.acra.ACRA;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.config.DialogConfigurationBuilder;
+import org.acra.data.StringFormat;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,7 +102,7 @@ public class MainActivity extends BaseGameActivity implements
     private Handler handler = new Handler();
     private boolean willReplay = false;
     private static boolean activityVisible = true;
-    private boolean dialogShown = false;
+    private boolean autoclickerDialogShown = false;
 
     @Override
     public Engine onLoadEngine() {
@@ -109,9 +116,8 @@ public class MainActivity extends BaseGameActivity implements
         ToastLogger.init(this);
         SyncTaskManager.getInstance().init(this);
         InputManager.setContext(this);
-        // 初始化BuglySDK
-        Bugly.init(getApplicationContext(), "d1e89e4311", false);
         OnlineManager.getInstance().Init(getApplicationContext());
+        initAnalytics();
 
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -192,6 +198,49 @@ public class MainActivity extends BaseGameActivity implements
         if (!skinDir.exists()) {
             skinDir.mkdirs();
         }
+    }
+
+    private void initAnalytics() {
+        Tracker tacker = null;
+        CoreConfigurationBuilder acraBuilder = null;
+
+        new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+            public void run() {
+                tracker = new TrackerBuilder("https://acivev.com/matomo.php",
+                int siteID,
+                String trackerName).build(Matomo.getInstance(this));
+                acraBuilder = new CoreConfigurationBuilder(this);
+                acraBuilder.withBuildConfigClass(BuildConfig.class)
+                    .withReportFormat(StringFormat.JSON);
+            }
+
+            public void onComplete() {
+                if(tracker == null || acraBuilder == null) {
+                    return;
+                }
+                // todo: only track production and pre_release builds
+                
+                TrackHelper.track().download().identifier(
+                    new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
+                ).with(tracker);
+                TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
+                    .with(tracker);
+                /* TrackHelper
+                    .track() TODO: Android Version Tracking
+                */
+
+                acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+                    .withUri("http://acivev.com:8080/report")
+                    .withBasicAuthLogin("NYFi3ljazMdhjhsR")
+                    .withBasicAuthPassword("GqrqobzGXywXIQr6")
+                    .withEnabled(true);
+                acraBuilder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
+                    .withResText("test")
+                    .withEnabled(true);
+                ACRA.init(MainActivity.this, acraBuilder);
+                ACRA.getErrorReporter().handleSilentException(null);
+            }
+        });
     }
 
     private void initPreferences() {
@@ -311,10 +360,12 @@ public class MainActivity extends BaseGameActivity implements
                 GlobalManager.getInstance().getMainScene().loadBeatmap();
                 initPreferences();
                 availableInternalMemory();
+                initAccessibilityDetector();
                 if (willReplay) {
                     GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
                     willReplay = false;
                 }
+                int crash = 0 / 0;
             }
         });
     }
@@ -503,7 +554,6 @@ public class MainActivity extends BaseGameActivity implements
             } catch (IOException e) {
             }
         }
-        initAccessibilityDetector();
         onBeginBindService();
     }
 
@@ -696,7 +746,7 @@ public class MainActivity extends BaseGameActivity implements
             return false;
         }
 
-        if(dialogShown) {
+        if(autoclickerDialogShown) {
             return false;
         }
 
@@ -817,12 +867,12 @@ public class MainActivity extends BaseGameActivity implements
                      int capabilities = activeServices.get(i).getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
                             == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        if(!dialogShown && activityVisible) {
+                        if(!autoclickerDialogShown && activityVisible) {
                             new ConfirmDialogFragment()
                                 .setMessage(R.string.message_autoclicker_detected)
                                 .setOnDismissListener(fragment -> cheatedExit())
                                 .showForResult(isAccepted -> cheatedExit());
-                            dialogShown = true;
+                            autoclickerDialogShown = true;
                         }
                     }
                 }
