@@ -104,8 +104,6 @@ public class MainActivity extends BaseGameActivity implements
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;
-    private Tracker tracker;
-    private CoreConfigurationBuilder acraBuilder;
 
     @Override
     public Engine onLoadEngine() {
@@ -204,43 +202,29 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAnalytics() {
-        new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-            public void run() {
-                Context appContext = MainActivity.this.getApplicationContext();
-                tracker = new TrackerBuilder(
-                    "https://acivev.com/matomo.php",
-                    1,
-                    "osudroid"
-                ).build(Matomo.getInstance(appContext));
-                acraBuilder = new CoreConfigurationBuilder(appContext);
-                acraBuilder.withBuildConfigClass(BuildConfig.class)
-                    .withReportFormat(StringFormat.JSON);
-            }
-
-            public void onComplete() {
-                if(tracker == null || acraBuilder == null) {
-                    return;
-                }
-                // todo: only track production and pre_release builds
-                
-                TrackHelper.track().download().identifier(
-                    new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
-                ).with(tracker);
-                TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
-                    .with(tracker);
-                /* TrackHelper
-                    .track() TODO: Android Version Tracking
-                */
-
-                acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
-                    .withUri("http://acivev.com:8080/report")
-                    .withBasicAuthLogin("NYFi3ljazMdhjhsR")
-                    .withBasicAuthPassword("GqrqobzGXywXIQr6")
-                    .withEnabled(true);
-                ACRA.init(MainActivity.this.getApplication(), acraBuilder);
-                ACRA.getErrorReporter().handleSilentException(null);
-            }
-        });
+        Tracker tracker = new TrackerBuilder.createDefault(
+            "https://acivev.com/matomo.php",
+            1
+        ).build(Matomo.getInstance(this));
+        CoreConfigurationBuilder acraBuilder = new CoreConfigurationBuilder(this);
+        acraBuilder.withBuildConfigClass(BuildConfig.class)
+            .withReportFormat(StringFormat.JSON);
+        // todo: only track production and pre_release builds
+        TrackHelper.track().download().identifier(
+            new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
+        ).with(tracker);
+        TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
+            .with(tracker);
+        /* TrackHelper
+            .track() TODO: Android Version Tracking
+        */
+        acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+            .withUri("http://acivev.com:8080/report")
+            .withBasicAuthLogin("NYFi3ljazMdhjhsR")
+            .withBasicAuthPassword("GqrqobzGXywXIQr6")
+            .withEnabled(true);
+        ACRA.getErrorReporter().handleSilentException(null);
+        ACRA.init(getApplication(), acraBuilder);
     }
 
     private void initPreferences() {

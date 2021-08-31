@@ -25,6 +25,7 @@ jobs:
         dependencies-cache-enabled: true
         configuration-cache-enabled: true
         arguments: build
+    - run: tree build/outputs/mapping/a_githubPre_release
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
