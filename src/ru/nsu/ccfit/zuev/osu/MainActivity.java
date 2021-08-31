@@ -237,9 +237,6 @@ public class MainActivity extends BaseGameActivity implements
                     .withBasicAuthLogin("NYFi3ljazMdhjhsR")
                     .withBasicAuthPassword("GqrqobzGXywXIQr6")
                     .withEnabled(true);
-                acraBuilder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
-                    .withResText(R.string.acra_dialog_text)
-                    .withEnabled(true);
                 ACRA.init(MainActivity.this.getApplication(), acraBuilder);
                 ACRA.getErrorReporter().handleSilentException(null);
             }
@@ -368,7 +365,6 @@ public class MainActivity extends BaseGameActivity implements
                     GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
                     willReplay = false;
                 }
-                int crash = 0 / 0;
             }
         });
     }
