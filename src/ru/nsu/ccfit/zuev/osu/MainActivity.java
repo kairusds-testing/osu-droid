@@ -202,7 +202,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAnalytics() {
-        Tracker tracker = new TrackerBuilder.createDefault(
+        Tracker tracker = TrackerBuilder.createDefault(
             "https://acivev.com/matomo.php",
             1
         ).build(Matomo.getInstance(this));
