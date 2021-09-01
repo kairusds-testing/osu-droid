@@ -28,8 +28,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-import org.acra.ACRA;
-
 import ru.nsu.ccfit.zuev.audio.serviceAudio.SaveServiceObject;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -286,7 +284,6 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
             public void run() {
                 Looper.prepare();
                 Toast.makeText(context, StringTable.get(R.string.crash), Toast.LENGTH_SHORT).show();
-                ACRA.getErrorReporter().handleException(ex);
                 Looper.loop();
             }
 
