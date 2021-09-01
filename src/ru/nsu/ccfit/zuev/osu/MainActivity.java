@@ -216,7 +216,7 @@ public class MainActivity extends BaseGameActivity implements
             .with(tracker);
 
         acraBuilder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
-            .withResText(R.string.message_error_sending)
+            .withResText(R.string.message_error_sent)
             .withEnabled(true);
         acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
             .withUri("http://acivev.com:8080/report")
