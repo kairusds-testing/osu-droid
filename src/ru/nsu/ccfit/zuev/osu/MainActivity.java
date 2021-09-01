@@ -118,7 +118,6 @@ public class MainActivity extends BaseGameActivity implements
         SyncTaskManager.getInstance().init(this);
         InputManager.setContext(this);
         OnlineManager.getInstance().Init(getApplicationContext());
-        initAnalytics();
 
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -223,7 +222,6 @@ public class MainActivity extends BaseGameActivity implements
             .withBasicAuthLogin("NYFi3ljazMdhjhsR")
             .withBasicAuthPassword("GqrqobzGXywXIQr6")
             .withEnabled(true);
-        ACRA.getErrorReporter().handleSilentException(null);
         ACRA.init(getApplication(), acraBuilder);
     }
 
@@ -523,6 +521,7 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
+        initAnalytics();
         if (this.mEngine == null) {
             return;
         }
