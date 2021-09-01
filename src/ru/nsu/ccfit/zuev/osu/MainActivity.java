@@ -200,7 +200,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAnalytics() {
-        Tracker tracker = TrackerBuilder.createDefault(
+        /*Tracker tracker = TrackerBuilder.createDefault(
             "https://acivev.com/matomo.php",
             1
         ).build(Matomo.getInstance(this));
@@ -212,7 +212,7 @@ public class MainActivity extends BaseGameActivity implements
             new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
         ).with(tracker);
         TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
-            .with(tracker);
+            .with(tracker);*/
 
         acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
             .withUri("https://acrar.acivev.com/report")
@@ -428,7 +428,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     public void checkNewBeatmaps() {
-        GlobalManager.getInstance().setInfo("Checking new maps...");
+        GlobalManager.getInstance().setInfo("Checking for new maps...");
         final File mainDir = new File(Config.getCorePath());
         if (beatmapToAdd != null) {
             File file = new File(beatmapToAdd);

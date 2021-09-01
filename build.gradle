@@ -74,7 +74,7 @@ android {
             keyPassword 'debug.github.dgsrz.com'
         }
 
-        release {
+        /* release {
             try {
                 storeFile file(localProperties.get("RELEASE_KEYSTORE", "debug.jks"))
                 storePassword localProperties.get('RELEASE_KEYSTORE_PASSWORD', "debug.dgsrz.com")
@@ -83,7 +83,7 @@ android {
             } catch (ignored) {
                 throw new InvalidUserDataException('You should define RELEASE_KEYSTORE_PASSWORD and RELEASE_KEY_PASSWORD in local.properties.', ignored)
             }
-        }
+        }*/
     }
 
     buildTypes {
@@ -92,7 +92,7 @@ android {
             applicationIdSuffix '.debug'
         }
 
-        release {
+        /* release {
             resValue "string", "app_name", "osu!droid"
             zipAlignEnabled true
             minifyEnabled true
@@ -107,7 +107,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg', 'proguard-kotlin.pro'
             signingConfig signingConfigs.release
-        }
+        } */
     }
 
     flavorDimensions "download_channel"
