@@ -204,9 +204,6 @@ public class MainActivity extends BaseGameActivity implements
             "https://acivev.com/matomo.php",
             1
         ).build(Matomo.getInstance(this));
-        CoreConfigurationBuilder acraBuilder = new CoreConfigurationBuilder(this);
-        acraBuilder.withBuildConfigClass(BuildConfig.class)
-            .withReportFormat(StringFormat.JSON);
         // todo: only track production and pre_release builds
         TrackHelper.track().download().identifier(
             new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
@@ -214,6 +211,9 @@ public class MainActivity extends BaseGameActivity implements
         TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
             .with(tracker);*/
 
+        CoreConfigurationBuilder acraBuilder = new CoreConfigurationBuilder(this);
+        acraBuilder.withBuildConfigClass(BuildConfig.class)
+            .withReportFormat(StringFormat.JSON);
         acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
             .withUri("https://acrar.acivev.com/report")
             .withBasicAuthLogin("x4LeSG7uSayQNmkq")
