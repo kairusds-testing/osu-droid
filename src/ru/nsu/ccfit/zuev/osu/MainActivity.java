@@ -215,9 +215,9 @@ public class MainActivity extends BaseGameActivity implements
             .with(tracker);
 
         acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
-            .withUri("http://acivev.com:8080/report")
-            .withBasicAuthLogin("NYFi3ljazMdhjhsR")
-            .withBasicAuthPassword("GqrqobzGXywXIQr6")
+            .withUri("https://acrar.acivev.com/report")
+            .withBasicAuthLogin("x4LeSG7uSayQNmkq")
+            .withBasicAuthPassword("89zu7gCbNC4LDGMn")
             .withEnabled(true);
         ACRA.init(getApplication(), acraBuilder);
     }
