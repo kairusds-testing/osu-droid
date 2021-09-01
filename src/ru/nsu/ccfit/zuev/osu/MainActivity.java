@@ -61,7 +61,6 @@ import org.matomo.sdk.extra.DownloadTracker;
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.HttpSenderConfigurationBuilder;
-import org.acra.config.ToastConfigurationBuilder;
 import org.acra.data.StringFormat;
 
 import java.io.File;
@@ -215,9 +214,6 @@ public class MainActivity extends BaseGameActivity implements
         TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
             .with(tracker);
 
-        acraBuilder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
-            .withResText(R.string.message_error_sent)
-            .withEnabled(true);
         acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
             .withUri("http://acivev.com:8080/report")
             .withBasicAuthLogin("NYFi3ljazMdhjhsR")
