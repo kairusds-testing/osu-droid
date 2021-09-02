@@ -329,9 +329,11 @@ public class MainActivity extends BaseGameActivity implements
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
                     Executors.newSingleThreadExecutor().execute(() -> {
-                        handler.post(() -> LibraryManager.getInstance().scanLibrary(MainActivity.this));
+                        handler.post(() -> {
+                            GlobalManager.getInstance().getEngine().setScene(new SplashScene().getScene());
+                            LibraryManager.getInstance().scanLibrary(MainActivity.this));
+                        System.gc();
                     });
-                    System.gc();
                 }
             }
 
