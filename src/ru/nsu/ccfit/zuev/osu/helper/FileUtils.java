@@ -17,7 +17,7 @@ import org.anddev.andengine.util.Debug;
  */
 public class FileUtils {
 
-    private FileUtils{}
+    private FileUtils(){}
 
     public static File[] listFiles(File directory) {
         return listFiles(directory, (dir, name) -> true);
