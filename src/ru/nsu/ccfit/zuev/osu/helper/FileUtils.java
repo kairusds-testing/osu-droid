@@ -35,10 +35,9 @@ public class FileUtils {
                 for(String extension : endsWithExtensions) {
                     if(name.toLowerCase().endsWith(extension)) {
                         return true;
-                    }else {
-                        return false;
                     }
                 }
+                return false;
             });
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return listFiles(directory, (directory, name) ->
@@ -50,23 +49,23 @@ public class FileUtils {
     public static File[] listFiles(File directory, FileFilter filter) {
         File[] filelist = null;
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            filelist = dir.listFiles((dir, name) -> filter(dir, name));
+            filelist = dir.listFiles((dir, name) -> filter.accept(dir, name));
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
-            DirectoryStream.Filter<Path> dirctoryFilter = new DirectoryStream.Filter<Path>() {
+            DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
                 @Override
                 public boolean accept(Path entry) {
-                    return filter(entry.toFile(), entry.getFileName());
+                    return filter.accept(entry.toFile(), entry.getFileName());
                 }
             };
-            try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir), directoryFilter)) {
+            try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory), directoryFilter)) {
                 for(Path path : stream) {
                     cachedFiles.add(path.toFile());
                 }
             }catch(Exception err) {
                 Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
             }
-            filelist = cachedFiles.toArray();
+            filelist = (File[]) cachedFiles.toArray();
         }
 
         return filelist;
