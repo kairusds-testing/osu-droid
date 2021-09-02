@@ -500,7 +500,7 @@ public class MainActivity extends BaseGameActivity implements
                 }
                 Config.setDELETE_OSZ(deleteOsz);
 
-                LibraryManager.getInstance().sort();
+                // LibraryManager.getInstance().sort();
                 // LibraryManager.getInstance().savetoCache(
                 //        MainActivity.this);
             }

@@ -40,7 +40,7 @@ public class FileUtils {
                 return false;
             });
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return listFiles(directory, (directory, name) ->
+            return listFiles(directory, (dir, name) ->
                 Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
         }
     }
@@ -58,7 +58,7 @@ public class FileUtils {
                     return filter.accept(entry.toFile(), entry.getFileName());
                 }
             };
-            try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory), directoryFilter)) {
+            try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory.getAbsolutePath()), directoryFilter)) {
                 for(Path path : stream) {
                     cachedFiles.add(path.toFile());
                 }
