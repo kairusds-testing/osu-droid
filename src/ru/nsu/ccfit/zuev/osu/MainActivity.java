@@ -70,6 +70,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -100,7 +102,7 @@ public class MainActivity extends BaseGameActivity implements
     private String beatmapToAdd = null;
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;
@@ -321,6 +323,30 @@ public class MainActivity extends BaseGameActivity implements
 
     @Override
     public void onLoadComplete() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            GlobalManager.getInstance().init();
+            GlobalManager.getInstance().setLoadingProgress(50);
+            checkNewBeatmaps();
+            if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
+                LibraryManager.getInstance().scanLibrary(MainActivity.this);
+                System.gc();
+            }
+        });
+        LibraryManager.getInstance().savetoCache(MainActivity.this);
+        GlobalManager.getInstance().setInfo("");
+        GlobalManager.getInstance().setLoadingProgress(100);
+        ResourceManager.getInstance().loadFont("font", null, 28, Color.WHITE);
+        GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
+        GlobalManager.getInstance().getMainScene().loadBeatmap();
+        initPreferences();
+        availableInternalMemory();
+        initAccessibilityDetector();
+        if (willReplay) {
+            GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
+            willReplay = false;
+        }
+        /*
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 GlobalManager.getInstance().init();
@@ -348,7 +374,7 @@ public class MainActivity extends BaseGameActivity implements
                     willReplay = false;
                 }
             }
-        });
+        });*/
     }
     /*
     Accuracy isn't the best, but it's sufficient enough
@@ -836,27 +862,24 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-                List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+        handler.post(() -> {
+            AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+            List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
 
-                for(int i = 0; i < activeServices.size(); i++) {
-                     int capabilities = activeServices.get(i).getCapabilities();
-                    if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
-                            == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                        if(!autoclickerDialogShown && activityVisible) {
-                            new ConfirmDialogFragment()
-                                .setMessage(R.string.message_autoclicker_detected)
-                                .setOnDismissListener(fragment -> cheatedExit())
-                                .showForResult(isAccepted -> cheatedExit());
-                            autoclickerDialogShown = true;
-                        }
+            for(int i = 0; i < activeServices.size(); i++) {
+                 int capabilities = activeServices.get(i).getCapabilities();
+                if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
+                        == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
+                    if(!autoclickerDialogShown && activityVisible) {
+                        new ConfirmDialogFragment()
+                            .setMessage(R.string.message_autoclicker_detected)
+                            .setOnDismissListener(fragment -> cheatedExit())
+                            .showForResult(isAccepted -> cheatedExit());
+                        autoclickerDialogShown = true;
                     }
                 }
-                handler.postDelayed(this, 1000);
             }
+            handler.postDelayed(this, 1000);
         });
     }
 
