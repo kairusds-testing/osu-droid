@@ -13,8 +13,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.acra.ACRA;
-
 import org.apache.http.HttpException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -285,7 +283,6 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
         new Thread() {
             public void run() {
                 Looper.prepare();
-                ACRA.getErrorReporter().handleSilentException(ex);
                 Toast.makeText(context, StringTable.get(R.string.crash), Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }

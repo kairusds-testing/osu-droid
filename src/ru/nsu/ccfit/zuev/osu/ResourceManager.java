@@ -30,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ru.nsu.ccfit.zuev.audio.BassSoundProvider;
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 import ru.nsu.ccfit.zuev.osu.helper.QualityAssetBitmapSource;
 import ru.nsu.ccfit.zuev.osu.helper.QualityFileBitmapSource;
 import ru.nsu.ccfit.zuev.osu.helper.ScaledBitmapSource;
@@ -110,7 +111,7 @@ public class ResourceManager {
             if (!skinFolder.exists()) {
                 skinFolder = null;
             } else {
-                skinFiles = skinFolder.listFiles();
+                skinFiles = FileUtils.listFiles(skinFolder);
             }
         }
         if (skinFiles != null) {
@@ -554,15 +555,8 @@ public class ResourceManager {
     }
 
     public void loadHighQualityFileUnderFolder(File folder) {
-        File[] files = folder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.isDirectory()
-                        || pathname.getName().toLowerCase().endsWith(".png")
-                        || pathname.getName().toLowerCase().endsWith(".jpg")
-                        || pathname.getName().toLowerCase().endsWith(".bmp");
-            }
-        });
+        File[] files = FileUtils.listFiles(folder, new String[]{
+            ".png", ".jpg", ".bmp"});
         for (File file : files) {
             if (file.isDirectory()) {
                 loadHighQualityFileUnderFolder(file);

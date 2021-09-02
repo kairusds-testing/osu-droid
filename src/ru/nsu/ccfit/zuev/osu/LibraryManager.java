@@ -2,6 +2,7 @@ package ru.nsu.ccfit.zuev.osu;
 
 import android.app.Activity;
 
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 import org.anddev.andengine.util.Debug;
 
 import java.io.File;
@@ -138,7 +139,7 @@ public class LibraryManager {
 
     private void checkLibrary(final Activity activity) {
         final File dir = new File(Config.getBeatmapPath());
-        final File[] files = dir.listFiles();
+        final File[] files = FileUtils.listFiles(dir);
         if (files.length == fileCount) {
             return;
         }
@@ -163,7 +164,7 @@ public class LibraryManager {
             library.remove(i);
         }
         this.fileCount = files.length;
-        savetoCache(activity);
+        // savetoCache(activity);
     }
 
     synchronized public void scanLibrary(final Activity activity) {
@@ -174,8 +175,8 @@ public class LibraryManager {
 
         final File dir = new File(Config.getBeatmapPath());
         // Creating Osu directory if it doesn't exist
-        if (dir.exists() == false) {
-            if (dir.mkdirs() == false) {
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
                 ToastLogger.showText(StringTable.format(
                         R.string.message_error_createdir, dir.getPath()), true);
                 return;
@@ -190,7 +191,7 @@ public class LibraryManager {
         }
         // Getting all files
         int totalMaps = 0;
-        final File[] filelist = dir.listFiles().clone();
+        final File[] filelist = FileUtils.listFiles(dir);
         // Here we go!
         final int fileCount = filelist.length;
         this.fileCount = fileCount;
@@ -203,13 +204,13 @@ public class LibraryManager {
                 continue;
             }
             GlobalManager.getInstance().setInfo("Loading " + file.getName() + " ...");
-
+            
             totalMaps += loadFolder(file);
         }
 
-        sort();
+        // sort();
 
-        savetoCache(activity);
+        // savetoCache(activity);
 
         ToastLogger.showText(
                 StringTable.format(R.string.message_lib_complete, totalMaps),
@@ -238,27 +239,28 @@ public class LibraryManager {
         return info.getCount();
     }
 
+    // NOTE: IS THIS EVEN USED?????
     public void updateMapSet(File folder, BeatmapInfo beatmapInfo) {
         library.remove(beatmapInfo);
         loadFolder(folder);
         savetoCache(GlobalManager.getInstance().getMainActivity());
     }
 
-    public void sort() {
-        /*
+    /* public void sort() {
+        *
          * Collections.sort(library, new Comparator<BeatmapInfo>() {
          *
          *  public int compare(final BeatmapInfo object1, final
          * BeatmapInfo object2) { return object1.getTitle().compareToIgnoreCase(
          * object2.getTitle()); } });
-         */
-    }
+         *
+    }*/
 
     private void deleteDir(final File dir) {
         if (dir.exists() == false || dir.isDirectory() == false) {
             return;
         }
-        final File[] files = dir.listFiles((FileFilter) null);
+        final File[] files = FileUtils.listFiles(dir);
         if (files == null) {
             return;
         }
@@ -363,17 +365,11 @@ public class LibraryManager {
         library.add(info);
     }
 
-    private void scanFolder(final BeatmapInfo info) {
-
+    private void scanFolder(final BeatmapInfo info) {        
         final File dir = new File(info.getPath());
         info.setDate(dir.lastModified());
-        final File[] filelist = dir.listFiles(new FilenameFilter() {
+        File[] filelist = FileUtils.listFiles(dir, ".osu");
 
-
-            public boolean accept(final File dir, final String filename) {
-                return filename.matches(".+[.]osu");
-            }
-        });
         if (filelist == null) {
             return;
         }
@@ -387,7 +383,7 @@ public class LibraryManager {
             track.setFilename(file.getPath());
             track.setCreator("unknown");
 
-            if (parser.readMetaData(track, info) == false) {
+            if (!parser.readMetaData(track, info)) {
                 continue;
             }
             if (track.getBackground() != null) {
@@ -397,14 +393,12 @@ public class LibraryManager {
             info.addTrack(track);
         }
 
-        Collections.sort(info.getTracks(), new Comparator<TrackInfo>() {
-
-
+        /*Collections.sort(info.getTracks(), new Comparator<TrackInfo>() {
             public int compare(final TrackInfo object1, final TrackInfo object2) {
                 return Float.valueOf(object1.getDifficulty()).compareTo(
                         object2.getDifficulty());
             }
-        });
+        });*/
     }
 
     public ArrayList<BeatmapInfo> getLibrary() {

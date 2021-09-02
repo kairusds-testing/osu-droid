@@ -80,6 +80,7 @@ import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.async.SyncTaskManager;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 import ru.nsu.ccfit.zuev.osu.helper.InputManager;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.menu.FilterMenu;
@@ -332,6 +333,8 @@ public class MainActivity extends BaseGameActivity implements
             }
 
             public void onComplete() {
+                // Only write the library cache file once the game is loaded to speed up the beatmap import process
+                LibraryManager.getInstance().savetoCache(MainActivity.this);
                 GlobalManager.getInstance().setInfo("");
                 GlobalManager.getInstance().setLoadingProgress(100);
                 ResourceManager.getInstance().loadFont("font", null, 28, Color.WHITE);
@@ -443,17 +446,16 @@ public class MainActivity extends BaseGameActivity implements
                             StringTable.format(R.string.message_lib_imported, folderName),
                             true);
                 }
-                LibraryManager.getInstance().sort();
-                LibraryManager.getInstance().savetoCache(MainActivity.this);
+                // LibraryManager.getInstance().sort();
+                // LibraryManager.getInstance().savetoCache(MainActivity.this);
             } else if (file.getName().endsWith(".odr")) {
                 willReplay = true;
             }
         } else if (mainDir.exists() && mainDir.isDirectory()) {
-            File[] filelist = mainDir.listFiles();
+            File[] filelist = FileUtils.listFiles(mainDir, ".osz");
             final ArrayList<String> beatmaps = new ArrayList<String>();
             for (final File file : filelist) {
-                if (isBeatmapValid(file)
-                        && file.getName().endsWith(".osz")) {
+                if (isBeatmapValid(file)) {
                     beatmaps.add(file.getPath());
                 }
             }
@@ -461,10 +463,9 @@ public class MainActivity extends BaseGameActivity implements
             File beatmapDir = new File(Config.getBeatmapPath());
             if (beatmapDir.exists()
                     && beatmapDir.isDirectory()) {
-                filelist = beatmapDir.listFiles();
+                filelist = FileUtils.listFiles(beatmapDir, ".osz");
                 for (final File file : filelist) {
-                    if (isBeatmapValid(file)
-                            && file.getName().endsWith(".osz")) {
+                    if (isBeatmapValid(file)) {
                         beatmaps.add(file.getPath());
                     }
                 }
@@ -474,10 +475,9 @@ public class MainActivity extends BaseGameActivity implements
             if (Config.isSCAN_DOWNLOAD()
                     && downloadDir.exists()
                     && downloadDir.isDirectory()) {
-                filelist = downloadDir.listFiles();
+                filelist = FileUtils.listFiles(downloadDir, ".osz");
                 for (final File file : filelist) {
-                    if (isBeatmapValid(file)
-                            && file.getName().endsWith(".osz")) {
+                    if (isBeatmapValid(file)) {
                         beatmaps.add(file.getPath());
                     }
                 }
@@ -501,8 +501,8 @@ public class MainActivity extends BaseGameActivity implements
                 Config.setDELETE_OSZ(deleteOsz);
 
                 LibraryManager.getInstance().sort();
-                LibraryManager.getInstance().savetoCache(
-                        MainActivity.this);
+                // LibraryManager.getInstance().savetoCache(
+                //        MainActivity.this);
             }
         }
     }

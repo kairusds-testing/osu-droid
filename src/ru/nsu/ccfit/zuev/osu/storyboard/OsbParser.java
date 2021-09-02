@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
+
 /**
  * Created by dgsrz on 16/9/16.
  */
@@ -51,12 +53,7 @@ public class OsbParser {
     public void parse(String path) throws IOException {
         File osuFile = new File(path);
         loadBeatmap(osuFile);
-        File[] files = osuFile.getParentFile().listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.isFile() && pathname.getName().toLowerCase().endsWith(".osb");
-            }
-        });
+        File[] files = FileUtils.listFiles(osuFile.getParentFile(), ".osb");
         if (files.length > 0) {
             InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(files[0]));
             BufferedReader buff = new BufferedReader(new InputStreamReader(bufferedInputStream, "UTF-8"));
