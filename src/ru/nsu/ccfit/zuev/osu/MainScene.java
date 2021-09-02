@@ -594,10 +594,10 @@ public class MainScene implements IUpdateHandler {
         int randNum = new Random().nextInt((1 - 0) + 1) + 0;
         switch (randNum){
             case 0:
-                ResourceManager.getInstance().loadSound("welcome", "sfx/welcome.wav", false).play();
+                ResourceManager.getInstance().loadSound("welcome", "welcome.wav", true).play();
                 break;
             case 1:
-                ResourceManager.getInstance().loadSound("welcome", "sfx/welcome_piano.wav", false).play();
+                ResourceManager.getInstance().loadSound("welcome", "welcome_piano.wav", true).play();
                 break;
         }
 

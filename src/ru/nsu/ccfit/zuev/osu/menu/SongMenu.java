@@ -1145,7 +1145,6 @@ public class SongMenu implements IUpdateHandler, MenuItemListener,
         engine.setScene(scoreScene.getScene());
     }
 
-
     public void onScroll(final float where) {
         velocityY = 0;
         camY = where - Config.getRES_HEIGHT() / 2f;
