@@ -205,14 +205,12 @@ public class LibraryManager {
                 continue;
             }
             GlobalManager.getInstance().setInfo("Loading " + file.getName() + " ...");
-            
             totalMaps += loadFolder(file);
         }
 
         // sort();
 
-        // savetoCache(activity);
-
+        savetoCache(activity);
         ToastLogger.showText(
                 StringTable.format(R.string.message_lib_complete, totalMaps),
                 true);

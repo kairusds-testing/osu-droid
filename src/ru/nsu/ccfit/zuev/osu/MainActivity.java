@@ -328,19 +328,18 @@ public class MainActivity extends BaseGameActivity implements
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
-                    Executors.newSingleThreadExecutor().execute(() -> {
+                    Executors.newCachedThreadPool().execute(() -> {
                         handler.post(() -> {
                             GlobalManager.getInstance().getEngine().setScene(new SplashScene().getScene());
                             LibraryManager.getInstance().scanLibrary(MainActivity.this);
                         });
                         System.gc();
+                        GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
                     });
                 }
             }
 
-            public void onComplete() {
-                // Only write the library cache file once the game is loaded to speed up the beatmap import process
-                LibraryManager.getInstance().savetoCache(MainActivity.this);
+            public void onComplete() {  
                 GlobalManager.getInstance().setInfo("");
                 GlobalManager.getInstance().setLoadingProgress(100);
                 ResourceManager.getInstance().loadFont("font", null, 28, Color.WHITE);
@@ -453,7 +452,7 @@ public class MainActivity extends BaseGameActivity implements
                             true);
                 }
                 // LibraryManager.getInstance().sort();
-                // LibraryManager.getInstance().savetoCache(MainActivity.this);
+                LibraryManager.getInstance().savetoCache(MainActivity.this);
             } else if (file.getName().endsWith(".odr")) {
                 willReplay = true;
             }
@@ -507,7 +506,7 @@ public class MainActivity extends BaseGameActivity implements
                 Config.setDELETE_OSZ(deleteOsz);
 
                 // LibraryManager.getInstance().sort();
-                // LibraryManager.getInstance().savetoCache(
+                LibraryManager.getInstance().savetoCache(
                 //        MainActivity.this);
             }
         }
