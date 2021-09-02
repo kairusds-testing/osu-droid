@@ -43,6 +43,7 @@ public class FileUtils {
             return listFiles(directory, (dir, name) ->
                 Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
         }
+        return null; // dunno why java lint is so shit to require this
     }
 
     // code is a bit messy
