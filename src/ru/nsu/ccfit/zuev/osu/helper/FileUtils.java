@@ -55,7 +55,7 @@ public class FileUtils {
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
                 @Override
                 public boolean accept(Path entry) {
-                    return filter.accept(entry.toFile(), entry.getFileName());
+                    return filter.accept(entry.toFile(), entry.toFile().getName());
                 }
             };
             try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory.getAbsolutePath()), directoryFilter)) {
