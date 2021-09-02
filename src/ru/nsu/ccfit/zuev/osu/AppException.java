@@ -280,14 +280,14 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 
         final String crashReport = getCrashReport(context, ex);
         // 显示异常信息&发送报告
-        new Thread() {
+        /*new Thread() {
             public void run() {
                 Looper.prepare();
                 Toast.makeText(context, StringTable.get(R.string.crash), Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
 
-        }.start();
+        }.start();*/
 
         saveErrorLog(crashReport);
 
