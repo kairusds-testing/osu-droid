@@ -15,6 +15,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.Arrays;
 
+import org.acra.ACRA;
+
 import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.LibraryManager;
@@ -114,8 +116,8 @@ public class SettingsMenu extends PreferenceActivity {
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
             // Beta.checkUpgrade();
-            throw new NullPointerException();
-            // return true;
+            ACRA.getErrorReporter().handleSilentException(new NullPointerException());
+            return true;
         });
     }
 

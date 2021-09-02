@@ -185,6 +185,4 @@
 	<string name="message_save_replay_failed">Save replay failed</string>
 
     <string name="message_autoclicker_detected">Please disable your auto-clicker before playing the game.</string>
-
-    <string name="message_error_sent">Sorry, the game has encountered an error. A report will be sent to the developers.</string>
 </resources>
