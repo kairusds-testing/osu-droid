@@ -49,7 +49,7 @@ public class FileUtils {
     public static File[] listFiles(File directory, FileFilter filter) {
         File[] filelist = null;
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            filelist = dir.listFiles((dir, name) -> filter.accept(dir, name));
+            filelist = directory.listFiles((dir, name) -> filter.accept(dir, name));
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
