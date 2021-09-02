@@ -70,6 +70,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
+import java.util.concurrent.Executors;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -100,7 +101,7 @@ public class MainActivity extends BaseGameActivity implements
     private String beatmapToAdd = null;
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;
@@ -327,7 +328,9 @@ public class MainActivity extends BaseGameActivity implements
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
-                    LibraryManager.getInstance().scanLibrary(MainActivity.this);
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        handler.post(() -> LibraryManager.getInstance().scanLibrary(MainActivity.this));
+                    });
                     System.gc();
                 }
             }
