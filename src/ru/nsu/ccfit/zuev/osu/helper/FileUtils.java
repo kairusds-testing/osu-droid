@@ -49,9 +49,9 @@ public class FileUtils {
     // code is a bit messy
     public static File[] listFiles(File directory, FileFilter filter) {
         File[] filelist = null;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             filelist = directory.listFiles((dir, name) -> filter.accept(dir, name));
-        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        /*}else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
                 @Override
@@ -67,7 +67,7 @@ public class FileUtils {
                 Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
             }
             filelist = cachedFiles.toArray(new File[cachedFiles.size()]);
-        }
+        }*/
 
         return filelist;
     }

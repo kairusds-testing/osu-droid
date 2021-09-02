@@ -20,8 +20,8 @@ import java.util.UUID;
 public class Config {
     private static boolean DELETE_OSZ = false;
     private static boolean SCAN_DOWNLOAD = false;
-    private static int RES_WIDTH = 1920;
-    private static int RES_HEIGHT = 1080;
+    private static int RES_WIDTH = 1280;
+    private static int RES_HEIGHT = 720;
     private static String corePath = Environment.getExternalStorageDirectory() + "/osu!droid/";
     private static String beatmapPath = corePath + "Songs/";
     private static String cachePath = corePath;

@@ -382,7 +382,6 @@ public class LibraryManager {
             final TrackInfo track = new TrackInfo(info);
             track.setFilename(file.getPath());
             track.setCreator("unknown");
-
             if (!parser.readMetaData(track, info)) {
                 continue;
             }
