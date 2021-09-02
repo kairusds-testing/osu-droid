@@ -15,10 +15,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.HashSet;
+// import java.util.Set;
 
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
@@ -147,16 +148,16 @@ public class LibraryManager {
                 .showText(StringTable.get(R.string.message_lib_update), true);
         final int fileCount = files.length;
         int fileCached = 0;
-        final Set<String> cachedFiles = new HashSet<String>();
+        LinkedList<String> cachedFiles = new LinkedList<String>();
         for (final File f : files) {
             GlobalManager.getInstance().setLoadingProgress(50 + 50 * fileCached / fileCount);
             ToastLogger.setPercentage(fileCached * 100f / fileCount);
             fileCached++;
             addBeatmap(f, cachedFiles);
         }
-        final ArrayList<BeatmapInfo> uncached = new ArrayList<BeatmapInfo>();
+        final LinkedList<BeatmapInfo> uncached = new LinkedList<BeatmapInfo>();
         for (final BeatmapInfo i : library) {
-            if (cachedFiles.contains(i.getPath()) == false) {
+            if (!cachedFiles.contains(i.getPath())) {
                 uncached.add(i);
             }
         }
@@ -324,7 +325,7 @@ public class LibraryManager {
         currentIndex = 0;
     }
 
-    public void addBeatmap(final File file, final Set<String> cachedFiles) {
+    public void addBeatmap(final File file, LinkedList<String> cachedFiles) {
         if (file.isDirectory() == false) {
             return;
         }
