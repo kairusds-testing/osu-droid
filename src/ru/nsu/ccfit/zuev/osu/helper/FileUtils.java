@@ -58,7 +58,7 @@ public class FileUtils {
                 public boolean accept(Path entry) {
                     return filter(entry.toFile(), entry.getFileName());
                 }
-            }
+            };
             try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir), directoryFilter)) {
                 for(Path path : stream) {
                     cachedFiles.add(path.toFile());
