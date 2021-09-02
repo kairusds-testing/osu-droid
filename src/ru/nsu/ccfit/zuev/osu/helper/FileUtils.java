@@ -52,7 +52,7 @@ public class FileUtils {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             filelist = dir.listFiles((dir, name) -> filter(dir, name));
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LinkedList<File> = cachedFiles = new LinkedList<File>();
+            LinkedList<File> cachedFiles = new LinkedList<File>();
             DirectoryStream.Filter<Path> dirctoryFilter = new DirectoryStream.Filter<Path>() {
                 @Override
                 public boolean accept(Path entry) {
