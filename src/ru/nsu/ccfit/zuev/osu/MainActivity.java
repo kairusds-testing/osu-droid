@@ -70,7 +70,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
-import java.util.concurrent.Executors;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -328,12 +327,7 @@ public class MainActivity extends BaseGameActivity implements
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
-                    Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()).execute(() -> {
-                        handler.post(() -> {
-                            GlobalManager.getInstance().getEngine().setScene(new SplashScene().getScene());
-                            LibraryManager.getInstance().scanLibrary(MainActivity.this);
-                        });
-                    });
+                    LibraryManager.getInstance().scanLibrary(MainActivity.this);
                 }
             }
 

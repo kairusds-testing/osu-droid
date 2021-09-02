@@ -29,6 +29,7 @@ public class LibraryManager {
     private static final String VERSION = "library3.4";
     private static LibraryManager mgr = new LibraryManager();
     private ArrayList<BeatmapInfo> library;
+    private LinkedList<BeatmapInfo> scannedLibrary;
     private Integer fileCount = 0;
     private int currentIndex = 0;
 
@@ -209,7 +210,7 @@ public class LibraryManager {
         }
 
         // sort();
-
+        library = new ArrayList<BeatmapInfo>(acannedLibrary);
         savetoCache(activity);
         GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
         System.gc();
@@ -236,7 +237,7 @@ public class LibraryManager {
         if (info.getCreator().equals("")) {
             info.setCreator("unknown");
         }
-        library.add(info);
+        scannedLibrary.add(info);
         return info.getCount();
     }
 
@@ -393,12 +394,11 @@ public class LibraryManager {
             info.addTrack(track);
         }
 
-        /*Collections.sort(info.getTracks(), new Comparator<TrackInfo>() {
+        Collections.sort(info.getTracks(), new Comparator<TrackInfo>() {
             public int compare(final TrackInfo object1, final TrackInfo object2) {
-                return Float.valueOf(object1.getDifficulty()).compareTo(
-                        object2.getDifficulty());
+                return Float.valueOf(object1.getDifficulty()).compareTo(object2.getDifficulty());
             }
-        });*/
+        });
     }
 
     public ArrayList<BeatmapInfo> getLibrary() {
