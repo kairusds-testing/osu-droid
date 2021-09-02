@@ -331,7 +331,8 @@ public class MainActivity extends BaseGameActivity implements
                     Executors.newSingleThreadExecutor().execute(() -> {
                         handler.post(() -> {
                             GlobalManager.getInstance().getEngine().setScene(new SplashScene().getScene());
-                            LibraryManager.getInstance().scanLibrary(MainActivity.this));
+                            LibraryManager.getInstance().scanLibrary(MainActivity.this);
+                        });
                         System.gc();
                     });
                 }
