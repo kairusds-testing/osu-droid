@@ -862,24 +862,27 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        handler.post(() -> {
-            AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-            List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
-
-            for(int i = 0; i < activeServices.size(); i++) {
-                 int capabilities = activeServices.get(i).getCapabilities();
-                if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
-                        == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
-                    if(!autoclickerDialogShown && activityVisible) {
-                        new ConfirmDialogFragment()
-                            .setMessage(R.string.message_autoclicker_detected)
-                            .setOnDismissListener(fragment -> cheatedExit())
-                            .showForResult(isAccepted -> cheatedExit());
-                        autoclickerDialogShown = true;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+                List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+    
+                for(int i = 0; i < activeServices.size(); i++) {
+                     int capabilities = activeServices.get(i).getCapabilities();
+                    if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
+                            == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
+                        if(!autoclickerDialogShown && activityVisible) {
+                            new ConfirmDialogFragment()
+                                .setMessage(R.string.message_autoclicker_detected)
+                                .setOnDismissListener(fragment -> cheatedExit())
+                                .showForResult(isAccepted -> cheatedExit());
+                            autoclickerDialogShown = true;
+                        }
                     }
                 }
+                handler.postDelayed(this, 1000);
             }
-            handler.postDelayed(this, 1000);
         });
     }
 
