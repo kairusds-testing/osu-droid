@@ -210,7 +210,7 @@ public class LibraryManager {
         }
 
         // sort();
-        library = new ArrayList<BeatmapInfo>(acannedLibrary);
+        library = new ArrayList<BeatmapInfo>(scannedLibrary);
         savetoCache(activity);
         GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
         System.gc();
