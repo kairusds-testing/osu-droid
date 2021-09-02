@@ -328,13 +328,11 @@ public class MainActivity extends BaseGameActivity implements
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
-                    Executors.newCachedThreadPool().execute(() -> {
+                    Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()).execute(() -> {
                         handler.post(() -> {
                             GlobalManager.getInstance().getEngine().setScene(new SplashScene().getScene());
                             LibraryManager.getInstance().scanLibrary(MainActivity.this);
                         });
-                        System.gc();
-                        GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
                     });
                 }
             }

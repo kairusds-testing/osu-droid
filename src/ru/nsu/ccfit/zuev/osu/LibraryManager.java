@@ -211,6 +211,8 @@ public class LibraryManager {
         // sort();
 
         savetoCache(activity);
+        GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
+        System.gc();
         ToastLogger.showText(
                 StringTable.format(R.string.message_lib_complete, totalMaps),
                 true);
