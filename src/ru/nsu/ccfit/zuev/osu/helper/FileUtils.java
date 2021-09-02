@@ -66,7 +66,7 @@ public class FileUtils {
             }catch(Exception err) {
                 Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
             }
-            filelist = (File[]) cachedFiles.toArray();
+            filelist = cachedFiles.toArray(new File[cachedFiles.size()]);
         }
 
         return filelist;
