@@ -44,7 +44,7 @@ public class LibraryManager {
     }
     
     @SuppressWarnings("unchecked")
-    synchronized public boolean loadLibraryCache(final Activity activity, boolean forceUpdate) {
+    public boolean loadLibraryCache(final Activity activity, boolean forceUpdate) {
         library = new ArrayList<BeatmapInfo>();
         ToastLogger.addToLog("Loading library...");
         if (OSZParser.canUseSD() == false) {
@@ -168,7 +168,7 @@ public class LibraryManager {
         // savetoCache(activity);
     }
 
-    synchronized public void scanLibrary(final Activity activity) {
+    public void scanLibrary(final Activity activity) {
         //ToastLogger.showText(StringTable.get(R.string.message_lib_caching),
         //		false);
         ToastLogger.addToLog("Caching library...");
@@ -218,7 +218,7 @@ public class LibraryManager {
                 true);
     }
 
-    synchronized public int loadFolder(File folder) {
+    public int loadFolder(File folder) {
         final BeatmapInfo info = new BeatmapInfo();
         info.setPath(folder.getPath());
         scanFolder(info);
