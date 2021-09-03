@@ -188,7 +188,7 @@
     <string name="opt_password_summary">Password of your account</string>
 
     <string name="opt_register_title">Register</string>
-    <string name="opt_register_summary">Register a new account (You are allowed to create only one account per device)</string>
+    <string name="opt_register_summary">Register a new account (You are allowed to create only one account)</string>
 
     <string name="opt_loadavatar_title">Load Avatar</string>
     <string name="opt_loadavatar_summary">Load without WiFi connection.</string>
