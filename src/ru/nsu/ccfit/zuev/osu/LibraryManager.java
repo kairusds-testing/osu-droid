@@ -220,6 +220,10 @@ public class LibraryManager {
     }
 
     public int loadFolder(File folder) {
+        if(scannedLibrary == null) {
+            scannedLibrary = new LinkedList<BeatmapInfo>();
+        }
+
         final BeatmapInfo info = new BeatmapInfo();
         info.setPath(folder.getPath());
         scanFolder(info);
