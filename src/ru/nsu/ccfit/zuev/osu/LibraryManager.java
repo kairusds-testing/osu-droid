@@ -263,7 +263,7 @@ public class LibraryManager {
     // NOTE: IS THIS EVEN USED?????
     public void updateMapSet(File folder, BeatmapInfo beatmapInfo) {
         library.remove(beatmapInfo);
-        loadFolder(folder);
+        // loadFolder(folder);
         savetoCache(GlobalManager.getInstance().getMainActivity());
     }
 
