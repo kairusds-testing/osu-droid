@@ -195,7 +195,7 @@ dependencies {
     implementation 'com.github.matomo-org:matomo-sdk-android:4.1.4'
     implementation "ch.acra:acra-http:$acraVersion"
 
-    implementation 'com.github.EdrowsLuo:osudroidstrings:13eadc59ff'
+    implementation 'com.github.EdrowsLuo:osudroidstrings:-bd9507b289-1'
     implementation 'com.github.EdrowsLuo.EdlGameFramework:EdlJavaExt:d91c53fcff'
     implementation 'com.github.EdrowsLuo.EdlGameFramework:EdlOsbSupport:d91c53fcff'
     implementation project(path: ':LibBASS')
