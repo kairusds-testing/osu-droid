@@ -29,7 +29,6 @@ public class LibraryManager {
     private static final String VERSION = "library3.4";
     private static LibraryManager mgr = new LibraryManager();
     private ArrayList<BeatmapInfo> library;
-    private LinkedList<BeatmapInfo> scannedLibrary;
     private Integer fileCount = 0;
     private int currentIndex = 0;
 
@@ -202,15 +201,34 @@ public class LibraryManager {
             GlobalManager.getInstance().setLoadingProgress(50 + 50 * fileCached / fileCount);
             ToastLogger.setPercentage(fileCached * 100f / fileCount);
             fileCached++;
-            if (file.isDirectory() == false) {
+            if (!file.isDirectory()) {
                 continue;
             }
-            GlobalManager.getInstance().setInfo("Loading " + file.getName() + " ...");
-            totalMaps += loadFolder(file);
+
+            GlobalManager.getInstance().setInfo("Loading " + file.getName() + "...");
+            final BeatmapInfo info = new BeatmapInfo();
+            info.setPath(file.getPath());
+            scanFolder(info);
+            if (info.getCount() < 1) {
+                continue;
+            }
+            info.setCreator(info.getTrack(0).getCreator());
+            if (info.getTitle().equals("")) {
+                info.setTitle("unknown");
+            }
+            if (info.getArtist().equals("")) {
+                info.setArtist("unknown");
+            }
+            if (info.getCreator().equals("")) {
+                info.setCreator("unknown");
+            }
+            library.add(info);
+            totalMaps += info.getCount();
+            // totalMaps += loadFolder(file);
         }
 
         // sort();
-        library = new ArrayList<BeatmapInfo>(scannedLibrary);
+
         savetoCache(activity);
         GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
         System.gc();
@@ -219,11 +237,8 @@ public class LibraryManager {
                 true);
     }
 
+    /* 
     public int loadFolder(File folder) {
-        if(scannedLibrary == null) {
-            scannedLibrary = new LinkedList<BeatmapInfo>();
-        }
-
         final BeatmapInfo info = new BeatmapInfo();
         info.setPath(folder.getPath());
         scanFolder(info);
@@ -241,9 +256,9 @@ public class LibraryManager {
         if (info.getCreator().equals("")) {
             info.setCreator("unknown");
         }
-        scannedLibrary.add(info);
+        library.add(info);
         return info.getCount();
-    }
+    }*/ 
 
     // NOTE: IS THIS EVEN USED?????
     public void updateMapSet(File folder, BeatmapInfo beatmapInfo) {
