@@ -36,7 +36,7 @@ import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 public class OnlineManager {
     private static final String host = "http://ops.dgsrz.com/api/";
     private static final String onlineVersion = "29";
-    public static HttpGet get;
+    // public static HttpGet get;
     private static OnlineManager instance = null;
     private Context context;
     private String failMessage = "";
@@ -316,11 +316,11 @@ public class OnlineManager {
             OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath());
         }
 
-        if(picfile.length < 1) {
+        if(picfile.length() < 1) {
             picfile.delete();
             OnlineFileOperator.downloadFile(filename, picfile.getAbsolutePath());
         }
-        int imageWidth, imageHeight;
+        int imageWidth = 0, imageHeight = 0;
         boolean fileAvailable = true;
 
         try {
@@ -333,7 +333,7 @@ public class OnlineManager {
         } catch (NullPointerException e) {
             fileAvailable = false;
         }
-        if (fileAvailable && (h * w) > 0) {
+        if (fileAvailable && (imageWidth * imageHeight) > 0) {
             //头像已经缓存好在本地
             ResourceManager.getInstance().loadHighQualityFile(userName, picfile);
             if (ResourceManager.getInstance().getTextureIfLoaded(userName) != null) {

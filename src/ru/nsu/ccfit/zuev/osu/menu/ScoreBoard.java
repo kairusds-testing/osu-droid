@@ -582,9 +582,9 @@ public class ScoreBoard implements ScrollDetector.IScrollDetectorListener {
                 if (avatarTask.getStatus() != AsyncTask.Status.FINISHED) {
                     isCanceled = true;
                     avatarTask.cancel(true);
-                    if (OnlineManager.get != null) {
+                    /* if (OnlineManager.get != null) {
                         OnlineManager.get.abort();
-                    }
+                    } */
                 }
             }
         }
