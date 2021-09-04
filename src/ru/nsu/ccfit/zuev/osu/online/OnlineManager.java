@@ -72,15 +72,11 @@ public class OnlineManager {
     }
 
     public void Init(Context context) {
-        try {
-            Provider provider = Conscrypt
-                .newProviderBuilder()
-                .defaultTlsProtocol("TLSv1.2")
-                .build();
-            Security.insertProviderAt(provider, 1);
-        }catch(Exception ex) {
-            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
-        }
+        Provider provider = Conscrypt
+            .newProviderBuilder()
+            .defaultTlsProtocol("TLSv1.2")
+            .build();
+        Security.insertProviderAt(provider, 1);
         this.stayOnline = Config.isStayOnline();
         this.username = Config.getOnlineUsername();
         this.password = Config.getOnlinePassword();

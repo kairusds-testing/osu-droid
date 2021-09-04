@@ -90,7 +90,7 @@ public class PostBuilder {
         try {
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+            SSLContext sslContext = SSLContext.getDefault();
             sslContext.init(null, null, new SecureRandom());
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
             connection.setRequestMethod("POST");
