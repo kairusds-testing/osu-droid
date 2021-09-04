@@ -26,7 +26,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-// import java.security.Security;
+import java.security.Provider;
+import java.security.Security;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
@@ -75,8 +76,9 @@ public class OnlineManager {
 
     public void Init(Context context) {
         try {
-            // Security.insertProviderAt(Conscrypt.newProvider(), 1);
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
+            Provider provider = Conscrypt.newProvider();
+            Security.insertProviderAt(provider, 1);
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", provider);
             sslContext.init(null, null, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
         }catch(Exception ex) {
