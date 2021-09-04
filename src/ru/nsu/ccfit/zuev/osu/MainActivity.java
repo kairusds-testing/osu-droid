@@ -69,6 +69,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.security.Security;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -524,8 +525,13 @@ public class MainActivity extends BaseGameActivity implements
             return;
         }
 
-        SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+        try {
+            Security.insertProviderAt(Conscrypt.newProvider(), 0);
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+        }catch(NoSuchAlgorithmException ex) {
+            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
+        }
 
         if (BuildConfig.DEBUG) {
             //Toast.makeText(this,"this is debug version",Toast.LENGTH_LONG).show();
