@@ -53,8 +53,6 @@ import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
-import org.conscrypt.Conscrypt;
-
 import org.matomo.sdk.Matomo;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
@@ -68,13 +66,10 @@ import org.acra.data.StringFormat;
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
-import java.security.Security;
-import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -120,14 +115,6 @@ public class MainActivity extends BaseGameActivity implements
         initAnalytics();
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
-        try {
-            Security.insertProviderAt(Conscrypt.newProvider(), 0);
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
-            sslContext.init(null, null, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-        }catch(Exception ex) {
-            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
-        }
         StringTable.setContext(this);
         ToastLogger.init(this);
         SyncTaskManager.getInstance().init(this);
@@ -343,6 +330,7 @@ public class MainActivity extends BaseGameActivity implements
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
                     LibraryManager.getInstance().scanLibrary(MainActivity.this);
+                    System.gc();
                 }
             }
 

@@ -8,6 +8,8 @@ import com.dgsrz.bancho.security.SecurityUtils;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
+
+import org.conscrypt.Conscrypt;
 /*
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -24,7 +26,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+// import java.security.Security;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -68,6 +74,14 @@ public class OnlineManager {
     }
 
     public void Init(Context context) {
+        try {
+            // Security.insertProviderAt(Conscrypt.newProvider(), 1);
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
+            sslContext.init(null, null, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+        }catch(Exception ex) {
+            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
+        }
         this.stayOnline = Config.isStayOnline();
         this.username = Config.getOnlineUsername();
         this.password = Config.getOnlinePassword();
