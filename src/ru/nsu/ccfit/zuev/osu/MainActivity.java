@@ -69,7 +69,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.security.Security;
-import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +120,14 @@ public class MainActivity extends BaseGameActivity implements
         initAnalytics();
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
+        try {
+            Security.insertProviderAt(Conscrypt.newProvider(), 0);
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
+            sslContext.init(null, null, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+        }catch(Exception ex) {
+            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
+        }
         StringTable.setContext(this);
         ToastLogger.init(this);
         SyncTaskManager.getInstance().init(this);
@@ -523,14 +531,6 @@ public class MainActivity extends BaseGameActivity implements
         super.onCreate(pSavedInstanceState);
         if (this.mEngine == null) {
             return;
-        }
-
-        try {
-            Security.insertProviderAt(Conscrypt.newProvider(), 0);
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-        }catch(NoSuchAlgorithmException ex) {
-            Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
         }
 
         if (BuildConfig.DEBUG) {
