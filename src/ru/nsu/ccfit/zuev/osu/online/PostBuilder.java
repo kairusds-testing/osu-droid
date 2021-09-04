@@ -16,8 +16,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
@@ -88,6 +90,9 @@ public class PostBuilder {
         try {
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, new SecureRandom());
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);

@@ -28,10 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Provider;
 import java.security.Security;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -76,11 +73,11 @@ public class OnlineManager {
 
     public void Init(Context context) {
         try {
-            Provider provider = Conscrypt.newProvider();
+            Provider provider = Conscrypt
+                .newProviderBuilder()
+                .defaultTlsProtocol("TLSv1.2")
+                .build();
             Security.insertProviderAt(provider, 1);
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", provider);
-            sslContext.init(null, null, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
         }catch(Exception ex) {
             Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
         }
