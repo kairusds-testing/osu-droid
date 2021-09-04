@@ -121,6 +121,8 @@ public class PostBuilder {
             throw new RequestException(e);
         } catch (IOException e) {
             throw new RequestException(e);
+        } catch (Exception e) {
+            throw new Exception(e);
         }
 
         if (response.isEmpty()) {

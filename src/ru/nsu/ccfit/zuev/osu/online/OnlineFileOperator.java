@@ -135,6 +135,9 @@ public class OnlineFileOperator {
         } catch (final IOException e) {
             Debug.e("IOException " + e.getMessage(), e);
             return false;
+        } catch (final Exception e) {
+            Debug.e("Exception " + e.getMessage(), e);
+            return false;
         }
     }
 }
