@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 import java.security.SecureRandom;
 
 public class OnlineFileOperator {
@@ -34,7 +35,7 @@ public class OnlineFileOperator {
             conn = (HttpsURLConnection) url.openConnection();
             SSLContext sslContext = SSLContext.getInstance("TLSv1.2", OnlineManager.provider);
             sslContext.init(null, null, new SecureRandom());
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            conn.setSSLSocketFactory(sslContext.getSocketFactory());
             conn.setDoOutput(true);
 
             String message1 = "";

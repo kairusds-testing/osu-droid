@@ -18,6 +18,7 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
