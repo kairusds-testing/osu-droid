@@ -14,13 +14,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import javax.net.ssl.HttpsURLConnection;
 
 public class OnlineFileOperator {
     private static final String CrLf = "\r\n";
 
     public static void sendFile(String urlstr, String filename) {
-        URLConnection conn = null;
+        HttpsURLConnection conn = null;
         OutputStream os = null;
 
         try {
@@ -30,7 +30,7 @@ public class OnlineFileOperator {
             long fileLength = file.length();
 
             URL url = new URL(urlstr);
-            conn = url.openConnection();
+            conn = (HttpsURLConnection) url.openConnection();
             conn.setDoOutput(true);
 
             String message1 = "";
@@ -47,18 +47,13 @@ public class OnlineFileOperator {
 
             conn.setRequestProperty("Content-Type",
                     "multipart/form-data; boundary=---------------------------4664151417711");
-
-
             conn.setRequestProperty("Content-Length", String.valueOf((message1
                     .length() + message2.length() + fileLength)));
-
             os = conn.getOutputStream();
-
             os.write(message1.getBytes());
 
-
             InputStream in = new FileInputStream(file);
-            byte[] buffer = new byte[4096];
+            byte[] buffer = new byte[(int) fileLength];
             int byteCount = 0;
             while ((byteCount = in.read(buffer)) > 0) {
                 os.write(buffer, 0, byteCount);
@@ -84,13 +79,13 @@ public class OnlineFileOperator {
     public static boolean downloadFile(String urlstr, String filename) {
         Debug.i("Starting download " + urlstr);
         URL url;
-        URLConnection connection;
+        HttpsURLConnection connection;
         BufferedInputStream in;
         File file = new File(filename);
         try {
-
             url = new URL(urlstr);
-            connection = url.openConnection();
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36");
 
             // Cheching for errors
             Debug.i("Connected to " + connection.getURL());
@@ -113,7 +108,7 @@ public class OnlineFileOperator {
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
 
             Debug.i("Downloading file...");
-            final byte[] buffer = new byte[8192];
+            final byte[] buffer = new byte[connection.getContentLength()];
             int len;
             while ((len = in.read(buffer)) >= 0) {
                 out.write(buffer, 0, len);

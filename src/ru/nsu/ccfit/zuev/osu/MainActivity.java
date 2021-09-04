@@ -73,6 +73,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -518,11 +520,13 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
-        // TLS 1.2 support for Android < 5
-        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         if (this.mEngine == null) {
             return;
         }
+
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2", Conscrypt.newProvider());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+
         if (BuildConfig.DEBUG) {
             //Toast.makeText(this,"this is debug version",Toast.LENGTH_LONG).show();
             try {

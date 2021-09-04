@@ -14,10 +14,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import javax.net.ssl.HttpsURLConnection;
 
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
@@ -87,8 +87,8 @@ public class PostBuilder {
 
         try {
             URL url = new URL(scriptUrl);
-            URLConnection connection = url.openConnection();
-            ((HttpURLConnection) connection).setRequestMethod("POST");
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);
 

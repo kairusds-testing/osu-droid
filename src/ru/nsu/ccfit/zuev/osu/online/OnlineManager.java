@@ -8,6 +8,7 @@ import com.dgsrz.bancho.security.SecurityUtils;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
+/*
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -17,6 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+*/
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -310,80 +312,33 @@ public class OnlineManager {
         Debug.i("Loading avatar from " + avatarURL);
         Debug.i("filename = " + filename);
         final File picfile = new File(Config.getCachePath(), filename);
-        if (picfile.exists() && picfile.length() != 0) {
-
-            //检测缓存头像的有效性
-            boolean fileAvabile = true;
-            BitmapFactory.Options options;
-            int h = 0, w = 0;
-            try {
-                options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                h = BitmapFactory.decodeFile(picfile.getPath()).getHeight();
-                w = BitmapFactory.decodeFile(picfile.getPath()).getWidth();
-                options.inJustDecodeBounds = false;
-                options = null;
-            } catch (NullPointerException e) {
-                fileAvabile = false;
-            }
-            if (fileAvabile && (h * w) > 0) {
-                //头像已经缓存好在本地
-                ResourceManager.getInstance().loadHighQualityFile(userName, picfile);
-                if (ResourceManager.getInstance().getTextureIfLoaded(userName) != null) {
-                    return true;
-                }
-            }
+        if(!picfile.exists()) {
+            OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath());
         }
+
+        if(picfile.length < 1) {
+            picfile.delete();
+            OnlineFileOperator.downloadFile(filename, picfile.getAbsolutePath());
+        }
+        int imageWidth, imageHeight;
+        boolean fileAvailable = true;
+
         try {
-            if (picfile.exists()) {
-
-                //删除之前大小为 0 的无效头像文件
-                picfile.delete();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            imageWidth = BitmapFactory.decodeFile(picfile.getPath()).getWidth();
+            imageHeight = BitmapFactory.decodeFile(picfile.getPath()).getHeight();
+            options.inJustDecodeBounds = false;
+            options = null;
+        } catch (NullPointerException e) {
+            fileAvailable = false;
+        }
+        if (fileAvailable && (h * w) > 0) {
+            //头像已经缓存好在本地
+            ResourceManager.getInstance().loadHighQualityFile(userName, picfile);
+            if (ResourceManager.getInstance().getTextureIfLoaded(userName) != null) {
+                return true;
             }
-            //从网络读取头像
-            File avatarDir = picfile.getParentFile();
-            if (!avatarDir.exists()) {
-                avatarDir.mkdirs();
-            }
-            FileOutputStream outStream = new FileOutputStream(picfile);
-
-            HttpParams params = new BasicHttpParams();
-            HttpProtocolParams.setUserAgent(params, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36");
-
-            HttpClient client = new DefaultHttpClient(params);
-            get = new HttpGet(avatarURL);
-            HttpResponse response;
-
-            response = client.execute(get);
-            HttpEntity entity = response.getEntity();
-            InputStream is = entity.getContent();
-            if (is != null) {
-                byte[] buf = new byte[1024];
-                int ch = -1;
-
-                while ((ch = is.read(buf)) > 0) {
-                    outStream.write(buf, 0, ch);
-                }
-            } else {
-                return false;
-            }
-            outStream.flush();
-            outStream.close();
-            is.close();
-            if (picfile.exists() && picfile.length() > 0) {
-                //Loading texture
-                ResourceManager.getInstance().loadHighQualityFile(userName, picfile);
-                final TextureRegion tex = ResourceManager.getInstance()
-                        .getTextureIfLoaded(userName);
-                if (tex != null) {
-                    return true;
-                }
-            }
-        } catch (ClientProtocolException e) {
-            Debug.e("ClientProtocolException " + e.getMessage(), e);
-        } catch (IOException e) {
-            Debug.e("IOException " + e.getMessage(), e);
-            return false;
         }
 
         Debug.i("Success!");
