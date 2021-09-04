@@ -53,6 +53,8 @@ import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
+import org.conscrypt.Conscrypt;
+
 import org.matomo.sdk.Matomo;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
@@ -66,6 +68,7 @@ import org.acra.data.StringFormat;
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +114,7 @@ public class MainActivity extends BaseGameActivity implements
             return null;
         }
         Config.loadConfig(this);
+        initAnalytics();
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
         StringTable.setContext(this);
@@ -514,7 +518,8 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
-        initAnalytics();
+        // TLS 1.2 support for Android < 5
+        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         if (this.mEngine == null) {
             return;
         }
