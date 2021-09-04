@@ -28,10 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Provider;
 import java.security.Security;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -44,6 +41,7 @@ public class OnlineManager {
     private static final String host = "http://ops.dgsrz.com/api/";
     private static final String onlineVersion = "29";
     // public static HttpGet get;
+    public static Provider provider;
     private static OnlineManager instance = null;
     private Context context;
     private String failMessage = "";
@@ -76,11 +74,8 @@ public class OnlineManager {
 
     public void Init(Context context) {
         try {
-            Provider provider = Conscrypt.newProvider();
+            provider = Conscrypt.newProviderBuilder().provideTrustManager(true).build();
             Security.insertProviderAt(provider, 1);
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2", provider);
-            sslContext.init(null, null, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
         }catch(Exception ex) {
             Debug.e("onCreate sslContext: " + ex.getMessage(), ex);
         }
