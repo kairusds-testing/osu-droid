@@ -122,7 +122,7 @@ public class PostBuilder {
         } catch (IOException e) {
             throw new RequestException(e);
         } catch (Exception e) {
-            throw new Exception(e);
+            Debug.e("PostBuilder.request :" + e.getMessage(), e);
         }
 
         if (response.isEmpty()) {
