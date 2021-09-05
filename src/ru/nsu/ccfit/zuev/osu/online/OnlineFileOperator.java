@@ -53,7 +53,7 @@ public class OnlineFileOperator {
             os.write(message1.getBytes());
 
             InputStream in = new FileInputStream(file);
-            byte[] buffer = new byte[(int) fileLength];
+            byte[] buffer = new byte[4096];
             int byteCount = 0;
             while ((byteCount = in.read(buffer)) > 0) {
                 os.write(buffer, 0, byteCount);
@@ -108,7 +108,7 @@ public class OnlineFileOperator {
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
 
             Debug.i("Downloading file...");
-            final byte[] buffer = new byte[connection.getContentLength()];
+            final byte[] buffer = new byte[8192];
             int len;
             while ((len = in.read(buffer)) >= 0) {
                 out.write(buffer, 0, len);
