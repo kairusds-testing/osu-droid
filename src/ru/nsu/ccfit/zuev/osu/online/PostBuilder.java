@@ -81,14 +81,14 @@ public class PostBuilder {
     public ArrayList<String> request(final String scriptUrl) throws RequestException {
         String data = builder.toString();
         //TODO debug code
-		/*Debug.i("Sending request to " + scriptUrl);
-		Debug.i("Request data = " + data);*/
+		/*Debug.i("Sending request to " + scriptUrl);*/
+		Debug.i("Request data = " + data);
         ArrayList<String> response = new ArrayList<String>();
 
         try {
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36");
+            // connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36");
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);
