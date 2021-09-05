@@ -80,9 +80,13 @@ public class OnlineManager {
         this.context = context;
 
         if(sslSocketFactory == null) {
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-            sslContext.init(null, null, null);
-            sslSocketFactory = sslContext.getSocketFactory();
+            try {
+                SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+                sslContext.init(null, null, null);
+                sslSocketFactory = sslContext.getSocketFactory();
+            }catch(Exception e) {
+                Debug.e(e.getMessage(), e);
+            }
         }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
     }
