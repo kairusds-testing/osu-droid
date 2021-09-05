@@ -88,7 +88,6 @@ public class PostBuilder {
         try {
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(OnlineManager.getSocketFactory());
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);

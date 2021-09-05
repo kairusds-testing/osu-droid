@@ -27,8 +27,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -42,7 +40,6 @@ public class OnlineManager {
     private static final String onlineVersion = "29";
     // public static HttpGet get;
     private static OnlineManager instance = null;
-    private static SSLSocketFactory sslSocketFactory;
     private Context context;
     private String failMessage = "";
 
@@ -78,21 +75,7 @@ public class OnlineManager {
         this.password = Config.getOnlinePassword();
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
-
-        if(sslSocketFactory == null) {
-            try {
-                SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-                sslContext.init(null, null, null);
-                sslSocketFactory = sslContext.getSocketFactory();
-            }catch(Exception e) {
-                Debug.e(e.getMessage(), e);
-            }
-        }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
-    }
-
-    public static SSLSocketFactory getSocketFactory() {
-        return sslSocketFactory;
     }
 
     private ArrayList<String> sendRequest(PostBuilder post, String url) throws OnlineManagerException {
