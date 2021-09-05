@@ -2,14 +2,13 @@ package ru.nsu.ccfit.zuev.osu.online;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
 import com.dgsrz.bancho.security.SecurityUtils;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
-
-import org.conscrypt.Conscrypt;
 /*
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import javax.net.ssl.HttpsURLConnection;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -75,6 +75,14 @@ public class OnlineManager {
         this.password = Config.getOnlinePassword();
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.L) {
+            try {
+                HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
+            } catch (Exception e) {
+                Debug.e("OnlineManager Init: " + e.getMessage(), e);
+            }
+        }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
     }
 
