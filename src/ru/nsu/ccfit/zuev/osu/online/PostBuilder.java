@@ -88,15 +88,18 @@ public class PostBuilder {
         try {
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            // connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36");
             connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36");
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            connection.getOutputStream().write(data.getBytes());
+            /* OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
             out.write(data);
             out.flush();
-            out.close();
+            out.close(); */
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             if (BuildConfig.DEBUG) {
