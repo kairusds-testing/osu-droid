@@ -79,9 +79,12 @@ public class OnlineManager {
         this.password = Config.getOnlinePassword();
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
+        try{
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
+            }
+        }catch(Exception e) {
+            Debug.e("OnlineManager Init: " + e.getMessage(), e);
         }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
     }
