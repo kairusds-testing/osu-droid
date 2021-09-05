@@ -103,7 +103,7 @@ public class MainActivity extends BaseGameActivity implements
     private String beatmapToAdd = null;
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
-    public static final Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;

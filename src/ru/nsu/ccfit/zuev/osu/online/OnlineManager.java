@@ -343,12 +343,10 @@ public class OnlineManager {
         File picfile = new File(Config.getCachePath(), filename);
 
         if(!picfile.exists()) {
-            MainActivity.handler.post(() -> 
-                OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath()));
+            OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath());
         }else if(picfile.exists() && picfile.length() < 1) {
             picfile.delete();
-            MainActivity.handler.post(() -> 
-                OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath()));
+            OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath());
         }
         int imageWidth = 0, imageHeight = 0;
         boolean fileAvailable = true;
