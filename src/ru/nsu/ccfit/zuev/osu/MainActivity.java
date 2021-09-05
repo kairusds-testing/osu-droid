@@ -53,6 +53,8 @@ import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
+import org.conscrypt.Conscrypt;
+
 import org.matomo.sdk.Matomo;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
@@ -66,11 +68,11 @@ import org.acra.data.StringFormat;
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
-import javax.net.ssl.SSLContext;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -112,6 +114,7 @@ public class MainActivity extends BaseGameActivity implements
             return null;
         }
         Config.loadConfig(this);
+        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         initAnalytics();
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);

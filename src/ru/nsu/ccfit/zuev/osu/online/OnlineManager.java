@@ -26,8 +26,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Provider;
-import java.security.Security;
 import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
@@ -72,11 +70,6 @@ public class OnlineManager {
     }
 
     public void Init(Context context) {
-        Provider provider = Conscrypt
-            .newProviderBuilder()
-            .defaultTlsProtocol("TLSv1.2")
-            .build();
-        Security.insertProviderAt(provider, 1);
         this.stayOnline = Config.isStayOnline();
         this.username = Config.getOnlineUsername();
         this.password = Config.getOnlinePassword();
