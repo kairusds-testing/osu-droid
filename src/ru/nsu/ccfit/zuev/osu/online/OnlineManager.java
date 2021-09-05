@@ -76,7 +76,7 @@ public class OnlineManager {
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.L) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             try {
                 HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
             } catch (Exception e) {
