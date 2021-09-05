@@ -28,6 +28,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
+import java.security.Provider;
+import java.security.Security
+
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
@@ -81,6 +84,12 @@ public class OnlineManager {
                 HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
             } catch (Exception e) {
                 Debug.e("OnlineManager Init: " + e.getMessage(), e);
+            }
+        }
+        for (Provider p : Security.getProviders()) {
+            Debug.i("SecurityProvider: " + p.getName());
+            for (Provider.Service s : p.getServices()) {
+                Debug.i("- " + s.getAlgorithm()));
             }
         }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
