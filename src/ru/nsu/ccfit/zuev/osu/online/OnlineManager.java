@@ -336,8 +336,7 @@ public class OnlineManager {
     public boolean loadAvatarToTextureManager(String avatarURL, String userName) {
         if (avatarURL == null || avatarURL.length() == 0) return false;
 
-        String filename = MD5Calcuator.getStringMD5(avatarURL) +
-                avatarURL.substring(avatarURL.lastIndexOf('.'));
+        String filename = MD5Calcuator.getStringMD5(avatarURL + userName);
         Debug.i("Loading avatar from " + avatarURL);
         Debug.i("filename = " + filename);
         File picfile = new File(Config.getCachePath(), filename);
