@@ -339,14 +339,15 @@ public class OnlineManager {
                 avatarURL.substring(avatarURL.lastIndexOf('.'));
         Debug.i("Loading avatar from " + avatarURL);
         Debug.i("filename = " + filename);
-        final File picfile = new File(Config.getCachePath(), filename);
-        if(!picfile.exists()) {
-            OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath());
-        }
+        File picfile = new File(Config.getCachePath(), filename);
 
-        if(picfile.length() < 1) {
+        if(!picfile.exists()) {
+            MainActivity.handler.post(() -> 
+                OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath()));
+        }else if(picfile.exists() && picfile.length() < 1) {
             picfile.delete();
-            OnlineFileOperator.downloadFile(filename, picfile.getAbsolutePath());
+            MainActivity.handler.post(() -> 
+                OnlineFileOperator.downloadFile(avatarURL, picfile.getAbsolutePath()));
         }
         int imageWidth = 0, imageHeight = 0;
         boolean fileAvailable = true;
