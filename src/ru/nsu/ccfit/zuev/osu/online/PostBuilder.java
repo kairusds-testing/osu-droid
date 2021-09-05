@@ -18,7 +18,6 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
@@ -87,12 +86,9 @@ public class PostBuilder {
         ArrayList<String> response = new ArrayList<String>();
 
         try {
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-            sslContext.init(null, null, null);
-
             URL url = new URL(scriptUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setSSLSocketFactory(OnlineManager.getSocketFactory());
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);

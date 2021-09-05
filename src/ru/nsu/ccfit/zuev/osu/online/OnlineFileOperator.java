@@ -15,7 +15,6 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 
 public class OnlineFileOperator {
     private static final String CrLf = "\r\n";
@@ -30,12 +29,9 @@ public class OnlineFileOperator {
                 return;
             long fileLength = file.length();
 
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-            sslContext.init(null, null, null);
-
             URL url = new URL(urlstr);
             conn = (HttpsURLConnection) url.openConnection();
-            conn.setSSLSocketFactory(sslContext.getSocketFactory());
+            conn.setSSLSocketFactory(OnlineManager.getSocketFactory());
             conn.setDoOutput(true);
 
             String message1 = "";
@@ -88,12 +84,9 @@ public class OnlineFileOperator {
         BufferedInputStream in;
         File file = new File(filename);
         try {
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-            sslContext.init(null, null, null);
-
             url = new URL(urlstr);
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setSSLSocketFactory(OnlineManager.getSocketFactory());
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36");
 
             // Cheching for errors
