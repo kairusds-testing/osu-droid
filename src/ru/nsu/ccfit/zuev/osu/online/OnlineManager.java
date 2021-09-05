@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 import java.security.Provider;
-import java.security.Security
+import java.security.Security;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -89,7 +89,7 @@ public class OnlineManager {
         for (Provider p : Security.getProviders()) {
             Debug.i("SecurityProvider: " + p.getName());
             for (Provider.Service s : p.getServices()) {
-                Debug.i("- " + s.getAlgorithm()));
+                Debug.i("- " + s.getAlgorithm());
             }
         }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
