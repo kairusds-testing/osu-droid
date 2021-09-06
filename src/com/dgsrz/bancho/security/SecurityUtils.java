@@ -94,10 +94,10 @@ public final class SecurityUtils {
 
                 if(signInfo.hasMultipleSigners()) {
                     signatures = signInfo.getApkContentsSigners();
-                    appSignature = getHashCode(sign[0].toByteArray());
+                    appSignature = getHashCode(signatures[0].toByteArray());
                 }else {
                     signatures = signInfo.getSigningCertificateHistory();
-                    appSignature = getHashCode(sign[].toByteArray());
+                    appSignature = getHashCode(signatures[0].toByteArray());
                 }
             }else {
                 info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);

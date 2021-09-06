@@ -38,7 +38,7 @@ public class PostBuilder {
         String signature = SecurityUtils.signRequest(values.toString());
         Debug.i("Signature raw text data = " + values.toString());
         if (signature != null) {
-            Debug.i("Signature = " + signature)
+            Debug.i("Signature = " + signature);
             addParam("sign", signature);
         }
         for (int i = 0; i < attempts; i++) {
