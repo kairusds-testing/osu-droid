@@ -19,9 +19,12 @@ public class OnlineFileOperator {
     public static void sendFile(String urlstr, String filename) {
         try {
             File file = new File(filename);
-            if (!file.exists())
+            if (!file.exists()) {
+                Debug.i(filename + " does not exist.");
                 return;
+            }
 
+            Debug.i("sendFile " urlstr + "/" + filename);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -32,6 +35,7 @@ public class OnlineFileOperator {
             Response response = OnlineManager.client.newCall(request).execute();
             String responseStr = response.body().string();
             Debug.i("sendFile request " + responseStr);
+            response.close();
         } catch (final IOException e) {
             Debug.e("sendFile " + e.getMessage(), e);
         } catch (final Exception e) {
