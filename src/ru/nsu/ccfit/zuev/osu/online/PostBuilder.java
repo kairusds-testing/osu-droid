@@ -5,10 +5,13 @@ import com.dgsrz.bancho.security.SecurityUtils;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.Request;
 
 import org.anddev.andengine.util.Debug;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
@@ -93,8 +96,8 @@ public class PostBuilder {
                 Debug.i("request " + responseStr);
             }
 
-            Debug.i("request", "url=" + scriptUrl);
-            Debug.i("request", "-----End of content-----");
+            Debug.i("request url=" + scriptUrl);
+            Debug.i("request -----End of content-----");
         } catch(Exception e) {
             Debug.e(e.getMessage(), e);
         }

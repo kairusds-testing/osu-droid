@@ -4,6 +4,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Response;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okio.BufferedSink;
 import okio.Okio;
 
@@ -34,10 +35,8 @@ public class OnlineFileOperator {
             Debug.i(responseStr);
         } catch (final IOException e) {
             Debug.e("sendFile " + e.getMessage(), e);
-            return false;
         } catch (final Exception e) {
             Debug.e("sendFile " + e.getMessage(), e);
-            return false;
         }
 
     }
@@ -54,7 +53,7 @@ public class OnlineFileOperator {
             Debug.i("Connected to " + urlstr);
 
             Request request = new Request.Builder()
-                .url(urlStr)
+                .url(urlstr)
                 .build();
             Response response = OnlineManager.client.newCall(request).execute();
             BufferedSink sink = Okio.buffer(Okio.sink(file));
