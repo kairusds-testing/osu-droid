@@ -5,8 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
-import com.dgsrz.bancho.security.SecurityUtils;
-
 import okhttp3.OkHttpClient;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
@@ -65,7 +63,6 @@ public class OnlineManager {
         this.password = Config.getOnlinePassword();
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
-        Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
     }
 
     private ArrayList<String> sendRequest(PostBuilder post, String url) throws OnlineManagerException {

@@ -49,7 +49,7 @@ public class OnlineInitializer implements View.OnClickListener {
 
 
     public void onClick(View v) {
-        final String username = ((EditText) registerDialog.findViewById(R.id.username_edit))
+        /* final String username = ((EditText) registerDialog.findViewById(R.id.username_edit))
                 .getText().toString();
         final String password = ((EditText) registerDialog.findViewById(R.id.password_edit))
                 .getText().toString();
@@ -128,6 +128,6 @@ public class OnlineInitializer implements View.OnClickListener {
                     ToastLogger.showTextId(R.string.online_regcomplete, true);
                 }
             }
-        });
+        }); */
     }
 }

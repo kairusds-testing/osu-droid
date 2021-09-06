@@ -58,8 +58,7 @@ public class OnlineFileOperator {
             Response response = OnlineManager.client.newCall(request).execute();
             BufferedSink sink = Okio.buffer(Okio.sink(file));
             sink.writeAll(response.body().source());
-            String responseStr = response.body().string();
-            Debug.i(responseStr);
+            response.close();
             sink.close();
             return true;
         } catch (final IOException e) {

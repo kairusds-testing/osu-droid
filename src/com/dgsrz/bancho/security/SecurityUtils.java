@@ -7,8 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.pm.SigningInfo;
 
-import com.ta.utdid2.device.UTDevice;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -137,10 +135,6 @@ public final class SecurityUtils {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Unsupported Algorithm");
         }
-    }
-
-    public static String getDeviceId(Context context) {
-        return UTDevice.getUtdid(context);
     }
 
     private static String toHexString(byte[] bytes) {
