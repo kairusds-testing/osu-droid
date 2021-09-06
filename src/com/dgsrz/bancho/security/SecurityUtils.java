@@ -1,9 +1,11 @@
 package com.dgsrz.bancho.security;
 
+import android.os.Build;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.pm.SigningInfo;
 
 import com.ta.utdid2.device.UTDevice;
 
@@ -79,17 +81,33 @@ public final class SecurityUtils {
         }
         PackageManager pkgMgr = context.getPackageManager();
         PackageInfo info = null;
+        Signature[] signatures;
+
         try {
-            if (pkgMgr != null) {
+            if (pkgMgr == null) {
+                return;
+            }
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+                SigningInfo signInfo = info.signingInfo;
+
+                if(signInfo.hasMultipleSigners()) {
+                    signatures = signInfo.getApkContentsSigners();
+                    appSignature = getHashCode(sign[0].toByteArray());
+                }else {
+                    signatures = signInfo.getSigningCertificateHistory();
+                    appSignature = getHashCode(sign[].toByteArray());
+                }
+            }else {
                 info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+                if(info != null && info.signatures != null && info.signatures.length > 0) {
+                    Signature sign = info.signatures[0];
+                    appSignature = getHashCode(sign.toByteArray());
+                }
             }
         } catch (PackageManager.NameNotFoundException e) {
             return;
-        }
-
-        if (info != null && info.signatures != null && info.signatures.length > 0) {
-            Signature sign = info.signatures[0];
-            appSignature = getHashCode(sign.toByteArray());
         }
     }
 

@@ -26,9 +26,7 @@ public class PostBuilder {
                 values.append("_");
             }
             formBodyBuilder.add(key, value);
-            if(key != "sign") {
-                values.append(URLEncoder.encode(value, "UTF-8"));
-            }
+            values.append(URLEncoder.encode(value, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             return;
         }
@@ -40,6 +38,7 @@ public class PostBuilder {
         String signature = SecurityUtils.signRequest(values.toString());
         Debug.i("Signature raw text data = " + values.toString());
         if (signature != null) {
+            Debug.i("Signature = " + signature)
             addParam("sign", signature);
         }
         for (int i = 0; i < attempts; i++) {
@@ -73,7 +72,7 @@ public class PostBuilder {
         return response;
     }
 
-    public ArrayList<String> request(final String scriptUrl) throws RequestException {
+    private ArrayList<String> request(final String scriptUrl) throws RequestException {
         String data = values.toString();
         ArrayList<String> response = new ArrayList<String>();
 

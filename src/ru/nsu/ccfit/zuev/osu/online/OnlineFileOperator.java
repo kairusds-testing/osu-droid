@@ -23,7 +23,7 @@ public class OnlineFileOperator {
                 return;
 
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("name", "uploadedfile")
+                // .addFormDataPart("name", "uploadedfile")
                 .addFormDataPart("filename", file.getName())
                 .addPart(RequestBody.create(
                     MediaType.parse("application/octet-stream"), file))

@@ -361,15 +361,9 @@ public class MainActivity extends BaseGameActivity implements
         double minMem = 1073741824D; //1 GiB = 1073741824 bytes
         File internal = Environment.getDataDirectory();
         StatFs stat = new StatFs(internal.getPath());
-        if(Build.VERSION.SDK_INT >= 18) {
-            availableMemory = (double) stat.getAvailableBytes();
-        } else {
-            long blockSize = stat.getBlockSize();
-            long availableBlocks = stat.getAvailableBlocks();
-            availableMemory = (double) (availableBlocks * blockSize);
-        }
+        availableMemory = (double) stat.getAvailableBytes();
         String toastMessage = String.format(StringTable.get(R.string.message_low_storage_space), df.format(availableMemory / minMem));
-        if(availableMemory < 0.5*minMem) { //I set 512MiB as a minimum
+        if(availableMemory < 0.5 * minMem) { //I set 512MiB as a minimum
             Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show();
         }
         Debug.i("Free Space: " + df.format(availableMemory / minMem));
