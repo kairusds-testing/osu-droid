@@ -7,30 +7,14 @@ import android.util.Log;
 
 import com.dgsrz.bancho.security.SecurityUtils;
 
+import okhttp3.OkHttpClient;
+
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
-/*
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
-*/
 
 import java.io.File;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-import java.util.Arrays;
 import java.util.ArrayList;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
@@ -43,7 +27,8 @@ import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 public class OnlineManager {
     private static final String host = "http://ops.dgsrz.com/api/";
     private static final String onlineVersion = "29";
-    // public static HttpGet get;
+    public static final OkHttpClient client = new OkHttpClient();
+
     private static OnlineManager instance = null;
     private Context context;
     private String failMessage = "";
@@ -80,29 +65,7 @@ public class OnlineManager {
         this.password = Config.getOnlinePassword();
         this.deviceID = Config.getOnlineDeviceID();
         this.context = context;
-        try{
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                HttpsURLConnection.setDefaultSSLSocketFactory(new TLSSocketFactory());
-            }
-        }catch(Exception e) {
-            Debug.e("OnlineManager Init: " + e.getMessage(), e);
-        }
         Log.i("setDeviceToken", SecurityUtils.getDeviceId(context));
-    }
-
-    public static X509TrustManager systemDefaultTrustManager() {
-        try {
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
-                TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init((KeyStore) null);
-            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-            if (trustManagers.length < 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-                throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
-            }
-            return (X509TrustManager) trustManagers[0];
-        } catch (GeneralSecurityException e) {
-            throw new AssertionError(); // The system has no TLS. Just give up.
-        }
     }
 
     private ArrayList<String> sendRequest(PostBuilder post, String url) throws OnlineManagerException {
