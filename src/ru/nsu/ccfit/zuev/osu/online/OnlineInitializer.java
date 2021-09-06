@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dgsrz.bancho.security.SecurityUtils;
-
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
