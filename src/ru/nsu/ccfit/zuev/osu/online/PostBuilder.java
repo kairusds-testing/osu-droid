@@ -17,21 +17,15 @@ import java.util.ArrayList;
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
 public class PostBuilder {
-    private FormBody.Builder formBodyBuilder;
+    private FormBody.Builder formBodyBuilder = new FormBody.Builder();
     private StringBuilder values = new StringBuilder();
-
-    public PostBuilder() {
-        formBodyBuilder = new FormBody.Builder();
-    }
 
     public void addParam(final String key, final String value) {
         try {
             if (values.length() > 0) {
                 values.append("_");
             }
-            formBodyBuilder.addEncoded(
-                URLEncoder.encode(key, "UTF-8"),
-                URLEncoder.encode(value, "UTF-8"));
+            formBodyBuilder.add(key, value);
             values.append(URLEncoder.encode(value, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             return;
