@@ -22,9 +22,10 @@ public class OnlineFileOperator {
             if (!file.exists())
                 return;
 
+            MediaType mime = MediaType.parse("application/octet-stream");
+            RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("uploadedfile", file.getName(),
-                    RequestBody.create(MediaType.parse("application/octet-stream"), file))
+                .addFormDataPart("uploadedfile", file.getName(), fileBody)
                 .build();
             Request request = new Request.Builder().url(urlstr)
                 .post(requestBody).build();
