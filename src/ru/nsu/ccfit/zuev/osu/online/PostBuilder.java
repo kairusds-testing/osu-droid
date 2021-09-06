@@ -10,6 +10,7 @@ import okhttp3.Request;
 import org.anddev.andengine.util.Debug;
 
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class PostBuilder {
     private StringBuilder values = new StringBuilder();
 
     public PostBuilder() {
-        formBody = new FormBody.Builder();
+        formBodyBuilder = new FormBody.Builder();
     }
 
     public void addParam(final String key, final String value) {
