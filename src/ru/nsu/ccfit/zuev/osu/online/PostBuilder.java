@@ -22,9 +22,9 @@ public class PostBuilder {
 
     public void addParam(final String key, final String value) {
         try {
-            /* if (values.length() > 0) {
+            if (values.length() > 0) {
                 values.append("_");
-            } */
+            }
             formBodyBuilder.add(key, value);
             values.append(URLEncoder.encode(value, "UTF-8"));
         } catch (UnsupportedEncodingException e) {

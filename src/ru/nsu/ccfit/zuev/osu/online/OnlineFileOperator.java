@@ -23,16 +23,14 @@ public class OnlineFileOperator {
                 return;
 
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                // .addFormDataPart("name", "uploadedfile")
-                .addFormDataPart("filename", file.getName())
-                .addPart(RequestBody.create(
-                    MediaType.parse("application/octet-stream"), file))
+                .addFormDataPart("uploadedfile", file.getName(),
+                    RequestBody.create(MediaType.parse("application/octet-stream"), file))
                 .build();
             Request request = new Request.Builder().url(urlstr)
                 .post(requestBody).build();
             Response response = OnlineManager.client.newCall(request).execute();
             String responseStr = response.body().string();
-            Debug.i(responseStr);
+            Debug.i("sendFile request " responseStr);
         } catch (final IOException e) {
             Debug.e("sendFile " + e.getMessage(), e);
         } catch (final Exception e) {
