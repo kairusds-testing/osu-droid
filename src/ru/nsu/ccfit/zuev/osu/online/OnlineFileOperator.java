@@ -30,7 +30,7 @@ public class OnlineFileOperator {
                 .post(requestBody).build();
             Response response = OnlineManager.client.newCall(request).execute();
             String responseStr = response.body().string();
-            Debug.i("sendFile request " responseStr);
+            Debug.i("sendFile request " + responseStr);
         } catch (final IOException e) {
             Debug.e("sendFile " + e.getMessage(), e);
         } catch (final Exception e) {
