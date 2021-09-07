@@ -2,22 +2,63 @@ package ru.nsu.ccfit.zuev.osu.helper;
 
 import android.os.Build;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.File;
+import java.io.IOException;
+
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import java.security.MessageDigest;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.anddev.andengine.util.Debug;
 
-/**
- * @author kairusds
- */
 public class FileUtils {
 
     private FileUtils(){}
+
+    public static String getFileChecksum(MessageDigest digest, File file) {
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            BufferedInputStream in = new BufferedInputStream(
+                new FileInputStream(file));
+            byte[] byteArray = new byte[1024];
+            int bytesCount = 0; 
+
+            while((bytesCount = fis.read(byteArray)) != -1) {
+                digest.update(byteArray, 0, bytesCount);
+            }
+            in.close();
+
+            byte[] bytes = digest.digest();
+            for(byte bit : bytes) {
+                sb.append(Integer.toString((bit & 0xff) + 0x100, 16).substring(1));
+            }
+        }catch(IOException e) {
+            Debug.e("getFileChecksum " + e.getMessage(), e);
+        }
+        return sb.toString();
+    }
+
+    public static String getMD5Checksum(File file) {
+        String checksum = getFileChecksum(MessageDigest.getInstance("MD5"),
+            file);
+        Debug.i(String.format("md5 checksum FileUtils: %s == MD5Calcuator: %s ",
+            checksum, MD5Calcuator.getFileMD5(file)));
+        return checksum;
+    }
+
+    public static String getSHA256Checksum(File file) {
+        return getFileChecksum(MessageDigest.getInstance("SHA-256"),
+            file);
+    }
 
     public static File[] listFiles(File directory) {
         return listFiles(directory, (dir, name) -> true);
@@ -29,7 +70,7 @@ public class FileUtils {
     }
 
     public static File[] listFiles(File directory, String[] endsWithExtensions) {
-        // some java 7 and 8 methods aren't available until Android 7/8
+        // some java 7 and 8 methods aren't available until Android 7 or 8
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             return listFiles(directory, (dir, name) -> {
                 for(String extension : endsWithExtensions) {
@@ -43,7 +84,7 @@ public class FileUtils {
             return listFiles(directory, (dir, name) ->
                 Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
         }
-        return null; // dunno why java lint is so shit to require this
+        return null;
     }
 
     // code is a bit messy

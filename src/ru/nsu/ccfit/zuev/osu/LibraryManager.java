@@ -499,7 +499,7 @@ public class LibraryManager {
                     TrackInfo track = info.getTrack(j);
                     File trackFile = new File(track.getFilename());
                     if (fileName.equals(trackFile.getName())) {
-                        String trackMD5 = MD5Calcuator.getFileMD5(trackFile);
+                        String trackMD5 = FileUtils.getMD5Checksum(trackFile);
                         if (md5.equals(trackMD5)) {
                             return track;
                         }

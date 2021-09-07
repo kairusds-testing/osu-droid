@@ -1,5 +1,10 @@
 package ru.nsu.ccfit.zuev.osu.online;
 
+import com.dgsrz.bancho.security.SecurityUtils;
+
+import java.io.File;
+import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Response;
@@ -9,14 +14,12 @@ import okio.BufferedSink;
 import okio.Okio;
 
 import org.anddev.andengine.util.Debug;
-
-import java.io.File;
-import java.io.IOException;
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 
 public class OnlineFileOperator {
     private static final String CrLf = "\r\n";
 
-    public static void sendFile(String urlstr, String filename) {
+    public static void sendFile(String urlstr, String filename, String replayID) {
         try {
             File file = new File(filename);
             if (!file.exists()) {
@@ -24,17 +27,21 @@ public class OnlineFileOperator {
                 return;
             }
 
+            String checksum = FileUtils.getSHA256Checksum(file);
+            String signature = SecurityUtils.signRequest(checksum + "_" + replayID);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("replayID", replayID)
                 .addFormDataPart("uploadedfile", file.getName(), fileBody)
+                .addFormDataPart("sign", signature)
                 .build();
             Request request = new Request.Builder().url(urlstr)
                 .post(requestBody).build();
             Response response = OnlineManager.client.newCall(request).execute();
-            response.close();
+            String responseMsg = response.body().string();
 
-            Debug.i(String.format("sendFile sent %s [%d bytes]", file.getName(), file.length()));
+            Debug.i(responseMsg);
         } catch (final IOException e) {
             Debug.e("sendFile IOException " + e.getMessage(), e);
         } catch (final Exception e) {

@@ -336,7 +336,7 @@ public class OnlineManager {
     public void sendReplay(String filename) {
         if (replayID <= 0) return;
         Debug.i("Sending replay '" + filename + "' for id = " + replayID);
-        OnlineFileOperator.sendFile(host + "upload.php?replayID=" + replayID + "&ssid=" + ssid, filename);
+        OnlineFileOperator.sendFile(host + "upload.php", filename, String.valueOf(replayID));
     }
 
     public String getScorePack(int playid) throws OnlineManagerException {

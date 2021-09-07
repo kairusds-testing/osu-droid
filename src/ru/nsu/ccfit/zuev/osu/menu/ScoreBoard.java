@@ -33,7 +33,7 @@ import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.async.SyncTaskManager;
 import ru.nsu.ccfit.zuev.osu.game.GameHelper;
-import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osu.scoring.ScoreLibrary;
@@ -271,7 +271,7 @@ public class ScoreBoard implements ScrollDetector.IScrollDetectorListener {
 
             public void run() {
                 File trackFile = new File(track.getFilename());
-                String hash = MD5Calcuator.getFileMD5(trackFile);
+                String hash = FileUtils.getMD5Checksum(trackFile);
                 ArrayList<String> scores;
 
                 try {
