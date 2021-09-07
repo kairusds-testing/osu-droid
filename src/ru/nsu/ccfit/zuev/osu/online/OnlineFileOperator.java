@@ -24,7 +24,6 @@ public class OnlineFileOperator {
                 return;
             }
 
-            Debug.i("sendFile " urlstr + "/" + filename);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -33,13 +32,13 @@ public class OnlineFileOperator {
             Request request = new Request.Builder().url(urlstr)
                 .post(requestBody).build();
             Response response = OnlineManager.client.newCall(request).execute();
-            String responseStr = response.body().string();
-            Debug.i("sendFile request " + responseStr);
             response.close();
+
+            Debug.i(String.format("sendFile sent %s [%d bytes]", file.getName(), file.length()));
         } catch (final IOException e) {
-            Debug.e("sendFile " + e.getMessage(), e);
+            Debug.e("sendFile IOException " + e.getMessage(), e);
         } catch (final Exception e) {
-            Debug.e("sendFile " + e.getMessage(), e);
+            Debug.e("sendFile Exception " + e.getMessage(), e);
         }
 
     }
@@ -65,10 +64,10 @@ public class OnlineFileOperator {
             sink.close();
             return true;
         } catch (final IOException e) {
-            Debug.e("downloadFile " + e.getMessage(), e);
+            Debug.e("downloadFile IOException " + e.getMessage(), e);
             return false;
         } catch (final Exception e) {
-            Debug.e("downloadFile " + e.getMessage(), e);
+            Debug.e("downloadFile Exception " + e.getMessage(), e);
             return false;
         }
     }

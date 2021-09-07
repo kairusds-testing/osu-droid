@@ -9,6 +9,8 @@ import okhttp3.Request;
 
 import org.anddev.andengine.util.Debug;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.net.URLEncoder;
@@ -36,9 +38,8 @@ public class PostBuilder {
     public ArrayList<String> requestWithAttempts(final String scriptUrl, int attempts) throws RequestException {
         ArrayList<String> response = null;
         String signature = SecurityUtils.signRequest(values.toString());
-        Debug.i("Signature raw text data = " + values.toString());
+
         if (signature != null) {
-            Debug.i("Signature = " + signature);
             addParam("sign", signature);
         }
         for (int i = 0; i < attempts; i++) {
@@ -82,16 +83,15 @@ public class PostBuilder {
                 .post(formBodyBuilder.build())
                 .build();
             Response resp = OnlineManager.client.newCall(request).execute();
-            String responseBody = resp.body().string();
 
             Debug.i("request url=" + scriptUrl);
             Debug.i("request --------Content---------");
-
-            for(String responseStr : responseBody.split("\n")) {
-                response.add(responseStr);
-                Debug.i("request " + responseStr);
+            String line = null;
+            BufferedReader reader = new BufferedReader(new StringReader(resp.body().string()));
+            while((line = reader.readLine()) != null) {
+                Debug.i(String.format("request [%d]: %s", response.size(), line));
+                response.add(line);
             }
-
             Debug.i("request url=" + scriptUrl);
             Debug.i("request -----End of content-----");
         } catch(Exception e) {

@@ -89,7 +89,8 @@ public class OnlineManager {
             return null;
         }
 
-        if (response.get(0).equals("SUCCESS") == false) {
+        if (!response.get(0).equals("SUCCESS")) {
+            Debug.i("sendRequest response code:  " + response.get(0));
             if (response.size() >= 2) {
                 failMessage = response.get(1);
             } else
