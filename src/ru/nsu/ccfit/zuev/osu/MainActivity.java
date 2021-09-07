@@ -514,6 +514,7 @@ public class MainActivity extends BaseGameActivity implements
             return;
         }
 
+        System.setProperty("java.net.preferIPv4Stack", "true");
         if (BuildConfig.DEBUG) {
             //Toast.makeText(this,"this is debug version",Toast.LENGTH_LONG).show();
             try {
