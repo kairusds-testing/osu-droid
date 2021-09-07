@@ -32,7 +32,7 @@ public class FileUtils {
             byte[] byteArray = new byte[1024];
             int bytesCount = 0; 
 
-            while((bytesCount = fis.read(byteArray)) != -1) {
+            while((bytesCount = in.read(byteArray)) != -1) {
                 digest.update(byteArray, 0, bytesCount);
             }
             in.close();
