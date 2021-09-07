@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -23,10 +24,11 @@ public class FileUtils {
 
     private FileUtils(){}
 
-    public static String getFileChecksum(MessageDigest digest, File file) {
+    public static String getFileChecksum(String algorithm, File file) {
         StringBuilder sb = new StringBuilder();
 
         try {
+            MessageDigest digest = MessageDigest.getInstance(algorithm);
             BufferedInputStream in = new BufferedInputStream(
                 new FileInputStream(file));
             byte[] byteArray = new byte[1024];
@@ -43,21 +45,21 @@ public class FileUtils {
             }
         }catch(IOException e) {
             Debug.e("getFileChecksum " + e.getMessage(), e);
+        }catch(NoSuchAlgorithmException e) {
+            Debug.e(e.getMessage(), e);
         }
         return sb.toString();
     }
 
     public static String getMD5Checksum(File file) {
-        String checksum = getFileChecksum(MessageDigest.getInstance("MD5"),
-            file);
+        String checksum = getFileChecksum("MD5", file);
         Debug.i(String.format("md5 checksum FileUtils: %s == MD5Calcuator: %s ",
             checksum, MD5Calcuator.getFileMD5(file)));
         return checksum;
     }
 
     public static String getSHA256Checksum(File file) {
-        return getFileChecksum(MessageDigest.getInstance("SHA-256"),
-            file);
+        return getFileChecksum("SHA-256", file);
     }
 
     public static File[] listFiles(File directory) {
