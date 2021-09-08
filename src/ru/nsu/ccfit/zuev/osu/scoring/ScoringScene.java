@@ -484,22 +484,12 @@ public class ScoringScene {
         if (track != null && mapMD5 != null) {
             if (stat.getModifiedTotalScore() > 0 && OnlineManager.getInstance().isStayOnline() &&
                     OnlineManager.getInstance().isReadyToSend()) {
-                if (stat.getMod().contains(GameMod.MOD_SUDDENDEATH)
-                || stat.getMod().contains(GameMod.MOD_PERFECT)
-                || stat.getMod().contains(GameMod.MOD_SMALLCIRCLE)
-                || stat.getMod().contains(GameMod.MOD_REALLYEASY)
-                || stat.getMod().contains(GameMod.MOD_FLASHLIGHT)
-                || stat.getMod().contains(GameMod.MOD_SCOREV2)
-                || Config.isRemoveSliderLock()
-                || ModMenu.getInstance().isChangeSpeed()
-                || ModMenu.getInstance().isEnableForceAR()){
-                    ToastLogger.showText(StringTable.get(R.string.mods_somemods_is_unrank_now), true);
-                }
-                else if(
-                        !SmartIterator.wrap(stat.getMod().iterator())
-                                .applyFilter(m->m.typeAuto)
-                                .hasNext()
-                ){
+                boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
+                    .applyFilter(m -> m.unranked).hasNext();
+
+                if(!hasUnrankedMod || !(Config.isRemoveSliderLock()
+                    || ModMenu.getInstance().isChangeSpeed()
+                    || ModMenu.getInstance().isEnableForceAR())){
                     SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
                             OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
                     sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));

@@ -138,7 +138,7 @@ public class StatisticV2 implements Serializable {
     public int getAutoTotalScore() {
         float mult = 1;
         for (GameMod m : mod) {
-            if (m.typeAuto) {
+            if (m.unranked) {
                 continue;
             }
             mult *= m.scoreMultiplier;

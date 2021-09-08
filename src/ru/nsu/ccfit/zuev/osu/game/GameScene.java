@@ -1230,10 +1230,19 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         unranked.setPosition(Config.getRES_WIDTH() / 2 - unranked.getWidth() / 2, 80);
         unranked.setVisible(false);
         fgScene.attachChild(unranked);
+        boolean hasUnrankedMod = false;
 
-        if (stat.getMod().contains(GameMod.MOD_RELAX)
-                || stat.getMod().contains(GameMod.MOD_AUTOPILOT)
-                || stat.getMod().contains(GameMod.MOD_AUTO)) {
+        for(GameMod mod : stat.getMod()) {
+            if(mod.unranked) {
+                hasUnrankedMod = true;
+                break;
+            }
+        }
+
+        if (hasUnrankedMod
+                || Config.isRemoveSliderLock()
+                || ModMenu.getInstance().isChangeSpeed()
+                || ModMenu.getInstance().isEnableForceAR()) {
             unranked.setVisible(true);
         }
 

@@ -147,9 +147,6 @@
 
 	<string name="test_ed_storyboard">View storyboard (experiment)</string>
 
-	<!-- <string name="mod_precise_is_unrank_now">MOD_PRECISE is unrank now</string>-->
-	<string name="mods_somemods_is_unrank_now">Some unrank feature is actived, prevent score upload</string>
-
 	<!-- new data after 1.6.7(beta1) -->
     <string name="beta_checking_upgrade">Checking Upgrade...</string>
 	<string name="beta_check_upgrade_error">Failed to check new version, try again later</string>
