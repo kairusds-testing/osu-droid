@@ -28,7 +28,7 @@ public class OnlineFileOperator {
 
             String checksum = FileUtils.getSHA256Checksum(file);
             String signature = SecurityUtils.signRequest(checksum + "_" + replayID);
-            Debug.i("sendFile " + checksum + "_" + replayID + " = " + signature);
+            Debug.i("sendFile signature " + signature);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -41,7 +41,7 @@ public class OnlineFileOperator {
             Response response = OnlineManager.client.newCall(request).execute();
             String responseMsg = response.body().string();
 
-            Debug.i("sendFile " + responseMsg);
+            Debug.i("sendFile signatureResponse " + responseMsg);
         } catch (final IOException e) {
             Debug.e("sendFile IOException " + e.getMessage(), e);
         } catch (final Exception e) {
