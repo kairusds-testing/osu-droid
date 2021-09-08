@@ -28,12 +28,12 @@ public class OnlineFileOperator {
 
             String checksum = FileUtils.getSHA256Checksum(file);
             String signature = SecurityUtils.signRequest(checksum + "_" + replayID);
-            Debug.i("sendFile signature " + signature);
+            Debug.i("sendFile " + checksum + " " + replayID + " " + signature);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("replayID", replayID)
                 .addFormDataPart("uploadedfile", file.getName(), fileBody)
+                .addFormDataPart("replayID", replayID)
                 .addFormDataPart("sign", signature)
                 .build();
             Request request = new Request.Builder().url(urlstr)
