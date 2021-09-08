@@ -4,6 +4,7 @@ import com.dgsrz.bancho.security.SecurityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -27,8 +28,13 @@ public class OnlineFileOperator {
             }
 
             String checksum = FileUtils.getSHA256Checksum(file);
-            String signature = SecurityUtils.signRequest(checksum + "_" + replayID);
+            StringBuilder sb = new StringBuilder();
+            sb.append(URLEncoder.encode(checksum, "UTF-8"));
+            sb.append("_");
+            sb.append(URLEncoder.encode(replayID, "UTF-8"));
+            String signature = SecurityUtils.signRequest(sb.toString());
             Debug.i("sendFile " + checksum + " " + replayID + " " + signature);
+
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
