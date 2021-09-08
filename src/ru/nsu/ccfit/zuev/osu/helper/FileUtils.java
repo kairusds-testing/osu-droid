@@ -52,10 +52,7 @@ public class FileUtils {
     }
 
     public static String getMD5Checksum(File file) {
-        String checksum = getFileChecksum("MD5", file);
-        Debug.i(String.format("md5 checksum FileUtils: %s == MD5Calcuator: %s ",
-            checksum, MD5Calcuator.getFileMD5(file)));
-        return checksum;
+        return getFileChecksum("MD5", file);
     }
 
     public static String getSHA256Checksum(File file) {

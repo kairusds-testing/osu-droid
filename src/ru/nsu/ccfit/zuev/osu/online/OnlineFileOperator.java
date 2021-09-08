@@ -17,7 +17,6 @@ import org.anddev.andengine.util.Debug;
 import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 
 public class OnlineFileOperator {
-    private static final String CrLf = "\r\n";
 
     public static void sendFile(String urlstr, String filename, String replayID) {
         try {
@@ -29,6 +28,7 @@ public class OnlineFileOperator {
 
             String checksum = FileUtils.getSHA256Checksum(file);
             String signature = SecurityUtils.signRequest(checksum + "_" + replayID);
+            Debug.i("sendFile " + checksum + "_" + replayID + " = " + signature);
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -41,7 +41,7 @@ public class OnlineFileOperator {
             Response response = OnlineManager.client.newCall(request).execute();
             String responseMsg = response.body().string();
 
-            Debug.i(responseMsg);
+            Debug.i("sendFile " + responseMsg);
         } catch (final IOException e) {
             Debug.e("sendFile IOException " + e.getMessage(), e);
         } catch (final Exception e) {
