@@ -13,7 +13,7 @@ public class IPv4DNSSelector implements Dns {
 
     @Override
     public List<InetAddress> lookup(String hostname) {
-        return SmartIterator.wrap(SYSTEM.lookup(hostname)).iterator())
+        return SmartIterator.wrap(SYSTEM.lookup(hostname).iterator())
             .applyFilter(host -> host instanceof Inet4Address)
             .collectAllAsList();
     }
