@@ -39,6 +39,7 @@ public class OnlineFileOperator {
             RequestBody fileBody = RequestBody.create(mime, file);
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("uploadedfile", file.getName(), fileBody)
+                .addFormDataPart("hash", checksum)
                 .addFormDataPart("replayID", replayID)
                 .addFormDataPart("sign", signature)
                 .build();
