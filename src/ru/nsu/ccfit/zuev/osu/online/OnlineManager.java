@@ -23,9 +23,10 @@ import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 
 public class OnlineManager {
-    private static final String host = "http://ops.dgsrz.com/api/";
+    public static final String host = "http://ops.dgsrz.com/api/";
     private static final String onlineVersion = "29";
-    public static final OkHttpClient client = new OkHttpClient();
+    public static final OkHttpClient client = new OkHttpClient.Builder()
+        .dns(new IPv4DNSSelector()).build();
 
     private static OnlineManager instance = null;
     private Context context;
