@@ -310,7 +310,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
             exceptionStr.append("Android: ").append(Build.VERSION.RELEASE).append("(").append(Build.MODEL).append(")\n").append("\n");
             exceptionStr.append("System Package Info:").append(collectDeviceInfo(context)).append("\n").append("\n");
             exceptionStr.append("System Screen Info:").append(getScreenInfo(context)).append("\n").append("\n");
-            exceptionStr.append("System os Info:").append(getMobileInfo()).append("\n").append("\n");
+            exceptionStr.append("System OS Info:").append(getMobileInfo()).append("\n").append("\n");
             exceptionStr.append("Exception: ").append(ex.getMessage()).append("\n").append("\n");
             exceptionStr.append("Exception stack：").append(getTraceInfo((Activity) context, ex)).append("\n").append("\n");
         } catch (NameNotFoundException e) {

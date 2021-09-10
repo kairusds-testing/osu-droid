@@ -514,7 +514,6 @@ public class MainActivity extends BaseGameActivity implements
             return;
         }
 
-        System.setProperty("java.net.preferIPv4Stack", "true");
         if (BuildConfig.DEBUG) {
             //Toast.makeText(this,"this is debug version",Toast.LENGTH_LONG).show();
             try {
@@ -821,7 +820,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void cheatedExit() {
-        if(GlobalManager.getInstance().getEngine().getScene() != GlobalManager.getInstance().getGameScene().getScene()) {
+        if(GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
             GlobalManager.getInstance().getGameScene().quit();
         }
         GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getMainScene().getScene());
@@ -833,7 +832,8 @@ public class MainActivity extends BaseGameActivity implements
             @Override
             public void run() {
                 AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-                List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+                List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(
+                    manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
 
                 for(int i = 0; i < activeServices.size(); i++) {
                      int capabilities = activeServices.get(i).getCapabilities();
