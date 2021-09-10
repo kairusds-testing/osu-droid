@@ -39,29 +39,23 @@ public class WebViewActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClientImpl());
 
-        switch(getIntent().getStringExtra(EXTRA_URL)) {
-            case LOGIN_URL:
-                // webview.addJavascriptInterface(new LoginTypeInterface(),
-               //     JAVASCRIPT_INTERFACE_NAME);
-                webview.loadUrl(LOGIN_URL);
-                break;
-
-            case REGISTER_URL:
-                webview.addJavascriptInterface(new RegisterTypeInterface(),
-                    JAVASCRIPT_INTERFACE_NAME);
-                webview.loadUrl(REGISTER_URL);
-                break;
-
-            case PROFILE_URL:
-                String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
-                if(extraInfo == null) {
-                    closeActivity();
-                    break;
-                }
-                webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
-                break;
-            default:
+        String url = getIntent().getStringExtra(EXTRA_URL);
+        if(url == LOGIN_URL) {
+            // webview.addJavascriptInterface(new LoginTypeInterface(),
+            // JAVASCRIPT_INTERFACE_NAME);
+            webview.loadUrl(LOGIN_URL);
+        }else if(url == REGISTER_URL) {
+            webview.addJavascriptInterface(new RegisterTypeInterface(),
+                JAVASCRIPT_INTERFACE_NAME);
+            webview.loadUrl(REGISTER_URL);
+        }else if(url == PROFILE_URL) {
+            String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
+            if(extraInfo == null) {
                 closeActivity();
+            }
+            webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
+        }else {
+            closeActivity();
         }
     }
 
