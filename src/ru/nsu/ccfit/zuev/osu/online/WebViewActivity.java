@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.zuev.osu.online;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.webkit.WebView;
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class WebViewActivity extends AppCompatActivity {
@@ -23,11 +26,14 @@ public class WebViewActivity extends AppCompatActivity {
     public static final String PROFILE_URL = OnlineManager.host + "profile.php?uid=%d";
 
     private WebView webview;
+    private Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_activity);
+
+        mActivity = GlobalManager.getInstance().getMainActivity();
 
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
@@ -37,18 +43,26 @@ public class WebViewActivity extends AppCompatActivity {
             case TYPE_REGISTER:
                 webview.addJavascriptInterface(new RegisterTypeInterface(),
                     JAVASCRIPT_INTERFACE_NAME);
-                // webview.loadUrl(REGISTER_URL);
-                webview.loadUrl("https://kairusds-testing.github.io/webview.html");
+                webview.loadUrl(REGISTER_URL);
                 break;
             default:
-                finish();
+                closeActivity();
         }
+    }
+
+    private void closeActivity() {
+        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+        finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {
-            webview.goBack();
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(webview.canGoBack()) {
+                webview.goBack();
+            }else {
+                closeActivity();
+            }
             return true;
         }
 
