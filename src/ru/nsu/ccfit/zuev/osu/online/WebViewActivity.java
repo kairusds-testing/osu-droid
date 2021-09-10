@@ -2,7 +2,7 @@ package ru.nsu.ccfit.zuev.osu.online;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.PorterDuff;
+// import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.view.KeyEvent;
@@ -44,7 +44,7 @@ public class WebViewActivity extends AppCompatActivity {
         webviewProgress.setVisibility(View.VISIBLE);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.webview_progressbar);
         progressBar.setVisibility(View.VISIBLE);
-        progressBar.getIndeterminateDrawable().setColorFilter(mActivity.getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_IN);
+        // progressBar.getIndeterminateDrawable().setColorFilter(mActivity.getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
         progressBar.setProgress(1);
 
         webview = (WebView) findViewById(R.id.webview);
