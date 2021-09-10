@@ -7,7 +7,7 @@ public class WebViewClientImpl extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if(url.startsWith(OnlineManager.host)) return false;
+        if(url.startsWith(WebViewActivity.ENDPOINT)) return false;
         return true;
     }
 
