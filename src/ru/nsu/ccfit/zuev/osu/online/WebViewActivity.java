@@ -40,8 +40,8 @@ public class WebViewActivity extends AppCompatActivity {
 
         switch(getIntent().getStringExtra(EXTRA_URL)) {
             case LOGIN_URL:
-                webview.addJavascriptInterface(new LoginTypeInterface(),
-                    JAVASCRIPT_INTERFACE_NAME);
+                // webview.addJavascriptInterface(new LoginTypeInterface(),
+               //     JAVASCRIPT_INTERFACE_NAME);
                 webview.loadUrl(LOGIN_URL);
                 break;
 
