@@ -13,9 +13,9 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class WebViewActivity extends AppCompatActivity {
 
     public static final String EXTRA_TYPE = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityType";
-    public static final String TYPE_REGISTER = 0;
-    public static final String TYPE_LOGIN = 1;
-    public static final String TYPE_VIEW_PROFILE = 2;
+    public static final int TYPE_REGISTER = 0;
+    public static final int TYPE_LOGIN = 1;
+    public static final int TYPE_VIEW_PROFILE = 2;
     public static final String JAVASCRIPT_INTERFACE_NAME = "Android";
 
     public static final String LOGIN_URL = OnlineManager.host + "user/?action=login";
@@ -33,7 +33,7 @@ public class WebViewActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClientImpl());
 
-        switch(getIntent().getIntExtra(EXTRA_TYPE)) {
+        switch(getIntent().getIntExtra(EXTRA_TYPE, -1)) {
             case TYPE_REGISTER:
                 webview.addJavascriptInterface(new RegisterTypeInterface(),
                     JAVASCRIPT_INTERFACE_NAME);
