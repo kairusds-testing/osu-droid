@@ -74,7 +74,7 @@ public class SettingsMenu extends PreferenceActivity {
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, WebViewActivity.class);
-            intent.putExtra(WebViewActivity.EXTRA_TYPE, WebViewActivity.TYPE_REGISTER);
+            intent.putExtra(WebViewActivity.EXTRA_URL, WebViewActivity.REGISTER_URL);
             startActivity(intent);
             return true;
         });

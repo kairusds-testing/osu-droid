@@ -10,15 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class WebViewActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TYPE = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityType";
-    public static final int TYPE_REGISTER = 0;
-    public static final int TYPE_LOGIN = 1;
-    public static final int TYPE_VIEW_PROFILE = 2;
+    public static final String EXTRA_INFO = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityExtra";
+    public static final String EXTRA_URL = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityURL";
     public static final String JAVASCRIPT_INTERFACE_NAME = "Android";
 
     public static final String LOGIN_URL = OnlineManager.host + "user/?action=login";
@@ -39,11 +38,26 @@ public class WebViewActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClientImpl());
 
-        switch(getIntent().getIntExtra(EXTRA_TYPE, -1)) {
-            case TYPE_REGISTER:
+        switch(getIntent().getStringExtra(EXTRA_URL)) {
+            case LOGIN_URL:
+                webview.addJavascriptInterface(new LoginTypeInterface(),
+                    JAVASCRIPT_INTERFACE_NAME);
+                webview.loadUrl(LOGIN_URL);
+                break;
+
+            case REGISTER_URL:
                 webview.addJavascriptInterface(new RegisterTypeInterface(),
                     JAVASCRIPT_INTERFACE_NAME);
                 webview.loadUrl(REGISTER_URL);
+                break;
+
+            case PROFILE_URL:
+                String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
+                if(extraInfo == null) {
+                    closeActivity();
+                    break;
+                }
+                webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
                 break;
             default:
                 closeActivity();
@@ -76,10 +90,7 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
-	private class LoginTypeInterface {
-	}
-
-	private class ViewProfileTypeInterface {
-	}
+    private class LoginTypeInterface {
+    }
 
 }
