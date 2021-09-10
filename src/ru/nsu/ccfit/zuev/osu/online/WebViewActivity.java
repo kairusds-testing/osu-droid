@@ -2,10 +2,15 @@ package ru.nsu.ccfit.zuev.osu.online;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.View;
 import android.view.KeyEvent;
 import android.webkit.WebView;
+import android.webkit.WebChromeClient;
 import android.webkit.JavascriptInterface;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -35,9 +40,25 @@ public class WebViewActivity extends AppCompatActivity {
 
         mActivity = GlobalManager.getInstance().getMainActivity();
 
+        RelativeLayout webviewProgress = (RelativeLayout) findViewById(R.id.webview_progress);
+        webviewProgress.setVisibility(View.VISIBLE);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.webview_progressbar);
+        progressBar.getIndeterminateDrawable().setColorFilter(mActivity.getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+        progressBar.setProgress(1);
+
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.setWebViewClient(new WebViewClientImpl());
+        webview.getSettings().setUserAgentString("osudroid");
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if(newProgress < 100) {
+                    runOnUiThread(() -> progressBar.setProgress(newProgress));
+                }else if(newProgress == 100) {
+                    webviewProgress.setVisibility(View.GONE);
+                }
+            }
+        });
 
         switch(getIntent().getStringExtra(EXTRA_URL)) {
             case LOGIN_URL:
