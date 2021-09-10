@@ -3,23 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/webview_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/frgDialogStyleBackground"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:id="@+id/webview_progressbar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_centerInParent="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progress="1"
-            android:visibility="gone"/>
-    </RelativeLayout>
-
     <WebView
         android:id="@+id/webview"
         android:layout_centerInParent="true"
