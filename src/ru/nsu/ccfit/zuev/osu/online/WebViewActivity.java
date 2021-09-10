@@ -43,7 +43,8 @@ public class WebViewActivity extends AppCompatActivity {
         RelativeLayout webviewProgress = (RelativeLayout) findViewById(R.id.webview_progress);
         webviewProgress.setVisibility(View.VISIBLE);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.webview_progressbar);
-        progressBar.getIndeterminateDrawable().setColorFilter(mActivity.getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(mActivity.getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_IN);
         progressBar.setProgress(1);
 
         webview = (WebView) findViewById(R.id.webview);
@@ -52,10 +53,10 @@ public class WebViewActivity extends AppCompatActivity {
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if(newProgress < 100) {
-                    runOnUiThread(() -> progressBar.setProgress(newProgress));
-                }else if(newProgress == 100) {
+                progressBar.setProgress(newProgress);
+                if(newProgress == 100) {
                     webviewProgress.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
