@@ -40,23 +40,30 @@ public class WebViewActivity extends AppCompatActivity {
         webview.setWebViewClient(new WebViewClientImpl());
 
         String url = getIntent().getStringExtra(EXTRA_URL);
+        Debug.i(url);
         if(url == LOGIN_URL) {
             // webview.addJavascriptInterface(new LoginTypeInterface(),
             // JAVASCRIPT_INTERFACE_NAME);
             webview.loadUrl(LOGIN_URL);
-        }else if(url == REGISTER_URL) {
+            return;
+        }
+
+        if(url == REGISTER_URL) {
             webview.addJavascriptInterface(new RegisterTypeInterface(),
                 JAVASCRIPT_INTERFACE_NAME);
             webview.loadUrl(REGISTER_URL);
-        }else if(url == PROFILE_URL) {
+            return;
+        }
+
+        if(url == PROFILE_URL) {
             String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
             if(extraInfo == null) {
                 closeActivity();
             }
             webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
-        }else {
-            closeActivity();
+            return;
         }
+        closeActivity();
     }
 
     private void closeActivity() {
