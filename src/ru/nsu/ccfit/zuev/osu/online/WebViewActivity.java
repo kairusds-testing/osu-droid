@@ -23,7 +23,7 @@ public class WebViewActivity extends AppCompatActivity {
     public static final String ENDPOINT = "https://acivev.com/";
     public static final String LOGIN_URL = ENDPOINT + "user/?action=login";
     public static final String REGISTER_URL = ENDPOINT + "user/?action=register";
-    public static final String PROFILE_URL = ENDPOINT_URL + "profile.php?uid=%d";
+    public static final String PROFILE_URL = ENDPOINT + "profile.php?uid=";
 
     private WebView webview;
     private Activity mActivity;
@@ -56,7 +56,7 @@ public class WebViewActivity extends AppCompatActivity {
                     closeActivity();
                     break;
                 }
-                webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
+                webview.loadUrl(PROFILE_URL + EXTRA_INFO);
                 break;
 
             default:
