@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.anddev.andengine.util.Debug;
-
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -22,9 +20,9 @@ public class WebViewActivity extends AppCompatActivity {
     public static final String EXTRA_URL = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityURL";
     public static final String JAVASCRIPT_INTERFACE_NAME = "Android";
 
-    public static final String ENDPOINT_URL = OnlineManager.host.replace("api/", "");
-    public static final String LOGIN_URL = ENDPOINT_URL + "user/?action=login";
-    public static final String REGISTER_URL = ENDPOINT_URL + "user/?action=register";
+    public static final String ENDPOINT = "https://acivev.com/";
+    public static final String LOGIN_URL = ENDPOINT + "user/?action=login";
+    public static final String REGISTER_URL = ENDPOINT + "user/?action=register";
     public static final String PROFILE_URL = ENDPOINT_URL + "profile.php?uid=%d";
 
     private WebView webview;
@@ -41,31 +39,29 @@ public class WebViewActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClientImpl());
 
-        String url = getIntent().getStringExtra(EXTRA_URL);
-        Debug.i(url);
-        if(url == LOGIN_URL) {
-            // webview.addJavascriptInterface(new LoginTypeInterface(),
-            // JAVASCRIPT_INTERFACE_NAME);
-            webview.loadUrl(LOGIN_URL);
-            return;
-        }
+        switch(getIntent().getStringExtra(EXTRA_URL)) {
+            case LOGIN_URL:
+                webview.loadUrl(LOGIN_URL);
+                break;
 
-        if(url == REGISTER_URL) {
-            webview.addJavascriptInterface(new RegisterTypeInterface(),
-                JAVASCRIPT_INTERFACE_NAME);
-            webview.loadUrl(REGISTER_URL);
-            return;
-        }
+            case REGISTER_URL:
+                webview.addJavascriptInterface(new RegisterTypeInterface(),
+                    JAVASCRIPT_INTERFACE_NAME);
+                webview.loadUrl(REGISTER_URL);
+                break;
 
-        if(url == PROFILE_URL) {
-            String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
-            if(extraInfo == null) {
+            case PROFILE_URL:
+                String extraInfo = getIntent().getStringExtra(EXTRA_INFO);
+                if(extraInfo == null) {
+                    closeActivity();
+                    break;
+                }
+                webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
+                break;
+
+            default:
                 closeActivity();
-            }
-            webview.loadUrl(String.format(PROFILE_URL, EXTRA_INFO));
-            return;
         }
-        closeActivity();
     }
 
     private void closeActivity() {
