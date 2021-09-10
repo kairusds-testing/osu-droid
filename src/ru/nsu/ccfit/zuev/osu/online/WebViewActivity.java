@@ -20,9 +20,10 @@ public class WebViewActivity extends AppCompatActivity {
     public static final String EXTRA_URL = "ru.nsu.ccfit.zuev.osuplus.WebViewActivityURL";
     public static final String JAVASCRIPT_INTERFACE_NAME = "Android";
 
-    public static final String LOGIN_URL = OnlineManager.host + "user/?action=login";
-    public static final String REGISTER_URL = OnlineManager.host + "user/?action=register";
-    public static final String PROFILE_URL = OnlineManager.host + "profile.php?uid=%d";
+    public static final String ENDPOINT_URL = OnlineManager.host.replace("api/", "");
+    public static final String LOGIN_URL = ENDPOINT_URL + "user/?action=login";
+    public static final String REGISTER_URL = ENDPOINT_URL + "user/?action=register";
+    public static final String PROFILE_URL = ENDPOINT_URL + "profile.php?uid=%d";
 
     private WebView webview;
     private Activity mActivity;
