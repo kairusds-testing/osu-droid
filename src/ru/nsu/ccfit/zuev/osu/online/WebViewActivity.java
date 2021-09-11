@@ -50,7 +50,7 @@ public class WebViewActivity extends AppCompatActivity {
             case REGISTER_URL:
                 webview.addJavascriptInterface(new RegisterTypeInterface(),
                     JAVASCRIPT_INTERFACE_NAME);
-                webview.loadUrl("https://www.whatismybrowser.com/detect/what-is-my-user-agent");
+                webview.loadUrl(REGISTER_URL);
                 break;
 
             case PROFILE_URL:
