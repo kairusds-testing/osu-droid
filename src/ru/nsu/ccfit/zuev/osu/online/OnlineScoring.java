@@ -30,6 +30,8 @@ public class OnlineScoring {
 
     public void createPanel() {
         panel = new OnlinePanel();
+        if(!OnlineManager.getInstance().isStayOnline())
+            panel.setAvatar(null);
     }
 
     public OnlinePanel getPanel() {
@@ -71,9 +73,6 @@ public class OnlineScoring {
     public void login() {
         if(!OnlineManager.getInstance().isStayOnline()) {
             updatePanels();
-            OnlineManager.getInstance().setStayOnline(false);
-            panel.setAvatar(null);
-            secondPanel.setAvatar(null);
             return;
         }
         avatarLoaded = false;
