@@ -72,7 +72,8 @@ public class OnlineScoring {
         if(!OnlineManager.getInstance().isStayOnline()) {
             updatePanels();
             OnlineManager.getInstance().setStayOnline(false);
-            loadAvatar(true);
+            panel.setAvatar(null);
+            secondPanel.setAvatar(null);
             return;
         }
         avatarLoaded = false;
