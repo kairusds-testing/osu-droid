@@ -104,6 +104,8 @@ public class OnlineScoring {
                     } else {
                         setPanelMessage("Cannot log in", OnlineManager.getInstance().getFailMessage());
                         OnlineManager.getInstance().setStayOnline(false);
+                        updatePanels();
+                        loadAvatar(true);
                     }
                 }
             }
@@ -176,26 +178,17 @@ public class OnlineScoring {
                             OnlineManager.getInstance().sendReplay(replay);
                             break;
                         }
-
-
                         try {
                             Thread.sleep(5000);
                         } catch (InterruptedException e) {
                         }
                     }
-
                     if (!success) {
                         panel.setFail();
                     }
-
                 }
             }
-
-
-            public void onComplete() {
-                // TODO Auto-generated method stub
-
-            }
+            public void onComplete() {}
         });
     }
 
@@ -219,7 +212,7 @@ public class OnlineScoring {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 synchronized (onlineMutex) {
-                    if (OnlineManager.getInstance().loadAvatarToTextureManager() || !OnlineManager.getInstance().isStayOnline()) {
+                    if (OnlineManager.getInstance().loadAvatarToTextureManager()) {
                         avatarLoaded = true;
                     } else
                         avatarLoaded = false;

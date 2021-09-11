@@ -43,7 +43,7 @@ public class OnlinePanel extends Entity {
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    this.setColor(0.4f, 0.4f, 0.4f, 1.0f);
+                    this.setColor(0.3f, 0.3f, 0.3f, 0.7f);
                     moved = false;
                     dx = pTouchAreaLocalX;
                     dy = pTouchAreaLocalY;
@@ -179,18 +179,16 @@ public class OnlinePanel extends Entity {
         if (avatar != null)
             avatar.detachSelf();
         avatar = null;
-        if (texname == null) return;
+        if (texname == null && OnlineManager.getInstance().isStayOnline()) return;
 
-        TextureRegion tex = null;
-        if(OnlineManager.getInstance().isStayOnline()) {
-            tex = ResourceManager.getInstance().getTextureIfLoaded(texname);
-        }else {
-            tex = ResourceManager.getInstance().getTexture("offline-avatar");
+        TextureRegion tex = OnlineManager.getInstance().isStayOnline() ?
+            ResourceManager.getInstance().getTextureIfLoaded(texname)
+            : ResourceManager.getInstance().getTexture("offline-avatar");
+
+        if(tex != null) {
+            avatar = new Sprite(0, 0, Utils.toRes(110), Utils.toRes(110), tex);
+            frontLayer.attachChild(avatar);
+            Debug.i("Avatar is set!");
         }
-        if (tex == null) return;
-
-        Debug.i("Avatar is set!");
-        avatar = new Sprite(0, 0, Utils.toRes(110), Utils.toRes(110), tex);
-        frontLayer.attachChild(avatar);
     }
 }
