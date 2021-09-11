@@ -42,7 +42,8 @@ public class WebViewActivity extends AppCompatActivity {
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
 
-        switch(getIntent().getStringExtra(EXTRA_URL)) {
+        String url = getIntent().getStringExtra(EXTRA_URL);
+        switch(url) {
             case LOGIN_URL:
                 webview.loadUrl(LOGIN_URL);
                 break;
@@ -63,7 +64,7 @@ public class WebViewActivity extends AppCompatActivity {
                 break;
 
             default:
-                closeActivity();
+                webview.loadUrl(url);
         }
     }
 
@@ -88,6 +89,9 @@ public class WebViewActivity extends AppCompatActivity {
 
     private class RegisterTypeInterface {
         @JavascriptInterface
+        public void login(String username, String password) {
+            
+        }
         public void showSnackbar(String message) {
             Snackbar.make(findViewById(android.R.id.content), message, 1500).show();
         }

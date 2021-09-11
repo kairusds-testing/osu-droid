@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
+
+//import com.edlplan.ui.fragment.UserOptionsFragment;
+
 import org.anddev.andengine.entity.Entity;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.sprite.Sprite;
@@ -12,9 +15,12 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
 import org.anddev.andengine.util.HorizontalAlign;
+
+import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.Utils;
+import ru.nsu.ccfit.zuev.osu.model.vo.UserVO;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class OnlinePanel extends Entity {
@@ -30,9 +36,35 @@ public class OnlinePanel extends Entity {
 
     public OnlinePanel() {
         rect = new Rectangle(0, 0, Utils.toRes(410), Utils.toRes(110)) {
+            private boolean moved = false;
+            private float dx = 0, dy = 0;
+
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
+                    this.setColor(0.2f, 0.2f, 0.2f, 1.0);
+                    moved = false;
+                    dx = pTouchAreaLocalX;
+                    dy = pTouchAreaLocalY;
+                    return true;
+                }
+                if (pSceneTouchEvent.isActionUp()) {
+                    this.setColor(0.2f, 0.2f, 0.2f, 0.5f);
+                    if (!moved) {
+                        // new UserOptionsFragment().openFor(nameText.getText());
+                    }
+                    return true;
+                }
+                if (pSceneTouchEvent.isActionOutside()
+                        || pSceneTouchEvent.isActionMove()
+                        && (MathUtils.distance(dx, dy, pTouchAreaLocalX,
+                        pTouchAreaLocalY) > 50)) {
+                    moved = true;
+                    this.setColor(0.2f, 0.2f, 0.2f, 0.5f);
+                }
+                return false;
+
+                /* if (pSceneTouchEvent.isActionDown()) {
                     final Activity activity = GlobalManager.getInstance().getMainActivity();
                     boolean avatarLoad = OnlineScoring.getInstance().isAvatarLoaded();
                     boolean stayOnline = OnlineManager.getInstance().isStayOnline();
@@ -48,7 +80,7 @@ public class OnlinePanel extends Entity {
                         return false;
                     }
                 }
-                return false;
+                return false; */ 
             }
         };
         rect.setColor(0.2f, 0.2f, 0.2f, 0.5f);
@@ -57,7 +89,7 @@ public class OnlinePanel extends Entity {
         Rectangle avatarFooter = new Rectangle(0, 0, Utils.toRes(110), Utils.toRes(110));
         avatarFooter.setColor(0.2f, 0.2f, 0.2f, 0.8f);
         attachChild(avatarFooter);
-		
+
 		/*Rectangle rightFooter = new Rectangle(Utils.toRes(410), 0, Utils.toRes(614), Utils.toRes(110));
 		rightFooter.setColor(0.3f, 0.3f, 0.3f, 0.35f);
 		attachChild(rightFooter);*/
@@ -109,26 +141,37 @@ public class OnlinePanel extends Entity {
     }
 
     void setInfo() {
-        nameText.setText(OnlineManager.getInstance().getUsername());
-        StringBuilder scoreBuilder = new StringBuilder("Score: ");
-        scoreBuilder.append(OnlineManager.getInstance().getScore());
-        for (int i = scoreBuilder.length() - 3; i > 7; i -= 3) {
-            scoreBuilder.insert(i, ' ');
+        if(OnlineManager.getInstance().isStayOnline()) {
+            nameText.setText(OnlineManager.getInstance().getUsername());
+            StringBuilder scoreBuilder = new StringBuilder("Score: ");
+            scoreBuilder.append(OnlineManager.getInstance().getScore());
+            for (int i = scoreBuilder.length() - 3; i > 7; i -= 3) {
+                scoreBuilder.insert(i, ' ');
+            }
+    
+            scoreText.setText(scoreBuilder.toString());
+    
+            accText.setText(String.format("Accuracy: %.2f%%",
+                    OnlineManager.getInstance().getAccuracy() * 100f));
+            rankText.setScale(1);
+            rankText.setText(String.format("#%d", OnlineManager.getInstance().getRank()));
+            rankText.setPosition(Utils.toRes(390 + 10) - rankText.getWidth() * 1.7f, Utils.toRes(55));
+            rankText.setScaleCenterX(0);
+            rankText.setScale(1.7f);
+    
+            messageLayer.detachSelf();
+            onlineLayer.detachSelf();
+            attachChild(onlineLayer);
+        }else {
+            // might need offline score calculation
+            nameText.setText(Config.getLocalUsername());
+            scoreText.setText("");
+            accText.setText("");
+            rankText.setText("");
+            messageLayer.detachSelf();
+            onlineLayer.detachSelf();
+            attachChild(onlineLayer);
         }
-
-        scoreText.setText(scoreBuilder.toString());
-
-        accText.setText(String.format("Accuracy: %.2f%%",
-                OnlineManager.getInstance().getAccuracy() * 100f));
-        rankText.setScale(1);
-        rankText.setText(String.format("#%d", OnlineManager.getInstance().getRank()));
-        rankText.setPosition(Utils.toRes(390 + 10) - rankText.getWidth() * 1.7f, Utils.toRes(55));
-        rankText.setScaleCenterX(0);
-        rankText.setScale(1.7f);
-
-        messageLayer.detachSelf();
-        onlineLayer.detachSelf();
-        attachChild(onlineLayer);
     }
 
     void setAvatar(final String texname) {
@@ -136,7 +179,13 @@ public class OnlinePanel extends Entity {
             avatar.detachSelf();
         avatar = null;
         if (texname == null) return;
-        TextureRegion tex = ResourceManager.getInstance().getTextureIfLoaded(texname);
+
+        TextureRegion tex = null;
+        if(OnlineManager.getInstance().isStayOnline()) {
+            tex = ResourceManager.getInstance().getTextureIfLoaded(texname);
+        }else {
+            tex = ResourceManager.getInstance().getTexture("offline-avatar");
+        }
         if (tex == null) return;
 
         Debug.i("Avatar is set!");

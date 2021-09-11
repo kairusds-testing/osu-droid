@@ -293,6 +293,7 @@ public class MainActivity extends BaseGameActivity implements
         //ResourceManager.getInstance().loadHighQualityAsset("solo", "solo.png");
         ResourceManager.getInstance().loadHighQualityAsset("exit", "exit.png");
         ResourceManager.getInstance().loadHighQualityAsset("options", "options.png");
+        ResourceManager.getInstance().loadHighQualityAsset("offline-avatar", "offline-avatar.png");
         ResourceManager.getInstance().loadHighQualityAsset("star", "gfx/star.png");
         ResourceManager.getInstance().loadHighQualityAsset("music_play", "music_play.png");
         ResourceManager.getInstance().loadHighQualityAsset("music_pause", "music_pause.png");

@@ -691,14 +691,14 @@ public class MainScene implements IUpdateHandler {
         Config.loadOnlineConfig(context);
         OnlineManager.getInstance().Init(context);
 
-        if (OnlineManager.getInstance().isStayOnline()) {
-            Debug.i("Stay online, creating panel");
-            OnlineScoring.getInstance().createPanel();
-            final OnlinePanel panel = OnlineScoring.getInstance().getPanel();
-            panel.setPosition(5, 5);
-            scene.attachChild(panel);
-            scene.registerTouchArea(panel.rect);
-        }
+        // if (OnlineManager.getInstance().isStayOnline()) {
+        // Debug.i("Stay online, creating panel");
+        OnlineScoring.getInstance().createPanel();
+        final OnlinePanel panel = OnlineScoring.getInstance().getPanel();
+        panel.setPosition(5, 5);
+        scene.attachChild(panel);
+        scene.registerTouchArea(panel.rect);
+        // }
 
         OnlineScoring.getInstance().login();
     }

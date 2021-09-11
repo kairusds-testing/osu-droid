@@ -37,8 +37,8 @@ public class OnlineScoring {
     }
 
     public OnlinePanel createSecondPanel() {
-        if (OnlineManager.getInstance().isStayOnline() == false)
-            return null;
+        // if (OnlineManager.getInstance().isStayOnline() == false)
+        //    return null;
         secondPanel = new OnlinePanel();
         secondPanel.setInfo();
         secondPanel.setAvatar(avatarLoaded ? "userAvatar" : null);
@@ -69,20 +69,20 @@ public class OnlineScoring {
     }
 
     public void login() {
-        if (OnlineManager.getInstance().isStayOnline() == false)
+        if(!OnlineManager.getInstance().isStayOnline()) {
+            updatePanels();
+            OnlineManager.getInstance().setStayOnline(false);
+            loadAvatar(true);
             return;
+        }
         avatarLoaded = false;
         new AsyncTaskLoader().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new OsuAsyncCallback() {
-
-
             public void run() {
                 synchronized (onlineMutex) {
                     boolean success = false;
-
                     //Trying to send request
                     for (int i = 0; i < 3; i++) {
                         setPanelMessage("Logging in...", "");
-
                         try {
                             success = OnlineManager.getInstance().logIn();
                         } catch (OnlineManagerException e) {
@@ -107,12 +107,7 @@ public class OnlineScoring {
                     }
                 }
             }
-
-
-            public void onComplete() {
-                // TODO Auto-generated method stub
-
-            }
+            public void onComplete() {}
         });
     }
 
@@ -120,11 +115,8 @@ public class OnlineScoring {
         if (OnlineManager.getInstance().isStayOnline() == false)
             return;
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-
-
             public void run() {
                 synchronized (onlineMutex) {
-
                     for (int i = 0; i < attemptCount; i++) {
                         try {
                             OnlineManager.getInstance().startPlay(track, hash);
@@ -140,12 +132,7 @@ public class OnlineScoring {
                     }
                 }
             }
-
-
-            public void onComplete() {
-                // TODO Auto-generated method stub
-
-            }
+            public void onComplete() {}
         });
     }
 
@@ -230,11 +217,9 @@ public class OnlineScoring {
             return;
 
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-
-
             public void run() {
                 synchronized (onlineMutex) {
-                    if (OnlineManager.getInstance().loadAvatarToTextureManager()) {
+                    if (OnlineManager.getInstance().loadAvatarToTextureManager() || !OnlineManager.getInstance().isStayOnline()) {
                         avatarLoaded = true;
                     } else
                         avatarLoaded = false;
@@ -245,11 +230,7 @@ public class OnlineScoring {
                 }
             }
 
-
-            public void onComplete() {
-                // TODO Auto-generated method stub
-
-            }
+            public void onComplete() {}
         });
     }
 
