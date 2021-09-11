@@ -15,6 +15,7 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
 import org.anddev.andengine.util.HorizontalAlign;
+import org.anddev.andengine.util.MathUtils;
 
 import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
@@ -42,7 +43,7 @@ public class OnlinePanel extends Entity {
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    this.setColor(0.2f, 0.2f, 0.2f, 1.0);
+                    this.setColor(0.4f, 0.4f, 0.4f, 1.0f);
                     moved = false;
                     dx = pTouchAreaLocalX;
                     dy = pTouchAreaLocalY;
