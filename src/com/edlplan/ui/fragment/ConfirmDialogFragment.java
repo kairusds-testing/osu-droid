@@ -50,14 +50,11 @@ public class ConfirmDialogFragment extends BaseFragment {
 
     @Override
     public void dismiss() {
-        playOnDismissAnim(new Runnable() {
-            @Override
-            public void run() {
-                if(dismissListener != null) {
-                    dismissListener.onDismiss(ConfirmDialogFragment.this);
-                }
-                ConfirmDialogFragment.super.dismiss();
+        playOnDismissAnim(() -> {
+            if(dismissListener != null) {
+                dismissListener.onDismiss(ConfirmDialogFragment.this);
             }
+            ConfirmDialogFragment.super.dismiss();
         });
     }
 
