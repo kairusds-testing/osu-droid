@@ -24,7 +24,7 @@ import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 
 public class OnlineManager {
-    private static final String hostname = "acivev.com";
+    public static final String hostname = "acivev.com";
     private static final String endpoint = "https://" + hostname + "/api/";
     private static final String onlineVersion = "29";
 

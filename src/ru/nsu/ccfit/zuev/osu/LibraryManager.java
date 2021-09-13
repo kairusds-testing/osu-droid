@@ -40,7 +40,7 @@ public class LibraryManager {
     }
 
     public File getLibraryCacheFile() {
-        return new File(GlobalManager.getInstance().getMainActivity().getExternalFilesDir(), String.format("library.%s.dat", VERSION));
+        return new File(GlobalManager.getInstance().getMainActivity().getExternalFilesDir(null), String.format("library.%s.dat", VERSION));
     }
 
     @SuppressWarnings("unchecked")
