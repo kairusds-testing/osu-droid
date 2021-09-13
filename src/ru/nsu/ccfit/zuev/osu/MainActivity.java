@@ -53,6 +53,8 @@ import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
+import org.conscrypt.Conscrypt;
+
 import org.matomo.sdk.Matomo;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
@@ -118,6 +120,7 @@ public class MainActivity extends BaseGameActivity implements
         ToastLogger.init(this);
         SyncTaskManager.getInstance().init(this);
         InputManager.setContext(this);
+        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         OnlineManager.getInstance().Init(getApplicationContext());
 
         final DisplayMetrics dm = new DisplayMetrics();

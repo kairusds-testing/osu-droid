@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
+import okhttp3.CertificatePinner;
 import okhttp3.OkHttpClient;
 
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
@@ -23,9 +24,16 @@ import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 
 public class OnlineManager {
-    private static final String host = "http://ops.dgsrz.com/api/";
+    private static final String hostname = "acivev.com"
+    private static final String endpoint = "https://" + hostname + "/api/";
     private static final String onlineVersion = "29";
-    public static final OkHttpClient client = new OkHttpClient();
+
+    private CertificatePinner certificatePinner = new CertificatePinner.Builder()
+        .add(hostname, "sha256/0jQVmOH3u5mnMGhGRUCmMKELXOtO9q8i3xfrgq3SfzI")
+        .build();
+    public static final OkHttpClient client = new OkHttpClient.Builder()
+        .certificatePinner(certificatePinner)
+        .build();
 
     private static OnlineManager instance = null;
     private Context context;
@@ -54,7 +62,7 @@ public class OnlineManager {
     }
 
     public static String getReplayURL(int playID) {
-        return host + "upload/" + playID + ".odr";
+        return endpoint + "upload/" + playID + ".odr";
     }
 
     public void Init(Context context) {
@@ -120,7 +128,7 @@ public class OnlineManager {
         post.addParam("password", MD5Calcuator.getStringMD5(password + "taikotaiko"));
         post.addParam("version", onlineVersion);
 
-        ArrayList<String> response = sendRequest(post, host + "login.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "login.php");
 
         if (response == null) {
             return false;
@@ -166,7 +174,7 @@ public class OnlineManager {
         post.addParam("email", email);
         post.addParam("deviceID", deviceID);
 
-        ArrayList<String> response = sendRequest(post, host + "register.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "register.php");
 
         return (response != null);
     }
@@ -197,7 +205,7 @@ public class OnlineManager {
         if (osuID != null)
             post.addParam("songID", osuID);
 
-        ArrayList<String> response = sendRequest(post, host + "submit.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "submit.php");
 
         if (response == null) {
             if (failMessage.equals("Cannot log in") && stayOnline) {
@@ -240,7 +248,7 @@ public class OnlineManager {
         post.addParam("playID", playID);
         post.addParam("data", data);
 
-        ArrayList<String> response = sendRequest(post, host + "submit.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "submit.php");
 
         if (response == null) {
             return false;
@@ -279,7 +287,7 @@ public class OnlineManager {
         post.addParam("filename", trackFile.getName());
         post.addParam("hash", hash);
 
-        ArrayList<String> response = sendRequest(post, host + "getrank.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "getrank.php");
 
         if (response == null) {
             return new ArrayList<String>();
@@ -336,14 +344,14 @@ public class OnlineManager {
     public void sendReplay(String filename) {
         if (replayID <= 0) return;
         Debug.i("Sending replay '" + filename + "' for id = " + replayID);
-        OnlineFileOperator.sendFile(host + "upload.php", filename, String.valueOf(replayID));
+        OnlineFileOperator.sendFile(endpoint + "upload.php", filename, String.valueOf(replayID));
     }
 
     public String getScorePack(int playid) throws OnlineManagerException {
         PostBuilder post = new PostBuilder();
         post.addParam("playID", String.valueOf(playid));
 
-        ArrayList<String> response = sendRequest(post, host + "gettop.php");
+        ArrayList<String> response = sendRequest(post, endpoint + "gettop.php");
 
         if (response == null || response.size() < 2) {
             return "";
