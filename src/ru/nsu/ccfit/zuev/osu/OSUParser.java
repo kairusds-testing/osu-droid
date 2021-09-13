@@ -104,8 +104,8 @@ public class OSUParser {
             return false;
         }
 
-        Debug.i("MaxCombo: " + track.getMaxCombo());
-        Debug.i("Caching " + track.getFilename());
+        // Debug.i("MaxCombo: " + track.getMaxCombo());
+        // Debug.i("Caching " + track.getFilename());
 
         return true;
     }
