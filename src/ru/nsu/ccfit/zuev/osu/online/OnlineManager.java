@@ -30,10 +30,12 @@ public class OnlineManager {
 
     private static final CertificatePinner certificatePinner = new CertificatePinner.Builder()
         .add(hostname, "sha256/BedKpkS59WGTA5JC4eTKzzJ7WtL4BsAuEH0O2EBgMdU=")
+        .add(hostname, "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
+        .add(hostname, "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
         .build();
-    public static final OkHttpClient client = new OkHttpClient();//.Builder()
-        // .certificatePinner(certificatePinner)
-        // .build();
+    public static final OkHttpClient client = new OkHttpClient.Builder()
+        .certificatePinner(certificatePinner)
+        .build();
 
     private static OnlineManager instance = null;
     private Context context;
