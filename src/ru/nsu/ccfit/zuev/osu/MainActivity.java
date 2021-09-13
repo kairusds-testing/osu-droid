@@ -68,6 +68,7 @@ import org.acra.data.StringFormat;
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
