@@ -42,3 +42,4 @@ jobs:
       with:
         name: osu-droid-debug
         path: build/outputs/apk/a_github/debug
+    - run: [[ -f build/outputs/mapping/a_githubPre_release/missing_rules.txt ]] && cat build/outputs/mapping/a_githubPre_release/missing_rules.txt
