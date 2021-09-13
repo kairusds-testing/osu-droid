@@ -40,9 +40,9 @@ public class LibraryManager {
     }
 
     public File getLibraryCacheFile() {
-        return new File(Config.getCorePath() + "/databases", String.format("library.%s.dat", VERSION));
+        return new File(GlobalManager.getInstance().getMainActivity().getExternalFilesDir(), String.format("library.%s.dat", VERSION));
     }
-    
+
     @SuppressWarnings("unchecked")
     public boolean loadLibraryCache(final Activity activity, boolean forceUpdate) {
         library = new ArrayList<BeatmapInfo>();
