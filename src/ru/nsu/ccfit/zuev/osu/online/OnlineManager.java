@@ -28,7 +28,7 @@ public class OnlineManager {
     private static final String endpoint = "https://" + hostname + "/api/";
     private static final String onlineVersion = "29";
 
-    private CertificatePinner certificatePinner = new CertificatePinner.Builder()
+    private static final CertificatePinner certificatePinner = new CertificatePinner.Builder()
         .add(hostname, "sha256/0jQVmOH3u5mnMGhGRUCmMKELXOtO9q8i3xfrgq3SfzI")
         .build();
     public static final OkHttpClient client = new OkHttpClient.Builder()
