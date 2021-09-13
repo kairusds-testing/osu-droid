@@ -169,6 +169,7 @@ dependencies {
     implementation project(':AndEngine')
     implementation project(':andnext_markdown')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.core:core:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.4.0'
@@ -199,7 +200,7 @@ dependencies {
     implementation 'com.github.EdrowsLuo.EdlGameFramework:EdlJavaExt:d91c53fcff'
     implementation 'com.github.EdrowsLuo.EdlGameFramework:EdlOsbSupport:d91c53fcff'
     implementation project(path: ':LibBASS')
-    implementation 'androidx.cardview:cardview:1.0.0'
+    // implementation 'androidx.cardview:cardview:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     // implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
