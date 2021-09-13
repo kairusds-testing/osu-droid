@@ -29,7 +29,7 @@ public class OnlineManager {
     private static final String onlineVersion = "29";
 
     private static final CertificatePinner certificatePinner = new CertificatePinner.Builder()
-        .add(hostname, "sha256/0jQVmOH3u5mnMGhGRUCmMKELXOtO9q8i3xfrgq3SfzI")
+        .add(hostname, "sha256/BedKpkS59WGTA5JC4eTKzzJ7WtL4BsAuEH0O2EBgMdU=")
         .build();
     public static final OkHttpClient client = new OkHttpClient.Builder()
         .certificatePinner(certificatePinner)

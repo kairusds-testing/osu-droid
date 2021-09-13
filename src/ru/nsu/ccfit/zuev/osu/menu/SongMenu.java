@@ -586,7 +586,7 @@ public class SongMenu implements IUpdateHandler, MenuItemListener,
 
         if (OnlineScoring.getInstance().createSecondPanel() != null) {
             OnlinePanel panel = OnlineScoring.getInstance().getSecondPanel();
-            panel.detachSelf();
+            // panel.detachSelf();
             scene.registerTouchArea(panel.rect);
             panel.setPosition(randomMap.getX() + randomMap.getWidthScaled() - 18, Config.getRES_HEIGHT() - Utils.toRes(110));
             OnlineScoring.getInstance().loadAvatar(false);

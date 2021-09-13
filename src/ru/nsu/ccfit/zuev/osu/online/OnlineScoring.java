@@ -105,7 +105,7 @@ public class OnlineScoring {
                         setPanelMessage("Cannot log in", OnlineManager.getInstance().getFailMessage());
                         OnlineManager.getInstance().setStayOnline(false);
                         updatePanels();
-                        loadAvatar(true);
+                        panel.setAvatar(null);
                     }
                 }
             }
