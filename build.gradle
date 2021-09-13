@@ -170,6 +170,7 @@ dependencies {
     implementation project(':andnext_markdown')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.4.0'
     // implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
     // implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
