@@ -1,12 +1,7 @@
 package ru.nsu.ccfit.zuev.osu.online;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.widget.Toast;
-
-//import com.edlplan.ui.fragment.UserOptionsFragment;
-
+import com.edlplan.ui.fragment.ConfirmDialogFragment;
+import com.edlplan.ui.fragment.WebViewFragment;
 import org.anddev.andengine.entity.Entity;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.sprite.Sprite;
@@ -16,12 +11,9 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.Debug;
 import org.anddev.andengine.util.HorizontalAlign;
 import org.anddev.andengine.util.MathUtils;
-
-import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.Utils;
-import ru.nsu.ccfit.zuev.osu.model.vo.UserVO;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class OnlinePanel extends Entity {
@@ -37,13 +29,10 @@ public class OnlinePanel extends Entity {
 
     public OnlinePanel() {
         rect = new Rectangle(0, 0, Utils.toRes(410), Utils.toRes(110)) {
-            private boolean moved = false;
-            private float dx = 0, dy = 0;
-
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
-                    this.setColor(0.3f, 0.3f, 0.3f, 0.7f);
+                    this.setColor(0.3f, 0.3f, 0.3f, 0.9f);
                     moved = false;
                     dx = pTouchAreaLocalX;
                     dy = pTouchAreaLocalY;
@@ -52,7 +41,16 @@ public class OnlinePanel extends Entity {
                 if (pSceneTouchEvent.isActionUp()) {
                     this.setColor(0.2f, 0.2f, 0.2f, 0.5f);
                     if (!moved) {
-                        // new UserOptionsFragment().openFor(nameText.getText());
+                        if(avatarLoad && OnlineManager.getInstance().isStayOnline()) {
+                            new ConfirmDialogFragment()
+                                .setMessage(R.string.dialog_visit_profile_page)
+                                .showForResult(isAccepted -> {
+                                    new WebViewFragment().setURL(
+                                        WebViewFragment.PROFILE_URL + OnlineManager.getInstance().getUserId())
+                                    .show();
+                                });
+                            }
+                        }
                     }
                     return true;
                 }
@@ -64,24 +62,6 @@ public class OnlinePanel extends Entity {
                     this.setColor(0.2f, 0.2f, 0.2f, 0.5f);
                 }
                 return false;
-
-                /* if (pSceneTouchEvent.isActionDown()) {
-                    final Activity activity = GlobalManager.getInstance().getMainActivity();
-                    boolean avatarLoad = OnlineScoring.getInstance().isAvatarLoaded();
-                    boolean stayOnline = OnlineManager.getInstance().isStayOnline();
-
-                    if (avatarLoad && OnlineManager.getInstance().isStayOnline()) {
-                        final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ops.dgsrz.com/profile.php?uid="
-                                + OnlineManager.getInstance().getUserId()));
-                        GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
-                        return true;
-                    } else {
-                        activity.runOnUiThread(() -> Toast.makeText(activity, avatarLoad || stayOnline ?
-                                R.string.userpanel_logging_in : R.string.userpanel_not_online, Toast.LENGTH_SHORT).show());
-                        return false;
-                    }
-                }
-                return false; */ 
             }
         };
         rect.setColor(0.2f, 0.2f, 0.2f, 0.5f);
@@ -90,7 +70,7 @@ public class OnlinePanel extends Entity {
         Rectangle avatarFooter = new Rectangle(0, 0, Utils.toRes(110), Utils.toRes(110));
         avatarFooter.setColor(0.2f, 0.2f, 0.2f, 0.8f);
         attachChild(avatarFooter);
-
+		
 		/*Rectangle rightFooter = new Rectangle(Utils.toRes(410), 0, Utils.toRes(614), Utils.toRes(110));
 		rightFooter.setColor(0.3f, 0.3f, 0.3f, 0.35f);
 		attachChild(rightFooter);*/
@@ -142,53 +122,38 @@ public class OnlinePanel extends Entity {
     }
 
     void setInfo() {
-        if(OnlineManager.getInstance().isStayOnline()) {
-            nameText.setText(OnlineManager.getInstance().getUsername());
-            StringBuilder scoreBuilder = new StringBuilder("Score: ");
-            scoreBuilder.append(OnlineManager.getInstance().getScore());
-            for (int i = scoreBuilder.length() - 3; i > 7; i -= 3) {
-                scoreBuilder.insert(i, ' ');
-            }
-    
-            scoreText.setText(scoreBuilder.toString());
-    
-            accText.setText(String.format("Accuracy: %.2f%%",
-                    OnlineManager.getInstance().getAccuracy() * 100f));
-            rankText.setScale(1);
-            rankText.setText(String.format("#%d", OnlineManager.getInstance().getRank()));
-            rankText.setPosition(Utils.toRes(390 + 10) - rankText.getWidth() * 1.7f, Utils.toRes(55));
-            rankText.setScaleCenterX(0);
-            rankText.setScale(1.7f);
-    
-            messageLayer.detachSelf();
-            onlineLayer.detachSelf();
-            attachChild(onlineLayer);
-        }else {
-            // might need offline score calculation
-            nameText.setText(Config.getLocalUsername());
-            scoreText.setText("");
-            accText.setText("");
-            rankText.setText("");
-            messageLayer.detachSelf();
-            onlineLayer.detachSelf();
-            attachChild(onlineLayer);
+        nameText.setText(OnlineManager.getInstance().getUsername());
+        StringBuilder scoreBuilder = new StringBuilder("Score: ");
+        scoreBuilder.append(OnlineManager.getInstance().getScore());
+        for (int i = scoreBuilder.length() - 3; i > 7; i -= 3) {
+            scoreBuilder.insert(i, ' ');
         }
+
+        scoreText.setText(scoreBuilder.toString());
+
+        accText.setText(String.format("Accuracy: %.2f%%",
+                OnlineManager.getInstance().getAccuracy() * 100f));
+        rankText.setScale(1);
+        rankText.setText(String.format("#%d", OnlineManager.getInstance().getRank()));
+        rankText.setPosition(Utils.toRes(390 + 10) - rankText.getWidth() * 1.7f, Utils.toRes(55));
+        rankText.setScaleCenterX(0);
+        rankText.setScale(1.7f);
+
+        messageLayer.detachSelf();
+        onlineLayer.detachSelf();
+        attachChild(onlineLayer);
     }
 
     void setAvatar(final String texname) {
         if (avatar != null)
             avatar.detachSelf();
         avatar = null;
-        if (texname == null && OnlineManager.getInstance().isStayOnline()) return;
+        if (texname == null) return;
+        TextureRegion tex = ResourceManager.getInstance().getTextureIfLoaded(texname);
+        if (tex == null) return;
 
-        TextureRegion tex = OnlineManager.getInstance().isStayOnline() ?
-            ResourceManager.getInstance().getTextureIfLoaded(texname)
-            : ResourceManager.getInstance().getTexture("offline-avatar");
-
-        if(tex != null) {
-            avatar = new Sprite(0, 0, Utils.toRes(110), Utils.toRes(110), tex);
-            frontLayer.attachChild(avatar);
-            Debug.i("Avatar is set!");
-        }
+        Debug.i("Avatar is set!");
+        avatar = new Sprite(0, 0, Utils.toRes(110), Utils.toRes(110), tex);
+        frontLayer.attachChild(avatar);
     }
 }

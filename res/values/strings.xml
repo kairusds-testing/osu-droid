@@ -46,6 +46,8 @@
 	<string name="dialog_visit_osu_website_message">Do you want to visit the official osu! website?</string>
 	<string name="dialog_visit_osudroid_website_message">Do you want to visit the official osu!droid website?</string>
 
+    <string name="dialog_visit_profile_page">Do you want to visit your profile page?</string>
+
 	<string name="favorite_folder">Folder:</string>
 	<string name="favorite_default">Default</string>
 	<string name="favorite_select">Select</string>
