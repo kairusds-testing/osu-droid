@@ -76,7 +76,7 @@ public class LibraryManager {
         try {
             final File oldLib = new File(
                 GlobalManager.getInstance().getMainActivity().getFilesDir(),
-                "library.3.4.dat"
+                "library.library3.4.dat"
             );
             if(oldLib.exists() && !lib.exists()){
                 oldLib.renameTo(getLibraryCacheFile());
