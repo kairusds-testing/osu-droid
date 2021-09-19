@@ -55,16 +55,6 @@ import org.anddev.andengine.util.Debug;
 
 import org.conscrypt.Conscrypt;
 
-import org.matomo.sdk.Matomo;
-import org.matomo.sdk.Tracker;
-import org.matomo.sdk.TrackerBuilder;
-import org.matomo.sdk.extra.TrackHelper;
-import org.matomo.sdk.extra.DownloadTracker;
-import org.acra.ACRA;
-import org.acra.config.CoreConfigurationBuilder;
-import org.acra.config.HttpSenderConfigurationBuilder;
-import org.acra.data.StringFormat;
-
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
@@ -114,7 +104,6 @@ public class MainActivity extends BaseGameActivity implements
             return null;
         }
         Config.loadConfig(this);
-        initAnalytics();
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
         StringTable.setContext(this);
@@ -203,29 +192,6 @@ public class MainActivity extends BaseGameActivity implements
         if (!skinDir.exists()) {
             skinDir.mkdirs();
         }
-    }
-
-    private void initAnalytics() {
-        /*Tracker tracker = TrackerBuilder.createDefault(
-            "https://acivev.com/matomo.php",
-            1
-        ).build(Matomo.getInstance(this));
-        // todo: only track production and pre_release builds
-        TrackHelper.track().download().identifier(
-            new DownloadTracker.Extra.ApkChecksum(MainActivity.this)
-        ).with(tracker);
-        TrackHelper.track().event("main", "appOpen").name("App Launch").value(1f)
-            .with(tracker);*/
-
-        CoreConfigurationBuilder acraBuilder = new CoreConfigurationBuilder(this);
-        acraBuilder.withBuildConfigClass(BuildConfig.class)
-            .withReportFormat(StringFormat.JSON);
-        acraBuilder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
-            .withUri("https://acrar.acivev.com/report")
-            .withBasicAuthLogin("x4LeSG7uSayQNmkq")
-            .withBasicAuthPassword("89zu7gCbNC4LDGMn")
-            .withEnabled(true);
-        ACRA.init(getApplication(), acraBuilder);
     }
 
     private void initPreferences() {
@@ -329,6 +295,7 @@ public class MainActivity extends BaseGameActivity implements
     public void onLoadComplete() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
+                OnlineManager.getInstance().sendAnalytics();
                 GlobalManager.getInstance().init();
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
