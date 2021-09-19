@@ -30,8 +30,6 @@ public class OnlineScoring {
 
     public void createPanel() {
         panel = new OnlinePanel();
-        if(!OnlineManager.getInstance().isStayOnline())
-            panel.setAvatar(null);
     }
 
     public OnlinePanel getPanel() {
@@ -39,8 +37,8 @@ public class OnlineScoring {
     }
 
     public OnlinePanel createSecondPanel() {
-        // if (OnlineManager.getInstance().isStayOnline() == false)
-        //    return null;
+        if (OnlineManager.getInstance().isStayOnline() == false)
+            return null;
         secondPanel = new OnlinePanel();
         secondPanel.setInfo();
         secondPanel.setAvatar(avatarLoaded ? "userAvatar" : null);
@@ -71,18 +69,20 @@ public class OnlineScoring {
     }
 
     public void login() {
-        if(!OnlineManager.getInstance().isStayOnline()) {
-            updatePanels();
+        if (OnlineManager.getInstance().isStayOnline() == false)
             return;
-        }
         avatarLoaded = false;
         new AsyncTaskLoader().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new OsuAsyncCallback() {
+
+
             public void run() {
                 synchronized (onlineMutex) {
                     boolean success = false;
+
                     //Trying to send request
                     for (int i = 0; i < 3; i++) {
                         setPanelMessage("Logging in...", "");
+
                         try {
                             success = OnlineManager.getInstance().logIn();
                         } catch (OnlineManagerException e) {
@@ -104,12 +104,15 @@ public class OnlineScoring {
                     } else {
                         setPanelMessage("Cannot log in", OnlineManager.getInstance().getFailMessage());
                         OnlineManager.getInstance().setStayOnline(false);
-                        updatePanels();
-                        panel.setAvatar(null);
                     }
                 }
             }
-            public void onComplete() {}
+
+
+            public void onComplete() {
+                // TODO Auto-generated method stub
+
+            }
         });
     }
 
@@ -117,8 +120,11 @@ public class OnlineScoring {
         if (OnlineManager.getInstance().isStayOnline() == false)
             return;
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+
+
             public void run() {
                 synchronized (onlineMutex) {
+
                     for (int i = 0; i < attemptCount; i++) {
                         try {
                             OnlineManager.getInstance().startPlay(track, hash);
@@ -134,7 +140,12 @@ public class OnlineScoring {
                     }
                 }
             }
-            public void onComplete() {}
+
+
+            public void onComplete() {
+                // TODO Auto-generated method stub
+
+            }
         });
     }
 
@@ -178,17 +189,26 @@ public class OnlineScoring {
                             OnlineManager.getInstance().sendReplay(replay);
                             break;
                         }
+
+
                         try {
                             Thread.sleep(5000);
                         } catch (InterruptedException e) {
                         }
                     }
+
                     if (!success) {
                         panel.setFail();
                     }
+
                 }
             }
-            public void onComplete() {}
+
+
+            public void onComplete() {
+                // TODO Auto-generated method stub
+
+            }
         });
     }
 
@@ -210,6 +230,8 @@ public class OnlineScoring {
             return;
 
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+
+
             public void run() {
                 synchronized (onlineMutex) {
                     if (OnlineManager.getInstance().loadAvatarToTextureManager()) {
@@ -223,7 +245,11 @@ public class OnlineScoring {
                 }
             }
 
-            public void onComplete() {}
+
+            public void onComplete() {
+                // TODO Auto-generated method stub
+
+            }
         });
     }
 
