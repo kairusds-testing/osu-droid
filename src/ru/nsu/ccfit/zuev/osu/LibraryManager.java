@@ -76,7 +76,7 @@ public class LibraryManager {
         try {
             final File oldLib = new File(
                 GlobalManager.getInstance().getMainActivity().getFilesDir(),
-                String.format("library.%s.dat", VERSION)
+                "library.3.4.dat"
             );
             if(oldLib.exists() && !lib.exists()){
                 oldLib.renameTo(getLibraryCacheFile());
@@ -165,7 +165,7 @@ public class LibraryManager {
             library.remove(i);
         }
         this.fileCount = files.length;
-        // savetoCache(activity);
+        savetoCache(activity);
     }
 
     public void scanLibrary(final Activity activity) {
