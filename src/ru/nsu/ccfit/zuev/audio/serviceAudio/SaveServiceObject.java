@@ -56,47 +56,39 @@ public class SaveServiceObject extends MultiDexApplication {
                 UMConfigure.DEVICE_TYPE_PHONE, ""); */
         // MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
-        if (Build.VERSION.SDK_INT > 14) {
-            registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-                @Override
-                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            }
 
+            @Override
+            public void onActivityStarted(Activity activity) {
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                Log.w("onActivityDestroyed", "I'm going to Dead O_x");
+                if (songService != null) {
+                    Log.w("onActivityDestroyed", "I'm Dead x_x");
+                    songService.hideNotifyPanel();
                 }
-
-                @Override
-                public void onActivityStarted(Activity activity) {
-
-                }
-
-                @Override
-                public void onActivityResumed(Activity activity) {
-
-                }
-
-                @Override
-                public void onActivityPaused(Activity activity) {
-
-                }
-
-                @Override
-                public void onActivityStopped(Activity activity) {
-
-                }
-
-                @Override
-                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-                }
-
-                @Override
-                public void onActivityDestroyed(Activity activity) {
-                    Log.w("onActivityDestroyed", "I'm going to Dead O_x");
-                    if (songService != null) {
-                        Log.w("onActivityDestroyed", "I'm Dead x_x");
-                        songService.hideNotifyPanel();
-                    }
-                }
-            });
-        }
+            }
+        });
     }
 }
