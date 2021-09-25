@@ -49,7 +49,6 @@ public class OnlinePanel extends Entity {
                                         WebViewFragment.PROFILE_URL + OnlineManager.getInstance().getUserId())
                                     .show();
                                 });
-                            }
                         }
                     }
                     return true;
