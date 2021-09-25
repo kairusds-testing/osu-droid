@@ -21,7 +21,6 @@ public class WebViewFragment extends BaseFragment {
     public static final String PROFILE_URL = OnlineManager.hostname + "profile.php?uid=";
 
     private WebView webview;
-    private String url;
 
     @Override
     protected int getLayoutID() {
@@ -35,12 +34,6 @@ public class WebViewFragment extends BaseFragment {
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
         playOnLoadAnim();
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        webview.loadUrl(url);
     }
 
     @Override
@@ -58,7 +51,7 @@ public class WebViewFragment extends BaseFragment {
     }
 
     public WebViewFragment setURL(String url) {
-        this.url = url;
+        webview.loadUrl(url);
         return this;
     }
 
