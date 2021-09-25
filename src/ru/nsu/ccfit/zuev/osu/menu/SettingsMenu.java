@@ -82,7 +82,7 @@ public class SettingsMenu extends PreferenceActivity {
         update.setOnPreferenceClickListener(preference -> {
             throw new RuntimeException("Test crazh");
             // Beta.checkUpgrade();
-            return true;
+            // return true;
         });
     }
 
