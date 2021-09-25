@@ -1,7 +1,11 @@
 package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebChromeClient;
@@ -28,6 +32,17 @@ public class WebViewFragment extends BaseFragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View parent = super.onCreateView(inflater, container, savedInstanceState);
+        webview = (WebView) findViewById(R.id.web);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setUserAgentString("osudroid");
+        webview.setWebChromeClient(new WebChromeClient());
+        webview.loadUrl(url);
+        return parent;
+    }
+
+    @Override
     protected int getLayoutID() {
         return R.layout.fragment_webview;
     }
@@ -35,11 +50,6 @@ public class WebViewFragment extends BaseFragment {
     @Override
     protected void onLoadView() {
         playOnLoadAnim();
-        webview = (WebView) findViewById(R.id.web);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setUserAgentString("osudroid");
-        webview.setWebChromeClient(new WebChromeClient());
-        webview.loadUrl(url);
     }
 
     @Override
