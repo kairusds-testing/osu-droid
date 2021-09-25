@@ -22,7 +22,7 @@ import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
-import ru.nsu.ccfit.zuev.osu.online.WebViewActivity;
+import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SettingsMenu extends PreferenceActivity {
@@ -73,9 +73,8 @@ public class SettingsMenu extends PreferenceActivity {
         });
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(this, WebViewActivity.class);
-            intent.putExtra(WebViewActivity.EXTRA_URL, WebViewActivity.REGISTER_URL);
-            startActivity(intent);
+            OnlineInitializer initializer = new OnlineInitializer(SettingsMenu.this);
+            initializer.createInitDialog();
             return true;
         });
 
