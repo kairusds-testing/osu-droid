@@ -33,7 +33,6 @@ public class OnlineFileOperator {
             sb.append("_");
             sb.append(URLEncoder.encode(replayID, "UTF-8"));
             String signature = SecurityUtils.signRequest(sb.toString());
-            Debug.i("sendFile " + checksum + " " + replayID + " " + signature);
 
             MediaType mime = MediaType.parse("application/octet-stream");
             RequestBody fileBody = RequestBody.create(mime, file);
@@ -54,7 +53,6 @@ public class OnlineFileOperator {
         } catch (final Exception e) {
             Debug.e("sendFile Exception " + e.getMessage(), e);
         }
-
     }
 
     public static boolean downloadFile(String urlstr, String filename) {

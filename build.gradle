@@ -9,6 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.1'
+        classpath 'com.google.gms:google-services:4.3.10'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -41,6 +42,7 @@ if (localPropertiesFile.exists()) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -89,6 +91,7 @@ android {
             applicationIdSuffix '.debug'
         }
 
+        /* 
         release {
             resValue "string", "app_name", "osu!droid"
             zipAlignEnabled true
@@ -104,7 +107,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg', 'proguard-kotlin.pro'
             signingConfig signingConfigs.release
-        }
+        } */
     }
 
     flavorDimensions "download_channel"
@@ -170,6 +173,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.firebase:firebase-analytics:19.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.1'
     // implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
     // implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
 

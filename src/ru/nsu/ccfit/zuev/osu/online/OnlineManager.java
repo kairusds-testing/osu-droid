@@ -2,8 +2,10 @@ package ru.nsu.ccfit.zuev.osu.online;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import okhttp3.OkHttpClient;
 
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
 import ru.nsu.ccfit.zuev.osu.Config;
+import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.TrackInfo;
@@ -24,7 +27,7 @@ import ru.nsu.ccfit.zuev.osu.online.PostBuilder.RequestException;
 
 public class OnlineManager {
     public static final String hostname = "acivev.com";
-    private static final String endpoint = "https://" + hostname + "/api/";
+    public static final String endpoint = "https://" + hostname + "/api/";
     private static final String onlineVersion = "29";
 
     public static final OkHttpClient client = new OkHttpClient();
@@ -149,6 +152,11 @@ public class OnlineManager {
             avatarURL = "";
         }
 
+        Bundle params = new Bundle();
+        params.putString(FirebaseAnalytics.Param.METHOD, "ingame");
+        GlobalManager.getInstance().getMainActivity().getAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN,
+            params);
+
         return true;
     }
 
@@ -169,6 +177,11 @@ public class OnlineManager {
         post.addParam("deviceID", deviceID);
 
         ArrayList<String> response = sendRequest(post, endpoint + "register.php");
+
+        Bundle params = new Bundle();
+        params.putString(FirebaseAnalytics.Param.METHOD, "ingame");
+        GlobalManager.getInstance().getMainActivity().getAnalytics().logEvent(FirebaseAnalytics.Event.SIGN_UP,
+            params);
 
         return (response != null);
     }
@@ -335,7 +348,7 @@ public class OnlineManager {
         return false;
     }
 
-    public void sendReplay(String filename) {
+    public void sendFile(String filename) {
         if (replayID <= 0) return;
         Debug.i("Sending replay '" + filename + "' for id = " + replayID);
         OnlineFileOperator.sendFile(endpoint + "upload.php", filename, String.valueOf(replayID));

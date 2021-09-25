@@ -186,7 +186,7 @@ public class OnlineScoring {
                             updatePanels();
                             OnlineManager mgr = OnlineManager.getInstance();
                             panel.show(mgr.getMapRank(), mgr.getScore(), mgr.getRank(), mgr.getAccuracy());
-                            OnlineManager.getInstance().sendReplay(replay);
+                            OnlineManager.getInstance().sendFile(replay);
                             break;
                         }
 

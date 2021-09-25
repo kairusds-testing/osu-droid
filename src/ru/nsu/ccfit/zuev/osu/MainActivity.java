@@ -37,6 +37,9 @@ import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
 import com.edlplan.ui.fragment.BuildTypeNoticeFragment;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.SmoothCamera;
@@ -94,6 +97,8 @@ public class MainActivity extends BaseGameActivity implements
     private SaveServiceObject saveServiceObject;
     private IntentFilter filter;
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private FirebaseAnalytics analytics;
+    private FirebaseCrashlytics crashlytics;
     private boolean willReplay = false;
     private static boolean activityVisible = true;
     private boolean autoclickerDialogShown = false;
@@ -103,6 +108,8 @@ public class MainActivity extends BaseGameActivity implements
         if (!checkPermissions()) {
             return null;
         }
+        analytics = FirebaseAnalytics.getInstance(this);
+        crashlytics = FirebaseCrashlytics.getInstance();
         Config.loadConfig(this);
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
@@ -112,6 +119,7 @@ public class MainActivity extends BaseGameActivity implements
         InputManager.setContext(this);
         Security.insertProviderAt(Conscrypt.newProvider(), 1);
         OnlineManager.getInstance().Init(getApplicationContext());
+        crashlytics.setUserId(Config.getOnlineDeviceID());
 
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -295,8 +303,8 @@ public class MainActivity extends BaseGameActivity implements
     public void onLoadComplete() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
-                OnlineManager.getInstance().sendAnalytics();
                 GlobalManager.getInstance().init();
+                analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
@@ -471,6 +479,10 @@ public class MainActivity extends BaseGameActivity implements
         }
     }
 
+    public FirebaseAnalytics getAnalytics() {
+        return analytics;
+    }
+
     public PowerManager.WakeLock getWakeLock() {
         return wakeLock;
     }
@@ -594,7 +606,7 @@ public class MainActivity extends BaseGameActivity implements
             }
         }
     }
-
+    
     @Override
     public void onPause() {
         super.onPause();
