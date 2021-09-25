@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import androidx.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;

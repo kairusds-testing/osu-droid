@@ -3,7 +3,7 @@ package ru.nsu.ccfit.zuev.osu.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+// import android.preference.PreferenceActivity;
 import android.view.LayoutInflater;
 import android.view.KeyEvent;
 import android.view.View;

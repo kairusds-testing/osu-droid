@@ -17,9 +17,9 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.*;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.core.content.PermissionChecker;
 
 import android.util.DisplayMetrics;

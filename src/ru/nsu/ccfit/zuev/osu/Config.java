@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+
+import androidx.preference.PreferenceManager;
 
 import com.edlplan.favorite.FavoriteLibrary;
 

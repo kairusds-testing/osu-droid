@@ -3,11 +3,12 @@ package com.edlplan.ui.fragment;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.preference.PreferenceManager;
 
 import com.edlplan.framework.easing.Easing;
 import com.edlplan.framework.math.FMath;
