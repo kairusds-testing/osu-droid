@@ -83,7 +83,7 @@ public class SettingsMenu extends PreferenceActivity {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            new WebViewFragment().setURL("https://" + OnlineManager.hostname).show();
+            new WebViewFragment("https://" + OnlineManager.hostname).show();
             // Beta.checkUpgrade();
             return true;
         });
