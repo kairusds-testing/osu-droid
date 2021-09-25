@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.zuev.osu.online;
+package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
 import android.view.View;

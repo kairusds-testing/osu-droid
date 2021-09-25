@@ -152,10 +152,10 @@ public class OnlineManager {
             avatarURL = "";
         }
 
-        Bundle params = new Bundle();
-        params.putString(FirebaseAnalytics.Param.METHOD, "ingame");
+        Bundle bParams = new Bundle();
+        bParams.putString(FirebaseAnalytics.Param.METHOD, "ingame");
         GlobalManager.getInstance().getMainActivity().getAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN,
-            params);
+            bParams);
 
         return true;
     }

@@ -29,6 +29,9 @@ public class OnlinePanel extends Entity {
 
     public OnlinePanel() {
         rect = new Rectangle(0, 0, Utils.toRes(410), Utils.toRes(110)) {
+            boolean moved = false;
+            float dx = 0, dy = 0;
+
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if (pSceneTouchEvent.isActionDown()) {
