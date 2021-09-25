@@ -360,7 +360,6 @@ public class MainActivity extends BaseGameActivity implements
             this.mRenderSurfaceView.setEGLConfigChooser(true);
         }
         this.mRenderSurfaceView.setRenderer(this.mEngine);
-        ToastLogger.showText("onSetContentView", false);
 
         RelativeLayout layout = new RelativeLayout(this);
         layout.setBackgroundColor(Color.argb(255, 0, 0, 0));
