@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.edlplan.ui.ActivityOverlay;
@@ -50,8 +51,17 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.options, rootKey);
         ToastLogger.showText("rootKey:" + rootKey, false);
         reloadSkinList();
-        final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
 
+        // screens
+        ((PreferenceScreen) findPreference("skinTopPath")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen(this);
+            return true;
+        });
+
+        // screens END
+
+        final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
+        
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
