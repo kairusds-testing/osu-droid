@@ -26,7 +26,7 @@ object ActivityOverlay {
     @Synchronized
     fun onBackPress(): Boolean {
         if (fragmentManager != null && displayingOverlay.size > 0) {
-            Fragment overlay = displayingOverlay[displayingOverlay.size - 1]
+            val overlay: Fragment = displayingOverlay[displayingOverlay.size - 1]
             if(overlay is BaseFragment) {
                 overlay.callDismissOnBackPress()
             }
