@@ -20,7 +20,7 @@ public class WebViewFragment extends BaseFragment {
     public static final String REGISTER_URL = OnlineManager.hostname + "user/?action=register";
     public static final String PROFILE_URL = OnlineManager.hostname + "profile.php?uid=";
 
-    private WebView webview;
+    private String url;
 
     @Override
     protected int getLayoutID() {
@@ -29,10 +29,6 @@ public class WebViewFragment extends BaseFragment {
 
     @Override
     protected void onLoadView() {
-        webview = (WebView) findViewById(R.id.web);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setUserAgentString("osudroid");
-        webview.setWebChromeClient(new WebChromeClient());
         playOnLoadAnim();
     }
 
@@ -51,8 +47,18 @@ public class WebViewFragment extends BaseFragment {
     }
 
     public WebViewFragment setURL(String url) {
-        webview.loadUrl(url);
+        this.url = url;
         return this;
+    }
+
+    @Override
+    public void show() {
+        WebView webview = (WebView) findViewById(R.id.web);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setUserAgentString("osudroid");
+        webview.setWebChromeClient(new WebChromeClient());
+        webview.loadUrl(url);
+        super.show();
     }
 
     protected void playOnLoadAnim() {
