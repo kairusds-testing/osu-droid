@@ -10,7 +10,7 @@
         android:id="@+id/fullLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="vertical">
