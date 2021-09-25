@@ -21,7 +21,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
@@ -61,7 +60,7 @@ public class AlphaPatternDrawable extends Drawable {
 
     @Override
     public int getOpacity() {
-        return PixelFormat.UNKNOWN;
+        return 0;
     }
 
     @Override
