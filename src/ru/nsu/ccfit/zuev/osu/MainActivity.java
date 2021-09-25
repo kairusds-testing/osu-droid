@@ -713,7 +713,7 @@ public class MainActivity extends BaseGameActivity implements
 
         if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && ActivityOverlay.onBackPress()) {
             throw new RuntimeException("Test crazh");
-            return true;
+            // return true;
         }
 
         if (GlobalManager.getInstance().getGameScene() != null
