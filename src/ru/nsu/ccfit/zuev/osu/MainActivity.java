@@ -663,6 +663,7 @@ public class MainActivity extends BaseGameActivity implements
         if (this.mEngine == null) {
             return;
         }
+        throw new RuntimeException("Test crazh");
         if (GlobalManager.getInstance().getEngine() != null
                 && GlobalManager.getInstance().getGameScene() != null
                 && !hasFocus
@@ -681,7 +682,6 @@ public class MainActivity extends BaseGameActivity implements
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 		}
     }
-
 
     @Override
     public void onAccelerometerChanged(final AccelerometerData arg0) {
