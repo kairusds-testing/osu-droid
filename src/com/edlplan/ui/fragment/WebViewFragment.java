@@ -33,13 +33,17 @@ public class WebViewFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View parent = super.onCreateView(inflater, container, savedInstanceState);
+        isCreated = true;
+        root = inflater.inflate(getLayoutID(), container, false);
+
         webview = (WebView) findViewById(R.id.web);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
         webview.loadUrl(url);
-        return parent;
+        onLoadView();
+ 
+        return root;
     }
 
     @Override
