@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.edlplan.ui.fragment.BaseFragment
 import java.util.*
+import ru.nsu.ccfit.zuev.osu.menu.SettingsMenu
 
 object ActivityOverlay {
     private var fragmentManager: FragmentManager? = null
@@ -27,7 +28,7 @@ object ActivityOverlay {
     fun onBackPress(): Boolean {
         if (fragmentManager != null && displayingOverlay.size > 0) {
             val overlay: Fragment = displayingOverlay[displayingOverlay.size - 1]
-            if(overlay is BaseFragment) {
+            if(overlay is BaseFragment || overlay is SettingsMenu) {
                 overlay.callDismissOnBackPress()
             }
             return true

@@ -24,18 +24,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="NewApi"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/triangleBackground"/>
-        <com.edlplan.ui.TriangleEffectView
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
-    </RelativeLayout>
-
 </LinearLayout>

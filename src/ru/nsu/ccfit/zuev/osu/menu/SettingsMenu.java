@@ -48,6 +48,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.options, rootKey);
+        ToastLogger.showText("rootKey:" + rootKey, false);
         reloadSkinList();
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
 
@@ -113,6 +114,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
         // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
         GlobalManager.getInstance().getSongService().setGaming(false);
+    }
+
+    public void callDismissOnBackPress(){
+        
     }
 
     public void show() {
