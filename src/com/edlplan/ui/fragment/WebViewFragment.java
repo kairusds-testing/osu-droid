@@ -23,14 +23,6 @@ public class WebViewFragment extends BaseFragment {
     private WebView webview;
     private String url;
 
-    public WebViewFragment build() {
-        webview = (WebView) findViewById(R.id.webview);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setUserAgentString("osudroid");
-        webview.setWebChromeClient(new WebChromeClient());
-        return this;
-    }
-
     @Override
     protected int getLayoutID() {
         return R.layout.fragment_webview;
@@ -38,6 +30,10 @@ public class WebViewFragment extends BaseFragment {
 
     @Override
     protected void onLoadView() {
+        webview = (WebView) findViewById(R.id.web);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setUserAgentString("osudroid");
+        webview.setWebChromeClient(new WebChromeClient());
         playOnLoadAnim();
     }
 
