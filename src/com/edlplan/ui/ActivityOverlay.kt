@@ -2,6 +2,7 @@ package com.edlplan.ui
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.edlplan.ui.fragment.BaseFragment
 import java.util.*
