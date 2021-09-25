@@ -70,7 +70,7 @@ abstract class BaseFragment : Fragment() {
         ActivityOverlay.dismissOverlay(this)
     }
 
-    fun callDismissOnBackPress() {
+    open fun callDismissOnBackPress() {
         if (isDismissOnBackPress) {
             dismiss()
         }

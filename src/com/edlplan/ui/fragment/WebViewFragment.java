@@ -43,6 +43,12 @@ public class WebViewFragment extends BaseFragment {
     }
 
     @Override
+    public void show() {
+        super.show();
+        webview.loadUrl(url);
+    }
+
+    @Override
     public void dismiss() {
         playOnDismissAnim(super::dismiss);
     }
