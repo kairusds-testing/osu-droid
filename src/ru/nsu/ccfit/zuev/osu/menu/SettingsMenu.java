@@ -105,7 +105,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
         final Preference close = findPreference("close");
         close.setOnPreferenceClickListener(preference -> {
-            ActivityOverlay.dismissOverlay(this);
+            dismiss();
             return true;
         });
     }
@@ -122,6 +122,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
     public void show() {
         ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
+    }
+
+    public void dismiss() {
+        ActivityOverlay.dismissOverlay(this);
     }
 
     /* 
