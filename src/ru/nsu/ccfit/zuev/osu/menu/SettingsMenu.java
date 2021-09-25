@@ -115,7 +115,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void show() {
-        ActivityOverlay.addOverlay(this, "SettingsMenu@" + this.hashCode());
+        ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
     }
 
     public void dismiss() {

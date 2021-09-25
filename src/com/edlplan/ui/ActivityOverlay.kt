@@ -35,6 +35,7 @@ object ActivityOverlay {
         return false
     }
 
+    @JvmStatic
     @Synchronized
     fun dismissOverlay(fragment: Fragment) {
         if (fragmentManager != null) {
@@ -45,6 +46,7 @@ object ActivityOverlay {
         }
     }
 
+    @JvmStatic
     @Synchronized
     fun addOverlay(fragment: Fragment, tag: String?) {
         if (fragmentManager != null) {
