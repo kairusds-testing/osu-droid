@@ -44,7 +44,7 @@ public class OnlinePanel extends Entity {
                 if (pSceneTouchEvent.isActionUp()) {
                     this.setColor(0.2f, 0.2f, 0.2f, 0.5f);
                     if (!moved) {
-                        if(avatarLoad && OnlineManager.getInstance().isStayOnline()) {
+                        if(OnlineManager.getInstance().isStayOnline()) {
                             new ConfirmDialogFragment()
                                 .setMessage(R.string.dialog_visit_profile_page)
                                 .showForResult(isAccepted -> {
