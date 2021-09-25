@@ -8,7 +8,7 @@ import java.util.*
 
 object ActivityOverlay {
     private var fragmentManager: FragmentManager? = null
-    private val displayingOverlay: MutableList<BaseFragment> = ArrayList()
+    private val displayingOverlay: MutableList<Fragment> = ArrayList()
     private var context: Activity? = null
     private var containerId = 0
     @JvmStatic
@@ -25,14 +25,16 @@ object ActivityOverlay {
     @Synchronized
     fun onBackPress(): Boolean {
         if (fragmentManager != null && displayingOverlay.size > 0) {
-            displayingOverlay[displayingOverlay.size - 1].callDismissOnBackPress()
+            try {
+                displayingOverlay[displayingOverlay.size - 1].callDismissOnBackPress()
+            }catch(e: Throwable) {}
             return true
         }
         return false
     }
 
     @Synchronized
-    fun dismissOverlay(fragment: BaseFragment) {
+    fun dismissOverlay(fragment: Fragment) {
         if (fragmentManager != null) {
             if (displayingOverlay.contains(fragment)) {
                 displayingOverlay.remove(fragment)
@@ -42,7 +44,7 @@ object ActivityOverlay {
     }
 
     @Synchronized
-    fun addOverlay(fragment: BaseFragment, tag: String?) {
+    fun addOverlay(fragment: Fragment, tag: String?) {
         if (fragmentManager != null) {
             if (fragment.isAdded()) {
                 return

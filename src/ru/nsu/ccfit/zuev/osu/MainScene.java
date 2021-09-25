@@ -259,10 +259,11 @@ public class MainScene implements IUpdateHandler {
                     setColor(1, 1, 1);
                     if (isOnExitAnim) return true;
                     GlobalManager.getInstance().getSongService().setGaming(true);
-                    GlobalManager.getInstance().getSongService().setIsSettingMenu(true);
-                    final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
+                    // GlobalManager.getInstance().getSongService().setIsSettingMenu(true);
+                    /* final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
                             SettingsMenu.class);
-                    GlobalManager.getInstance().getMainActivity().startActivity(intent);
+                    GlobalManager.getInstance().getMainActivity().startActivity(intent); */
+                    new SettingsMenu().show();
                     return true;
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,

@@ -35,7 +35,7 @@ public class SongService extends Service {
     private boolean showingNotify = false;
     private String backgroundPath = " ";
     private boolean isGaming = false;
-    private boolean isSettingMenu = false;
+    // private boolean isSettingMenu = false;
     private IntentFilter filter = null;
     private BroadcastReceiver onNotifyButtonClick = null;
     private long lastHit = 0;
@@ -146,13 +146,14 @@ public class SongService extends Service {
         this.isGaming = isGaming;
     }
 
+    /* 
     public boolean isSettingMenu() {
         return isSettingMenu;
     }
 
     public void setIsSettingMenu(boolean isSettingMenu) {
         this.isSettingMenu = isSettingMenu;
-    }
+    } */
 
     public Status getStatus() {
         if (audioFunc != null) {

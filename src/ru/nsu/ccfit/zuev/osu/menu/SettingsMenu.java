@@ -1,15 +1,19 @@
 package ru.nsu.ccfit.zuev.osu.menu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.view.LayoutInflater;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.preference.PreferenceFragmentCompat;
+
+import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.fragment.WebViewFragment;
 
 import java.io.File;
@@ -28,19 +32,20 @@ import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
-public class SettingsMenu extends PreferenceActivity {
+public class SettingsMenu extends PreferenceFragmentCompat {
 
-    private Activity mActivity;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mActivity = GlobalManager.getInstance().getMainActivity();
         addPreferencesFromResource(R.xml.options);
         reloadSkinList();
-
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
+
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
@@ -90,29 +95,33 @@ public class SettingsMenu extends PreferenceActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onDestroy() {
+        super.onDestroy();
+        Config.loadConfig(this);
+        GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
+        GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
+        // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
+        GlobalManager.getInstance().getSongService().setGaming(false);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    public void show() {
+        ActivityOverlay.addOverlay(this, this.javaClass.name + "@" + this.hashCode());
     }
 
+    public void dismiss() {
+        ActivityOverlay.dismissOverlay(this);
+    }
+
+    /* 
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Config.loadConfig(this);
-            mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-            GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
-            GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-            GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
-            GlobalManager.getInstance().getSongService().setGaming(false);
+            
             finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
+    } */
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void reloadSkinList() {
