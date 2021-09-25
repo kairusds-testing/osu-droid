@@ -679,7 +679,6 @@ public class MainActivity extends BaseGameActivity implements
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-                throw new RuntimeException("Test crazh");
 		}
     }
 
@@ -713,9 +712,9 @@ public class MainActivity extends BaseGameActivity implements
         }
 
         if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && ActivityOverlay.onBackPress()) {
+            throw new RuntimeException("Test crazh");
             return true;
         }
-
 
         if (GlobalManager.getInstance().getGameScene() != null
                 && (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU)

@@ -10,6 +10,8 @@ import android.preference.PreferenceActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.edlplan.ui.fragment.WebViewFragment;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -23,6 +25,7 @@ import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
+import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SettingsMenu extends PreferenceActivity {
@@ -80,6 +83,7 @@ public class SettingsMenu extends PreferenceActivity {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
+            new WebViewFragment().setURL("https://" + OnlineManager.hostname).show();
             // Beta.checkUpgrade();
             return true;
         });

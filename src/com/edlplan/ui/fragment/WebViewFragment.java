@@ -30,18 +30,6 @@ public class WebViewFragment extends BaseFragment {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString(packageName);
         webview.setWebChromeClient(new WebChromeClient());
-        webview.setOnKeyListener((v, keyCode, event) -> {
-            if(event.getAction() != KeyEvent.ACTION_DOWN) return true;
-            if(keyCode == KeyEvent.KEYCODE_BACK) {
-                if(webview.canGoBack()) {
-                    webview.goBack();
-                }else {
-                    dismiss();
-                }
-                return true;
-            }
-            return false;
-        });
     }
 
     @Override
@@ -57,6 +45,15 @@ public class WebViewFragment extends BaseFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(super::dismiss);
+    }
+
+    @Override
+    public void callDismissOnBackPress() {
+        if(webview.canGoBack()) {
+            webview.goBack();
+        }else {
+            dismiss();
+        }
     }
 
     public WebViewFragment setURL(String url) {
