@@ -622,7 +622,7 @@ public class MainActivity extends BaseGameActivity implements
         }
         if (GlobalManager.getInstance().getMainScene() != null) {
             BeatmapInfo beatmapInfo = GlobalManager.getInstance().getMainScene().beatmapInfo;
-            if (songService != null && beatmapInfo != null && !songService.isGaming() && !songService.isSettingMenu()) {
+            if (songService != null && beatmapInfo != null && !songService.isGaming()/* && !songService.isSettingMenu()*/) {
                 if (Build.VERSION.SDK_INT > 10) {
                     songService.showNotifyPanel();
 

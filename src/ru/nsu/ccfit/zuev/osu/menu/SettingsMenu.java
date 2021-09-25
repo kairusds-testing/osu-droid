@@ -1,16 +1,18 @@
 package ru.nsu.ccfit.zuev.osu.menu;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.LayoutInflater;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.edlplan.ui.ActivityOverlay;
@@ -34,22 +36,30 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SettingsMenu extends PreferenceFragmentCompat {
 
+    private Activity mActivity;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity = GlobalManager.getInstance().getMainActivity();
+        // addPreferencesFromResource(R.xml.options);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.options);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.options, rootKey);
         reloadSkinList();
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
 
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
-                Config.loadConfig(SettingsMenu.this);
+                Config.loadConfig(mActivity);
                 reloadSkinList();
                 return false;
             }
@@ -63,25 +73,25 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             }
 
             skinToppref.setText(newValue.toString());
-            Config.loadConfig(SettingsMenu.this);
+            Config.loadConfig(mActivity);
             reloadSkinList();
             return false;
         });
 
         final Preference pref = findPreference("clear");
         pref.setOnPreferenceClickListener(preference -> {
-            LibraryManager.getInstance().clearCache(SettingsMenu.this);
+            LibraryManager.getInstance().clearCache(mActivity);
             return true;
         });
         final Preference clearProps = findPreference("clear_properties");
         clearProps.setOnPreferenceClickListener(preference -> {
             PropertiesLibrary.getInstance()
-                    .clear(SettingsMenu.this);
+                    .clear(mActivity);
             return true;
         });
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
-            OnlineInitializer initializer = new OnlineInitializer(SettingsMenu.this);
+            OnlineInitializer initializer = new OnlineInitializer(mActivity);
             initializer.createInitDialog();
             return true;
         });
@@ -97,7 +107,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Config.loadConfig(this);
+        Config.loadConfig(mActivity);
         GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
         GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
         // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
@@ -105,7 +115,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void show() {
-        ActivityOverlay.addOverlay(this, this.javaClass.name + "@" + this.hashCode());
+        ActivityOverlay.addOverlay(this, "SettingsMenu@" + this.hashCode());
     }
 
     public void dismiss() {
