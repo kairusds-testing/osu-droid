@@ -55,7 +55,7 @@ public class SaveServiceObject extends MultiDexApplication {
                 String.format("%s[%s]", BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE),
                 UMConfigure.DEVICE_TYPE_PHONE, ""); */
         // MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
-        Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
+        Thread.setUncaughtExceptionHandler(AppException.getAppExceptionHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

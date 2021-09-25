@@ -4,6 +4,6 @@ import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
 public class BuildType {
     public static boolean hasOnlineAccess() {
-        return true; //BuildConfig.BUILD_TYPE.matches("(release|pre_release)");
+        return BuildConfig.BUILD_TYPE.matches("(release|pre_release)");
     }
 }

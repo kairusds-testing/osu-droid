@@ -80,6 +80,7 @@ public class SettingsMenu extends PreferenceActivity {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
+            throw new RuntimeException("Test crazh");
             // Beta.checkUpgrade();
             return true;
         });
