@@ -99,6 +99,7 @@ android {
             resValue "string", "app_name", "osu!droid"
             zipAlignEnabled true
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg', 'proguard-kotlin.pro'
             signingConfig signingConfigs.release
         }
@@ -108,6 +109,7 @@ android {
             resValue "string", "app_name", "osu!droid"
             zipAlignEnabled true
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg', 'proguard-kotlin.pro'
             signingConfig signingConfigs.release
         }
