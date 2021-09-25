@@ -2,11 +2,7 @@ package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebChromeClient;
 
@@ -32,18 +28,13 @@ public class WebViewFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        isCreated = true;
-        root = inflater.inflate(getLayoutID(), container, false);
-
+    public void show() {
         webview = (WebView) findViewById(R.id.web);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
         webview.loadUrl(url);
-        onLoadView();
- 
-        return root;
+        super.show();
     }
 
     @Override
