@@ -348,7 +348,7 @@ public class OnlineManager {
         return false;
     }
 
-    public void sendFile(String filename) {
+    public void sendReplay(String filename) {
         if (replayID <= 0) return;
         Debug.i("Sending replay '" + filename + "' for id = " + replayID);
         OnlineFileOperator.sendFile(endpoint + "upload.php", filename, String.valueOf(replayID));
