@@ -20,6 +20,7 @@ public class WebViewFragment extends BaseFragment {
     public static final String REGISTER_URL = OnlineManager.hostname + "user/?action=register";
     public static final String PROFILE_URL = OnlineManager.hostname + "profile.php?uid=";
 
+    private WebView webview;
     private String url;
 
     @Override
@@ -53,7 +54,7 @@ public class WebViewFragment extends BaseFragment {
 
     @Override
     public void show() {
-        WebView webview = (WebView) findViewById(R.id.web);
+        webview = (WebView) findViewById(R.id.web);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
