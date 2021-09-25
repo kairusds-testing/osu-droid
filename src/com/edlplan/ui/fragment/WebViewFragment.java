@@ -23,11 +23,12 @@ public class WebViewFragment extends BaseFragment {
     private WebView webview;
     private String url;
 
-    public WebViewFragment() {
+    public void build() {
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
         webview.setWebChromeClient(new WebChromeClient());
+        return this;
     }
 
     @Override
