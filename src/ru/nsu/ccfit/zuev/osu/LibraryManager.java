@@ -40,7 +40,7 @@ public class LibraryManager {
     }
 
     public File getLibraryCacheFile() {
-        return new File(GlobalManager.getInstance().getMainActivity().getExternalFilesDir(null), String.format("library.%s.dat", VERSION));
+        return new File(GlobalManager.getInstance().getMainActivity().getFilesDir(), String.format("library.%s.dat", VERSION));
     }
 
     @SuppressWarnings("unchecked")
@@ -74,13 +74,7 @@ public class LibraryManager {
             return false;
         }
         try {
-            final File oldLib = new File(
-                GlobalManager.getInstance().getMainActivity().getFilesDir(),
-                "library.library3.4.dat"
-            );
-            if(oldLib.exists() && !lib.exists()){
-                oldLib.renameTo(getLibraryCacheFile());
-            }else if (!oldLib.exists() && !lib.exists()) {
+            if (!lib.exists()) {
                 lib.createNewFile();
             }
             final ObjectInputStream istream = new ObjectInputStream(

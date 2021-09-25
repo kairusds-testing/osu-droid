@@ -304,7 +304,7 @@ public class MainActivity extends BaseGameActivity implements
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 GlobalManager.getInstance().init();
-                analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN);
+                analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
                 if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
