@@ -116,10 +116,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         GlobalManager.getInstance().getSongService().setGaming(false);
     }
 
-    public void callDismissOnBackPress(){
-        
-    }
-
     public void show() {
         ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
     }
