@@ -102,6 +102,12 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             // Beta.checkUpgrade();
             return true;
         });
+
+        final Preference close = findPreference("close");
+        close.setOnPreferenceClickListener(preference -> {
+            ActivityOverlay.dismissOverlay(this);
+            return true;
+        });
     }
 
     @Override
@@ -116,10 +122,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
     public void show() {
         ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
-    }
-
-    public void dismiss() {
-        ActivityOverlay.dismissOverlay(this);
     }
 
     /* 

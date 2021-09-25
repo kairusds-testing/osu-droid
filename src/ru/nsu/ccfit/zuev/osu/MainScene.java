@@ -263,7 +263,9 @@ public class MainScene implements IUpdateHandler {
                     /* final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
                             SettingsMenu.class);
                     GlobalManager.getInstance().getMainActivity().startActivity(intent); */
-                    new SettingsMenu().show();
+                    GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
+                        new SettingsMenu().show();
+                    });
                     return true;
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,

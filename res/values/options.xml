@@ -267,6 +267,9 @@
     <string name="opt_update_title">Check for updates</string>
     <string name="opt_update_summary">Check for available updates</string>
 
+    <string name="opt_close_title">Close</string>
+    <string name="opt_close_summary">Close settings menu</string>
+
     <string name="force_romanized">Force romanized metadata</string>
     <string name="force_romanized_summary">Force using only roman character for metadata, in case titles in japanese or chinese are unreadable</string>
 
