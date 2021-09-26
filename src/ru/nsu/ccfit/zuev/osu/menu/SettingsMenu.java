@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.app.Activity;
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 // import android.preference.PreferenceActivity;
@@ -164,7 +165,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
-        setTitle(preferenceScreen.getTitle());
+        setTitle(preferenceScreen.getTitle().toString());
     }
 
     @Override
@@ -194,9 +195,8 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             }
         }else {
             parentScreen = (PreferenceScreen) findPreference("main");
-            setPreferenceScreen(parentScreen.getTitle());
         }
-        setTitle(parentScreen.getTitle());
+        setTitle(parentScreen.getTitle().toString());
         return true;
     }
 
@@ -209,7 +209,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             .setDuration(200)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .start();
-        playBackgroundHideInAnim(200);
     }
 
     protected void playOnDismissAnim(Runnable runnable) {
@@ -228,7 +227,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
                 }
             })
             .start();
-        playBackgroundHideOutAnim(200);
     }
 
     public View findViewById(@IdRes int id) {
