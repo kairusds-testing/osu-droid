@@ -28,34 +28,23 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-            <com.edlplan.ui.FocusedTextView
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="sugoi Fukkireta wwwww"
                     style="@style/NotificationTitle"
                     android:id="@+id/notify_small_title"
                     android:paddingBottom="5sp"
-                    android:ellipsize="marquee" 
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:scrollHorizontally="true" 
-                    android:focusable="true" 
-                    android:focusableInTouchMode="true" 
-                    android:freezesText="true"
-                    android:singleLine="true"/>
+                    android:maxLines="2"/>
 
-            <com.edlplan.ui.FocusedTextView
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Akatin"
                     style="@style/NotificationText"
-                    android:singleLine="true"
-                    android:ellipsize="marquee" 
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:scrollHorizontally="true" 
-                    android:focusable="true" 
-                    android:focusableInTouchMode="true" 
-                    android:freezesText="true"
-                    android:id="@+id/notify_small_artist"/>
+                    android:id="@+id/notify_small_artist"
+                    android:paddingBottom="5sp"
+                    android:maxLines="2"/>
 
             <LinearLayout
                     android:orientation="horizontal"
