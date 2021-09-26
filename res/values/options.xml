@@ -115,7 +115,7 @@
     <string name="opt_directory_summary">Path to directory containing beatmaps (default: /mnt/sdcard/osu!droid/Songs)</string>
 
     <string name="opt_clear_title">Library cache</string>
-    <string name="opt_clear_summary">Forced clear of library cache</string>
+    <string name="opt_clear_summary">Clear the library cache</string>
 
     <string name="opt_doublesound_title">Double hit sounds</string>
     <string name="opt_doublesound_summary">Make hit sounds closer to original osu!</string>

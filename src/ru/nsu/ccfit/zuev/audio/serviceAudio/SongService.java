@@ -21,6 +21,7 @@ import java.io.File;
 
 import ru.nsu.ccfit.zuev.audio.Status;
 import ru.nsu.ccfit.zuev.osu.BeatmapInfo;
+import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.LibraryManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -341,11 +342,12 @@ public class SongService extends Service {
                     preLoad(tempBeatmap.getMusic());
                     updateCoverImage(tempBeatmap.getTrack(0).getBackground());
 
-                    if (tempBeatmap.getArtistUnicode() == null || tempBeatmap.getTitleUnicode() == null) {
-                        updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
-                    } else {
+                    if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
+                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null) {
+                        updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
                     }
+
                     play();
                 } else {
                     if (isRunningForeground()) return;
@@ -354,11 +356,12 @@ public class SongService extends Service {
                     preLoad(tempBeatmap.getMusic());
                     updateCoverImage(tempBeatmap.getTrack(0).getBackground());
 
-                    if (tempBeatmap.getArtistUnicode() == null || tempBeatmap.getTitleUnicode() == null) {
-                        updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
-                    } else {
+                    if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
+                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null) {
+                        updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
                     }
+
                     play();
                 }
             }

@@ -44,12 +44,12 @@ public class WebViewFragment extends BaseFragment {
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                layoutFragment.dismiss();
+                WebViewFragment.this.layoutFragment.dismiss();
             }
 
             @Override
             public void onPageStarted(WebView view,  String url, Bitmap favicon) {
-                layoutFragment.show();
+                WebViewFragment.this.layoutFragment.show();
             }
 
             @Override
