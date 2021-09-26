@@ -2,6 +2,7 @@ package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.StringRes;
 
