@@ -44,17 +44,16 @@ public class WebViewFragment extends BaseFragment {
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                loadingFragment.dismiss();
+                if(loadingFragment.isCreated()) {
+                    loadingFragment.dismiss();
+                }
             }
 
             @Override
             public void onPageStarted(WebView view,  String url, Bitmap favicon) {
-                loadingFragment.show();
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view,  String url) {
-                return false;
+                if(!loadingFragment.isCreated()) {
+                    loadingFragment.show();
+                }
             }
         });
         webview.loadUrl(url);
@@ -71,7 +70,9 @@ public class WebViewFragment extends BaseFragment {
         if(webview.canGoBack()) {
             webview.goBack();
         }else {
-            loadingFragment.dismiss();
+            if(loadingFragment.isCreated()) {
+                loadingFragment.dismiss();
+            }
             dismiss();
         }
     }

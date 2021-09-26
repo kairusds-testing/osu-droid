@@ -16,7 +16,6 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import java.io.File;
 
@@ -294,8 +293,6 @@ public class SongService extends Service {
             .setOngoing(true);
         notification = builder.build();
         notification.contentView = notifyView_Small;
-        ((TextView) notification.contentView.findViewById(R.id.notify_small_title)).setSelected(true);
-        ((TextView) notification.contentView.findViewById(R.id.notify_small_artist)).setSelected(true);
         //notification.contentIntent = pendingIntent;
         notification.flags = Notification.FLAG_FOREGROUND_SERVICE;
     }

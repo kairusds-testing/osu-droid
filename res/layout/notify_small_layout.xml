@@ -28,23 +28,23 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-            <TextView
-                    android:layout_width="match_parent"
+            <com.edlplan.ui.ActiveTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="sugoi Fukkireta wwwww"
                     style="@style/NotificationTitle"
                     android:id="@+id/notify_small_title"
                     android:paddingBottom="5sp"
-                    android:singleLine="true"
                     android:ellipsize="marquee" 
                     android:marqueeRepeatLimit="marquee_forever"
                     android:scrollHorizontally="true" 
                     android:focusable="true" 
                     android:focusableInTouchMode="true" 
-                    android:freezesText="true"/>
+                    android:freezesText="true"
+                    android:singleLine="true"/>
 
-            <TextView
-                    android:layout_width="match_parent"
+            <com.edlplan.ui.ActiveTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Akatin"
                     style="@style/NotificationText"
