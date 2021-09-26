@@ -20,14 +20,14 @@
 
         <com.edlplan.ui.TriangleEffectView
             android:layout_width="320dp"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
 
         <View
             android:id="@+id/card"
             android:layout_width="260dp"
-            android:layout_height="110dp"
+            android:layout_height="130dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_rect_small"
             android:layout_centerInParent="true"/>
@@ -68,9 +68,15 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"/>
+                android:background="@drawable/rounded_rect_alpha"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"/>
 
             <TextView
+                android:id="@+id/fragment_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
@@ -82,6 +88,15 @@
                 android:text="@string/fragment_loading"
                 android:textColor="#FF3333"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android: background="@drawable/rounded_rect_alpha"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_marginTop="-5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progress="1"/>
 
         </LinearLayout>
     </RelativeLayout>

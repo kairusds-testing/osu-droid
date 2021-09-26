@@ -17,17 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
 
+        <ImageButton
+            android:id="@+id/back_button"
+            android:src="?attr/homeAsUpIndicator"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <com.edlplan.ui.TriangleEffectView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             edl:freeze="true"/>
-
-        <Button
-            android:id="@+id/back_button"
-            android:padding="2dp"
-            android:background="@drawable/ic_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"/>
 
         <TextView
             android:id="@+id/title"

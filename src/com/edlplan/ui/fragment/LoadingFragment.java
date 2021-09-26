@@ -15,6 +15,7 @@ public class LoadingFragment extends BaseFragment {
 
     public LoadingFragment() {
         setDismissOnBackgroundClick(false);
+        setDismissOnBackPress(false);
     }
 
     @Override
@@ -30,6 +31,10 @@ public class LoadingFragment extends BaseFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(super::dismiss);
+    }
+
+    public void setProgress(int progress) {
+        ((ProgressBar) findViewById(R.id.progress)).setProgress(progress);
     }
 
     protected void playOnLoadAnim() {

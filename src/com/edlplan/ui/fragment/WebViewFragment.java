@@ -5,7 +5,7 @@ import android.animation.Animator;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.WebChromeClient;
 
 import androidx.annotation.StringRes;
 
@@ -38,21 +38,22 @@ public class WebViewFragment extends BaseFragment {
     @Override
     protected void onLoadView() {
         webview = (WebView) findViewById(R.id.web);
-        loadingFragment = new LoadingFragment();
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
-        webview.setWebViewClient(new WebViewClient() {
+        webview.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
-                if(loadingFragment.isCreated()) {
-                    loadingFragment.dismiss();
-                }
-            }
-
-            @Override
-            public void onPageStarted(WebView view,  String url, Bitmap favicon) {
-                if(!loadingFragment.isCreated()) {
+            public void onProgressChanged(WebView view, int newProgress) {
+                if(loadingFragment == null) {
+                    loadingFragment = new LoadingFragment();
                     loadingFragment.show();
+                }
+
+                loadingFragment.setProgress(newProgress);
+
+                if(loadingFragment != null && newProgress == 100) {
+                    loadingFragment.setProgress(1);
+                    loadingFragment.dismiss();
+                    loadingFragment = null;
                 }
             }
         });
@@ -70,9 +71,6 @@ public class WebViewFragment extends BaseFragment {
         if(webview.canGoBack()) {
             webview.goBack();
         }else {
-            if(loadingFragment.isCreated()) {
-                loadingFragment.dismiss();
-            }
             dismiss();
         }
     }
