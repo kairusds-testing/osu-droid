@@ -100,11 +100,6 @@ public class SettingsMenu extends SettingsFragment {
 
         // screens END
 
-        backButton = (ImageButton) findViewById(R.id.back);
-        backButton.setOnClickListener(v -> {
-            navigateBack();
-        });
-
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
@@ -191,6 +186,11 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     protected void playOnLoadAnim() {
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> {
+            navigateBack();
+        });
+
         View body = findViewById(R.id.body);
         body.setTranslationY(100);
         body.animate().cancel();
