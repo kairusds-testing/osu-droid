@@ -44,16 +44,10 @@ public class WebViewFragment extends BaseFragment {
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if(loadingFragment == null) {
+                if(loadingFragment == null && newProgress < 100) {
                     loadingFragment = new LoadingFragment();
                     loadingFragment.show();
-                }
-
-                ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
-                progress.setProgress(newProgress);
-
-                if(loadingFragment != null && newProgress == 100) {
-                    progress.setProgress(1);
+                }else if(loadingFragment != null && newProgress == 100) {
                     loadingFragment.dismiss();
                     loadingFragment = null;
                 }
