@@ -344,7 +344,7 @@ public class SongService extends Service {
 
                     if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
-                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && && Config.isForceRomanized()) {
+                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
                     }
 
@@ -358,7 +358,7 @@ public class SongService extends Service {
 
                     if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
-                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && && Config.isForceRomanized()) {
+                    }else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
                         updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
                     }
 
