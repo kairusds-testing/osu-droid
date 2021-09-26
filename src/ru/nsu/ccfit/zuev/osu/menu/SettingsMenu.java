@@ -57,7 +57,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_settings, container, false);
+        root = super.onCreateView(inflater, container, savedInstanceState);
         playOnLoadAnim();
         return root;
     }
