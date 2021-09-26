@@ -10,15 +10,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:orientation="horizontal">
+
         <View
+            android:background="@color/triangleBackground"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/triangleBackground"/>
+            android:layout_height="37dp"/>
+
         <com.edlplan.ui.TriangleEffectView
             android:layout_width="match_parent"
-            edl:freeze="true"
-            android:layout_height="5dp"/>
+            android:layout_height="37dp"
+            edl:freeze="true"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center|left"/>
     </RelativeLayout>
 
     <FrameLayout

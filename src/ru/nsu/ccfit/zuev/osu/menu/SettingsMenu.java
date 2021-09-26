@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -41,6 +42,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class SettingsMenu extends PreferenceFragmentCompat {
 
     private Activity mActivity;
+    private View root;
     private static SettingsMenu instance;
     private PreferenceScreen parentScreen;
     private boolean isOnNestedScreen = false;
@@ -54,7 +56,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        root = inflater.inflate(R.layout.fragment_settings, container, false);
         playOnLoadAnim();
         return root;
     }
@@ -161,6 +163,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         });
     }
 
+    public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
+        setTitle(preferenceScreen.getTitle());
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -169,6 +175,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
     public static SettingsMenu getInstance() {
         return instance;
+    }
+
+    private void setTitle(String title) {
+       ((TextView) findViewById(R.id.title)).setText(title); 
     }
 
     public boolean onBackPress() {
@@ -184,8 +194,9 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             }
         }else {
             parentScreen = (PreferenceScreen) findPreference("main");
-            setPreferenceScreen(parentScreen);
+            setPreferenceScreen(parentScreen.getTitle());
         }
+        setTitle(parentScreen.getTitle());
         return true;
     }
 
@@ -218,6 +229,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             })
             .start();
         playBackgroundHideOutAnim(200);
+    }
+
+    public View findViewById(@IdRes int id) {
+        return root.findViewById(id);
     }
 
     public void show() {

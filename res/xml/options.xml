@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="main">
+    android:key="main"
+    android:title="@string/opt_main">
 
     <PreferenceScreen android:key="onlineOption" android:title="@string/opt_onlineOpt">
         <PreferenceCategory android:key="onlineOption_normal" android:title="@string/opt_onlineOpt_normal">

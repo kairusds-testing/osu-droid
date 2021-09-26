@@ -68,6 +68,8 @@
         <item>85</item>
         <item>80</item>
     </string-array>
+    <string name="opt_main">Settings</string>
+
     <string name="opt_onlineOpt">Account Option</string>
 
     <string name="opt_onlineOpt_normal">Online Option</string>
