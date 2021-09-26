@@ -823,10 +823,20 @@ public class MainActivity extends BaseGameActivity implements
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
                             == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!autoclickerDialogShown && activityVisible) {
+                            Bundle params = new Bundle();
+                            params.putString("device_id", Config.getOnlineDeviceID());
+                            analytics.logEvent("device_cheat_detected", params);
+
+                            if(OnlineManager.getInstance().isStayOnline()) {
+                                Bundle params1 = new Bundle();
+                                params1.putString("user_id", OnlineManager.getInstance().getUserId());
+                                analytics.logEvent("online_cheat_detected", params1);
+                            }
+
                             new ConfirmDialogFragment()
                                 .setMessage(R.string.message_autoclicker_detected)
                                 .setOnDismissListener(fragment -> cheatedExit())
-                                .showForResult(isAccepted -> cheatedExit());
+                                .showForResult(isAccepted -> cheatedExit()); 
                             autoclickerDialogShown = true;
                         }
                     }
