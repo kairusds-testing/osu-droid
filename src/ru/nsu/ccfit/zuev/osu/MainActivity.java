@@ -832,7 +832,7 @@ public class MainActivity extends BaseGameActivity implements
 
                             ConfirmDialogFragment dialog = new ConfirmDialogFragment()
                                 .setMessage(R.string.message_autoclicker_detected);
-                            dialog.setOnDismissListener(() -> cheatedExit())
+                            dialog.setOnDismissListener(() -> cheatedExit());
                             dialog.showForResult(isAccepted -> cheatedExit()); 
                             autoclickerDialogShown = true;
                         }
