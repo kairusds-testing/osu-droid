@@ -68,7 +68,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
-        ToastLogger.showText(String.valueOf(mParentScreen.getKey().isEmpty()), false);
 
         final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
         onlineOption.setOnPreferenceClickListener(preference -> {
@@ -159,7 +158,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
-        if(!preferenceScreen.getKey().isEmpty()) {
+        if(preferenceScreen.getKey()) {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
             ToastLogger.showText(isOnNestedScreen + ":" + preferenceScreen.getTitle().toString(), false);
@@ -174,7 +173,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         if(GlobalManager.getInstance().getSettingsMenu() == null) {
             return;
         }
-        if(!parentScreen.getKey().isEmpty()) {
+        if(parentScreen.getKey()) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
             parentScreen = mParentScreen;
