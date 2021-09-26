@@ -33,7 +33,7 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
         ActivityOverlay.dismissOverlay(this)
     }
 
-    open fun callDismissOnBackPress() {
+    override fun callDismissOnBackPress() {
         dismiss()
     }
 
