@@ -12,10 +12,6 @@ import com.edlplan.ui.ActivityOverlay
 import com.edlplan.ui.EasingHelper
 import ru.nsu.ccfit.zuev.osuplus.R
 
-fun interface BackPressListener {
-    fun callDismissOnBackPress()
-}
-
 abstract class BaseFragment : Fragment(), BackPressListener {
     var root: View? = null
         private set

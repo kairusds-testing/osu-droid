@@ -8,7 +8,7 @@ import androidx.annotation.IdRes
 import androidx.preference.PreferenceFragmentCompat
 import com.edlplan.ui.ActivityOverlay
 
-abstract class SettingsFragment : PreferenceFragmentCompat(), BaseFragment.BackPressListener {
+abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener {
     var root: View? = null
         private set
     var isCreated = false
@@ -39,7 +39,7 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BaseFragment.BackP
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isCreated = true
-        root = super.onCreateView(inflater, container, savedInstanceState)
+        root = super<PreferenceFragmentCompat>.onCreateView(inflater, container, savedInstanceState)
         playOnLoadAnim()
         return root
     }
