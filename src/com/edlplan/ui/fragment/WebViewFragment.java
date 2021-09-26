@@ -29,8 +29,6 @@ public class WebViewFragment extends BaseFragment {
     private WebView webview;
     private String url;
 
-    private LoadingFragment loadingFragment;
-
     public WebViewFragment(String url) {
         this.url = url;
     }
@@ -49,18 +47,16 @@ public class WebViewFragment extends BaseFragment {
         webSettings.setSupportMultipleWindows(true);
 
         webview.setWebChromeClient(new WebChromeClient() {
+            LoadingFragment loadingFragment = null;
+
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if(newProgress < 100) {
-                    if(loadingFragment == null) {
-                        loadingFragment = new LoadingFragment();
-                        loadingFragment.show();
-                    }
-                }else if(newProgress == 100) {
-                    if(loadingFragment instanceof LoadingFragment) {
-                        loadingFragment.dismiss();
-                        loadingFragment = null;
-                    }
+                if(loadingFragment == null && newProgress < 100) {
+                    loadingFragment = new LoadingFragment();
+                    loadingFragment.show();
+                }else if(loadingFragment != null && newProgress == 100) {
+                    loadingFragment.dismiss();
+                    loadingFragment = null;
                 }
             }
         });
@@ -72,6 +68,7 @@ public class WebViewFragment extends BaseFragment {
                 return false;
             }
 
+            @Override
             @TargetApi(Build.VERSION_CODES.N)
             public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
                 view.loadUrl(request.getUrl().toString());

@@ -17,17 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
 
+        <com.edlplan.ui.TriangleEffectView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            edl:freeze="true"/>
+
         <ImageButton
             android:id="@+id/back_button"
             android:src="@drawable/arrow_back_black"
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <com.edlplan.ui.TriangleEffectView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            edl:freeze="true"/>
 
         <TextView
             android:id="@+id/title"
