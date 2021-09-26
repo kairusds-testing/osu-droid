@@ -717,8 +717,8 @@ public class MainActivity extends BaseGameActivity implements
         }
 
         if(GlobalManager.getInstance().getSettingsMenu() != null && keyCode == KeyEvent.KEYCODE_BACK) {
-            GlobalManager.getInstance().onBackPress();
-            ToastLogger.showText("settings back");
+            GlobalManager.getInstance().getSettingsMenu().onBackPress();
+            ToastLogger.showText("settings back", false);
             return true;
         }
 
