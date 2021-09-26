@@ -54,7 +54,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.options, rootKey);
         reloadSkinList();
-        
+
         // screens
         parentScreen = (PreferenceScreen) findPreference("main");
         setPreferenceScreen(parentScreen); // fix null root key
@@ -95,9 +95,9 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         });
 
         final PreferenceScreen advancedOpts = (PreferenceScreen) findPreference("advancedopts");
-        advancedopts.setOnPreferenceClickListener(preference -> {
+        advancedOpts.setOnPreferenceClickListener(preference -> {
             isOnNestedScreen = true;
-            setPreferenceScreen(advancedopts);
+            setPreferenceScreen(advancedOpts);
             return true;
         });
 
@@ -155,7 +155,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        showing = false;
         instance = null;
     }
 

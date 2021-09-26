@@ -713,7 +713,7 @@ public class MainActivity extends BaseGameActivity implements
         }
 
         if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK &&
-            (ActivityOverlay.onBackPress() || SettingsMenu.getInstance().onBackPress())) {
+            (ActivityOverlay.onBackPress() || (SettingsMenu.getInstance() != null && SettingsMenu.getInstance().onBackPress()))) {
             return true;
         }
 
