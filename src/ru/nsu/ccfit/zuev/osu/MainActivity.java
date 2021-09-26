@@ -830,10 +830,10 @@ public class MainActivity extends BaseGameActivity implements
                                 analytics.logEvent("online_cheat_detected", params1);
                             }
 
-                            new ConfirmDialogFragment()
-                                .setMessage(R.string.message_autoclicker_detected)
-                                .setOnDismissListener(fragment -> cheatedExit())
-                                .showForResult(isAccepted -> cheatedExit()); 
+                            ConfirmDialogFragment dialog = new ConfirmDialogFragment()
+                                .setMessage(R.string.message_autoclicker_detected);
+                            dialog.setOnDismissListener(() -> cheatedExit())
+                            dialog.showForResult(isAccepted -> cheatedExit()); 
                             autoclickerDialogShown = true;
                         }
                     }
