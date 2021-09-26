@@ -23,7 +23,6 @@ abstract class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    abstract fun callDismissOnBackPress()
     protected abstract fun playOnLoadAnim()
 
     open fun show() {
@@ -32,6 +31,10 @@ abstract class SettingsFragment : PreferenceFragmentCompat() {
 
     open fun dismiss() {
         ActivityOverlay.dismissOverlay(this)
+    }
+
+    open fun callDismissOnBackPress() {
+        dismiss()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
