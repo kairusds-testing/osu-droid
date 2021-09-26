@@ -61,7 +61,7 @@ public class WebViewFragment extends BaseFragment {
             }
         });
 
-        web.setWebViewClient(new WebViewClient() {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
