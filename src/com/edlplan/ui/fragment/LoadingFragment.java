@@ -13,7 +13,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class LoadingFragment extends BaseFragment {
 
-    public ConfirmDialogFragment() {
+    public LoadingFragment() {
         setDismissOnBackgroundClick(false);
     }
 
