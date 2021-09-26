@@ -23,8 +23,8 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class WebViewFragment extends BaseFragment {
 
-    public static final String REGISTER_URL = "https://" + OnlineManager.hostname + "user/?action=register";
-    public static final String PROFILE_URL = "https://" + OnlineManager.hostname + "profile.php?uid=";
+    public static final String REGISTER_URL = "https://" + OnlineManager.hostname + "/user/?action=register";
+    public static final String PROFILE_URL = "https://" + OnlineManager.hostname + "/profile.php?uid=";
 
     private WebView webview;
     private String url;
@@ -51,12 +51,16 @@ public class WebViewFragment extends BaseFragment {
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if(loadingFragment == null && newProgress < 100) {
-                    loadingFragment = new LoadingFragment();
-                    loadingFragment.show();
-                }else if(loadingFragment != null && newProgress == 100) {
-                    loadingFragment.dismiss();
-                    loadingFragment = null;
+                if(newProgress < 100) {
+                    if(loadingFragment == null) {
+                        loadingFragment = new LoadingFragment();
+                        loadingFragment.show();
+                    }
+                }else if(newProgress == 100) {
+                    if(loadingFragment instanceof LoadingFragment) {
+                        loadingFragment.dismiss();
+                        loadingFragment = null;
+                    }
                 }
             }
         });
@@ -68,7 +72,6 @@ public class WebViewFragment extends BaseFragment {
                 return false;
             }
 
-            @Override
             @TargetApi(Build.VERSION_CODES.N)
             public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
                 view.loadUrl(request.getUrl().toString());
