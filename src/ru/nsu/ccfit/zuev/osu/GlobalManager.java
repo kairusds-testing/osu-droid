@@ -8,7 +8,6 @@ import org.anddev.andengine.engine.camera.Camera;
 import ru.nsu.ccfit.zuev.audio.serviceAudio.SaveServiceObject;
 import ru.nsu.ccfit.zuev.audio.serviceAudio.SongService;
 import ru.nsu.ccfit.zuev.osu.game.GameScene;
-import ru.nsu.ccfit.zuev.osu.menu.SettingsMenu;
 import ru.nsu.ccfit.zuev.osu.menu.SongMenu;
 import ru.nsu.ccfit.zuev.osu.scoring.ScoreLibrary;
 import ru.nsu.ccfit.zuev.osu.scoring.ScoringScene;
@@ -22,7 +21,6 @@ public class GlobalManager {
     private Camera camera;
     private GameScene gameScene;
     private MainScene mainScene;
-    private SettingsMenu settingsMenu;
     private ScoringScene scoring;
     private SongMenu songMenu;
     private MainActivity mainActivity;
@@ -155,14 +153,6 @@ public class GlobalManager {
 
     public void setInfo(String info) {
         this.info = info;
-    }
-
-    public SettingsMenu getSettingsMenu() {
-        return settingsMenu;
-    }
-
-    public void setSettingsMenu(SettingsMenu settingsMenu) {
-        this.settingsMenu = settingsMenu;
     }
 
     public SongService getSongService() {

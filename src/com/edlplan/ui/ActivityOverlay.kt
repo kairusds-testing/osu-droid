@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.edlplan.ui.fragment.BaseFragment
+import com.edlplan.ui.fragment.SettingsFragment
 import java.util.*
 
 object ActivityOverlay {
@@ -27,7 +28,7 @@ object ActivityOverlay {
     fun onBackPress(): Boolean {
         if (fragmentManager != null && displayingOverlay.size > 0) {
             val overlay: Fragment = displayingOverlay[displayingOverlay.size - 1]
-            if(overlay is BaseFragment) {
+            if(overlay is BaseFragment || overlay is SettingsFragment) {
                 overlay.callDismissOnBackPress()
             }
             return true
@@ -35,7 +36,6 @@ object ActivityOverlay {
         return false
     }
 
-    @JvmStatic
     @Synchronized
     fun dismissOverlay(fragment: Fragment) {
         if (fragmentManager != null) {
@@ -46,7 +46,6 @@ object ActivityOverlay {
         }
     }
 
-    @JvmStatic
     @Synchronized
     fun addOverlay(fragment: Fragment, tag: String?) {
         if (fragmentManager != null) {

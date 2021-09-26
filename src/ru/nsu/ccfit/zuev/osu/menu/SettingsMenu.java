@@ -5,10 +5,8 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 // import android.preference.PreferenceActivity;
-import android.view.LayoutInflater;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -16,11 +14,11 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.edlplan.framework.easing.Easing;
 import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.BaseAnimationListener;
+import com.edlplan.ui.fragment.SettingsFragment;
 import com.edlplan.ui.fragment.WebViewFragment;
 import com.edlplan.ui.EasingHelper;
 
@@ -40,10 +38,9 @@ import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
-public class SettingsMenu extends PreferenceFragmentCompat {
+public class SettingsMenu extends SettingsFragment {
 
     private Activity mActivity;
-    private View root;
     private PreferenceScreen mParentScreen;
     private PreferenceScreen parentScreen;
     private boolean isOnNestedScreen = false;
@@ -52,13 +49,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
-        // addPreferencesFromResource(R.xml.options);
-    }
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = super.onCreateView(inflater, container, savedInstanceState);
-        playOnLoadAnim();
-        return root;
     }
 
     @Override
@@ -161,7 +151,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         if(preferenceScreen.getKey() != null) {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
-            ToastLogger.showText(isOnNestedScreen + ":" + preferenceScreen.getTitle().toString(), false);
         }
     }
 
@@ -169,28 +158,25 @@ public class SettingsMenu extends PreferenceFragmentCompat {
        ((TextView) findViewById(R.id.title)).setText(title); 
     }
 
-    public void onBackPress() {
-        if(GlobalManager.getInstance().getSettingsMenu() == null) {
-            return;
-        }
+    @Override
+    public void callDismissOnBackPress() {
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
             parentScreen = mParentScreen;
-            ToastLogger.showText("back1", false);
             return;
         }
 
         if(isOnNestedScreen) {
             isOnNestedScreen = false;
             setPreferenceScreen(mParentScreen);
-            setTitle(StringTable.get(R.string.opt_main));
+            setTitle("");
         }else {
            dismiss(); 
         }
-        ToastLogger.showText("back", false);
     }
 
+    @Override
     protected void playOnLoadAnim() {
         View body = findViewById(R.id.body);
         body.setTranslationY(100);
@@ -220,41 +206,25 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             .start();
     }
 
-    public View findViewById(@IdRes int id) {
-        return root.findViewById(id);
-    }
-
-    public SettingsMenu show() {
-        if(GlobalManager.getInstance().getSettingsMenu() != null) {
-            return null;
+    @Override
+    public void show() {
+        if(isCreated()) {
+            return;
         }
-        ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
-        return this;
+        super.show();
     }
 
-    public SettingsMenu dismiss() {
+    @Override
+    public void dismiss() {
         playOnDismissAnim(() -> {
-            ActivityOverlay.dismissOverlay(SettingsMenu.this);
             Config.loadConfig(mActivity);
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-            GlobalManager.getInstance().setSettingsMenu(null);
             // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
             GlobalManager.getInstance().getSongService().setGaming(false);
+            SettingsMenu.super.dismiss();
         });
-        return this;
     }
-
-    /* 
-    @Override
-    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    } */
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void reloadSkinList() {
