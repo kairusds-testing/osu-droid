@@ -4,8 +4,7 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.edlplan.ui.fragment.BaseFragment
-import com.edlplan.ui.fragment.SettingsFragment
+import com.edlplan.ui.fragment.BaseFragment.BackPressListener
 import java.util.*
 
 object ActivityOverlay {
@@ -27,8 +26,8 @@ object ActivityOverlay {
     @Synchronized
     fun onBackPress(): Boolean {
         if (fragmentManager != null && displayingOverlay.size > 0) {
-            val overlay: Fragment = displayingOverlay[displayingOverlay.size - 1]
-            if(overlay is BaseFragment || overlay is SettingsFragment) {
+            val overlay: Fragment? = displayingOverlay[displayingOverlay.size - 1]
+            if(overlay is BackPressListener) {
                 overlay.callDismissOnBackPress()
             }
             return true

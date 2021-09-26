@@ -12,7 +12,11 @@ import com.edlplan.ui.ActivityOverlay
 import com.edlplan.ui.EasingHelper
 import ru.nsu.ccfit.zuev.osuplus.R
 
-abstract class BaseFragment : Fragment() {
+fun interface BackPressListener {
+    fun callDismissOnBackPress()
+}
+
+abstract class BaseFragment : Fragment(), BackPressListener {
     var root: View? = null
         private set
     private var background: View? = null
@@ -70,7 +74,7 @@ abstract class BaseFragment : Fragment() {
         ActivityOverlay.dismissOverlay(this)
     }
 
-    open fun callDismissOnBackPress() {
+    override fun callDismissOnBackPress() {
         if (isDismissOnBackPress) {
             dismiss()
         }

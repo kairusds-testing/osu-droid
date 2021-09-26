@@ -8,7 +8,7 @@ import androidx.annotation.IdRes
 import androidx.preference.PreferenceFragmentCompat
 import com.edlplan.ui.ActivityOverlay
 
-abstract class SettingsFragment : PreferenceFragmentCompat() {
+abstract class SettingsFragment : PreferenceFragmentCompat(), BaseFragment.BackPressListener {
     var root: View? = null
         private set
     var isCreated = false
