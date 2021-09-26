@@ -71,7 +71,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
         ToastLogger.showText(mParentScreen.getKey());
-        
+
         final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
         onlineOption.setOnPreferenceClickListener(preference -> {
             setPreferenceScreen(onlineOption);
