@@ -74,7 +74,7 @@ public final class SecurityUtils {
         if (!BuildType.hasOnlineAccess()) {
             return;
         }
-        if (appSignature == null || packageName == null || packageName.length() == 0) {
+        if (appSignature != null || packageName == null || packageName.length() == 0) {
             return;
         }
         PackageManager pkgMgr = context.getPackageManager();

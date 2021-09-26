@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_close_black"
-            android:layout_marginLeft="15dp"
-            android:layout_alignParentLeft="true"/>
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center|left"/>
 
         <TextView
             android:id="@+id/title"

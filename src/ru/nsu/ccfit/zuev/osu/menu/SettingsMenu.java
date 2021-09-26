@@ -44,7 +44,6 @@ public class SettingsMenu extends SettingsFragment {
     private Activity mActivity;
     private PreferenceScreen mParentScreen;
     private PreferenceScreen parentScreen;
-    private ImageButton backButton;
     private boolean isOnNestedScreen = false;
 
     @Override
@@ -169,7 +168,6 @@ public class SettingsMenu extends SettingsFragment {
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
-            backButton.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.ic_back));
             parentScreen = mParentScreen;
             return;
         }
@@ -178,7 +176,6 @@ public class SettingsMenu extends SettingsFragment {
             isOnNestedScreen = false;
             setPreferenceScreen(mParentScreen);
             setTitle("");
-            backButton.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.ic_close_black));
         }else {
            dismiss();
         }
@@ -186,7 +183,7 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     protected void playOnLoadAnim() {
-        backButton = (ImageButton) findViewById(R.id.back_button);
+        ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
             navigateBack();
         });
