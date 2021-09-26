@@ -1,12 +1,16 @@
 package com.edlplan.ui.fragment;
 
+import android.annotation.TargetApi;
 import android.animation.Animator;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebChromeClient;
-import android.widget.ProgressBar;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.StringRes;
 
@@ -39,8 +43,11 @@ public class WebViewFragment extends BaseFragment {
     @Override
     protected void onLoadView() {
         webview = (WebView) findViewById(R.id.web);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setUserAgentString("osudroid");
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setUserAgentString("osudroid");
+        webSettings.setSupportMultipleWindows(true);
+
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -51,6 +58,21 @@ public class WebViewFragment extends BaseFragment {
                     loadingFragment.dismiss();
                     loadingFragment = null;
                 }
+            }
+        });
+
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return false;
+            }
+
+            @Override
+            @TargetApi(Build.VERSION_CODES.N)
+            public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
+                view.loadUrl(request.getUrl().toString());
+                return false;
             }
         });
         webview.loadUrl(url);
