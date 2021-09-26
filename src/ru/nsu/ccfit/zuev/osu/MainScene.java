@@ -264,7 +264,7 @@ public class MainScene implements IUpdateHandler {
                             SettingsMenu.class);
                     GlobalManager.getInstance().getMainActivity().startActivity(intent); */
                     GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
-                        new SettingsMenu().show();
+                        GlobalManager.getInstance().setSettingsMenu(new SettingsMenu().show());
                     });
                     return true;
                 }

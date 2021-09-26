@@ -44,7 +44,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
     private Activity mActivity;
     private View root;
-    private static SettingsMenu instance;
     private PreferenceScreen mParentScreen;
     private PreferenceScreen parentScreen;
     private boolean isOnNestedScreen = false;
@@ -53,7 +52,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
-        instance = this;
         // addPreferencesFromResource(R.xml.options);
     }
 
@@ -70,7 +68,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
-        ToastLogger.showText(mParentScreen.getKey(), false);
+        ToastLogger.showText(mParentScreen.getKey().isEmpty(), false);
 
         final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
         onlineOption.setOnPreferenceClickListener(preference -> {
@@ -161,36 +159,27 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
-        if(preferenceScreen.getKey() != null) {
+        if(!preferenceScreen.getKey().isEmpty()) {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
+            ToastLogger.showText(isOnNestedScreen + ":" + preferenceScreen.getTitle().toString(), false);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        instance = null;
-    }
-
-    public static SettingsMenu getInstance() {
-        return instance;
     }
 
     private void setTitle(String title) {
        ((TextView) findViewById(R.id.title)).setText(title); 
     }
 
-    public boolean onBackPress() {
-        if(instance == null) {
-            return false;
+    public void onBackPress() {
+        if(GlobalManager.getInstance().getSettingsMenu() == null) {
+            return;
         }
-        if(parentScreen.getKey() != null) {
+        if(!parentScreen.getKey().isEmpty()) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
             parentScreen = mParentScreen;
             ToastLogger.showText("back1", false);
-            return true;
+            return;
         }
 
         if(isOnNestedScreen) {
@@ -201,7 +190,6 @@ public class SettingsMenu extends PreferenceFragmentCompat {
            dismiss(); 
         }
         ToastLogger.showText("back", false);
-        return true;
     }
 
     protected void playOnLoadAnim() {
@@ -237,22 +225,25 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         return root.findViewById(id);
     }
 
-    public void show() {
-        if(instance != null) {
-            return;
+    public SettingsMenu show() {
+        if(GlobalManager.getInstance().getSettingsMenu() != null) {
+            return null;
         }
         ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
+        return this;
     }
 
-    public void dismiss() {
+    public SettingsMenu dismiss() {
         playOnDismissAnim(() -> {
             ActivityOverlay.dismissOverlay(SettingsMenu.this);
             Config.loadConfig(mActivity);
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
+            GlobalManager.getInstance().setSettingsMenu(null);
             // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
             GlobalManager.getInstance().getSongService().setGaming(false);
         });
+        return this;
     }
 
     /* 

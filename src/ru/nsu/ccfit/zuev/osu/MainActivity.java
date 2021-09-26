@@ -712,8 +712,13 @@ public class MainActivity extends BaseGameActivity implements
             return super.onKeyDown(keyCode, event);
         }
 
-        if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK &&
-            (ActivityOverlay.onBackPress() || (SettingsMenu.getInstance() != null && SettingsMenu.getInstance().onBackPress()))) {
+        if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && ActivityOverlay.onBackPress()) {
+            return true;
+        }
+
+        if(GlobalManager.getInstance().getSettingsMenu() != null && keyCode == KeyEvent.KEYCODE_BACK) {
+            GlobalManager.getInstance().onBackPress();
+            ToastLogger.showText("settings back");
             return true;
         }
 
