@@ -148,7 +148,7 @@ public class SettingsMenu extends SettingsFragment {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            new WebViewFragment("https://" + OnlineManager.hostname).show();
+            new WebViewFragment().setURL("https://" + OnlineManager.hostname).show();
             // Beta.checkUpgrade();
             return true;
         });

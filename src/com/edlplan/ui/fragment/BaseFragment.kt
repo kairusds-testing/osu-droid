@@ -16,6 +16,11 @@ abstract class BaseFragment : Fragment(), BackPressListener {
     var root: View? = null
         private set
     private var background: View? = null
+    var onDismissListener: OnDismissListener? = null
+        set(listener: OnDismissListener) {
+            onDismissListener = listener
+            return this
+        }
     var isDismissOnBackgroundClick = false
     var isCreated = false
         private set
@@ -69,6 +74,7 @@ abstract class BaseFragment : Fragment(), BackPressListener {
 
     open fun dismiss() {
         ActivityOverlay.dismissOverlay(this)
+        if(dismissListener != null) dismissListener.onDismiss(this)
     }
 
     override fun callDismissOnBackPress() {
@@ -87,5 +93,9 @@ abstract class BaseFragment : Fragment(), BackPressListener {
         }
         onLoadView()
         return root
+    }
+
+    fun interface OnDismissListener {
+        fun OnDismiss(fragment: BaseFragment)
     }
 }

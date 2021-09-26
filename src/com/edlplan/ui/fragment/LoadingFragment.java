@@ -14,8 +14,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class LoadingFragment extends BaseFragment {
 
     public LoadingFragment() {
-        setDismissOnBackgroundClick(false);
-        setDismissOnBackPress(false);
+        setDismissOnBackgroundClick(true);
     }
 
     @Override

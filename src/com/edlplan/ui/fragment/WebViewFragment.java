@@ -13,11 +13,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.StringRes;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.edlplan.framework.easing.Easing;
 import com.edlplan.ui.BaseAnimationListener;
 import com.edlplan.ui.EasingHelper;
 
+import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
@@ -30,8 +32,13 @@ public class WebViewFragment extends BaseFragment {
     private String url;
     private LoadingFragment loadingFragment;
 
-    public WebViewFragment(String url) {
+    public WebViewFragment() {
+        setDismissOnBackgroundClick(true);
+    }
+
+    public WebViewFragment setURL(String url) {
         this.url = url;
+        return this;
     }
 
     @Override
@@ -47,12 +54,20 @@ public class WebViewFragment extends BaseFragment {
         webSettings.setUserAgentString("osudroid");
         webSettings.setSupportMultipleWindows(true);
 
+        ((SwipeRefreshLayout) findViewById(R.id.swipe_container)).setOnRefreshListener(() -> {
+            webview.reload();
+            ToastLogger.showTextId(R.string.fragment_loading_refresh, false);
+        });
+
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if(loadingFragment == null && newProgress < 100) {
                     loadingFragment = new LoadingFragment();
-                    loadingFragment.show();
+                    loadingFragment.setOnDismissListener(fragment -> {
+                        view.stopLoading();
+                        ToastLogger.showTextId(R.string.fragment_loading_stopped, false);
+                    }).show();
                 }else if(loadingFragment != null && newProgress == 100) {
                     loadingFragment.dismiss();
                     loadingFragment = null;

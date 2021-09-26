@@ -19,14 +19,14 @@
         android:orientation="vertical">
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="320dp"
+            android:layout_width="240dp"
             android:layout_height="120dp"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
 
         <View
             android:id="@+id/card"
-            android:layout_width="260dp"
+            android:layout_width="180dp"
             android:layout_height="110dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_rect_small"
@@ -51,7 +51,7 @@
         </RelativeLayout>
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="320dp"
+            android:layout_width="240dp"
             android:layout_height="120dp"
             edl:freeze="true"
             edl:edgeClampRate="1.0"

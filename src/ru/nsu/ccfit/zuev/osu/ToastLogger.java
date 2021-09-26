@@ -3,6 +3,8 @@ package ru.nsu.ccfit.zuev.osu;
 import android.app.Activity;
 import android.widget.Toast;
 
+import androidx.annotation.StringRes;
+
 import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
@@ -27,18 +29,13 @@ public class ToastLogger /*implements Runnable */{
         if (instance == null) {
             return;
         }
-        /* instance.message = message;
-        instance.showlong = showlong;
-        instance.activity.runOnUiThread(instance);*/
-        instance.activity.runOnUiThread(new Runnable(){
-            public void run(){
-                Toast.makeText(instance.activity, message,
-                    showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        instance.activity.runOnUiThread(() -> 
+            Toast.makeText(instance.activity, message,
+                showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show());
     }
 
-    public static void showTextId(final int resID, final boolean showlong) {
+    public static void showTextId(@StringRes final int resID, final boolean showlong) {
         showText(StringTable.get(resID), showlong);
     }
 
@@ -73,8 +70,4 @@ public class ToastLogger /*implements Runnable */{
         instance.percentage = perc;
     }
 
-    /* public void run() {
-        Toast.makeText(instance.activity, message,
-                showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
-    } */
 }

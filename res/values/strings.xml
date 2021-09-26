@@ -60,6 +60,8 @@
 	<string name="favorite_manage">Manage Beatmap folder</string>
 
     <string name="fragment_loading">Loading...</string>
+    <string name="fragment_loading_refresh">Refreshing page...</string>
+    <string name="fragment_loading_stopped">Stopped page load</string>
 
 	<string name="menu_score" formatted="false">Score: %s (%dx)</string>
 	<string name="menu_creator">Creator: %s</string>

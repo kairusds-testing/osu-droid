@@ -49,7 +49,7 @@ public class OnlinePanel extends Entity {
                                 .setMessage(R.string.dialog_visit_profile_page)
                                 .showForResult(isAccepted -> {
                                     GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
-                                        new WebViewFragment(
+                                        new WebViewFragment().setURL(
                                             WebViewFragment.PROFILE_URL + OnlineManager.getInstance().getUserId())
                                         .show();
                                     });
