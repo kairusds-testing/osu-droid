@@ -28,6 +28,7 @@ public class WebViewFragment extends BaseFragment {
 
     private WebView webview;
     private String url;
+    private LoadingFragment loadingFragment;
 
     public WebViewFragment(String url) {
         this.url = url;
@@ -47,8 +48,6 @@ public class WebViewFragment extends BaseFragment {
         webSettings.setSupportMultipleWindows(true);
 
         webview.setWebChromeClient(new WebChromeClient() {
-            LoadingFragment loadingFragment = null;
-
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if(loadingFragment == null && newProgress < 100) {

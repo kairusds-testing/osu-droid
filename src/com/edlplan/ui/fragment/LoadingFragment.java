@@ -35,6 +35,7 @@ public class LoadingFragment extends BaseFragment {
 
     protected void playOnLoadAnim() {
         View body = findViewById(R.id.frg_body);
+        if(body == null) return;
         body.setTranslationY(100);
         body.animate().cancel();
         body.animate()
@@ -47,6 +48,7 @@ public class LoadingFragment extends BaseFragment {
 
     protected void playOnDismissAnim(Runnable runnable) {
         View body = findViewById(R.id.frg_body);
+        if(body == null) return;
         body.animate().cancel();
         body.animate()
                 .translationY(100)
