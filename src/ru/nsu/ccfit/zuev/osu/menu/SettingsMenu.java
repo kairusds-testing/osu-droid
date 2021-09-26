@@ -45,6 +45,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     private Activity mActivity;
     private View root;
     private static SettingsMenu instance;
+    private PreferenceScreen mParentScreen;
     private PreferenceScreen parentScreen;
     private boolean isOnNestedScreen = false;
 
@@ -68,19 +69,17 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         reloadSkinList();
 
         // screens
-        parentScreen = (PreferenceScreen) findPreference("main");
-        setPreferenceScreen(parentScreen); // fix null root key
-
+        mParentScreen = parentScreen = getPreferenceScreen();
+        ToastLogger.showText(mParentScreen.getKey());
+        
         final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
         onlineOption.setOnPreferenceClickListener(preference -> {
-            isOnNestedScreen = true;
             setPreferenceScreen(onlineOption);
             return true;
         });
 
         final PreferenceScreen general = (PreferenceScreen) findPreference("general");
         general.setOnPreferenceClickListener(preference -> {
-            isOnNestedScreen = true;
             setPreferenceScreen(general);
             return true;
         });
@@ -94,21 +93,18 @@ public class SettingsMenu extends PreferenceFragmentCompat {
 
         final PreferenceScreen sound = (PreferenceScreen) findPreference("sound");
         sound.setOnPreferenceClickListener(preference -> {
-            isOnNestedScreen = true;
             setPreferenceScreen(sound);
             return true;
         });
 
         final PreferenceScreen beatmaps = (PreferenceScreen) findPreference("beatmaps");
         beatmaps.setOnPreferenceClickListener(preference -> {
-            isOnNestedScreen = true;
             setPreferenceScreen(beatmaps);
             return true;
         });
 
         final PreferenceScreen advancedOpts = (PreferenceScreen) findPreference("advancedopts");
         advancedOpts.setOnPreferenceClickListener(preference -> {
-            isOnNestedScreen = true;
             setPreferenceScreen(advancedOpts);
             return true;
         });
@@ -165,7 +161,10 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
-        setTitle(preferenceScreen.getTitle().toString());
+        if(preferenceScreen.getKey() != null) {
+            isOnNestedScreen = true;
+            setTitle(preferenceScreen.getTitle().toString());
+        }
     }
 
     @Override
@@ -186,17 +185,22 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         if(instance == null) {
             return false;
         }
-        if(parentScreen.getKey() == "main") {
-            if(isOnNestedScreen) {
-                isOnNestedScreen = false;
-                setPreferenceScreen(parentScreen);
-            }else {
-               dismiss(); 
-            }
-        }else {
-            parentScreen = (PreferenceScreen) findPreference("main");
+        if(parentScreen.getKey() != null) {
+            setPreferenceScreen(parentScreen);
+            setTitle(parentScreen.getTitle().toString());
+            parentScreen = mParentScreen;
+            ToastLogger.showText("back1", false);
+            return true;
         }
-        setTitle(parentScreen.getTitle().toString());
+
+        if(isOnNestedScreen) {
+            isOnNestedScreen = false;
+            setPreferenceScreen(mParentScreen);
+            setTitle(StringTable.get(R.string.opt_main));
+        }else {
+           dismiss(); 
+        }
+        ToastLogger.showText("back", false);
         return true;
     }
 
