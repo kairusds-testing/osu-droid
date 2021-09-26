@@ -56,8 +56,6 @@ import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
-import org.conscrypt.Conscrypt;
-
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
@@ -118,7 +116,6 @@ public class MainActivity extends BaseGameActivity implements
         ToastLogger.init(this);
         SyncTaskManager.getInstance().init(this);
         InputManager.setContext(this);
-        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         OnlineManager.getInstance().Init(getApplicationContext());
         crashlytics.setUserId(Config.getOnlineDeviceID());
 
