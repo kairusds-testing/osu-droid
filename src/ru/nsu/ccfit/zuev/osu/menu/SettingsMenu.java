@@ -7,6 +7,7 @@ import android.os.Bundle;
 // import android.preference.PreferenceActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -43,6 +44,7 @@ public class SettingsMenu extends SettingsFragment {
     private Activity mActivity;
     private PreferenceScreen mParentScreen;
     private PreferenceScreen parentScreen;
+    private ImageButton backButton;
     private boolean isOnNestedScreen = false;
 
     @Override
@@ -97,6 +99,11 @@ public class SettingsMenu extends SettingsFragment {
         });
 
         // screens END
+
+        backButton = (ImageButton) findViewById(R.id.back);
+        backButton.setOnClickListener(v -> {
+            navigateBack();
+        });
 
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -160,9 +167,14 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     public void callDismissOnBackPress() {
+        navigateBack();
+    }
+
+    private void navigateBack() {
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
+            backButton.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.ic_back));
             parentScreen = mParentScreen;
             return;
         }
@@ -171,8 +183,9 @@ public class SettingsMenu extends SettingsFragment {
             isOnNestedScreen = false;
             setPreferenceScreen(mParentScreen);
             setTitle("");
+            backButton.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.ic_close_black));
         }else {
-           dismiss(); 
+           dismiss();
         }
     }
 
