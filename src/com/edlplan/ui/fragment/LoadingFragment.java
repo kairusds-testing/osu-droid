@@ -2,7 +2,6 @@ package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.annotation.StringRes;
 
@@ -32,10 +31,6 @@ public class LoadingFragment extends BaseFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(super::dismiss);
-    }
-
-    public void setProgress(int progress) {
-        ((ProgressBar) findViewById(R.id.progress)).setProgress(progress);
     }
 
     protected void playOnLoadAnim() {

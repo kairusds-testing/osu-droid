@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebChromeClient;
+import android.widget.ProgressBar;
 
 import androidx.annotation.StringRes;
 
@@ -48,10 +49,11 @@ public class WebViewFragment extends BaseFragment {
                     loadingFragment.show();
                 }
 
-                loadingFragment.setProgress(newProgress);
+                ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+                progress.setProgress(newProgress);
 
                 if(loadingFragment != null && newProgress == 100) {
-                    loadingFragment.setProgress(1);
+                    progress.setProgress(1);
                     loadingFragment.dismiss();
                     loadingFragment = null;
                 }
