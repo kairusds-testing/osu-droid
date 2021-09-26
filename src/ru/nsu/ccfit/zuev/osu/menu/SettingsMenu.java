@@ -16,8 +16,11 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.edlplan.framework.easing.Easing;
 import com.edlplan.ui.ActivityOverlay;
+import com.edlplan.ui.BaseAnimationListener;
 import com.edlplan.ui.fragment.WebViewFragment;
+import com.edlplan.ui.EasingHelper;
 
 import java.io.File;
 import java.util.Arrays;
@@ -48,6 +51,12 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         mActivity = GlobalManager.getInstance().getMainActivity();
         instance = this;
         // addPreferencesFromResource(R.xml.options);
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        playOnLoadAnim();
+        return root;
     }
 
     @Override
@@ -180,6 +189,37 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         return true;
     }
 
+    protected void playOnLoadAnim() {
+        View body = findViewById(R.id.body);
+        body.setTranslationY(100);
+        body.animate().cancel();
+        body.animate()
+            .translationY(0)
+            .setDuration(200)
+            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+            .start();
+        playBackgroundHideInAnim(200);
+    }
+
+    protected void playOnDismissAnim(Runnable runnable) {
+        View body = findViewById(R.id.body);
+        body.animate().cancel();
+        body.animate()
+            .translationY(100)
+            .setDuration(200)
+            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+            .setListener(new BaseAnimationListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (runnable != null) {
+                        runnable.run();
+                    }
+                }
+            })
+            .start();
+        playBackgroundHideOutAnim(200);
+    }
+
     public void show() {
         if(instance != null) {
             return;
@@ -188,12 +228,14 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void dismiss() {
-        ActivityOverlay.dismissOverlay(this);
-        Config.loadConfig(mActivity);
-        GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
-        GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-        // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
-        GlobalManager.getInstance().getSongService().setGaming(false);
+        playOnDismissAnim(() -> {
+            ActivityOverlay.dismissOverlay(SettingsMenu.this);
+            Config.loadConfig(mActivity);
+            GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
+            GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
+            // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
+            GlobalManager.getInstance().getSongService().setGaming(false);
+        });
     }
 
     /* 
