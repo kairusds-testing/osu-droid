@@ -22,14 +22,12 @@
             android:layout_height="50dp"
             edl:freeze="true"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/back_button"
+            android:padding="2dp"
+            android:background="@drawable/ic_back"
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back"
-            android:layout_marginLeft="15dp"
-            android:layout_alignParentLeft="true"/>
+            android:layout_height="48dp"/>
 
         <TextView
             android:id="@+id/title"

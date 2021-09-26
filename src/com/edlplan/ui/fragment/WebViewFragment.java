@@ -2,9 +2,10 @@ package com.edlplan.ui.fragment;
 
 import android.animation.Animator;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.StringRes;
 
@@ -23,6 +24,8 @@ public class WebViewFragment extends BaseFragment {
     private WebView webview;
     private String url;
 
+    private LoadingFragment loadingFragment;
+
     public WebViewFragment(String url) {
         this.url = url;
     }
@@ -35,9 +38,25 @@ public class WebViewFragment extends BaseFragment {
     @Override
     protected void onLoadView() {
         webview = (WebView) findViewById(R.id.web);
+        loadingFragment = new LoadingFragment();
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString("osudroid");
-        webview.setWebChromeClient(new WebChromeClient());
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                layoutFragment.dismiss();
+            }
+
+            @Override
+            public void onPageStarted(WebView view,  String url, Bitmap favicon) {
+                layoutFragment.show();
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view,  String url) {
+                return false;
+            }
+        });
         webview.loadUrl(url);
         playOnLoadAnim();
     }
@@ -52,6 +71,7 @@ public class WebViewFragment extends BaseFragment {
         if(webview.canGoBack()) {
             webview.goBack();
         }else {
+            loadingFragment.dismiss();
             dismiss();
         }
     }

@@ -59,6 +59,8 @@
 	<string name="favorite_ensure">Are you sure?</string>
 	<string name="favorite_manage">Manage Beatmap folder</string>
 
+    <string name="fragment_loading">Loading...</string>
+
 	<string name="menu_score" formatted="false">Score: %s (%dx)</string>
 	<string name="menu_creator">Creator: %s</string>
 	<string name="menu_mod_back">Back</string>

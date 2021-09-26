@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -189,7 +189,7 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     protected void playOnLoadAnim() {
-        ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+        Button backButton = (Button) findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
             navigateBack();
         });
