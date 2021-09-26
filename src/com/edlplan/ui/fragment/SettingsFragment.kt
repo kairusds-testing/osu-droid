@@ -14,6 +14,7 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
     var isCreated = false
         private set
 
+    @Suppress("UNCHECKED_CAST")
     fun <T : View?> findViewById(@IdRes id: Int): T? {
         val o: Any? = if (root != null) root!!.findViewById<View>(id) else null
         return if (o == null) {
