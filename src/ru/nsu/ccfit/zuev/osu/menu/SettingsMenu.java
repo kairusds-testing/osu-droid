@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 // import android.preference.PreferenceActivity;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -98,6 +99,11 @@ public class SettingsMenu extends SettingsFragment {
         });
 
         // screens END
+
+        final EditTextPreference onlinePassword = (EditTextPreference) findPreference("onlinePassword");
+        onlinePassword.setOnBindEditTextListener(editText -> {
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        });
 
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
