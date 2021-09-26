@@ -158,7 +158,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
     }
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
-        if(preferenceScreen.getKey()) {
+        if(preferenceScreen.getKey() != null) {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
             ToastLogger.showText(isOnNestedScreen + ":" + preferenceScreen.getTitle().toString(), false);
@@ -173,7 +173,7 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         if(GlobalManager.getInstance().getSettingsMenu() == null) {
             return;
         }
-        if(parentScreen.getKey()) {
+        if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
             parentScreen = mParentScreen;
