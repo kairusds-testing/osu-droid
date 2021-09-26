@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-            <com.edlplan.ui.ActiveTextView
+            <com.edlplan.ui.FocusedTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="sugoi Fukkireta wwwww"
@@ -43,7 +43,7 @@
                     android:freezesText="true"
                     android:singleLine="true"/>
 
-            <com.edlplan.ui.ActiveTextView
+            <com.edlplan.ui.FocusedTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Akatin"
