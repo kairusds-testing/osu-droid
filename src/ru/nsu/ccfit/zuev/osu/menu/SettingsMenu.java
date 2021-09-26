@@ -53,8 +53,9 @@ public class SettingsMenu extends PreferenceFragmentCompat {
         reloadSkinList();
 
         // screens
-        ((PreferenceScreen) findPreference("skinTopPath")).setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(this);
+        final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
+        onlineOption.setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen(onlineOption);
             return true;
         });
 
