@@ -83,12 +83,12 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 		}
 		if(pHasWindowFocus) {
 			if(this.mPaused) {
-				this.doResume();
+				// this.doResume();
 			}
 			this.mHasWindowFocused = true;
 		} else {
 			if(!this.mPaused) {
-				this.doPause();
+				// this.doPause();
 			}
 			this.mHasWindowFocused = false;
 		}

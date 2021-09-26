@@ -82,6 +82,7 @@ import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.menu.FilterMenu;
 import ru.nsu.ccfit.zuev.osu.menu.LoadingScreen;
 import ru.nsu.ccfit.zuev.osu.menu.ModMenu;
+import ru.nsu.ccfit.zuev.osu.menu.SettingsMenu;
 import ru.nsu.ccfit.zuev.osu.menu.SplashScene;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
@@ -711,7 +712,8 @@ public class MainActivity extends BaseGameActivity implements
             return super.onKeyDown(keyCode, event);
         }
 
-        if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && ActivityOverlay.onBackPress()) {
+        if (event.getAction() == TouchEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK &&
+            (ActivityOverlay.onBackPress() || SettingsMenu.getInstance().onBackPress())) {
             return true;
         }
 

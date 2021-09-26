@@ -38,31 +38,72 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class SettingsMenu extends PreferenceFragmentCompat {
 
     private Activity mActivity;
+    private static SettingsMenu instance;
+    private PreferenceScreen parentScreen;
+    private boolean isOnNestedScreen = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
+        instance = this;
         // addPreferencesFromResource(R.xml.options);
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.options, rootKey);
-        ToastLogger.showText("rootKey:" + rootKey, false);
         reloadSkinList();
-
+        
         // screens
+        parentScreen = (PreferenceScreen) findPreference("main");
+        setPreferenceScreen(parentScreen); // fix null root key
+
         final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
         onlineOption.setOnPreferenceClickListener(preference -> {
+            isOnNestedScreen = true;
             setPreferenceScreen(onlineOption);
+            return true;
+        });
+
+        final PreferenceScreen general = (PreferenceScreen) findPreference("general");
+        general.setOnPreferenceClickListener(preference -> {
+            isOnNestedScreen = true;
+            setPreferenceScreen(general);
+            return true;
+        });
+
+        final PreferenceScreen color = (PreferenceScreen) findPreference("color");
+        color.setOnPreferenceClickListener(preference -> {
+            parentScreen = general;
+            setPreferenceScreen(color);
+            return true;
+        });
+
+        final PreferenceScreen sound = (PreferenceScreen) findPreference("sound");
+        sound.setOnPreferenceClickListener(preference -> {
+            isOnNestedScreen = true;
+            setPreferenceScreen(sound);
+            return true;
+        });
+
+        final PreferenceScreen beatmaps = (PreferenceScreen) findPreference("beatmaps");
+        beatmaps.setOnPreferenceClickListener(preference -> {
+            isOnNestedScreen = true;
+            setPreferenceScreen(beatmaps);
+            return true;
+        });
+
+        final PreferenceScreen advancedOpts = (PreferenceScreen) findPreference("advancedopts");
+        advancedopts.setOnPreferenceClickListener(preference -> {
+            isOnNestedScreen = true;
+            setPreferenceScreen(advancedopts);
             return true;
         });
 
         // screens END
 
         final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
-        
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
@@ -109,30 +150,51 @@ public class SettingsMenu extends PreferenceFragmentCompat {
             // Beta.checkUpgrade();
             return true;
         });
-
-        final Preference close = findPreference("close");
-        close.setOnPreferenceClickListener(preference -> {
-            dismiss();
-            return true;
-        });
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Config.loadConfig(mActivity);
-        GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
-        GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-        // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
-        GlobalManager.getInstance().getSongService().setGaming(false);
+        showing = false;
+        instance = null;
+    }
+
+    public static SettingsMenu getInstance() {
+        return instance;
+    }
+
+    public boolean onBackPress() {
+        if(instance == null) {
+            return false;
+        }
+        if(parentScreen.getKey() == "main") {
+            if(isOnNestedScreen) {
+                isOnNestedScreen = false;
+                setPreferenceScreen(parentScreen);
+            }else {
+               dismiss(); 
+            }
+        }else {
+            parentScreen = (PreferenceScreen) findPreference("main");
+            setPreferenceScreen(parentScreen);
+        }
+        return true;
     }
 
     public void show() {
+        if(instance != null) {
+            return;
+        }
         ActivityOverlay.addOverlay(this, this.getClass().getName() + "@" + this.hashCode());
     }
 
     public void dismiss() {
         ActivityOverlay.dismissOverlay(this);
+        Config.loadConfig(mActivity);
+        GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
+        GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
+        // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
+        GlobalManager.getInstance().getSongService().setGaming(false);
     }
 
     /* 

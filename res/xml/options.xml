@@ -177,7 +177,5 @@
 
     <Preference android:key="update" android:title="@string/opt_update_title"
         android:summary="@string/opt_update_summary"/>
-    <Preference android:key="close" android:title="@string/opt_close_title"
-        android:summary="@string/opt_close_summary"/>
 
 </PreferenceScreen>
