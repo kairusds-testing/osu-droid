@@ -44,8 +44,6 @@
                     android:id="@+id/back_button"
                     android:src="@drawable/arrow_back_black"
                     android:background="@android:color/transparent"
-                    android:layout_alignRight="@id/close_button"
-                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -53,8 +51,6 @@
                     android:id="@+id/forward_button"
                     android:src="@drawable/arrow_forward_black"
                     android:background="@android:color/transparent"
-                    android:layout_alignRight="@id/back_button"
-                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>

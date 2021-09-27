@@ -580,9 +580,10 @@ public class MainActivity extends BaseGameActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        /* if (this.mEngine == null) {
+        if (this.mEngine == null) {
             return;
         }
+        /*
         if (GlobalManager.getInstance().getSkinNow() != null) {
             if (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());

@@ -59,12 +59,10 @@ public class SkinPathPreference extends ListPreference {
                     setOnPreferenceChangeListener((preference, newValue) -> {
                         if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
                             MainActivity activity = GlobalManager.getInstance().getMainActivity();
-                            activity.getHandler().post(() -> {
-                                SpritePool.getInstance().purge();
-                                GlobalManager.getInstance().setSkinNow(newValue.toString());
-                                ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                            });
+                            // SpritePool.getInstance().purge();
+                            GlobalManager.getInstance().setSkinNow(newValue.toString());
+                            /* ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures(); */
 
                             Intent intent = new Intent(activity, MainActivity.class);
                             activity.startActivity(intent);
