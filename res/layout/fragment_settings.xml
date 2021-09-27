@@ -24,7 +24,7 @@
 
         <ImageButton
             android:id="@+id/back_button"
-            android:src="@drawable/arrow_back_black"
+            android:src="@drawable/arrow_back"
             android:background="@android:color/transparent"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
@@ -32,10 +32,9 @@
 
         <TextView
             android:id="@+id/title"
-            android:textColor="#FF5722"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:textColor="@android:color/black"
+            android:textColor="#FF5722"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
