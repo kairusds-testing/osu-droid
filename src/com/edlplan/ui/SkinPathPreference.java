@@ -63,10 +63,11 @@ public class SkinPathPreference extends ListPreference {
                         GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures(); */
                         MainActivity activity = GlobalManager.getInstance().getMainActivity();
                         Intent intent = new Intent(activity, MainActivity.class);
-                        activity.finish();
-                        activity.overridePendingTransition(0, 0);
+                        ActivityOverlay.dismissOverlaysTillEntry(0);
+                        // activity.finish();
+                        // activity.overridePendingTransition(0, 0);
                         activity.startActivity(intent);
-                        activity.overridePendingTransition(0, 0);
+                        // activity.overridePendingTransition(0, 0);
                         ToastLogger.showTextId(R.string.message_loaded_skin, true);
                         return true;
                     });

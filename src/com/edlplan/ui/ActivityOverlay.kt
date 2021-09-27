@@ -45,6 +45,20 @@ object ActivityOverlay {
         }
     }
 
+    @JvmStatic
+    @Synchronized
+    fun dismissOverlaysTillEntry(entryIndex: Int) {
+        if(fragmentManager != null) {
+            if(fragmentManager!!.getBackStackEntryCount() <= entryIndex) {
+                return
+            }
+            val entry: FragmentManager.BackStackEntry? = fragmentManager!!.getBackStackEntryAt(entryIndex)
+            if(entry != null) {
+                fragmentManager!!.popBackStackImmediate(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
+    }
+
     @Synchronized
     fun addOverlay(fragment: Fragment, tag: String?) {
         if (fragmentManager != null) {
