@@ -51,12 +51,11 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
-    /* }
+    }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.options, rootKey); */
-        addPreferencesFromResource(R.xml.options);
+        setPreferencesFromResource(R.xml.options, rootKey);
         reloadSkinList();
 
         // screens
@@ -155,9 +154,6 @@ public class SettingsMenu extends SettingsFragment {
         });
     }
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {}
-
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
         if(preferenceScreen.getKey() != null) {
             isOnNestedScreen = true;
@@ -174,7 +170,7 @@ public class SettingsMenu extends SettingsFragment {
         navigateBack();
     }
 
-    // only supports 1 child screen with an optional grandchild screen
+    // only supports 1 child with an optional grandchild
     private void navigateBack() {
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
