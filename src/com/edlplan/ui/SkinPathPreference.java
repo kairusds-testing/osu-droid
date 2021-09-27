@@ -1,5 +1,8 @@
 package com.edlplan.ui;
 
+import android.content.Context;
+import android.util.AttributeSet;
+
 import androidx.preference.ListPreference;
 
 import java.io.File;
@@ -13,6 +16,22 @@ import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SkinPathPreference extends ListPreference {
+    
+    public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs);
+    }
+ 
+    public SkinPathPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public SkinPathPreference(Context context) {
+        super(context);
+    }
 
     public void reloadSkinList() {
         try {
