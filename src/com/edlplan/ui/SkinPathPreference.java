@@ -57,18 +57,18 @@ public class SkinPathPreference extends ListPreference {
                     setEntries(entries);
                     setEntryValues(entryValues);
                     setOnPreferenceChangeListener((preference, newValue) -> {
-                        /* SpritePool.getInstance().purge();
-                        GlobalManager.getInstance().setSkinNow(newValue.toString());
-                        ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures(); */
-                        MainActivity activity = GlobalManager.getInstance().getMainActivity();
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        ActivityOverlay.dismissOverlaysTillEntry(0);
-                        // activity.finish();
-                        // activity.overridePendingTransition(0, 0);
-                        activity.startActivity(intent);
-                        // activity.overridePendingTransition(0, 0);
-                        ToastLogger.showTextId(R.string.message_loaded_skin, true);
+                        if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
+                            SpritePool.getInstance().purge();
+                            GlobalManager.getInstance().setSkinNow(newValue.toString());
+                            ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+    
+                            MainActivity activity = GlobalManager.getInstance().getMainActivity();
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            ActivityOverlay.dismissOverlaysTillEntry(1);
+                            activity.startActivity(intent);
+                            ToastLogger.showTextId(R.string.message_loaded_skin, true);
+                        }
                         return true;
                     });
                     setValueIndex(findIndexOfValue(Config.getSkinPath()));
