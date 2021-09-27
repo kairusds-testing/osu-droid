@@ -56,9 +56,7 @@ public class WebViewFragment extends BaseFragment {
             public void onProgressChanged(WebView view, int newProgress) {
                 if(loadingFragment == null && newProgress < 100) {
                     loadingFragment = new LoadingFragment();
-                    loadingFragment.setOnDismissListener(() -> {
-                        view.stopLoading();
-                    });
+                    loadingFragment.setOnDismissListener(() -> callDismissOnBackPress());
                     loadingFragment.show();
                 }else if(loadingFragment != null && newProgress == 100) {
                     loadingFragment.dismiss();

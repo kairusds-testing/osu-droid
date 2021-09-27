@@ -13,10 +13,6 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class LoadingFragment extends BaseFragment {
 
-    public LoadingFragment() {
-        setDismissOnBackgroundClick(true);
-    }
-
     @Override
     protected int getLayoutID() {
         return R.layout.fragment_loading;
