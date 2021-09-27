@@ -574,7 +574,6 @@ public class MainActivity extends BaseGameActivity implements
                 System.out.println(getIntent().getData().getEncodedPath());
             }
         }
-        ToastLogger.showText("onStart", false);
         super.onStart();
     }
 
@@ -584,7 +583,6 @@ public class MainActivity extends BaseGameActivity implements
         if (this.mEngine == null) {
             return;
         }
-        ToastLogger.showText("onResume", false);
         /*
         if (GlobalManager.getInstance().getSkinNow() != null) {
             if (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {

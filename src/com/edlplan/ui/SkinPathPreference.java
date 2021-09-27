@@ -23,18 +23,22 @@ public class SkinPathPreference extends ListPreference {
     
     public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        reloadSkinList();
     }
 
     public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs);
+        reloadSkinList();
     }
  
     public SkinPathPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        reloadSkinList();
     }
 
     public SkinPathPreference(Context context) {
         super(context);
+        reloadSkinList();
     }
 
     public void reloadSkinList() {
@@ -58,12 +62,12 @@ public class SkinPathPreference extends ListPreference {
                     setEntryValues(entryValues);
                     setOnPreferenceChangeListener((preference, newValue) -> {
                         if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                            MainActivity activity = GlobalManager.getInstance().getMainActivity();
-                            // SpritePool.getInstance().purge();
+                            SpritePool.getInstance().purge();
                             GlobalManager.getInstance().setSkinNow(newValue.toString());
-                            /* ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures(); */
+                            ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
 
+                            MainActivity activity = GlobalManager.getInstance().getMainActivity();
                             Intent intent = new Intent(activity, MainActivity.class);
                             activity.startActivity(intent);
                             ToastLogger.showTextId(R.string.message_loaded_skin, true);

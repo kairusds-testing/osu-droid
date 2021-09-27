@@ -58,7 +58,7 @@ public class SettingsMenu extends SettingsFragment {
         setPreferencesFromResource(R.xml.options, rootKey);
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
-        skinPath.reloadSkinList();
+        // skinPath.reloadSkinList();
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
@@ -211,7 +211,7 @@ public class SettingsMenu extends SettingsFragment {
         View body = findViewById(R.id.body);
         body.animate().cancel();
         body.animate()
-            .translationY(400)
+            .translationY(100)
             .setDuration(200)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .setListener(new BaseAnimationListener() {
