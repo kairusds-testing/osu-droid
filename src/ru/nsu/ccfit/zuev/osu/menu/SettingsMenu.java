@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
 
 import com.edlplan.framework.easing.Easing;
 import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.BaseAnimationListener;
+import com.edlplan.ui.SkinPathPreference;
 import com.edlplan.ui.fragment.SettingsFragment;
 import com.edlplan.ui.fragment.WebViewFragment;
 import com.edlplan.ui.EasingHelper;
@@ -56,7 +56,9 @@ public class SettingsMenu extends SettingsFragment {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.options, rootKey);
-        reloadSkinList();
+
+        SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
+        skinPath.reloadSkinList();
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
@@ -110,7 +112,7 @@ public class SettingsMenu extends SettingsFragment {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
                 Config.loadConfig(mActivity);
-                reloadSkinList();
+                skinPath.reloadSkinList();
                 return false;
             }
 
@@ -124,7 +126,7 @@ public class SettingsMenu extends SettingsFragment {
 
             skinToppref.setText(newValue.toString());
             Config.loadConfig(mActivity);
-            reloadSkinList();
+            skinPath.reloadSkinList();
             return false;
         });
 
@@ -243,6 +245,7 @@ public class SettingsMenu extends SettingsFragment {
         });
     }
 
+    /* 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void reloadSkinList() {
         try {
@@ -275,5 +278,5 @@ public class SettingsMenu extends SettingsFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } */
 }
