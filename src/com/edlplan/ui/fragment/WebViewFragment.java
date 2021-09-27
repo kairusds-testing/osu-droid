@@ -54,7 +54,8 @@ public class WebViewFragment extends BaseFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 if(loadingFragment == null) {
-                    loadingFragment = new LoadingFragment().show();
+                    loadingFragment = new LoadingFragment();
+                    loadingFragment.show();
                 }
             }
 
