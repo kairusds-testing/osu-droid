@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
@@ -51,31 +50,32 @@ public class WebViewFragment extends BaseFragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString("osudroid");
 
-        webview.setWebChromeClient(new WebChromeClient() {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if(loadingFragment == null && newProgress < 100) {
-                    loadingFragment = new LoadingFragment();
-                    loadingFragment.setOnDismissListener(() -> callDismissOnBackPress());
-                    loadingFragment.show();
-                }else if(loadingFragment != null && newProgress == 100) {
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                if(loadingFragment == null) {
+                    loadingFragment = new LoadingFragment().show();
+                }
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if(loadingFragment != null) {
                     loadingFragment.dismiss();
                     loadingFragment = null;
                 }
             }
-        });
 
-        webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                // view.loadUrl(url);
                 return false;
             }
 
             @Override
             @TargetApi(Build.VERSION_CODES.N)
             public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
-                view.loadUrl(request.getUrl().toString());
+                // view.loadUrl(request.getUrl().toString());
                 return false;
             }
         });

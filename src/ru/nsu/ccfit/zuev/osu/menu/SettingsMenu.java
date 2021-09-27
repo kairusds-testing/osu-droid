@@ -51,11 +51,12 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
-    }
+    /* }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.options, rootKey);
+        setPreferencesFromResource(R.xml.options, rootKey); */
+        addPreferencesFromResource(R.xml.options);
         reloadSkinList();
 
         // screens
