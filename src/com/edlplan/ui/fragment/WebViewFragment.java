@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 
 import androidx.annotation.StringRes;
 
@@ -49,6 +50,22 @@ public class WebViewFragment extends BaseFragment {
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString("osudroid");
+
+        ((ImageButton) findViewById(R.id.close_button)).setOnClickListener(v -> {
+            dismiss();
+        });
+
+        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
+            if(webview.canGoBack()) {
+                webview.goBack();
+            }
+        });
+
+        ((ImageButton) findViewById(R.id.forward_button)).setOnClickListener(v -> {
+            if(webview.canGoForward()) {
+                webview.goForward();
+            }
+        });
 
         webview.setWebViewClient(new WebViewClient() {
             @Override

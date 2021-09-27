@@ -198,7 +198,7 @@ public class SettingsMenu extends SettingsFragment {
         });
 
         View body = findViewById(R.id.body);
-        body.setTranslationY(100);
+        body.setTranslationY(50);
         body.animate().cancel();
         body.animate()
             .translationY(0)
@@ -211,7 +211,7 @@ public class SettingsMenu extends SettingsFragment {
         View body = findViewById(R.id.body);
         body.animate().cancel();
         body.animate()
-            .translationY(100)
+            .translationY(50)
             .setDuration(200)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .setListener(new BaseAnimationListener() {

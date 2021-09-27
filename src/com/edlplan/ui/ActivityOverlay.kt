@@ -44,7 +44,7 @@ object ActivityOverlay {
             }
         }
     }
-
+/* 
     @JvmStatic
     @Synchronized
     fun dismissOverlaysTillEntry(entryIndex: Int) {
@@ -57,7 +57,7 @@ object ActivityOverlay {
                 fragmentManager!!.popBackStackImmediate(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
-    }
+    } */
 
     @Synchronized
     fun addOverlay(fragment: Fragment, tag: String?) {
