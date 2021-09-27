@@ -583,14 +583,14 @@ public class MainActivity extends BaseGameActivity implements
         if (this.mEngine == null) {
             return;
         }
-        /*
+        
         if (GlobalManager.getInstance().getSkinNow() != null) {
             if (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
+                ToastLogger.showTextId(R.string.message_loaded_skin, true);
                 ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
             }
-        } */
+        }
         activityVisible = true;
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
                 && GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
