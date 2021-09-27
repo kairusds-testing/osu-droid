@@ -245,38 +245,4 @@ public class SettingsMenu extends SettingsFragment {
         });
     }
 
-    /* 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void reloadSkinList() {
-        try {
-            final ListPreference skinPathPref = (ListPreference) findPreference("skinPath");
-            File skinMain = new File(Config.getSkinTopPath());
-            if (!skinMain.exists()) skinMain.mkdir();
-            File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith("."));
-            CharSequence[] entries = new CharSequence[skinFolders.length + 1];
-            CharSequence[] entryValues = new CharSequence[skinFolders.length + 1];
-            entries[0] = skinMain.getName() + " (Default)";
-            entryValues[0] = skinMain.getPath();
-            for (int i = 1; i < entries.length; i++) {
-                entries[i] = skinFolders[i - 1].getName();
-                entryValues[i] = skinFolders[i - 1].getPath();
-            }
-            Arrays.sort(entries, 1, entries.length);
-            Arrays.sort(entryValues, 1, entryValues.length);
-            skinPathPref.setEntries(entries);
-            skinPathPref.setEntryValues(entryValues);
-            skinPathPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                SpritePool.getInstance().purge();
-                GlobalManager.getInstance().setSkinNow(newValue.toString());
-                ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                ToastLogger.showText(StringTable.get(R.string.message_loaded_skin), true);
-                return true;
-            });
-            skinPathPref.setValueIndex(skinPathPref.findIndexOfValue(Config.getSkinPath()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    } */
 }
