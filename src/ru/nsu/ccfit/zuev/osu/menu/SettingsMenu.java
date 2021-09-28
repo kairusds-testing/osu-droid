@@ -184,7 +184,7 @@ public class SettingsMenu extends SettingsFragment {
         if(isOnNestedScreen) {
             isOnNestedScreen = false;
             setPreferenceScreen(mParentScreen);
-            setTitle("");
+            setTitle(StringTable.get(R.string.menu_settings_title));
         }else {
            dismiss();
         }
