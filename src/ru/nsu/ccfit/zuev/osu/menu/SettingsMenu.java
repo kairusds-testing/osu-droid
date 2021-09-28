@@ -51,6 +51,9 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
+        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
+            navigateBack();
+        });
     }
 
     @Override
@@ -161,6 +164,7 @@ public class SettingsMenu extends SettingsFragment {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
         }
+        playOnLoadAnim();
     }
 
     private void setTitle(String title) {
@@ -173,7 +177,7 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     // only supports 1 child with an optional grandchild
-    private void navigateBack() {
+    private void navigateBack() {        
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
@@ -192,11 +196,6 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     protected void playOnLoadAnim() {
-        ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            navigateBack();
-        });
-
         View body = findViewById(R.id.body);
         body.setTranslationY(400);
         body.animate().cancel();
