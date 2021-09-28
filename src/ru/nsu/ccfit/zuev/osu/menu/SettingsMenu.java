@@ -162,7 +162,7 @@ public class SettingsMenu extends SettingsFragment {
             ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
                 mActivity.getResources().getDrawable(R.drawable.back_black));
             findViewById(android.R.id.list_container).startAnimation(
-            AnimationUtils.loadAnimation(mActivity, R.anim.slide_from_right));
+            AnimationUtils.loadAnimation(mActivity, R.anim.slide_in_right));
         }
     }
 
@@ -178,7 +178,7 @@ public class SettingsMenu extends SettingsFragment {
     // only supports 1 child with an optional grandchild
     private void navigateBack() {
         findViewById(android.R.id.list_container).startAnimation(
-            AnimationUtils.loadAnimation(mActivity, R.anim.slide_from_left));
+            AnimationUtils.loadAnimation(mActivity, R.anim.slide_in_left));
 
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
