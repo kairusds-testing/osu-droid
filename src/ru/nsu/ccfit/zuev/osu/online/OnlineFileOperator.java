@@ -60,9 +60,8 @@ public class OnlineFileOperator {
         File file = new File(filename);
         try {
             if(file.exists()) {
-                Debug.i(file.getName() + " already exists, deleting...");
-                file.delete();
-                // return true;
+                Debug.i(file.getName() + " already exists");
+                return true;
             }
             // Cheching for errors
             Debug.i("Connected to " + urlstr);
