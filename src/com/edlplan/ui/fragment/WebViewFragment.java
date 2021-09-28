@@ -93,7 +93,7 @@ public class WebViewFragment extends BaseFragment {
             @Override
             @TargetApi(Build.VERSION_CODES.N)
             public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
-                view.loadUrl(request.getUri().toString());
+                view.loadUrl(request.getUrl().toString());
                 return false;
             }
         });
