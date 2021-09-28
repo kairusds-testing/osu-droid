@@ -61,8 +61,8 @@ public class SkinPathPreference extends ListPreference {
                     setEntries(entries);
                     setEntryValues(entryValues);
                     setOnPreferenceChangeListener((preference, newValue) -> {
-                        if(getValue() != newValue.toString()) {
-                            SpritePool.getInstance().purge();
+                        if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
+                            // SpritePool.getInstance().purge();
                             GlobalManager.getInstance().setSkinNow(newValue.toString());
                             ResourceManager.getInstance().loadCustomSkin(newValue.toString());
                             GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
