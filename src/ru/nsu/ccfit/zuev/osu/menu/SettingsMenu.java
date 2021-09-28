@@ -212,7 +212,7 @@ public class SettingsMenu extends SettingsFragment {
         body.animate().cancel();
         body.animate()
             .translationX(0)
-            .setDuration(200)
+            .setDuration(300)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .start();
         playBackgroundHideInAnim(200);
@@ -223,7 +223,7 @@ public class SettingsMenu extends SettingsFragment {
         body.animate().cancel();
         body.animate()
             .translationX(100)
-            .setDuration(200)
+            .setDuration(300)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .setListener(new BaseAnimationListener() {
                 @Override
