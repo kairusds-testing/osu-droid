@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 
 import androidx.preference.ListPreference;
 
+import com.edlplan.ui.fragment.LoadingFragment;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -41,8 +43,11 @@ public class SkinPathPreference extends ListPreference {
         reloadSkinList();
     }
 
-    public void reloadSkinList() {
+    public synchronized void reloadSkinList() {
         try {
+            LoadingFragment loadingFragment = new LoadingFragment();
+            loadingFragment.show();
+
             File skinMain = new File(Config.getSkinTopPath());
             if (!skinMain.exists()) skinMain.mkdir();
             File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith("."));
@@ -74,6 +79,7 @@ public class SkinPathPreference extends ListPreference {
             });
             setValueIndex(findIndexOfValue(Config.getSkinPath()));
 
+            loadingFragment.dismiss();
         } catch (Exception e) {
             e.printStackTrace();
         }
