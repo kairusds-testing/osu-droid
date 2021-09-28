@@ -1,7 +1,7 @@
 package ru.nsu.ccfit.zuev.audio.serviceAudio;
 
 import android.app.Activity;
-import androidx.multidex.MultiDexApplication;
+import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,7 @@ import ru.nsu.ccfit.zuev.osu.AppException;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
 import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
-public class SaveServiceObject extends MultiDexApplication {
+public class SaveServiceObject extends Application {
 
     static private SongService songService;
     private String string = "NONONNOONONO";
