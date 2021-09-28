@@ -2,11 +2,11 @@ package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.app.Activity;
 import android.animation.Animator;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -159,8 +159,11 @@ public class SettingsMenu extends SettingsFragment {
         if(preferenceScreen.getKey() != null) {
             isOnNestedScreen = true;
             setTitle(preferenceScreen.getTitle().toString());
+            ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
+                mActivity.getResources().getDrawable(R.drawable.back_black));
         }
-        playOnLoadAnim();
+        findViewById(android.R.id.list_container).startAnimation(
+            AnimationUtils.loadAnimation(mActivity, R.anim.slide_from_left));
     }
 
     private void setTitle(String title) {
@@ -174,6 +177,9 @@ public class SettingsMenu extends SettingsFragment {
 
     // only supports 1 child with an optional grandchild
     private void navigateBack() {
+        findViewById(android.R.id.list_container).startAnimation(
+            AnimationUtils.loadAnimation(mActivity, R.anim.slide_from_left));
+
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
@@ -185,6 +191,8 @@ public class SettingsMenu extends SettingsFragment {
             isOnNestedScreen = false;
             setPreferenceScreen(mParentScreen);
             setTitle(StringTable.get(R.string.menu_settings_title));
+            ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
+                mActivity.getResources().getDrawable(R.drawable.close_black));
         }else {
            dismiss();
         }
@@ -195,7 +203,6 @@ public class SettingsMenu extends SettingsFragment {
         ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
             navigateBack();
         });
-        playOnLoadAnim();
     }
 
     protected void playOnLoadAnim() {

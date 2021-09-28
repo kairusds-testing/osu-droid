@@ -42,7 +42,7 @@
 
                 <ImageButton
                     android:id="@+id/back_button"
-                    android:src="@drawable/arrow_back_black"
+                    android:src="@drawable/back_black"
                     android:background="@android:color/transparent"
                     android:layout_marginLeft="50dp"
                     android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
 
                 <ImageButton
                     android:id="@+id/forward_button"
-                    android:src="@drawable/arrow_forward_black"
+                    android:src="@drawable/forward_black"
                     android:background="@android:color/transparent"
                     android:layout_marginLeft="100dp"
                     android:layout_width="wrap_content"
