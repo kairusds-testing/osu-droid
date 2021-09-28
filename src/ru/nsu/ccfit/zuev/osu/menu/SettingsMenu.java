@@ -207,11 +207,11 @@ public class SettingsMenu extends SettingsFragment {
 
     protected void playOnLoadAnim() {
         View body = findViewById(R.id.body);
-        body.setTranslationY(100);
+        body.setTranslationX(100);
         body.animate().cancel();
         body.animate()
-            .translationY(0)
-            .setDuration(200)
+            .translationX(0)
+            .setDuration(300)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .start();
         playBackgroundHideInAnim(200);
@@ -221,8 +221,8 @@ public class SettingsMenu extends SettingsFragment {
         View body = findViewById(R.id.body);
         body.animate().cancel();
         body.animate()
-            .translationY(100)
-            .setDuration(200)
+            .translationX(100)
+            .setDuration(300)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .setListener(new BaseAnimationListener() {
                 @Override
