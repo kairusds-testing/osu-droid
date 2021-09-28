@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-// import android.preference.PreferenceActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,9 +50,6 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = GlobalManager.getInstance().getMainActivity();
-        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
-            navigateBack();
-        });
     }
 
     @Override
@@ -177,7 +173,7 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     // only supports 1 child with an optional grandchild
-    private void navigateBack() {        
+    private void navigateBack() {
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
             setTitle(parentScreen.getTitle().toString());
@@ -195,15 +191,23 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     @Override
+    protected void onLoadView() {
+        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
+            navigateBack();
+        });
+        playOnLoadAnim();
+    }
+
     protected void playOnLoadAnim() {
         View body = findViewById(R.id.body);
-        body.setTranslationY(400);
+        body.setTranslationY(100);
         body.animate().cancel();
         body.animate()
             .translationY(0)
             .setDuration(200)
             .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
             .start();
+        playBackgroundHideInAnim(200);
     }
 
     protected void playOnDismissAnim(Runnable runnable) {
@@ -222,6 +226,7 @@ public class SettingsMenu extends SettingsFragment {
                 }
             })
             .start();
+        playBackgroundHideOutAnim(200);
     }
 
     @Override

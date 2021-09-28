@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.preference.PreferenceFragmentCompat
+import com.edlplan.framework.easing.Easing
 import com.edlplan.ui.ActivityOverlay
+import com.edlplan.ui.EasingHelper
 
 abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener {
     var root: View? = null
@@ -24,7 +26,31 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
         }
     }
 
-    protected abstract fun playOnLoadAnim()
+    protected abstract fun onLoadView()
+    protected fun playBackgroundHideInAnim(duration: Int) {
+        val background = findViewById<View>(R.id.frg_background)
+        if (background != null) {
+            background.alpha = 0f
+            background.animate().cancel()
+            background.animate()
+                    .alpha(1f)
+                    .setDuration(duration.toLong())
+                    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+                    .start()
+        }
+    }
+
+    protected fun playBackgroundHideOutAnim(duration: Int) {
+        val background = findViewById<View>(R.id.frg_background)
+        if (background != null) {
+            background.animate().cancel()
+            background.animate()
+                    .alpha(0f)
+                    .setDuration(duration.toLong())
+                    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+                    .start()
+        }
+    }
 
     open fun show() {
         ActivityOverlay.addOverlay(this, this.javaClass.name + "@" + this.hashCode())
@@ -41,7 +67,7 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isCreated = true
         root = super<PreferenceFragmentCompat>.onCreateView(inflater, container, savedInstanceState)
-        playOnLoadAnim()
+        onLoadView()
         return root
     }
 }
