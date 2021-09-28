@@ -12,6 +12,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
+import com.edlplan.ui.fragment.WebViewFragment;
 // import com.umeng.analytics.MobclickAgent;
 
 import org.anddev.andengine.engine.handler.IUpdateHandler;
@@ -263,9 +264,8 @@ public class MainScene implements IUpdateHandler {
                     /* final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
                             SettingsMenu.class);
                     GlobalManager.getInstance().getMainActivity().startActivity(intent); */
-                    GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
-                        new SettingsMenu().show();
-                    });
+                    GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
+                        new SettingsMenu().show());
                     return true;
                 }
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
@@ -320,8 +320,8 @@ public class MainScene implements IUpdateHandler {
                     new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
-                                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
-                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                                GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
+                                    new WebViewFragment().setURL("https://osu.ppy.sh").show());
                             }
                         }
                     );
@@ -343,8 +343,8 @@ public class MainScene implements IUpdateHandler {
                     new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osudroid_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
-                                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ops.dgsrz.com"));
-                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+                                GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
+                                    new WebViewFragment().setURL("https://" + OnlineManager.hostname).show());
                             }
                         }
                     );
