@@ -34,8 +34,8 @@
         <ListPreference android:entries="@array/bg_brightness_names" android:title="@string/opt_bgbrightness_title"
             android:key="bgbrightness" android:summary="@string/opt_bgbrightness_summary"
             android:defaultValue="25" android:entryValues="@array/bg_brightness_values"/>
-        <com.edlplan.ui.SkinPathPreference android:title="@string/opt_skinpath_title"
-            android:summary="@string/opt_skinpath_summary" android:key="skinPath"/>
+        <com.edlplan.ui.SkinPathPreference android:title="@string/opt_skinpath_title" android:summary="@string/opt_skinpath_summary"
+            android:key="skinPath" android:entryValues="@array/placeholder_values"/>
         <ListPreference android:entries="@array/error_meter_display_names" android:title="@string/opt_error_meter_display_title"
             android:key="errormeter" android:summary="@string/opt_error_meter_display_summary"
             android:defaultValue="0" android:entryValues="@array/error_meter_display_values"/>

@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 
 import androidx.preference.ListPreference;
 
+import com.edlplan.ui.fragment.LoadingFragment;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -63,9 +65,12 @@ public class SkinPathPreference extends ListPreference {
                     setOnPreferenceChangeListener((preference, newValue) -> {
                         if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
                             // SpritePool.getInstance().purge();
+                            LoadingFragment loadingFragment = new LoadingFragment();
+                            loadingFragment.show();
                             GlobalManager.getInstance().setSkinNow(newValue.toString());
                             ResourceManager.getInstance().loadCustomSkin(newValue.toString());
                             GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                            loadingFragment.dismiss();
                             
                             MainActivity activity = GlobalManager.getInstance().getMainActivity();
                             Intent intent = new Intent(activity, MainActivity.class);
