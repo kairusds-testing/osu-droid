@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 
 import ru.nsu.ccfit.zuev.osu.AppException;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
@@ -47,11 +48,15 @@ public class SaveServiceObject extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        File d = new File(Environment.getExternalStorageDirectory(), "osu!droid/Log");
-        if (!d.exists()) d.mkdirs();
-        File f = new File(d, "rawlog.txt");
-        if (!f.exists()) f.createNewFile();
-        Runtime.getRuntime().exec("logcat -f " + (f.getAbsolutePath()));
+        if (BuildConfig.DEBUG) {
+            try {
+                File d = new File(Environment.getExternalStorageDirectory(), "osu!droid/Log");
+                if(!d.exists()) d.mkdirs();
+                File f = new File(d, "rawlog.txt");
+                if(!f.exists()) f.createNewFile();
+                Runtime.getRuntime().exec("logcat -f " + (f.getAbsolutePath()));
+            }catch(IOException e) {}
+        }
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
