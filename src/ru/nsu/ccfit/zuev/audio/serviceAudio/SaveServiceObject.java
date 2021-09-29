@@ -3,11 +3,11 @@ package ru.nsu.ccfit.zuev.audio.serviceAudio;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Bundle;
 import android.util.Log;
 
-// import com.umeng.analytics.MobclickAgent;
-// import com.umeng.commonsdk.UMConfigure;
+import java.io.File;
 
 import ru.nsu.ccfit.zuev.osu.AppException;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
@@ -47,14 +47,11 @@ public class SaveServiceObject extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //注册App异常崩溃处理器
-        /* UMConfigure.init(this,
-                BuildConfig.DEBUG ?
-                        "5fccbf9d19bda368eb483d62":
-                        "5fe567c044bb94418a649888",
-                String.format("%s[%s]", BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE),
-                UMConfigure.DEVICE_TYPE_PHONE, ""); */
-        // MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        File d = new File(Environment.getExternalStorageDirectory(), "osu!droid/Log");
+        if (!d.exists()) d.mkdirs();
+        File f = new File(d, "rawlog.txt");
+        if (!f.exists()) f.createNewFile();
+        Runtime.getRuntime().exec("logcat -f " + (f.getAbsolutePath()));
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
