@@ -31,10 +31,10 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Debug.i("From: " + remoteMessage.getFrom());
+        Debug.i("SaveServiceObject From: " + remoteMessage.getFrom());
 
         if(remoteMessage.getData().size() > 0) {
-            Debug.i("Message data payload: " + remoteMessage.getData());
+            Debug.i("SaveServiceObject Message data payload: " + remoteMessage.getData());
         }
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
@@ -46,7 +46,7 @@ public class PushNotificationService extends FirebaseMessagingService {
             if(title == null) title = "osu!droid";
             String message = notification.getBody();
             if(message == null) message = "error";
-            Debug.i(title + ":" + message);
+            Debug.i("SaveServiceObject" + title + ":" + message);
 
             NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
@@ -57,7 +57,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                     .setSound(defaultSoundUri);
 
             String imageUrl = notification.getImageUrl().toString();
-            Debug.i(imageUrl);
+            Debug.i("SaveServiceObject" + imageUrl);
             if(imageUrl != null) {
                 String filePath = getCacheDir().getPath() + "/" + MD5Calcuator.getStringMD5("osuplus" + imageUrl);
                 boolean downloaded = OnlineFileOperator.downloadFile(imageUrl, filePath);
@@ -78,12 +78,9 @@ public class PushNotificationService extends FirebaseMessagingService {
             // supported short URL's 
             Pattern pattern = Pattern.compile("(https://(bit\\.ly|waa\\.ai|cutt\\.ly)\\S*)\\b");
             Matcher matcher = pattern.matcher(message);
-            String url = null;
+            Debug.i("SaveServiceObject" + url);
             if(matcher.find()) {
-                url = matcher.group(0);
-            }
-            Debug.i(url);
-            if(url != null) {
+                String url = matcher.group(0);
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 pendingIntent = PendingIntent.getActivity(this, 0, webIntent,
                     PendingIntent.FLAG_ONE_SHOT);
