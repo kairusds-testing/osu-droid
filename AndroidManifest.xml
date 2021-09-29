@@ -97,7 +97,7 @@
             tools:ignore="LockedOrientationActivity"/>
 
         <activity
-            android:name="ru.nsu.ccfit.zuev.osu.PushNotificationActivity"
+            android:name="ru.nsu.ccfit.zuev.push.PushNotificationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:launchMode="singleInstance"
