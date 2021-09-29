@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -17,12 +18,16 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.File;
+import java.io.IOException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.anddev.andengine.util.Debug;
 
 import ru.nsu.ccfit.zuev.osu.MainActivity;
+import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;

@@ -3,16 +3,11 @@ package ru.nsu.ccfit.zuev.audio.serviceAudio;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.io.File;
-import java.io.IOException;
-
 import ru.nsu.ccfit.zuev.osu.AppException;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
-import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 
 public class SaveServiceObject extends Application {
 
