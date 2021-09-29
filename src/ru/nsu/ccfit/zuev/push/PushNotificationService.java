@@ -74,9 +74,10 @@ public class PushNotificationService extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri);
 
-            String imageUrl = notification.getImageUrl().toString();
-            Log.i(TAG, imageUrl);
-            if(imageUrl != null) {
+            Uri imageUri = notification.getImageUrl();
+            if(imageUri != null) {
+                String imageUrl = imageUri.toString();
+                Log.i(TAG, imageUrl);
                 String filePath = getCacheDir().getPath() + "/" + MD5Calcuator.getStringMD5("osuplus" + imageUrl);
                 boolean downloaded = OnlineFileOperator.downloadFile(imageUrl, filePath);
                 if(downloaded) {
