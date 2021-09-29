@@ -48,15 +48,6 @@ public class SaveServiceObject extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            try {
-                File d = new File(Environment.getExternalStorageDirectory(), "osu!droid/Log");
-                if(!d.exists()) d.mkdirs();
-                File f = new File(d, "rawlog.txt");
-                if(!f.exists()) f.createNewFile();
-                Runtime.getRuntime().exec("logcat -f " + (f.getAbsolutePath()));
-            }catch(IOException e) {}
-        }
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
