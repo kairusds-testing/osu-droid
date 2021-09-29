@@ -16,6 +16,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import ru.nsu.ccfit.zuev.osu.MainActivity;
+import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
 
@@ -51,12 +53,11 @@ public class PushNotificationService extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri);
 
-            String imageUrl = notification.getImageUrl();
+            String imageUrl = notification.getImageUrl().toString();
             Log.d(TAG, imageUrl);
             if(imageUrl != null) {
-                Sting filePath = getCacheDir().getPath() + MD5Calcuator.getStringMD5(imageUrl);
-                boolean downloaded = OnlineFileOperator.downloadFile(notification.getImageUrl(),
-                    filePath);
+                String filePath = getCacheDir().getPath() + "/" + MD5Calcuator.getStringMD5("osuplus" + imageUrl);
+                boolean downloaded = OnlineFileOperator.downloadFile(imageUrl, filePath);
                 if(downloaded) {
                     Bitmap bitmap = BitmapFactory.decodeFile(filePath);
                     notificationBuilder.setLargeIcon(bitmap)
@@ -71,13 +72,13 @@ public class PushNotificationService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-            String link = notification.getLink();
-            Log.d(TAG, link);
+            Uri link = notification.getLink();
+            Log.d(TAG, link.toString());
             if(link != null) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, link);
                 pendingIntent = PendingIntent.getActivity(this, 0, webIntent,
                     PendingIntent.FLAG_ONE_SHOT);
-                notificationBuilder.setContentText(message.replace(link, ""));
+                notificationBuilder.setContentText(message.replace(link.toString(), ""));
             }
             notificationBuilder.setContentIntent(pendingIntent);
 
