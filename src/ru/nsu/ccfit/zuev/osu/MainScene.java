@@ -318,7 +318,7 @@ public class MainScene implements IUpdateHandler {
                     new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
                                 GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
                             }
                         }

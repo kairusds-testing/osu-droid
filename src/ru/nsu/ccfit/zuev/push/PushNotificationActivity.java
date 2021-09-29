@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.zuev.osu;
+package ru.nsu.ccfit.zuev.push;
 
 import android.content.Intent;
 import android.os.Bundle;
