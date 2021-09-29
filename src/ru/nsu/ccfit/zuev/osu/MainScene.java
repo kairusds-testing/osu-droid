@@ -12,8 +12,6 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import com.edlplan.ui.fragment.ConfirmDialogFragment;
-import com.edlplan.ui.fragment.WebViewFragment;
-// import com.umeng.analytics.MobclickAgent;
 
 import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.entity.IEntity;
@@ -320,8 +318,8 @@ public class MainScene implements IUpdateHandler {
                     new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
-                                GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
-                                    new WebViewFragment().setURL("https://osu.ppy.sh").show());
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
+                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
                             }
                         }
                     );
@@ -343,8 +341,8 @@ public class MainScene implements IUpdateHandler {
                     new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osudroid_website_message).showForResult(
                         isAccepted -> {
                             if(isAccepted) {
-                                GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
-                                    new WebViewFragment().setURL("https://" + OnlineManager.hostname).show());
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + OnlineManager.hostname));
+                                GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
                             }
                         }
                     );
