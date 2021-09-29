@@ -78,9 +78,9 @@ public class PushNotificationService extends FirebaseMessagingService {
             // supported short URL's 
             Pattern pattern = Pattern.compile("(https://(bit\\.ly|waa\\.ai|cutt\\.ly)\\S*)\\b");
             Matcher matcher = pattern.matcher(message);
-            Debug.i("SaveServiceObject" + url);
             if(matcher.find()) {
                 String url = matcher.group(0);
+                Debug.i("SaveServiceObject" + url);
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 pendingIntent = PendingIntent.getActivity(this, 0, webIntent,
                     PendingIntent.FLAG_ONE_SHOT);
