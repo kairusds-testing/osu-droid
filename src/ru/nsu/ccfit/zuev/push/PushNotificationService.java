@@ -11,10 +11,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import androidx.core.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -23,15 +25,14 @@ import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
 
 public class PushNotificationService extends FirebaseMessagingService {
 
-    private static final String TAG = "osuplusPUSH";
     public static int notificationCount = 0;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Debug.i("From: " + remoteMessage.getFrom());
 
         if(remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Debug.i("Message data payload: " + remoteMessage.getData());
         }
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
@@ -43,7 +44,7 @@ public class PushNotificationService extends FirebaseMessagingService {
             if(title == null) title = "osu!droid";
             String message = notification.getBody();
             if(message == null) message = "error";
-            Log.d(TAG, title + ":" + message);
+            Debug.i(title + ":" + message);
 
             NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
@@ -54,7 +55,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                     .setSound(defaultSoundUri);
 
             String imageUrl = notification.getImageUrl().toString();
-            Log.d(TAG, imageUrl);
+            Debug.i(imageUrl);
             if(imageUrl != null) {
                 String filePath = getCacheDir().getPath() + "/" + MD5Calcuator.getStringMD5("osuplus" + imageUrl);
                 boolean downloaded = OnlineFileOperator.downloadFile(imageUrl, filePath);
@@ -72,13 +73,19 @@ public class PushNotificationService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-            Uri link = notification.getLink();
-            Log.d(TAG, link.toString());
-            if(link != null) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, link);
+            // supported short URL's 
+            Pattern pattern = Pattern.compile("(https://(bit\.ly|waa\.ai|cutt\.ly)\S*)\b");
+            Matcher matcher = pattern.matcher(message);
+            String url = null;
+            if(matcher.find()) {
+                url = matcher.group(0);
+            }
+            Debug.i(url);
+            if(url != null) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 pendingIntent = PendingIntent.getActivity(this, 0, webIntent,
                     PendingIntent.FLAG_ONE_SHOT);
-                notificationBuilder.setContentText(message.replace(link.toString(), ""));
+                notificationBuilder.setContentText(message.replace(url, ""));
             }
             notificationBuilder.setContentIntent(pendingIntent);
 
