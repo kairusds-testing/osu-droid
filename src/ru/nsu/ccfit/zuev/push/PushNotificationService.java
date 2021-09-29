@@ -18,6 +18,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.anddev.andengine.util.Debug;
+
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
