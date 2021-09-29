@@ -74,7 +74,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
             // supported short URL's 
-            Pattern pattern = Pattern.compile("(https://(bit\.ly|waa\.ai|cutt\.ly)\S*)\b");
+            Pattern pattern = Pattern.compile("(https://(bit\\.ly|waa\\.ai|cutt\\.ly)\\S*)\\b");
             Matcher matcher = pattern.matcher(message);
             String url = null;
             if(matcher.find()) {
