@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.*;
@@ -583,14 +584,6 @@ public class MainActivity extends BaseGameActivity implements
         if (this.mEngine == null) {
             return;
         }
-        /*
-        if (GlobalManager.getInstance().getSkinNow() != null) {
-            if (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
-                GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                ToastLogger.showText(StringTable.get(R.string.message_loading_skin), true);
-                ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
-            }
-        } */
         activityVisible = true;
         if (GlobalManager.getInstance().getEngine() != null && GlobalManager.getInstance().getGameScene() != null
                 && GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
@@ -846,6 +839,15 @@ public class MainActivity extends BaseGameActivity implements
                 handler.postDelayed(this, 1000);
             }
         });
+    }
+
+	public boolean isAppInstalled(String uri) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        }catch(PackageManager.NameNotFoundException e) {}
+        return false;
     }
 
     private boolean checkPermissions() {
