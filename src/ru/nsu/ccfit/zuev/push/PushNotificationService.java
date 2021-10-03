@@ -10,24 +10,17 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-<<<<<<< HEAD
-=======
-import android.util.Log;
->>>>>>> refs/remotes/origin/master
 
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 
 import org.anddev.andengine.util.Debug;
 
 import ru.nsu.ccfit.zuev.osu.MainActivity;
-=======
->>>>>>> refs/remotes/origin/master
 import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
@@ -39,11 +32,6 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-<<<<<<< HEAD
-=======
-        Log.i(TAG, "From: " + remoteMessage.getFrom());
-
->>>>>>> refs/remotes/origin/master
         if(remoteMessage.getData().size() > 0) {
             HashMap<String, String> data = new HashMap<String, String>(remoteMessage.getData());
             String channelId = "ru.nsu.ccfit.zuev.push";
@@ -77,7 +65,6 @@ public class PushNotificationService extends FirebaseMessagingService {
                 }
             }
 
-<<<<<<< HEAD
             if(!url.isEmpty()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
@@ -87,14 +74,9 @@ public class PushNotificationService extends FirebaseMessagingService {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-=======
-            Intent intent = new Intent(this, PushNotificationActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(PushNotificationActivity.EXTRA_MSG, message);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
->>>>>>> refs/remotes/origin/master
                 PendingIntent.FLAG_ONE_SHOT);
-            notificationBuilder.setContentIntent(pendingIntent);
+                notificationBuilder.setContentIntent(pendingIntent);
+            }
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     
