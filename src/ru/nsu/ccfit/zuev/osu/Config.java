@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import androidx.preference.PreferenceManager;
 
 import com.edlplan.favorite.FavoriteLibrary;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -87,6 +88,7 @@ public class Config {
     private static boolean displayScorePP = false;
     private static boolean hideReplayMarquee = false;
     private static boolean hideInGameUI = false;
+    private static boolean receiveAnnouncements = true;
 
     private static float cursorSize = 1;
 
@@ -274,6 +276,13 @@ public class Config {
         displayScorePP = prefs.getBoolean("displayScorePP", false);
         hideReplayMarquee = prefs.getBoolean("hideReplayMarquee", false);
         hideInGameUI = prefs.getBoolean("hideInGameUI", false);
+        receiveAnnouncements = prefs.getBoolean("receiveAnnouncements", true);
+        
+        if(receiveAnnouncements){
+            FirebaseMessaging.getInstance().subscribeToTopic("announcements");
+        }else{
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("announcements"); 
+        }
 
         //Init
         onlineDeviceID = prefs.getString("installID", null);
@@ -831,5 +840,13 @@ public class Config {
 
     public static void setHideInGameUI(boolean hideInGameUI) {
         Config.hideInGameUI = hideInGameUI;
+    }
+
+    public static boolean isReceiveAnnouncements() {
+        return receiveAnnouncements;
+    }
+
+    public static void setReceiveAnnouncements(boolean receiveAnnouncements) {
+        Config.receiveAnnouncements = receiveAnnouncements;
     }
 }

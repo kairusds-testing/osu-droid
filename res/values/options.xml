@@ -325,4 +325,7 @@
 
     <string name="opt_hide_ingame_ui_title">Hide ingame ui</string>
     <string name="opt_hide_ingame_ui_summary">Hide the counters and other UIs when ingame</string>
+
+    <string name="opt_receive_announcements_title">Receive announcements</string>
+    <string name="opt_receive_announcements_summary">Receive push notifications of announcements, events, etc.</string>
 </resources>

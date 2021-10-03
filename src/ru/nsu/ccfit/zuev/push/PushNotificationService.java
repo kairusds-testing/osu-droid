@@ -10,24 +10,17 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
 
 import org.anddev.andengine.util.Debug;
 
 import ru.nsu.ccfit.zuev.osu.MainActivity;
-import ru.nsu.ccfit.zuev.osuplus.BuildConfig;
 import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
@@ -39,32 +32,16 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (BuildConfig.DEBUG) {
-            try {
-                File d = new File(Environment.getExternalStorageDirectory(), "osu!droid/Log");
-                if(!d.exists()) d.mkdirs();
-                File f = new File(d, "rawlog.txt");
-                if(!f.exists()) f.createNewFile();
-                Runtime.getRuntime().exec("logcat -f " + f.getAbsolutePath());
-            }catch(IOException e) {}
-        }
-
-        Log.i(TAG, "From: " + remoteMessage.getFrom());
-
         if(remoteMessage.getData().size() > 0) {
-            Log.i(TAG, "Message data payload: " + remoteMessage.getData());
-        }
-
-        RemoteMessage.Notification notification = remoteMessage.getNotification();
-        if(notification != null) {
+            HashMap<String, String> data = new HashMap<String, String>(remoteMessage.getData());
             String channelId = "ru.nsu.ccfit.zuev.push";
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-            String title = notification.getTitle();
+            String title = data.get("title");
             if(title == null) title = "osu!droid";
-            String message = notification.getBody();
+            String message = data.get("message");
             if(message == null) message = "error";
-            Log.i(TAG, "Title:Message = " + title + ":" + message);
+            String url = data.get("url");
 
             NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
@@ -77,7 +54,6 @@ public class PushNotificationService extends FirebaseMessagingService {
             Uri imageUri = notification.getImageUrl();
             if(imageUri != null) {
                 String imageUrl = imageUri.toString();
-                Log.i(TAG, imageUrl);
                 String filePath = getCacheDir().getPath() + "/" + MD5Calcuator.getStringMD5("osuplus" + imageUrl);
                 boolean downloaded = OnlineFileOperator.downloadFile(imageUrl, filePath);
                 if(downloaded) {
@@ -89,18 +65,12 @@ public class PushNotificationService extends FirebaseMessagingService {
                 }
             }
 
-            Pattern pattern = Pattern.compile("(https://(bit\\.ly|waa\\.ai|cutt\\.ly)\\S*)\\b");
-            Matcher matcher = pattern.matcher(message);
-            if(matcher.find()) {
-                String url = matcher.group(0);
-                Log.i(TAG, "Url found: " + url);
+            if(!url.isEmpty()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
-                notificationBuilder.setContentText(message.replace(url, ""));
                 notificationBuilder.setContentIntent(pendingIntent);
             }else {
-                Log.i(TAG, "Url not found");
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,

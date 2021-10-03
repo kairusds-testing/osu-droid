@@ -172,6 +172,8 @@
             android:defaultValue="100" android:entryValues="@array/set_playfield_values"/>
         <CheckBoxPreference android:key="shrinkPlayfieldDownwards" android:title="@string/opt_shrink_playfield_downwards_title"
             android:summary="@string/opt_shrink_playfield_downwards_summary" android:defaultValue="false"/>
+        <CheckBoxPreference android:key="receiveAnnouncements" android:title="@string/opt_receive_announcements_title"
+            android:summary="@string/opt_receive_announcements_summary" android:defaultValue="true"/>
     </PreferenceScreen>
 
     <Preference android:key="update" android:title="@string/opt_update_title"
