@@ -27,7 +27,6 @@ import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
 
 public class PushNotificationService extends FirebaseMessagingService {
 
-    private static final String TAG = "PushNotifs";
     public static int notificationCount = 0;
 
     @Override
@@ -78,7 +77,7 @@ public class PushNotificationService extends FirebaseMessagingService {
             }
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(channelId,
                     "osu!droid Push Notfications",
@@ -86,7 +85,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                 channel.setDescription("osu!droid Push Notfications");
                 notificationManager.createNotificationChannel(channel);
             }
-    
+
             int notificationId = notificationCount++;
             notificationManager.notify(notificationId, notificationBuilder.build());
         }
