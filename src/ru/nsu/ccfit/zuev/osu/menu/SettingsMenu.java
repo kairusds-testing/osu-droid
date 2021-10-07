@@ -171,7 +171,7 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     private void animateBackButton(@DrawableRes int newDrawable) {
-        Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.rotate360);
+        Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.rotate_360);
         animation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation animation) {
                 ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
