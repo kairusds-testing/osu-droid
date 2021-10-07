@@ -179,7 +179,7 @@ public class SettingsMenu extends SettingsFragment {
             }
             public void onAnimationRepeat(Animation animation) {}
             public void onAnimationStart(Animation animation) {}
-        }
+        });
         ((ImageButton) findViewById(R.id.back_button)).startAnimation(animation);
     }
 
