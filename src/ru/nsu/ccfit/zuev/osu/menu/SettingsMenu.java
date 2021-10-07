@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.AnimRes;
 import androidx.annotation.IdRes;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
@@ -42,8 +43,7 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 public class SettingsMenu extends SettingsFragment {
 
     private Activity mActivity;
-    private PreferenceScreen mParentScreen;
-    private PreferenceScreen parentScreen;
+    private PreferenceScreen mParentScreen, parentScreen;
     private boolean isOnNestedScreen = false;
 
     @Override
@@ -161,9 +161,16 @@ public class SettingsMenu extends SettingsFragment {
             setTitle(preferenceScreen.getTitle().toString());
             ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
                 mActivity.getResources().getDrawable(R.drawable.back_black));
-            findViewById(android.R.id.list_container).startAnimation(
-            AnimationUtils.loadAnimation(mActivity, R.anim.slide_in_right));
+            animateView(R.id.back_button, R.anim.rotate_360);
+            for(int v : new int[]{android.R.id.list_container, R.id.title}) {
+                animateView(v, R.anim.slide_in_right);
+            }
         }
+    }
+
+
+    private void animateView(@IdRes int viewId, @AnimRes int anim) {
+        findViewById(viewId).startAnimation(AnimationUtils.loadAnimation(mActivity, anim));
     }
 
     private void setTitle(String title) {
@@ -177,8 +184,10 @@ public class SettingsMenu extends SettingsFragment {
 
     // only supports 1 child with an optional grandchild
     private void navigateBack() {
-        findViewById(android.R.id.list_container).startAnimation(
-            AnimationUtils.loadAnimation(mActivity, R.anim.slide_in_left));
+        animateView(R.id.back_button, R.anim.rotate_360);
+        for(int v : new int[]{android.R.id.list_container, R.id.title}) {
+            animateView(v, R.anim.slide_in_left);
+        }
 
         if(parentScreen.getKey() != null) {
             setPreferenceScreen(parentScreen);
@@ -239,9 +248,6 @@ public class SettingsMenu extends SettingsFragment {
 
     @Override
     public void show() {
-        if(isCreated()) {
-            return;
-        }
         super.show();
     }
 
