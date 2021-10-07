@@ -158,10 +158,10 @@ public class SettingsMenu extends SettingsFragment {
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
         if(preferenceScreen.getKey() != null) {
             isOnNestedScreen = true;
+            animateView(R.id.back_button, R.anim.rotate_360);
             setTitle(preferenceScreen.getTitle().toString());
             ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
                 mActivity.getResources().getDrawable(R.drawable.back_black));
-            animateView(R.id.back_button, R.anim.rotate_360);
             for(int v : new int[]{android.R.id.list_container, R.id.title}) {
                 animateView(v, R.anim.slide_in_right);
             }
@@ -184,7 +184,6 @@ public class SettingsMenu extends SettingsFragment {
 
     // only supports 1 child with an optional grandchild
     private void navigateBack() {
-        animateView(R.id.back_button, R.anim.rotate_360);
         for(int v : new int[]{android.R.id.list_container, R.id.title}) {
             animateView(v, R.anim.slide_in_left);
         }
@@ -198,6 +197,7 @@ public class SettingsMenu extends SettingsFragment {
 
         if(isOnNestedScreen) {
             isOnNestedScreen = false;
+            animateView(R.id.back_button, R.anim.rotate_360);
             setPreferenceScreen(mParentScreen);
             setTitle(StringTable.get(R.string.menu_settings_title));
             ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
