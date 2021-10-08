@@ -2446,7 +2446,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             EdExtensionHelper.onPauseGame(lastTrack);
         }
 
-        totalOffset += Config.getPauseOffset();
+        // totalOffset += Config.getPauseOffset();
         final PauseMenu menu = new PauseMenu(engine, this, false);
         /*if (music != null && music.getStatus() == Status.PLAYING) {
             music.pause();

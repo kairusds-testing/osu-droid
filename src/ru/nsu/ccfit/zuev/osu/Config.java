@@ -190,6 +190,7 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
         }
+        /*
         s = prefs.getString("pauseoffset", "0");
         pauseOffset = 0;
         try {
@@ -198,7 +199,7 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
         }
-        /* s = prefs.getString("cursorSize", "50");
+        s = prefs.getString("cursorSize", "50");
         cursorSize = 1;
         try {
             final int csize = Integer.parseInt(s);
