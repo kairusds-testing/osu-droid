@@ -22,7 +22,7 @@ import org.anddev.andengine.util.Debug;
 
 public class FileUtils {
 
-    private FileUtils(){}
+    private FileUtils() {}
 
     public static String getFileChecksum(String algorithm, File file) {
         StringBuilder sb = new StringBuilder();
@@ -59,6 +59,10 @@ public class FileUtils {
         return getFileChecksum("SHA-256", file);
     }
 
+    public static File[] listSubdirectories(File directory) {
+        return listFiles(directory, (dir, name) -> dir.isDirectory() && !name.startsWith("."));
+    }
+
     public static File[] listFiles(File directory) {
         return listFiles(directory, (dir, name) -> true);
     }
@@ -86,7 +90,6 @@ public class FileUtils {
         return null;
     }
 
-    // code is a bit messy
     public static File[] listFiles(File directory, FileFilter filter) {
         File[] filelist = null;
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

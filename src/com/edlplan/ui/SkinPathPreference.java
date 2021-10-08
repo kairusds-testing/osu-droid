@@ -17,6 +17,7 @@ import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
+import ru.nsu.ccfit.zuev.osu.helper.FileUtils;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SkinPathPreference extends ListPreference {
@@ -41,11 +42,11 @@ public class SkinPathPreference extends ListPreference {
         reloadSkinList();
     }
 
-    public synchronized void reloadSkinList() {
+    public void reloadSkinList() {
         try {
             File skinMain = new File(Config.getSkinTopPath());
             if (!skinMain.exists()) skinMain.mkdir();
-            File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith("."));
+            File[] skinFolders = FileUtils.listSubdirectories(skinMain);
             CharSequence[] entries = new CharSequence[skinFolders.length + 1];
             CharSequence[] entryValues = new CharSequence[skinFolders.length + 1];
             entries[0] = skinMain.getName() + " (Default)";

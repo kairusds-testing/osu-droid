@@ -159,11 +159,11 @@ public class SettingsMenu extends SettingsFragment {
 
     public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
         if(preferenceScreen.getKey() != null) {
-            isOnNestedScreen = true;
-            animateBackButton(R.drawable.back_black);
+            if(!isOnNestedScreen) {
+                isOnNestedScreen = true;
+                animateBackButton(R.drawable.back_black);
+            }
             setTitle(preferenceScreen.getTitle().toString());
-            /* ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
-                mActivity.getResources().getDrawable(R.drawable.back_black)); */
             for(int v : new int[]{android.R.id.list_container, R.id.title}) {
                 animateView(v, R.anim.slide_in_right);
             }
@@ -176,7 +176,6 @@ public class SettingsMenu extends SettingsFragment {
             public void onAnimationEnd(Animation animation) {
                 ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
                 backButton.setImageDrawable(mActivity.getResources().getDrawable(newDrawable));
-                // backButton.startAnimation(animation);
             }
             public void onAnimationRepeat(Animation animation) {}
             public void onAnimationStart(Animation animation) {}
@@ -215,8 +214,6 @@ public class SettingsMenu extends SettingsFragment {
             animateBackButton(R.drawable.close_black);
             setPreferenceScreen(mParentScreen);
             setTitle(StringTable.get(R.string.menu_settings_title));
-            /* ((ImageButton) findViewById(R.id.back_button)).setImageDrawable(
-                mActivity.getResources().getDrawable(R.drawable.close_black)); */
         }else {
            dismiss();
         }
