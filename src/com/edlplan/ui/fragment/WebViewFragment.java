@@ -30,10 +30,6 @@ public class WebViewFragment extends BaseFragment {
     private String url;
     private LoadingFragment loadingFragment;
 
-    public WebViewFragment() {
-        setDismissOnBackgroundClick(true);
-    }
-
     public WebViewFragment setURL(String url) {
         this.url = url;
         return this;
@@ -53,18 +49,6 @@ public class WebViewFragment extends BaseFragment {
 
         ((ImageButton) findViewById(R.id.close_button)).setOnClickListener(v -> {
             dismiss();
-        });
-
-        ((ImageButton) findViewById(R.id.back_button)).setOnClickListener(v -> {
-            if(webview.canGoBack()) {
-                webview.goBack();
-            }
-        });
-
-        ((ImageButton) findViewById(R.id.forward_button)).setOnClickListener(v -> {
-            if(webview.canGoForward()) {
-                webview.goForward();
-            }
         });
 
         webview.setWebViewClient(new WebViewClient() {

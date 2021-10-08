@@ -17,6 +17,7 @@ import androidx.annotation.IdRes;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.SeekBarPreference;
 
 import com.edlplan.framework.easing.Easing;
 import com.edlplan.ui.ActivityOverlay;
@@ -269,7 +270,8 @@ public class SettingsMenu extends SettingsFragment {
             Config.loadConfig(mActivity);
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-            // GlobalManager.getInstance().getSongService().setIsSettingMenu(false);
+            float bgmvolume = (float) ((SeekBarPreference) findPreference("bgmvolume")).getValue();
+            GlobalManager.getInstance().getSongService().setVolume(bgmvolume);
             GlobalManager.getInstance().getSongService().setGaming(false);
             SettingsMenu.super.dismiss();
         });

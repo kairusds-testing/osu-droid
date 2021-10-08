@@ -203,8 +203,8 @@ public class Config {
             }
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid size!");
-        } */
-        // doubleSound = prefs.getBoolean("doublesound", true);
+        }
+        doubleSound = prefs.getBoolean("doublesound", true); */
         try {
             int off = prefs.getInt("offset", 0);
             offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
@@ -212,14 +212,8 @@ public class Config {
             soundVolume = prefs.getInt("soundvolume", 100) / 100f;
             bgmVolume = prefs.getInt("bgmvolume", 100) / 100f;
             cursorSize = prefs.getInt("cursorSize", 50) / 100f;
-        }catch(RuntimeException e) { // migrate to integers
+        }catch(RuntimeException e) { // migrate to integers to prevent crash
             prefs.edit()
-                /* .remove("offset")
-                .remove("bgbrightness")
-                .remove("soundvolume")
-                .remove("bgmvolume")
-                .remove("cursorSize")
-                */
                 .putInt("offset", 0)
                 .putInt("bgbrightness", 25)
                 .putInt("soundvolume", 100)
