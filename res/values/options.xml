@@ -99,10 +99,10 @@
     <string name="opt_largeimages_summary">Show countdown at the beginning of a map that has it enabled</string>
 
     <string name="opt_sound_volume_title">Sound volume</string>
-    <string name="opt_sound_volume_summary">Volume of sound effects or hit sounds (0-100)</string>
+    <string name="opt_sound_volume_summary">Volume of sound effects or hit sounds</string>
 
     <string name="opt_bgm_volume_title">BGM volume</string>
-    <string name="opt_bgm_volume_summary">Volume of the background music (0-100)</string>
+    <string name="opt_bgm_volume_summary">Volume of the background music</string>
 
     <string name="opt_offset_title">Global offset</string>
     <string name="opt_offset_summary">Music offset in ms (positive values mean earlier)</string>
@@ -276,7 +276,7 @@
     <string name="force_romanized_summary">Force using only roman character for metadata, in case titles in japanese or chinese are unreadable</string>
 
     <string name="opt_cursor_size">Cursor Size</string>
-    <string name="opt_cursor_size_summary">Adjust cursor size (25 - 300, default 100)</string>
+    <string name="opt_cursor_size_summary">Adjust cursor size</string>
 
     <string name="opt_show_first_approach_circle_title">Force show first approach circle</string>
     <string name="opt_show_first_approach_circle_summary">Do not hide the first approach circle in hidden mods</string>

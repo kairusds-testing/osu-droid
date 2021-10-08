@@ -69,7 +69,7 @@
             android:title="@string/opt_showcursor_title" android:key="showcursor"
             android:defaultValue="false"/>
         <SeekBarPreference android:summary="@string/opt_cursor_size_summary" android:title="@string/opt_cursor_size"
-            android:key="cursorSize" app:min="25" app:showSeekBarValue="true" android:defaultValue="25"/>
+            android:key="cursorSize" app:min="25" android:max="300" app:showSeekBarValue="true" android:defaultValue="50"/>
         <!-- <EditTextPreference android:title="@string/opt_cursor_size"
             android:summary="@string/opt_cursor_size_summary" android:key="cursorSize"
             android:defaultValue="100"/> -->
@@ -107,9 +107,11 @@
     </PreferenceScreen>
 
     <PreferenceScreen android:key="sound" android:title="@string/opt_sound">
-        <EditTextPreference android:title="@string/opt_bgm_volume_title"
+        <SeekBarPreference android:summary="@string/opt_bgm_volume_summary" android:title="@string/opt_bgm_volume_title"
+            android:key="bgmvolume" app:showSeekBarValue="true" android:defaultValue="100"/>
+        <!-- <EditTextPreference android:title="@string/opt_bgm_volume_title"
             android:summary="@string/opt_bgm_volume_summary" android:key="bgmvolume"
-            android:defaultValue="100"/>
+            android:defaultValue="100"/> -->
         <SeekBarPreference android:summary="@string/opt_sound_volume_summary" android:title="@string/opt_sound_volume_title"
             android:key="soundvolume" app:showSeekBarValue="true" android:defaultValue="100"/>
         <!-- <EditTextPreference android:title="@string/opt_sound_volume_title"

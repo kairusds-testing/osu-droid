@@ -145,7 +145,8 @@ public class Config {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
         } */
         soundVolume = prefs.getInt("soundvolume", 100) / 100f;
-        // music
+        bgmVolume = prefs.getInt("bgmvolume", 100) / 100f;
+        /* music
         s = prefs.getString("bgmvolume", "100");
         bgmVolume = 1;
         try {
@@ -158,7 +159,7 @@ public class Config {
         }
         int off = prefs.getInt("offset", 0);
         offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
-        /* s = prefs.getString("offset", "0");
+        s = prefs.getString("offset", "0");
         offset = 0;
         try {
             final int off = Integer.parseInt(s);
