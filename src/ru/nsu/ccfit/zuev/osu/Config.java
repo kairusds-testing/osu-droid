@@ -41,16 +41,16 @@ public class Config {
     private static float soundVolume = 1;
     private static float bgmVolume = 1;
     private static float offset = 0;
-    private static int skipOffset = 0;
-    private static boolean doubleSound = true;
+    /* private static int skipOffset = 0;
+    private static boolean doubleSound = true; */
     private static boolean showFPS = false;
     private static int textureQuality = 1;
     private static int metronomeSwitch = 1;
     private static boolean useNativePlayer = true;
     private static float backgroundBrightness = 1;
-    private static int vbrOffset = 0;
+    /* private static int vbrOffset = 0;
     private static int oggOffset = 0;
-    private static int pauseOffset = 0;
+    private static int pauseOffset = 0; */
     private static boolean sliderBorders = true;
     private static boolean complexAnimations = true;
     private static boolean multitouch = true;
@@ -156,6 +156,8 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
         }
+        int off = prefs.getInt("offset", 0);
+        offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
         /* s = prefs.getString("offset", "0");
         offset = 0;
         try {
@@ -163,9 +165,7 @@ public class Config {
             offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
-        } */
-        int off = prefs.getInt("offset", 0);
-        offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
+        }
         s = prefs.getString("skipoffset", "0");
         skipOffset = 0;
         try {
@@ -190,7 +190,6 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
         }
-        /*
         s = prefs.getString("pauseoffset", "0");
         pauseOffset = 0;
         try {
@@ -210,7 +209,7 @@ public class Config {
             Debug.e("loadConfig: " + s + " is not a valid size!");
         } */
         cursorSize = prefs.getInt("cursorSize", 50) / 100f;
-        doubleSound = prefs.getBoolean("doublesound", true);
+        // doubleSound = prefs.getBoolean("doublesound", true);
         useNativePlayer = prefs.getBoolean("nativeplayer", true);
 
         //advanced
@@ -368,13 +367,13 @@ public class Config {
         Config.enableExtension = enableExtension;
     }
 
-    public static int getSkipOffset() {
+    /* public static int getSkipOffset() {
         return skipOffset;
     }
 
     public static void setSkipOffset(final int skipOffset) {
         Config.skipOffset = skipOffset;
-    }
+    } */
 
     public static boolean isShowFPS() {
         return showFPS;
@@ -392,13 +391,13 @@ public class Config {
         Config.showScoreboard = showScoreboard;
     }
 
-    public static boolean isDoubleSound() {
+    /* public static boolean isDoubleSound() {
         return doubleSound;
     }
 
     public static void setDoubleSound(final boolean doubleSound) {
         Config.doubleSound = doubleSound;
-    }
+    } */
 
     public static boolean isCorovans() {
         return corovans;
@@ -528,13 +527,14 @@ public class Config {
         Config.backgroundBrightness = backgroundBrightness;
     }
 
+    /*
     public static int getVbrOffset() {
         return vbrOffset;
     }
 
     public static void setVbrOffset(final int vbrOffect) {
         Config.vbrOffset = vbrOffect;
-    }
+    } */
 
     public static boolean isSliderBorders() {
         return sliderBorders;
@@ -560,6 +560,7 @@ public class Config {
         Config.multitouch = multitouch;
     }
 
+    /*
     public static int getOggOffset() {
         return oggOffset;
     }
@@ -574,7 +575,7 @@ public class Config {
 
     public static void setPauseOffset(final int pauseOffset) {
         Config.pauseOffset = pauseOffset;
-    }
+    } */
 
     public static boolean isPlayMusicPreview() {
         return playMusicPreview;

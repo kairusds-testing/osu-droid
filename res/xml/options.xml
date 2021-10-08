@@ -57,8 +57,7 @@
         <CheckBoxPreference android:summary="@string/opt_combo_burst_summary" android:title="@string/opt_combo_burst_title"
             android:key="comboburst" android:defaultValue="false"/>
         <CheckBoxPreference android:summary="@string/opt_largeimages_summary"
-            android:title="@string/opt_largeimages_title" android:key="images"
-            android:defaultValue="false"/>
+            android:title="@string/opt_largeimages_title" android:key="images" android:defaultValue="false"/>
         <CheckBoxPreference android:summary="@string/opt_fps_summary" android:title="@string/opt_fps_title"
             android:key="fps" android:defaultValue="true"/>
         <CheckBoxPreference android:key="sliderborders" android:title="@string/opt_sliderborders_title"
