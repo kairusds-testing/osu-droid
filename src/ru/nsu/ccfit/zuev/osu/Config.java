@@ -107,7 +107,7 @@ public class Config {
         s = prefs.getString("background", "2");
         backgroundQuality = Integer.parseInt(s);
         useCustomSkins = prefs.getBoolean("skin", false);
-        useCustomSounds = prefs.getBoolean("sound", true);
+        useCustomSounds = prefs.getBoolean("beatmapSounds", true);
         comboburst = prefs.getBoolean("comboburst", false);
         corovans = prefs.getBoolean("images", false);
         showFPS = prefs.getBoolean("fps", false);
@@ -121,8 +121,9 @@ public class Config {
 
         setSize();
 
-        setBackgroundBrightness(Integer.parseInt(prefs.getString(
-                "bgbrightness", "25")) / 100f);
+        backgroundBrightness = prefs.getInt("bgbrightness", 25) / 100f;
+        /* setBackgroundBrightness(Integer.parseInt(prefs.getString(
+                "bgbrightness", "25")) / 100f); */
         setPlayfieldSize(Integer.parseInt(prefs.getString(
             "playfieldsize", "100")) / 100f);
         shrinkPlayfieldDownwards = prefs.getBoolean("shrinkPlayfieldDownwards", true);
@@ -132,7 +133,7 @@ public class Config {
 
         useSuperSlider = prefs.getBoolean("superSlider", false);
 
-        // sound
+        /*  sound
         s = prefs.getString("soundvolume", "100");
         soundVolume = 1;
         try {
@@ -142,7 +143,8 @@ public class Config {
             }
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
-        }
+        } */
+        soundVolume = prefs.getInt("soundvolume", 100) / 100f;
         // music
         s = prefs.getString("bgmvolume", "100");
         bgmVolume = 1;
@@ -154,14 +156,16 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
         }
-        s = prefs.getString("offset", "0");
+        /* s = prefs.getString("offset", "0");
         offset = 0;
         try {
             final int off = Integer.parseInt(s);
             offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
-        }
+        } */
+        int off = prefs.getInt("offset", 0);
+        offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
         s = prefs.getString("skipoffset", "0");
         skipOffset = 0;
         try {
@@ -194,7 +198,7 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid offset!");
         }
-        s = prefs.getString("cursorSize", "50");
+        /* s = prefs.getString("cursorSize", "50");
         cursorSize = 1;
         try {
             final int csize = Integer.parseInt(s);
@@ -203,7 +207,8 @@ public class Config {
             }
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid size!");
-        }
+        } */
+        cursorSize = prefs.getInt("cursorSize", 50) / 100f;
         doubleSound = prefs.getBoolean("doublesound", true);
         useNativePlayer = prefs.getBoolean("nativeplayer", true);
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceScreen android:key="onlineOption" android:title="@string/opt_onlineOpt">
         <PreferenceCategory android:key="onlineOption_normal" android:title="@string/opt_onlineOpt_normal">
@@ -31,9 +33,11 @@
         <ListPreference android:entries="@array/bg_quality_names" android:entryValues="@array/bg_quality_values"
             android:key="background" android:title="@string/opt_bg_title"
             android:summary="@string/opt_bg_summary" android:defaultValue="1"/>
-        <ListPreference android:entries="@array/bg_brightness_names" android:title="@string/opt_bgbrightness_title"
+        <SeekBarPreference android:summary="@string/opt_bgbrightness_summary" android:title="@string/opt_bgbrightness_title"
+            android:key="bgbrightness" app:min="1" app:showSeekBarValue="true" android:defaultValue="25"/>
+        <!-- <ListPreference android:entries="@array/bg_brightness_names" android:title="@string/opt_bgbrightness_title"
             android:key="bgbrightness" android:summary="@string/opt_bgbrightness_summary"
-            android:defaultValue="25" android:entryValues="@array/bg_brightness_values"/>
+            android:defaultValue="25" android:entryValues="@array/bg_brightness_values"/> -->
         <com.edlplan.ui.SkinPathPreference android:title="@string/opt_skinpath_title" android:summary="@string/opt_skinpath_summary"
             android:key="skinPath" android:entryValues="@array/placeholder_values"/>
         <ListPreference android:entries="@array/error_meter_display_names" android:title="@string/opt_error_meter_display_title"
@@ -65,9 +69,11 @@
         <CheckBoxPreference android:summary="@string/opt_showcursor_summary"
             android:title="@string/opt_showcursor_title" android:key="showcursor"
             android:defaultValue="false"/>
-        <EditTextPreference android:title="@string/opt_cursor_size"
+        <SeekBarPreference android:summary="@string/opt_cursor_size_summary" android:title="@string/opt_cursor_size"
+            android:key="cursorSize" app:min="25" app:showSeekBarValue="true" android:defaultValue="25"/>
+        <!-- <EditTextPreference android:title="@string/opt_cursor_size"
             android:summary="@string/opt_cursor_size_summary" android:key="cursorSize"
-            android:defaultValue="100"/>
+            android:defaultValue="100"/> -->
 
         <CheckBoxPreference android:summary="@string/opt_bursts_summary" android:key="bursts"
             android:title="@string/opt_bursts_title" android:defaultValue="true"/>
@@ -105,16 +111,20 @@
         <EditTextPreference android:title="@string/opt_bgm_volume_title"
             android:summary="@string/opt_bgm_volume_summary" android:key="bgmvolume"
             android:defaultValue="100"/>
-        <EditTextPreference android:title="@string/opt_sound_volume_title"
+        <SeekBarPreference android:summary="@string/opt_sound_volume_summary" android:title="@string/opt_sound_volume_title"
+            android:key="soundvolume" app:showSeekBarValue="true" android:defaultValue="100"/>
+        <!-- <EditTextPreference android:title="@string/opt_sound_volume_title"
             android:summary="@string/opt_sound_volume_summary" android:key="soundvolume"
-            android:defaultValue="100"/>
-        <EditTextPreference android:title="@string/opt_offset_title" android:summary="@string/opt_offset_summary"
-            android:key="offset" android:defaultValue="0"/>
+            android:defaultValue="100"/> -->
+        <SeekBarPreference android:summary="@string/opt_offset_summary" android:title="@string/opt_offset_title"
+            android:key="offset" app:min="-100" app:showSeekBarValue="true" android:defaultValue="0"/>
+        <!-- <EditTextPreference android:title="@string/opt_offset_title" android:summary="@string/opt_offset_summary"
+            android:key="offset" android:defaultValue="0"/> -->
         <ListPreference android:entries="@array/metronome_switch_names" android:title="@string/opt_metronome_switch_title"
             android:key="metronomeswitch" android:summary="@string/opt_metronome_switch_summary"
             android:defaultValue="1" android:entryValues="@array/metronome_switch_values"/>
-        <CheckBoxPreference android:summary="@string/opt_sound_summary" android:title="@string/opt_sound_title"
-            android:key="sound" android:defaultValue="true"/>
+        <CheckBoxPreference android:summary="@string/opt_beatmap_sounds_summary" android:title="@string/opt_beatmap_sounds_title"
+            android:key="beatmapSounds" android:defaultValue="true"/>
         <CheckBoxPreference android:key="musicpreview" android:defaultValue="true"
             android:title="@string/opt_musicpreview_title"
             android:summary="@string/opt_musicpreview_summary"/>
