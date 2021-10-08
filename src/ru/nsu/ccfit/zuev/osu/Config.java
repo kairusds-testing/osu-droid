@@ -121,7 +121,6 @@ public class Config {
 
         setSize();
 
-        backgroundBrightness = prefs.getInt("bgbrightness", 25) / 100f;
         /* setBackgroundBrightness(Integer.parseInt(prefs.getString(
                 "bgbrightness", "25")) / 100f); */
         setPlayfieldSize(Integer.parseInt(prefs.getString(
@@ -143,10 +142,8 @@ public class Config {
             }
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
-        } */
-        soundVolume = prefs.getInt("soundvolume", 100) / 100f;
-        bgmVolume = prefs.getInt("bgmvolume", 100) / 100f;
-        /* music
+        }
+        music
         s = prefs.getString("bgmvolume", "100");
         bgmVolume = 1;
         try {
@@ -157,8 +154,6 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid volume!");
         }
-        int off = prefs.getInt("offset", 0);
-        offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
         s = prefs.getString("offset", "0");
         offset = 0;
         try {
@@ -209,8 +204,31 @@ public class Config {
         } catch (final NumberFormatException e) {
             Debug.e("loadConfig: " + s + " is not a valid size!");
         } */
-        cursorSize = prefs.getInt("cursorSize", 50) / 100f;
         // doubleSound = prefs.getBoolean("doublesound", true);
+        try {
+            int off = prefs.getInt("offset", 0);
+            offset = (int) (Math.signum(off) * Math.min(250, Math.abs(off)));
+            backgroundBrightness = prefs.getInt("bgbrightness", 25) / 100f;
+            soundVolume = prefs.getInt("soundvolume", 100) / 100f;
+            bgmVolume = prefs.getInt("bgmvolume", 100) / 100f;
+            cursorSize = prefs.getInt("cursorSize", 50) / 100f;
+        }catch(RuntimeException e) { // migrate to integers
+            prefs.edit()
+                /* .remove("offset")
+                .remove("bgbrightness")
+                .remove("soundvolume")
+                .remove("bgmvolume")
+                .remove("cursorSize")
+                */
+                .putInt("offset", 0)
+                .putInt("bgbrightness", 25)
+                .putInt("soundvolume", 100)
+                .putInt("bgmvolume", 100)
+                .putInt("cursorSize", 50)
+                .commit();
+            Config.loadConfig(context);
+        }
+        
         useNativePlayer = prefs.getBoolean("nativeplayer", true);
 
         //advanced
