@@ -28,6 +28,7 @@ import com.edlplan.ui.fragment.SettingsFragment;
 import com.edlplan.ui.EasingHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import org.anddev.andengine.util.Debug;
@@ -146,7 +147,11 @@ public class SettingsMenu extends SettingsFragment {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            Updater.getInstance().checkForUpdates();
+            try {
+                Updater.getInstance().checkForUpdates();
+            }catch(IOException e) {
+               Debug.e("SettingsMenu updater onClick: " + e.getMessage(), e); 
+            }
             return true;
         });
     }
