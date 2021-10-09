@@ -5,6 +5,8 @@ import android.os.Build;
 import com.edlplan.ui.fragment.LoadingFragment;
 import com.edlplan.ui.fragment.UpdateDialogFragment;
 
+import com.google.gson.Gson;
+
 import okhttp3.Response;
 import okhttp3.Request;
 
@@ -52,7 +54,7 @@ public class Updater {
                 GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
 
                 ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
-                for(Asset file : assets) {
+                for(Asset asset : assets) {
                     if(!newUpdate && asset.getName() == "versioncode.txt") {
                         Response versionResponse = httpGet(asset.getBrowser_download_url());
 

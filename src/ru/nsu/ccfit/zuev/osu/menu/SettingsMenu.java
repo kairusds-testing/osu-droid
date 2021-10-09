@@ -27,8 +27,6 @@ import com.edlplan.ui.SkinPathPreference;
 import com.edlplan.ui.fragment.SettingsFragment;
 import com.edlplan.ui.EasingHelper;
 
-import com.google.gson.Gson;
-
 import java.io.File;
 import java.util.Arrays;
 

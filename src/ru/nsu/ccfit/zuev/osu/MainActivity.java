@@ -835,8 +835,8 @@ public class MainActivity extends BaseGameActivity implements
     public long getVersionCode() {
         long versionCode;
         try {
-            PackageInfo packageInfo = mActivity.getPackageManager().getPackageInfo(
-                mActivity.getPackageName(), 0);
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(
+                getPackageName(), 0);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 versionCode = packageInfo.getLongVersionCode();
             }else {
