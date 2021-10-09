@@ -92,7 +92,7 @@ public class SettingsMenu extends SettingsFragment {
         for(String prefScreen : prefScreens) {
             PreferenceScreen screen = (PreferenceScreen) findPreference(prefScreen);
             screen.setOnPreferenceClickListener(preference -> {
-                if(nestedPrefScreens.containsKey(prefScreen)) {
+                if(prefScreenParents.containsKey(prefScreen)) {
                     parentScreen = (PreferenceScreen) findPreference(prefScreenParents.get(prefScreen));
                 }                
                 setPreferenceScreen(screen);
