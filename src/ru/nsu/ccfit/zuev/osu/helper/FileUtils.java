@@ -1,6 +1,6 @@
 package ru.nsu.ccfit.zuev.osu.helper;
 
-import android.os.Build;
+// import android.os.Build;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -8,16 +8,16 @@ import java.io.File;
 import java.io.IOException;
 
 // TODO: Implement AndroidRetroFile
-import java.nio.file.DirectoryStream;
+/* import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.Paths; */
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.Arrays;
-import java.util.LinkedList;
+// import java.util.LinkedList;
 
 import org.anddev.andengine.util.Debug;
 
@@ -74,7 +74,6 @@ public class FileUtils {
     }
 
     public static File[] listFiles(File directory, String[] endsWithExtensions) {
-        // some java 7 and 8 methods aren't available until Android 7 or 8
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             return listFiles(directory, (dir, name) -> {
                 for(String extension : endsWithExtensions) {
@@ -93,8 +92,9 @@ public class FileUtils {
 
     public static File[] listFiles(File directory, FileFilter filter) {
         File[] filelist = null;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            filelist = directory.listFiles((dir, name) -> filter.accept(dir, name));
+        // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        filelist = directory.listFiles((dir, name) -> filter.accept(dir, name));
+        /* figure out why this is causing an sdcard corruption
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
@@ -111,8 +111,7 @@ public class FileUtils {
                 Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
             }
             filelist = cachedFiles.toArray(new File[cachedFiles.size()]);
-        }
-
+        } */
         return filelist;
     }
 

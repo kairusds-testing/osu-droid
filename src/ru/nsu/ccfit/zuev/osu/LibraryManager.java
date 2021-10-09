@@ -327,7 +327,7 @@ public class LibraryManager {
         currentIndex = 0;
     }
 
-    public void clearCache(final Activity activity) {
+    public void clearCache() {
         final File lib = getLibraryCacheFile();
         if (lib.exists()) {
             lib.delete();

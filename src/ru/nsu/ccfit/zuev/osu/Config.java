@@ -214,11 +214,11 @@ public class Config {
             cursorSize = prefs.getInt("cursorSize", 50) / 100f;
         }catch(RuntimeException e) { // migrate to integers to prevent crash
             prefs.edit()
-                .putInt("offset", 0)
-                .putInt("bgbrightness", 25)
-                .putInt("soundvolume", 100)
-                .putInt("bgmvolume", 100)
-                .putInt("cursorSize", 50)
+                .putInt("offset", Integer.parseInt(prefs.getString("offset", "0"))
+                .putInt("bgbrightness", Integer.parseInt(prefs.getString("bgbrightness", "25"))
+                .putInt("soundvolume", Integer.parseInt(prefs.getString("soundvolume", "100"))
+                .putInt("bgmvolume", Integer.parseInt(prefs.getString("bgmvolume", "100"))
+                .putInt("cursorSize", Integer.parseInt(prefs.getString("cursorSize", "50"))
                 .commit();
             Config.loadConfig(context);
         }

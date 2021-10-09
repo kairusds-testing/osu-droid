@@ -1,8 +1,10 @@
 package ru.nsu.ccfit.zuev.osu.menu;
 
-import android.app.Activity;
 import android.animation.Animator;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Build;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,11 +26,19 @@ import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.BaseAnimationListener;
 import com.edlplan.ui.SkinPathPreference;
 import com.edlplan.ui.fragment.SettingsFragment;
-import com.edlplan.ui.fragment.WebViewFragment;
+import com.edlplan.ui.fragment.UpdateDialogFragment;
 import com.edlplan.ui.EasingHelper;
+
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
+
+import okhttp3.Response;
+import okhttp3.Request;
+
+import org.anddev.andengine.util.Debug;
 
 import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.GlobalManager;
@@ -37,6 +47,8 @@ import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
+import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
+import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
@@ -45,15 +57,9 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SettingsMenu extends SettingsFragment {
 
-    private Activity mActivity;
     private PreferenceScreen mParentScreen, parentScreen;
     private boolean isOnNestedScreen = false;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mActivity = GlobalManager.getInstance().getMainActivity();
-    }
+    private HashMap<String, Object> updateInfo;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -65,43 +71,27 @@ public class SettingsMenu extends SettingsFragment {
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
 
-        final PreferenceScreen onlineOption = (PreferenceScreen) findPreference("onlineOption");
-        onlineOption.setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(onlineOption);
-            return true;
-        });
+        String[] prefScreens = new String[6]{
+            "onlineOption",
+            "general",
+            "color",
+            "sound",
+            "beatmaps",
+            "advancedOpts"
+        };
+        HashMap<String, String> prefScreenParents = new HashMap<String, String>();
+        prefScreenParents.put("color", "general");
 
-        final PreferenceScreen general = (PreferenceScreen) findPreference("general");
-        general.setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(general);
-            return true;
-        });
-
-        final PreferenceScreen color = (PreferenceScreen) findPreference("color");
-        color.setOnPreferenceClickListener(preference -> {
-            parentScreen = general;
-            setPreferenceScreen(color);
-            return true;
-        });
-
-        final PreferenceScreen sound = (PreferenceScreen) findPreference("sound");
-        sound.setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(sound);
-            return true;
-        });
-
-        final PreferenceScreen beatmaps = (PreferenceScreen) findPreference("beatmaps");
-        beatmaps.setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(beatmaps);
-            return true;
-        });
-
-        final PreferenceScreen advancedOpts = (PreferenceScreen) findPreference("advancedopts");
-        advancedOpts.setOnPreferenceClickListener(preference -> {
-            setPreferenceScreen(advancedOpts);
-            return true;
-        });
-
+        for(String prefScreen : prefScreens) {
+            PreferenceScreen screen = (PreferenceScreen) findPreference(prefScreen);
+            screen.setOnPreferenceClickListener(preference -> {
+                if(nestedPrefScreens.containsKey(prefScreen)) {
+                    parentScreen = (PreferenceScreen) findPreference(prefScreenParents.get(prefScreen));
+                }                
+                setPreferenceScreen(screen);
+                return true;
+           });
+        }
         // screens END
 
         final EditTextPreference onlinePassword = (EditTextPreference) findPreference("onlinePassword");
@@ -113,7 +103,7 @@ public class SettingsMenu extends SettingsFragment {
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
-                Config.loadConfig(mActivity);
+                Config.loadConfig(getApplicationContext());
                 skinPath.reloadSkinList();
                 return false;
             }
@@ -127,33 +117,61 @@ public class SettingsMenu extends SettingsFragment {
             }
 
             skinToppref.setText(newValue.toString());
-            Config.loadConfig(mActivity);
+            Config.loadConfig(getApplicationContext());
             skinPath.reloadSkinList();
             return false;
         });
 
         final Preference pref = findPreference("clear");
         pref.setOnPreferenceClickListener(preference -> {
-            LibraryManager.getInstance().clearCache(mActivity);
+            LibraryManager.getInstance().clearCache();
             return true;
         });
         final Preference clearProps = findPreference("clear_properties");
         clearProps.setOnPreferenceClickListener(preference -> {
             PropertiesLibrary.getInstance()
-                    .clear(mActivity);
+                    .clear(getApplicationContext());
             return true;
         });
         final Preference register = findPreference("registerAcc");
         register.setOnPreferenceClickListener(preference -> {
-            OnlineInitializer initializer = new OnlineInitializer(mActivity);
+            OnlineInitializer initializer = new OnlineInitializer(getActivity());
             initializer.createInitDialog();
             return true;
         });
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            new WebViewFragment().setURL("https://" + OnlineManager.hostname).show();
-            // Beta.checkUpgrade();
+            new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+                /* public void run() {
+                    Gson gson = new Gson();
+                    Request request = new Request.Builder()
+                        .url("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest")
+                        .build();
+                    Response response = OnlineManager.client.newCall(request).execute();
+                    updateInfo = new Gson().fromJson(response.body().string(), HashMap.class);
+                }
+                public void onComplete() {
+                    
+                }
+            }); */
+            try {
+                PackageInfo packageInfo = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
+                String versionCode = String.valueOf(packageInfo.versionCode);
+                String longVersionCode = "";
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    String.valueOf(packageInfo.getLongVersionCode());
+                }
+
+                ToastLogger.showText("versionCode: " + versionCode + ", getLongVersionCode(): " + longVersionCode + ", productFlavor: " + packageInfo.versionName, true);
+            } catch (PackageManager.NameNotFoundException e) {
+                Debug.e("PackageManager: " + e.getMessage(), e);
+            }
+            new UpdateDialogFragment()
+                .setChangelogMessage("#Testing\r\n`one two tree four`");
+                .setDownloadUrl("https://google.com")
+                .show();
             return true;
         });
     }
@@ -172,11 +190,11 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     private void animateBackButton(@DrawableRes int newDrawable) {
-        Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.rotate_360);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_360);
         animation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation animation) {
                 ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-                backButton.setImageDrawable(mActivity.getResources().getDrawable(newDrawable));
+                backButton.setImageDrawable(getApplicationContext().getResources().getDrawable(newDrawable));
             }
             public void onAnimationRepeat(Animation animation) {}
             public void onAnimationStart(Animation animation) {}
@@ -185,7 +203,7 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     private void animateView(@IdRes int viewId, @AnimRes int anim) {
-        findViewById(viewId).startAnimation(AnimationUtils.loadAnimation(mActivity, anim));
+        findViewById(viewId).startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), anim));
     }
 
     private void setTitle(String title) {
@@ -267,7 +285,7 @@ public class SettingsMenu extends SettingsFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(() -> {
-            Config.loadConfig(mActivity);
+            Config.loadConfig(getApplicationContext());
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
             float bgmvolume = (float) ((SeekBarPreference) findPreference("bgmvolume")).getValue();
