@@ -71,7 +71,7 @@ public class SettingsMenu extends SettingsFragment {
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
 
-        String[] prefScreens = new String[6]{
+        String[] prefScreens = new String[]{
             "onlineOption",
             "general",
             "color",
@@ -142,8 +142,8 @@ public class SettingsMenu extends SettingsFragment {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-                /* public void run() {
+            /* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+                 public void run() {
                     Gson gson = new Gson();
                     Request request = new Request.Builder()
                         .url("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest")

@@ -38,7 +38,7 @@ public class UpdateDialogFragment extends BaseFragment {
             new MarkdownFragment()
                 .setTitle(R.string.changelog_title)
                 .setMarkdown(changelogMsg)
-                .show()
+                .show();
         });
 
         findViewById(R.id.laterButton).setOnClickListener(v -> dismiss());
