@@ -169,7 +169,7 @@ public class SettingsMenu extends SettingsFragment {
                 Debug.e("PackageManager: " + e.getMessage(), e);
             }
             new UpdateDialogFragment()
-                .setChangelogMessage("#Testing\r\n**one two tree four**");
+                .setChangelogMessage("#Testing\r\n`one two tree four`")
                 .setDownloadUrl("https://google.com")
                 .show();
             return true;
