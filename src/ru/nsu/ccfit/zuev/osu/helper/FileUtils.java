@@ -1,6 +1,6 @@
 package ru.nsu.ccfit.zuev.osu.helper;
 
-// import android.os.Build;
+import android.os.Build;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
