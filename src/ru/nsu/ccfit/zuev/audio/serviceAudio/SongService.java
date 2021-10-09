@@ -266,7 +266,7 @@ public class SongService extends Service {
             File bg;
             if ((bg = new File(Config.getSkinPath() + "menu-background.png")).exists()
                     || (bg = new File(Config.getSkinPath() + "menu-background.jpg")).exists()) {
-                notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(bg, options));
+                notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(bg.getAbsolutePath(), options));
             }else {
                 notifyView_Small.setImageViewResource(R.id.notify_small_icon, R.drawable.osut);
             }
