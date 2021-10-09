@@ -72,7 +72,7 @@ public class Config {
         safeBeatmapBg;
 
     private static int RES_WIDTH,
-        RES_HEIGHT;
+        RES_HEIGHT,
         errorMeter,
         spinnerStyle,
         backgroundQuality,
