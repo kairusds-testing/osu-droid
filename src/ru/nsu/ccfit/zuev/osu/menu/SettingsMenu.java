@@ -168,8 +168,8 @@ public class SettingsMenu extends SettingsFragment {
                 String versionCode = String.valueOf(packageInfo.versionCode);
                 String longVersionCode = "";
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    String.valueOf(packageInfo.getLongVersionCode());
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    longVersionCode = String.valueOf(packageInfo.getLongVersionCode());
                 }
 
                 ToastLogger.showText("versionCode: " + versionCode + ", getLongVersionCode(): " + longVersionCode + ", productFlavor: " + packageInfo.versionName, true);
