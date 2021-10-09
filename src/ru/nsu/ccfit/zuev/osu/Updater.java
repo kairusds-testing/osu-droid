@@ -7,6 +7,8 @@ import com.edlplan.ui.fragment.UpdateDialogFragment;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
 import okhttp3.Response;
 import okhttp3.Request;
 
@@ -31,7 +33,7 @@ public class Updater {
         return instance;
     }
 
-    private Response httpGet(String url) {
+    private Response httpGet(String url) throws IOException {
         Request request = new Request.Builder()
             .url(url)
             .build();
