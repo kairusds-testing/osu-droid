@@ -75,27 +75,40 @@ public class SettingsMenu extends SettingsFragment {
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         // skinPath.reloadSkinList();
 
+        // screens
         mParentScreen = parentScreen = getPreferenceScreen();
-        String[] prefScreens = {
-            "onlineOption",
-            "general",
-            "color",
-            "sound",
-            "beatmaps",
-            "advancedOpts"
-        };
-        HashMap<String, String> prefScreenParents = new HashMap<String, String>();
-        prefScreenParents.put("color", "general");
 
-        for(String prefScreen : prefScreens) {
-            ((PreferenceScreen) findPreference(prefScreen)).setOnPreferenceClickListener(preference -> {
-                if(prefScreenParents.containsKey(prefScreen)) {
-                    parentScreen = (PreferenceScreen) findPreference(prefScreenParents.get(prefScreen));
-                }                
-                setPreferenceScreen((PreferenceScreen) preference);
-                return true;
-           });
-        }
+        ((PreferenceScreen) findPreference("onlineOption")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+
+        ((PreferenceScreen) findPreference("general")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+
+        ((PreferenceScreen) findPreference("color")).setOnPreferenceClickListener(preference -> {
+            parentScreen = (PreferenceScreen) findPreference("general");
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+
+        ((PreferenceScreen) findPreference("sound")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+
+        ((PreferenceScreen) findPreference("beatmaps")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+
+        ((PreferenceScreen) findPreference("advancedopts")).setOnPreferenceClickListener(preference -> {
+            setPreferenceScreen((PreferenceScreen) preference);
+            return true;
+        });
+        // screens END
 
         final EditTextPreference onlinePassword = (EditTextPreference) findPreference("onlinePassword");
         onlinePassword.setOnBindEditTextListener(editText -> {
