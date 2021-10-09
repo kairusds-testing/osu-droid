@@ -813,21 +813,11 @@ public class MainActivity extends BaseGameActivity implements
                 List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(
                     manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
 
-                for(int i = 0; i < activeServices.size(); i++) {
-                     int capabilities = activeServices.get(i).getCapabilities();
+                for(AccessibilityServiceInfo activeService : activeServices) {
+                     int capabilities = activeService.getCapabilities();
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
                             == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!autoclickerDialogShown && activityVisible) {
-                            Bundle params = new Bundle();
-                            params.putString("device_id", Config.getOnlineDeviceID());
-                            analytics.logEvent("device_cheat_detected", params);
-
-                            if(OnlineManager.getInstance().isStayOnline()) {
-                                Bundle params1 = new Bundle();
-                                params1.putString("user_id", OnlineManager.getInstance().getUserId());
-                                analytics.logEvent("online_cheat_detected", params1);
-                            }
-
                             ConfirmDialogFragment dialog = new ConfirmDialogFragment()
                                 .setMessage(R.string.message_autoclicker_detected);
                             dialog.setOnDismissListener(() -> cheatedExit());

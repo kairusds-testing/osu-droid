@@ -1031,7 +1031,10 @@ public class MainScene implements IUpdateHandler {
 
             if (selectedTrack.getBackground() != null) {
                 try {
-                    final TextureRegion tex = ResourceManager.getInstance().loadBackground(selectedTrack.getBackground());
+                    final TextureRegion tex = Config.isSafeBeatmapBg() ?
+                        ResourceManager.getInstance().getTexture("menu-background") :
+                        ResourceManager.getInstance().loadBackground(selectedTrack.getBackground());
+
                     if (tex != null) {
                         float height = tex.getHeight();
                         height *= Config.getRES_WIDTH()

@@ -262,7 +262,18 @@ public class SongService extends Service {
         this.backgroundPath = backgroundPath;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 8;
-        notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(backgroundPath, options));
+        if(Config.isSafeBeatmapBg()) {
+            File bg;
+            if ((bg = new File(Config.getSkinPath() + "menu-background.png")).exists()
+                    || (bg = new File(Config.getSkinPath() + "menu-background.jpg")).exists()) {
+                notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(bg, options));
+            }else {
+                notifyView_Small.setImageViewResource(R.id.notify_small_icon, R.drawable.osut);
+            }
+        }else {
+            notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(backgroundPath, options));  
+        }
+        
         showNotifyPanel();
     }
 

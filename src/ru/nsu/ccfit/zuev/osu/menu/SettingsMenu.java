@@ -1,7 +1,7 @@
 package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.animation.Animator;
-import android.content.Context;
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -60,12 +60,12 @@ public class SettingsMenu extends SettingsFragment {
 
     private PreferenceScreen mParentScreen, parentScreen;
     private boolean isOnNestedScreen = false;
-    private Context context;
+    private Activity mActivity;
     private HashMap<String, Object> updateInfo;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getActivity().getApplicationContext();
+        mActivity = GlobalManager.getInstance().getMainActivity();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class SettingsMenu extends SettingsFragment {
         skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.toString().trim().length() == 0) {
                 skinToppref.setText(Config.getCorePath() + "Skin/");
-                Config.loadConfig(context);
+                Config.loadConfig(mActivity);
                 skinPath.reloadSkinList();
                 return false;
             }
@@ -133,7 +133,7 @@ public class SettingsMenu extends SettingsFragment {
             }
 
             skinToppref.setText(newValue.toString());
-            Config.loadConfig(context);
+            Config.loadConfig(mActivity);
             skinPath.reloadSkinList();
             return false;
         });
@@ -146,7 +146,7 @@ public class SettingsMenu extends SettingsFragment {
         final Preference clearProps = findPreference("clear_properties");
         clearProps.setOnPreferenceClickListener(preference -> {
             PropertiesLibrary.getInstance()
-                    .clear(context);
+                    .clear(mActivity);
             return true;
         });
         final Preference register = findPreference("registerAcc");
@@ -172,8 +172,8 @@ public class SettingsMenu extends SettingsFragment {
                 }
             }); */
             try {
-                PackageInfo packageInfo = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), 0);
+                PackageInfo packageInfo = mActivity.getPackageManager().getPackageInfo(
+                    mActivity.getPackageName(), 0);
                 String versionCode = String.valueOf(packageInfo.versionCode);
                 String longVersionCode = "";
 
@@ -207,11 +207,11 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     private void animateBackButton(@DrawableRes int newDrawable) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate_360);
+        Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.rotate_360);
         animation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation animation) {
                 ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-                backButton.setImageDrawable(context.getResources().getDrawable(newDrawable));
+                backButton.setImageDrawable(mActivity.getResources().getDrawable(newDrawable));
             }
             public void onAnimationRepeat(Animation animation) {}
             public void onAnimationStart(Animation animation) {}
@@ -220,7 +220,7 @@ public class SettingsMenu extends SettingsFragment {
     }
 
     private void animateView(@IdRes int viewId, @AnimRes int anim) {
-        findViewById(viewId).startAnimation(AnimationUtils.loadAnimation(context, anim));
+        findViewById(viewId).startAnimation(AnimationUtils.loadAnimation(mActivity, anim));
     }
 
     private void setTitle(String title) {
@@ -302,7 +302,7 @@ public class SettingsMenu extends SettingsFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(() -> {
-            Config.loadConfig(context);
+            Config.loadConfig(mActivity);
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
             float bgmvolume = (float) ((SeekBarPreference) findPreference("bgmvolume")).getValue();

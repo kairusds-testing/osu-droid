@@ -112,29 +112,6 @@ android {
         }
     }
 
-    flavorDimensions "download_channel"
-    productFlavors {
-        a_github {
-            dimension "download_channel"
-            versionNameSuffix '-github'
-        }
-
-        /* qq {
-            dimension "download_channel"
-            versionNameSuffix '-qq'
-        }
-
-        discord {
-            dimension "download_channel"
-            versionNameSuffix '-discord'
-        }
-
-        website {
-            dimension "download_channel"
-            versionNameSuffix '-website'
-        } */
-    }
-
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -162,7 +139,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def releaseTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-            def fileName = "osu!droid-${defaultConfig.versionName}-${variant.productFlavors[0].name}-${variant.buildType.name}-${releaseTime}.apk"
+            def fileName = "osu!droid-${defaultConfig.versionName}-${variant.buildType.name}-${releaseTime}.apk"
             outputFileName = fileName
         }
     }

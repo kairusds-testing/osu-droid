@@ -327,5 +327,8 @@
     <string name="opt_hide_ingame_ui_summary">Hide the counters and other UIs when ingame</string>
 
     <string name="opt_receive_announcements_title">Receive announcements</string>
-    <string name="opt_receive_announcements_summary">Receive push notifications of announcements, events, etc.</string>
+    <string name="opt_receive_announcements_summary">Receive notifications of announcements, events, etc.</string>
+
+    <string name="opt_safe_beatmap_bg_title">Safe beatmap background</string>
+    <string name="opt_safe_beatmap_bg_summary">Change all of the beatmaps' background to the menu-background image from your skin</string>
 </resources>

@@ -211,6 +211,7 @@ public class Config {
         hideReplayMarquee = prefs.getBoolean("hideReplayMarquee", false);
         hideInGameUI = prefs.getBoolean("hideInGameUI", false);
         receiveAnnouncements = prefs.getBoolean("receiveAnnouncements", true);
+        safeBeatmapBg = prefs.getBoolean("safebeatmapbg", false);
 
         if(receiveAnnouncements) {
             FirebaseMessaging.getInstance().subscribeToTopic("announcements");
@@ -735,4 +736,13 @@ public class Config {
     public static void setReceiveAnnouncements(boolean receiveAnnouncements) {
         Config.receiveAnnouncements = receiveAnnouncements;
     }
+
+    public static boolean isSafeBeatmapBg() {
+        return safeBeatmapBg;
+    }
+
+    public static void setSafeBeatmapBg(boolean safeBeatmapBg) {
+        Config.safeBeatmapBg = safeBeatmapBg;
+    }
+
 }
