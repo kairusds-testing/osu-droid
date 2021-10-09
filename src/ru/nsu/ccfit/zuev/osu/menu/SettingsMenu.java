@@ -66,18 +66,17 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity().getApplicationContext();
-        addPreferencesFromResource(R.xml.options);
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        // setPreferencesFromResource(R.xml.options, rootKey);
+        setPreferencesFromResource(R.xml.options, rootKey);
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         // skinPath.reloadSkinList();
 
         mParentScreen = parentScreen = getPreferenceScreen();
-        String[] prefScreens = new String[]{
+        String[] prefScreens = {
             "onlineOption",
             "general",
             "color",
@@ -89,12 +88,11 @@ public class SettingsMenu extends SettingsFragment {
         prefScreenParents.put("color", "general");
 
         for(String prefScreen : prefScreens) {
-            PreferenceScreen screen = (PreferenceScreen) findPreference(prefScreen);
-            screen.setOnPreferenceClickListener(preference -> {
+            ((PreferenceScreen) findPreference(prefScreen)).setOnPreferenceClickListener(preference -> {
                 if(prefScreenParents.containsKey(prefScreen)) {
                     parentScreen = (PreferenceScreen) findPreference(prefScreenParents.get(prefScreen));
                 }                
-                setPreferenceScreen(screen);
+                setPreferenceScreen((PreferenceScreen) preference);
                 return true;
            });
         }
