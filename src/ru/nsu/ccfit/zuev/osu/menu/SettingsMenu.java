@@ -66,18 +66,17 @@ public class SettingsMenu extends SettingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity().getApplicationContext();
+        addPreferencesFromResource(R.xml.options);
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.options, rootKey);
+        // setPreferencesFromResource(R.xml.options, rootKey);
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         // skinPath.reloadSkinList();
 
-        // screens
         mParentScreen = parentScreen = getPreferenceScreen();
-
         String[] prefScreens = new String[]{
             "onlineOption",
             "general",
@@ -99,7 +98,6 @@ public class SettingsMenu extends SettingsFragment {
                 return true;
            });
         }
-        // screens END
 
         final EditTextPreference onlinePassword = (EditTextPreference) findPreference("onlinePassword");
         onlinePassword.setOnBindEditTextListener(editText -> {
