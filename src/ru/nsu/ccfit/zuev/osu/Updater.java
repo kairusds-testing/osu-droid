@@ -40,7 +40,7 @@ public class Updater {
         return OnlineManager.client.newCall(request).execute();
     }
 
-    public void checkForUpdates() {
+    public void checkForUpdates() throws IOException {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
              public void run() {
                  ToastLogger.showTextId(R.string.update_info_checking, true);
