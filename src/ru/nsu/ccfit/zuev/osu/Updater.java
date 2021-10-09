@@ -12,6 +12,8 @@ import java.io.IOException;
 import okhttp3.Response;
 import okhttp3.Request;
 
+import org.anddev.andengine.util.Debug;
+
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO;
@@ -71,7 +73,7 @@ public class Updater {
                         }
                     }
                 }catch(IOException e) {
-                    Debug.e("SettingsMenu updater onClick: " + e.getMessage(), e); 
+                    Debug.e("Updater onRun: " + e.getMessage(), e); 
                 }
             }
 
