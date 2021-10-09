@@ -28,7 +28,7 @@ public class Config {
         scorePath,
         localUsername,
         onlineUsername,
-        lonlinePassword,
+        onlinePassword,
         onlineDeviceID;
 
     private static boolean DELETE_OSZ,
