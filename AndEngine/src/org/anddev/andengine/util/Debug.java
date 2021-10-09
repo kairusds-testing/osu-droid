@@ -1,5 +1,6 @@
 package org.anddev.andengine.util;
 
+import org.anddev.andengine.BuildConfig;
 import org.anddev.andengine.util.constants.Constants;
 
 import android.util.Log;
