@@ -19,15 +19,15 @@
         android:orientation="vertical">
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="460dp"
-            android:layout_height="120dp"
+            android:layout_width="430dp"
+            android:layout_height="130dp"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
 
         <View
             android:id="@+id/update_card"
-            android:layout_width="400dp"
-            android:layout_height="110dp"
+            android:layout_width="370dp"
+            android:layout_height="120dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_rect"
             android:layout_centerInParent="true"/>
@@ -36,7 +36,7 @@
             android:alpha="0.7"
             android:layout_alignTop="@id/update_card"
             android:layout_centerHorizontal="true"
-            android:layout_width="400dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content">
 
             <View
@@ -51,8 +51,8 @@
         </RelativeLayout>
 
         <com.edlplan.ui.TriangleEffectView
-            android:layout_width="460dp"
-            android:layout_height="120dp"
+            android:layout_width="430dp"
+            android:layout_height="130dp"
             edl:freeze="true"
             edl:edgeClampRate="1.0"
             android:layout_centerInParent="true" />
@@ -86,6 +86,15 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/laterButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_dialog_button_later"
+                    android:textColor="#FF5722"
+                    android:textStyle="bold" />
+
+                <Button
                     android:id="@+id/updateButton"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
@@ -100,15 +109,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/update_dialog_button_changelog"
-                    android:textColor="#FF5722"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/laterButton"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/update_dialog_button_later"
                     android:textColor="#FF5722"
                     android:textStyle="bold" />
 
