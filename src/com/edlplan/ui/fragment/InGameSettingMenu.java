@@ -133,7 +133,7 @@ public class InGameSettingMenu extends BaseFragment {
 
         backgroundBrightness = findViewById(R.id.backgroundBrightnessBar);
         backgroundBrightness.setProgress(
-                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("bgbrightness", "25")));
+                PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("bgbrightness", 25));
         backgroundBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -161,12 +161,12 @@ public class InGameSettingMenu extends BaseFragment {
                 Config.setBackgroundBrightness(seekBar.getProgress() / 100f);
                 PreferenceManager.getDefaultSharedPreferences(getContext())
                         .edit()
-                        .putString("bgbrightness", seekBar.getProgress() + "")
+                        .putInt("bgbrightness", progress)
                         .commit();
             }
         });
         ((TextView) findViewById(R.id.bgBrightnessText)).setText(
-            Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("bgbrightness", "25")) + "%");
+            PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("bgbrightness", 25) + "%");
 
         changeSpeed = findViewById(R.id.changeSpeedBar);
         changeSpeed.setProgress((int)(ModMenu.getInstance().getChangeSpeed() * 20 - 10));

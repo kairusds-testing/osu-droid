@@ -305,8 +305,7 @@ public class SettingsMenu extends SettingsFragment {
             Config.loadConfig(mActivity);
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-            float bgmvolume = (float) ((SeekBarPreference) findPreference("bgmvolume")).getValue();
-            GlobalManager.getInstance().getSongService().setVolume(bgmvolume);
+            GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
             GlobalManager.getInstance().getSongService().setGaming(false);
             SettingsMenu.super.dismiss();
         });
