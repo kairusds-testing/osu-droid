@@ -40,34 +40,38 @@ public class Updater {
         return OnlineManager.client.newCall(request).execute();
     }
 
-    public void checkForUpdates() throws IOException {
+    public void checkForUpdates() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
              public void run() {
-                 ToastLogger.showTextId(R.string.update_info_checking, true);
-                 GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
-                     if(loadingFragment == null) {
-                        loadingFragment = new LoadingFragment();
-                        loadingFragment.show();
-                    }
-                });
-
-                Gson gson = new Gson();
-                Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
-                GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
-
-                ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
-                for(Asset asset : assets) {
-                    if(!newUpdate && asset.getName() == "versioncode.txt") {
-                        Response versionResponse = httpGet(asset.getBrowser_download_url());
-
-                        if(GlobalManager.getInstance().getMainActivity().getVersionCode() <=
-                            Long.valueOf(versionResponse.body().string())) {
-                            changelogMsg = updateInfo.getBody();
-                            newUpdate = true;
+                 try{
+                     ToastLogger.showTextId(R.string.update_info_checking, true);
+                     GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
+                         if(loadingFragment == null) {
+                            loadingFragment = new LoadingFragment();
+                            loadingFragment.show();
                         }
-                    }else if(newUpdate && asset.getName().endsWith(".apk")) {
-                        downloadUrl = asset.getBrowser_download_url();
+                    });
+    
+                    Gson gson = new Gson();
+                    Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
+                    GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
+    
+                    ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
+                    for(Asset asset : assets) {
+                        if(!newUpdate && asset.getName() == "versioncode.txt") {
+                            Response versionResponse = httpGet(asset.getBrowser_download_url());
+    
+                            if(GlobalManager.getInstance().getMainActivity().getVersionCode() <=
+                                Long.valueOf(versionResponse.body().string())) {
+                                changelogMsg = updateInfo.getBody();
+                                newUpdate = true;
+                            }
+                        }else if(newUpdate && asset.getName().endsWith(".apk")) {
+                            downloadUrl = asset.getBrowser_download_url();
+                        }
                     }
+                }catch(IOException e) {
+                    Debug.e("SettingsMenu updater onClick: " + e.getMessage(), e); 
                 }
             }
 
