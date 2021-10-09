@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -829,6 +830,23 @@ public class MainActivity extends BaseGameActivity implements
                 handler.postDelayed(this, 1000);
             }
         });
+    }
+
+    public long getVersionCode() {
+        long versionCode;
+        try {
+            PackageInfo packageInfo = mActivity.getPackageManager().getPackageInfo(
+                mActivity.getPackageName(), 0);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                versionCode = packageInfo.getLongVersionCode();
+            }else {
+                versionCode = Long.valueOf(packageInfo.versionCode);
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Debug.e("PackageManager: " + e.getMessage(), e);
+        }
+        return versionCode;
     }
 
 	public boolean isAppInstalled(String uri) {

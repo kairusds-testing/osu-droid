@@ -2,8 +2,6 @@ package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Build;
 import android.text.InputType;
@@ -27,17 +25,12 @@ import com.edlplan.ui.ActivityOverlay;
 import com.edlplan.ui.BaseAnimationListener;
 import com.edlplan.ui.SkinPathPreference;
 import com.edlplan.ui.fragment.SettingsFragment;
-import com.edlplan.ui.fragment.UpdateDialogFragment;
 import com.edlplan.ui.EasingHelper;
 
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
-
-import okhttp3.Response;
-import okhttp3.Request;
 
 import org.anddev.andengine.util.Debug;
 
@@ -48,12 +41,10 @@ import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
-import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
-import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
+import ru.nsu.ccfit.zuev.osu.Updater;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
-import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SettingsMenu extends SettingsFragment {
@@ -61,7 +52,6 @@ public class SettingsMenu extends SettingsFragment {
     private PreferenceScreen mParentScreen, parentScreen;
     private boolean isOnNestedScreen = false;
     private Activity mActivity;
-    private HashMap<String, Object> updateInfo;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,37 +148,7 @@ public class SettingsMenu extends SettingsFragment {
 
         final Preference update = findPreference("update");
         update.setOnPreferenceClickListener(preference -> {
-            /* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-                 public void run() {
-                    Gson gson = new Gson();
-                    Request request = new Request.Builder()
-                        .url("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest")
-                        .build();
-                    Response response = OnlineManager.client.newCall(request).execute();
-                    updateInfo = new Gson().fromJson(response.body().string(), HashMap.class);
-                }
-                public void onComplete() {
-                    
-                }
-            }); */
-            try {
-                PackageInfo packageInfo = mActivity.getPackageManager().getPackageInfo(
-                    mActivity.getPackageName(), 0);
-                String versionCode = String.valueOf(packageInfo.versionCode);
-                String longVersionCode = "";
-
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    longVersionCode = String.valueOf(packageInfo.getLongVersionCode());
-                }
-
-                ToastLogger.showText("versionCode: " + versionCode + ", getLongVersionCode(): " + longVersionCode + ", productFlavor: " + packageInfo.versionName, true);
-            } catch (PackageManager.NameNotFoundException e) {
-                Debug.e("PackageManager: " + e.getMessage(), e);
-            }
-            new UpdateDialogFragment()
-                .setChangelogMessage("#Testing\r\n`one two tree four`")
-                .setDownloadUrl("https://google.com")
-                .show();
+            Updater.getInstance().checkForUpdates();
             return true;
         });
     }

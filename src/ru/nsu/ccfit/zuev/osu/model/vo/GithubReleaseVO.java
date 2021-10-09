@@ -5,7 +5,7 @@ import java.util.List;
 public class GithubReleaseVO {
 
     private String html_url;
-    private List<Assets> assets;
+    private List<Asset> assets;
     private String body;
     
     public void setHtml_url(String html_url){
@@ -16,11 +16,11 @@ public class GithubReleaseVO {
         return this.html_url;
     }
 
-    public void setAssets(List<Assets> assets){
+    public void setAssets(List<Asset> assets){
         this.assets = assets;
     }
 
-    public List<Assets> getAssets(){
+    public List<Asset> getAssets(){
         return this.assets;
     }
 
@@ -32,7 +32,7 @@ public class GithubReleaseVO {
         return this.body;
     }
 
-    public class Assets {
+    public class Asset {
         private String name;
         private String content_type;
         private int size;
