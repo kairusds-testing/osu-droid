@@ -75,7 +75,6 @@ public class Updater {
                         // equal comparison doesn't seem to work for some reason
                         if(asset.getName().endsWith("versioncode.txt") && !newUpdate) {
                             ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
-                            Debug.i("ZupdateVersionCode: " + versionResponse.string());
                             long updateVersionCode = Long.parseLong(versionResponse.string());
 
                             if(mActivity.getVersionCode() < updateVersionCode) {
