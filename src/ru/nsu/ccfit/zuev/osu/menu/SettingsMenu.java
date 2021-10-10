@@ -64,6 +64,8 @@ public class SettingsMenu extends SettingsFragment {
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         skinPath.reloadSkinList();
+        int index = skinPath.findIndexOfValue(Config.getSkinPath());
+        skinPath.setValueIndex((index != -1) ? index : 0);
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
@@ -268,7 +270,7 @@ public class SettingsMenu extends SettingsFragment {
                 new AsyncTaskLoader().execute(new OsuAsyncCallback() {
                     public void run() {
                         GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                        ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                        ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
                         GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                     }
 
