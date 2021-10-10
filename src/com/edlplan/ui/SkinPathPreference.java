@@ -50,8 +50,6 @@ public class SkinPathPreference extends ListPreference {
                     Arrays.sort(entryValues, 1, entryValues.length);
                     setEntries(entries);
                     setEntryValues(entryValues);
-                    setDefaultValue(entryValues[0]);
-                    setValueIndex(findIndexOfValue(Config.getSkinPath()));
                 }
 
                 public void onComplete() {
