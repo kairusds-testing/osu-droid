@@ -65,8 +65,6 @@ public class SettingsMenu extends SettingsFragment {
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         skinPath.reloadSkinList();
-        int index = skinPath.findIndexOfValue(Config.getSkinPath());
-        skinPath.setValueIndex((index != -1) ? index : 0);
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
