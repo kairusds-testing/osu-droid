@@ -48,14 +48,14 @@ public class SkinPathPreference extends ListPreference {
                     }
                     Arrays.sort(entries, 1, entries.length);
                     Arrays.sort(entryValues, 1, entryValues.length);
+                    setDefaultValue(entries[0]);
                     setEntries(entries);
                     setEntryValues(entryValues);
                 }
 
                 public void onComplete() {
-                    /* int index = findIndexOfValue(Config.getSkinPath());
-                    if(index == -1) index = 0;
-                    setValueIndex(index); */
+                    int index = findIndexOfValue(Config.getSkinPath());
+                    setValueIndex((index == -1) ? 0 : index);
                 }
             });
         } catch (Exception e) {
