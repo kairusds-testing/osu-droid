@@ -833,7 +833,7 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     public long getVersionCode() {
-        long versionCode;
+        long versionCode = 0;
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(
                 getPackageName(), 0);
