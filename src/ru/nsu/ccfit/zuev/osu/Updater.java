@@ -71,13 +71,15 @@ public class Updater {
                     for(Asset asset : assets) {
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
-    
-                            if(mActivity.getVersionCode() <=
-                                Long.valueOf(versionResponse.body().string())) {
+                            Long updateVersionCode = Long.valueOf(versionResponse.body().string());
+
+                            if(mActivity.getVersionCode() < updateVersionCode) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
                             }
-                        }else if(newUpdate && asset.getName().endsWith(".apk")) {
+                        }
+
+                        if(newUpdate && asset.getName().endsWith(".apk")) {
                             downloadUrl = asset.getBrowser_download_url();
                         }
                     }
