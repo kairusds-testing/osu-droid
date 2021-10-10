@@ -82,8 +82,8 @@ public class FileUtils {
         /* }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return listFiles(directory, (dir, name) ->
                 Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
-        } */
-        return null;
+        }
+        return null; */
     }
 
     public static File[] listFiles(File directory, FileFilter filter) {
