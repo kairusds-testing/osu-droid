@@ -31,6 +31,7 @@ public class OnlineManager {
     private static final String onlineVersion = "29";
 
     public static final OkHttpClient client = new OkHttpClient()
+        .newBuilder()
         .followRedirects(true)
         .build();
 
