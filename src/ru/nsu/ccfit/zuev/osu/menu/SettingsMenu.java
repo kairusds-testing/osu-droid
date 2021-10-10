@@ -263,12 +263,13 @@ public class SettingsMenu extends SettingsFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(() -> {
+            Debug.i("skinNow = skinPath: " + (GlobalManager.getInstance().getSkinNow() == Config.getSkinPath()));
             Config.loadConfig(mActivity);
             if(GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
                 // SpritePool.getInstance().purge();
+                GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
                 new AsyncTaskLoader().execute(new OsuAsyncCallback() {
                     public void run() {
-                        GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
                         ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
                         GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                     }
