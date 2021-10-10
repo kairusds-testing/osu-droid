@@ -842,11 +842,9 @@ public class MainActivity extends BaseGameActivity implements
             }else {
                 versionCode = packageInfo.versionCode;
             }
-
         } catch (PackageManager.NameNotFoundException e) {
             Debug.e("PackageManager: " + e.getMessage(), e);
         }
-        Debug.i("versionCode: " + String.valueOf(versionCode));
         return versionCode;
     }
 

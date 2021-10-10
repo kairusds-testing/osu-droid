@@ -81,7 +81,7 @@ public class SkinManager {
         skinname = beatmapFolder;
         final File folderFile = new File(beatmapFolder);
         File[] folderFiles = FileUtils.listFiles(folderFile, new String[]{
-            ".wav", ".mp3", ".ogg", ".png", ".jpg"}); // still filter the files to decrease load time even if it's insignificant
+            ".wav", ".mp3", ".ogg", ".png", ".jpg"});
         for (final File f : folderFiles) {
             if (!f.isFile()) {
                 continue;
@@ -90,7 +90,7 @@ public class SkinManager {
                     && (f.getName().toLowerCase().matches(".*[.]wav")
                     || f.getName().toLowerCase().matches(".*[.]mp3")
                     || f.getName().toLowerCase().matches(".*[.]ogg"))
-                && f.length() >= 1024) {
+                && f.length() >= 1024L) {
                 ResourceManager.getInstance().loadCustomSound(f);
             } else if (Config.isUseCustomSkins()
                     && (f.getName().toLowerCase().matches(".*[.]png")

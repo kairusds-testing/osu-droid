@@ -32,6 +32,7 @@ public class UpdateDialogFragment extends BaseFragment {
         findViewById(R.id.updateButton).setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
             getActivity().startActivity(browserIntent);
+            dismiss();
         });
 
         findViewById(R.id.changelogButton).setOnClickListener(v -> {
