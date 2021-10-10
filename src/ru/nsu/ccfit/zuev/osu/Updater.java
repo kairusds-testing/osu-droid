@@ -72,24 +72,19 @@ public class Updater {
                     Debug.i("assets size: " + String.valueOf(assets.size()));
 
                     for(Asset asset : assets) {
-                        long versionCode = mActivity.getVersionCode();
-                        Debug.i("Updater " + asset.getName() + ": " + asset.getBrowser_download_url());
-                        Debug.i("Updater isVersionCodeTxt: " + (asset.getName() == "versioncode.txt"));
-                        Debug.i("Updater isThereApk: " + asset.getName().endsWith(".apk"));
-                        ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
-                        if(!asset.getName().endsWith(".apk")) Debug.i("Updater " + asset.getName() + ": " + versionResponse.string());
-                        /* if(asset.getName() == "versioncode.txt") {
+                        // equal comparison doesn't seem to work for some reason
+                        if(asset.getName().endsWith("versioncode.txt") && !newUpdate) {
                             ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
-                            Debug.i("updateVersionCode: " + versionResponse.string());
+                            Debug.i("ZupdateVersionCode: " + versionResponse.string());
                             long updateVersionCode = Long.parseLong(versionResponse.string());
 
-                            if(mActivity.getVersionCode() < updateVersionCode && !newUpdate) {
+                            if(mActivity.getVersionCode() < updateVersionCode) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
                             }
                         }else if(asset.getName().endsWith(".apk") && newUpdate) {
                             downloadUrl = asset.getBrowser_download_url();
-                        } */
+                        }
                     }
                 }catch(IOException e) {
                     Debug.e("Updater onRun: " + e.getMessage(), e); 
