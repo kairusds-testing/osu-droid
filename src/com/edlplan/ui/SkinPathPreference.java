@@ -1,7 +1,6 @@
 package com.edlplan.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 
 import androidx.preference.ListPreference;

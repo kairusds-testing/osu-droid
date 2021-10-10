@@ -2,6 +2,7 @@ package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
 import android.text.InputType;
