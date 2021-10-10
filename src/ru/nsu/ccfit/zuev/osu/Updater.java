@@ -44,11 +44,11 @@ public class Updater {
         return instance;
     }
 
-    private Response httpGet(String url) throws IOException {
+    private ResponseBody httpGet(String url) throws IOException {
         Request request = new Request.Builder()
             .url(url)
             .build();
-        return OnlineManager.client.newCall(request).execute();
+        return OnlineManager.client.newCall(request).execute().body();
     }
 
     public void checkForUpdates() {
@@ -65,17 +65,23 @@ public class Updater {
                     });
 
                     Gson gson = new Gson();
-                    Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
-                    GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
+                    ResponseBody response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
+                    GithubReleaseVO updateInfo = new Gson().fromJson(response.string(), GithubReleaseVO.class);
                     Debug.i("updateInfo body: " + updateInfo.getBody());
                     ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
                     Debug.i("assets size: " + String.valueOf(assets.size()));
 
                     for(Asset asset : assets) {
-                        if(asset.getName() == "versioncode.txt") {
+                        long versionCode = mActivity.getVersionCode();
+                        Debug.i("Updater " + asset.getName() + ": " + asset.getBrowser_download_url());
+                        Debug.i("Updater isVersionCodeTxt: " + (asset.getName() == "versioncode.txt"));
+                        Debug.i("Updater isThereApk: " + asset.getName().endsWith(".apk"));
+                        ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
+                        Debug.i("Updater " + asset.getName() + ": " + versionResponse.string());
+                        /* if(asset.getName() == "versioncode.txt") {
                             ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
                             Debug.i("updateVersionCode: " + versionResponse.string());
-                            /* long updateVersionCode = Long.parseLong(versionResponse.string());
+                            long updateVersionCode = Long.parseLong(versionResponse.string());
 
                             if(mActivity.getVersionCode() < updateVersionCode && !newUpdate) {
                                 changelogMsg = updateInfo.getBody();
