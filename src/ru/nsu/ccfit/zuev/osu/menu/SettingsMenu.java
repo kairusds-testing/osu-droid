@@ -28,8 +28,9 @@ import com.edlplan.ui.SkinPathPreference;
 import com.edlplan.ui.fragment.SettingsFragment;
 import com.edlplan.ui.EasingHelper;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.File;
-import java.util.Arrays;
 
 import org.anddev.andengine.util.Debug;
 
@@ -65,6 +66,25 @@ public class SettingsMenu extends SettingsFragment {
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
         skinPath.reloadSkinList();
+        skinPath.setOnPreferenceChangeListener((preference, newValue) -> {
+            if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
+                // SpritePool.getInstance().purge();
+                GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
+                new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+                    public void run() {
+                        ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
+                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                    }
+
+                    public void onComplete() {
+                        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+                        Snackbar.make(mActivity.findViewById(android.R.id.content),
+                            StringTable.get(R.string.message_loaded_skin), 1500).show();
+                    }
+                });
+            }
+            return true;
+        });
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();
@@ -268,23 +288,6 @@ public class SettingsMenu extends SettingsFragment {
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
             GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
             GlobalManager.getInstance().getSongService().setGaming(false);
-
-            Debug.i("skinNow != skinPath: " + (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()));
-            if(GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
-                // SpritePool.getInstance().purge();
-                GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-                    public void run() {
-                        ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
-                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                    }
-
-                    public void onComplete() {
-                        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                        ToastLogger.showTextId(R.string.message_loaded_skin, true);
-                    }
-                });
-            }
             SettingsMenu.super.dismiss();
         });
     }
