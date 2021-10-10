@@ -44,7 +44,7 @@ jobs:
     - name: Output apk version code
       run: |
         export VERSION_CODE="${{ steps.apk-info.outputs.version-code }}"
-        echo "{\"version_code\": $VERSION_CODE }" > info.json
+        echo "{\"version_code\": $VERSION_CODE}" > info.json
         unset VERSION_CODE
 
     - name: Upload binaries to a release
