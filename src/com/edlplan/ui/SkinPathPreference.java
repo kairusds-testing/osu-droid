@@ -48,9 +48,9 @@ public class SkinPathPreference extends ListPreference {
                     }
                     Arrays.sort(entries, 1, entries.length);
                     Arrays.sort(entryValues, 1, entryValues.length);
-                    setDefaultValue(entries[0]);
                     setEntries(entries);
                     setEntryValues(entryValues);
+                    setDefaultValue(entryValues[0]);
                 }
 
                 public void onComplete() {
