@@ -60,10 +60,6 @@ public class FileUtils {
         return getFileChecksum("SHA-256", file);
     }
 
-    public static File[] listSubdirectories(File directory) {
-        return listFiles(directory, (dir, name) -> dir.isDirectory() && !name.startsWith("."));
-    }
-
     public static File[] listFiles(File directory) {
         return listFiles(directory, (dir, name) -> true);
     }
@@ -74,19 +70,19 @@ public class FileUtils {
     }
 
     public static File[] listFiles(File directory, String[] endsWithExtensions) {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return listFiles(directory, (dir, name) -> {
-                for(String extension : endsWithExtensions) {
-                    if(name.toLowerCase().endsWith(extension)) {
-                        return true;
-                    }
+        // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+        return listFiles(directory, (dir, name) -> {
+            for(String extension : endsWithExtensions) {
+                if(name.toLowerCase().endsWith(extension)) {
+                    return true;
                 }
-                return false;
-            });
-        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            }
+            return false;
+        });
+        /* }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return listFiles(directory, (dir, name) ->
                 Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
-        }
+        } */
         return null;
     }
 
