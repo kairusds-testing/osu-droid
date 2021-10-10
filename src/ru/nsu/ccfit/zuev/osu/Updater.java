@@ -64,13 +64,14 @@ public class Updater {
                     Gson gson = new Gson();
                     Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
                     GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
-                    Debug.i(updateInfo.getBody());
+                    Debug.i("updateInfo body: " + updateInfo.getBody());
 
                     for(Asset asset : updateInfo.getAssets()) {
-                        Debug.i(asset.getName());
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
                             Long updateVersionCode = Long.valueOf(versionResponse.body().string());
+                            Debug.i("versionCode vs updateVersionCode equal: " + (mActivity.getVersionCode() == updateVersionCode));
+
                             if(mActivity.getVersionCode() < updateVersionCode) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
