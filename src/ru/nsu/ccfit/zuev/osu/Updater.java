@@ -73,9 +73,9 @@ public class Updater {
 
                     for(Asset asset : assets) {
                         if(asset.getName() == "versioncode.txt") {
-                            Response versionResponse = httpGet(asset.getBrowser_download_url());
-                            long updateVersionCode = Long.parseLong(versionResponse.body().string());
-                            Debug.i("updateVersionCode: " + String.valueOf(updateVersionCode));
+                            ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
+                            Debug.i("updateVersionCode: " + versionResponse.string());
+                            /* long updateVersionCode = Long.parseLong(versionResponse.string());
 
                             if(mActivity.getVersionCode() < updateVersionCode && !newUpdate) {
                                 changelogMsg = updateInfo.getBody();
@@ -83,7 +83,7 @@ public class Updater {
                             }
                         }else if(asset.getName().endsWith(".apk") && newUpdate) {
                             downloadUrl = asset.getBrowser_download_url();
-                        }
+                        } */
                     }
                 }catch(IOException e) {
                     Debug.e("Updater onRun: " + e.getMessage(), e); 
