@@ -77,7 +77,7 @@ public class Updater {
                         Debug.i("Updater isVersionCodeTxt: " + (asset.getName() == "versioncode.txt"));
                         Debug.i("Updater isThereApk: " + asset.getName().endsWith(".apk"));
                         ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
-                        Debug.i("Updater " + asset.getName() + ": " + versionResponse.string());
+                        if(!asset.getName().endsWith(".apk")) Debug.i("Updater " + asset.getName() + ": " + versionResponse.string());
                         /* if(asset.getName() == "versioncode.txt") {
                             ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
                             Debug.i("updateVersionCode: " + versionResponse.string());
