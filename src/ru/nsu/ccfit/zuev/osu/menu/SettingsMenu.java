@@ -61,7 +61,7 @@ public class SettingsMenu extends SettingsFragment {
         setPreferencesFromResource(R.xml.options, rootKey);
 
         SkinPathPreference skinPath = (SkinPathPreference) findPreference("skinPath");
-        // skinPath.reloadSkinList();
+        skinPath.reloadSkinList();
 
         // screens
         mParentScreen = parentScreen = getPreferenceScreen();

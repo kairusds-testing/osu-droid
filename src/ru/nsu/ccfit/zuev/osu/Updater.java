@@ -24,8 +24,6 @@ import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO.Asset;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
-import java.util.ArrayList;
-
 public class Updater {
 
     private boolean newUpdate = false;
@@ -62,13 +60,14 @@ public class Updater {
                             loadingFragment.show();
                         }
                     });
-    
+
                     Gson gson = new Gson();
                     Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
                     GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
-    
-                    ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
-                    for(Asset asset : assets) {
+                    Debug.i(updateInfo.getBody());
+
+                    for(Asset asset : updateInfo.getAssets()) {
+                        Debug.i(asset.getName());
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
                             Long updateVersionCode = Long.valueOf(versionResponse.body().string());
