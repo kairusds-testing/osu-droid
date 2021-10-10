@@ -10,13 +10,8 @@ import java.io.File;
 import java.util.Arrays;
 
 import ru.nsu.ccfit.zuev.osu.Config;
-import ru.nsu.ccfit.zuev.osu.GlobalManager;
-import ru.nsu.ccfit.zuev.osu.MainActivity;
-import ru.nsu.ccfit.zuev.osu.ResourceManager;
-import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
-import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SkinPathPreference extends ListPreference {
@@ -56,29 +51,12 @@ public class SkinPathPreference extends ListPreference {
                     Arrays.sort(entryValues, 1, entryValues.length);
                     setEntries(entries);
                     setEntryValues(entryValues);
-                    setOnPreferenceChangeListener((preference, newValue) -> {
-                        if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                            // SpritePool.getInstance().purge();
-                            new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-                                public void run() {
-                                    GlobalManager.getInstance().setSkinNow(newValue.toString());
-                                    ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                                    GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                                }
-
-                                public void onComplete() {
-                                    MainActivity activity = GlobalManager.getInstance().getMainActivity();
-                                    activity.startActivity(new Intent(activity, MainActivity.class));
-                                    ToastLogger.showTextId(R.string.message_loaded_skin, true);
-                                }
-                            });
-                        }
-                        return true;
-                    });
                 }
 
                 public void onComplete() {
-                    setValueIndex(findIndexOfValue(Config.getSkinPath()));
+                    int index = findIndexOfValue(Config.getSkinPath());
+                    if(index == -1) index = 0;
+                    setValueIndex(index);
                 }
             });
         } catch (Exception e) {

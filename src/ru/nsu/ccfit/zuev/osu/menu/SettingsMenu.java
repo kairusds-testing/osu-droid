@@ -40,6 +40,8 @@ import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.Updater;
+import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
+import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
@@ -261,6 +263,22 @@ public class SettingsMenu extends SettingsFragment {
     public void dismiss() {
         playOnDismissAnim(() -> {
             Config.loadConfig(mActivity);
+            if(GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
+                // SpritePool.getInstance().purge();
+                new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+                    public void run() {
+                        GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
+                        ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                    }
+
+                    public void onComplete() {
+                        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+                        ToastLogger.showTextId(R.string.message_loaded_skin, true);
+                    }
+                });
+            }
+
             GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
             GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
             GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
