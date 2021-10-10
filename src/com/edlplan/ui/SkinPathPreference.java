@@ -44,37 +44,45 @@ public class SkinPathPreference extends ListPreference {
 
     public void reloadSkinList() {
         try {
-            File skinMain = new File(Config.getSkinTopPath());
-            if (!skinMain.exists()) skinMain.mkdir();
-            File[] skinFolders = FileUtils.listSubdirectories(skinMain);
-            CharSequence[] entries = new CharSequence[skinFolders.length + 1];
-            CharSequence[] entryValues = new CharSequence[skinFolders.length + 1];
-            entries[0] = skinMain.getName() + " (Default)";
-            entryValues[0] = skinMain.getPath();
-            for (int i = 1; i < entries.length; i++) {
-                entries[i] = skinFolders[i - 1].getName();
-                entryValues[i] = skinFolders[i - 1].getPath();
-            }
-            Arrays.sort(entries, 1, entries.length);
-            Arrays.sort(entryValues, 1, entryValues.length);
-            setEntries(entries);
-            setEntryValues(entryValues);
-            setOnPreferenceChangeListener((preference, newValue) -> {
-                if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                    // SpritePool.getInstance().purge();
-                    GlobalManager.getInstance().setSkinNow(newValue.toString());
-                    ResourceManager.getInstance().loadCustomSkin(newValue.toString());
-                    GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                    
-                    MainActivity activity = GlobalManager.getInstance().getMainActivity();
-                    Intent intent = new Intent(activity, MainActivity.class);
-                    activity.startActivity(intent);
-                    ToastLogger.showTextId(R.string.message_loaded_skin, true);
+            new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+                public void run() {
+                    File skinMain = new File(Config.getSkinTopPath());
+                    if (!skinMain.exists()) skinMain.mkdir();
+                    File[] skinFolders = FileUtils.listSubdirectories(skinMain);
+                    CharSequence[] entries = new CharSequence[skinFolders.length + 1];
+                    CharSequence[] entryValues = new CharSequence[skinFolders.length + 1];
+                    entries[0] = skinMain.getName() + " (Default)";
+                    entryValues[0] = skinMain.getPath();
+                    for (int i = 1; i < entries.length; i++) {
+                        entries[i] = skinFolders[i - 1].getName();
+                        entryValues[i] = skinFolders[i - 1].getPath();
+                    }
+                    Arrays.sort(entries, 1, entries.length);
+                    Arrays.sort(entryValues, 1, entryValues.length);
+                    setEntries(entries);
+                    setEntryValues(entryValues);
+                    setOnPreferenceChangeListener((preference, newValue) -> {
+                        if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
+                            // SpritePool.getInstance().purge();
+                            GlobalManager.getInstance().setSkinNow(newValue.toString());
+                            ResourceManager.getInstance().loadCustomSkin(newValue.toString());
+                            GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                            
+                            MainActivity activity = GlobalManager.getInstance().getMainActivity();
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            activity.startActivity(intent);
+                            ToastLogger.showTextId(R.string.message_loaded_skin, true);
+                        }
+                        return true;
+                    });
                 }
-                return true;
-            });
-            setValueIndex(findIndexOfValue(Config.getSkinPath()));
 
+                public void onComplete() {
+                    int skinIndex = findIndexOfValue(Config.getSkinPath()) == -1 ?
+                        0 : findIndexOfValue(Config.getSkinPath());
+                    setValueIndex(skinIndex);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
