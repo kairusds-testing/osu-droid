@@ -5,6 +5,8 @@ import android.os.Build;
 import com.edlplan.ui.fragment.LoadingFragment;
 import com.edlplan.ui.fragment.UpdateDialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import org.anddev.andengine.util.Debug;
 
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
+import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO;
 import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO.Asset;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
@@ -28,8 +31,13 @@ public class Updater {
     private boolean newUpdate = false;
     private String changelogMsg, downloadUrl;
     private LoadingFragment loadingFragment;
+    private MainActivity mActivity;
 
     private static Updater instance = new Updater();
+
+    private Updater() {
+        mActivity = GlobalManager.getInstance().getMainActivity();
+    }
 
     public static Updater getInstance() {
         return instance;
@@ -45,9 +53,10 @@ public class Updater {
     public void checkForUpdates() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
              public void run() {
-                 try{
-                     ToastLogger.showTextId(R.string.update_info_checking, true);
-                     GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
+                 try {
+                     mActivity.runOnUiThread(() -> {
+                         Snackbar.make(mActivity.findViewById(android.R.id.content),
+                             StringTable.get(R.string.update_info_checking), 1500).show();
                          if(loadingFragment == null) {
                             loadingFragment = new LoadingFragment();
                             loadingFragment.show();
@@ -63,7 +72,7 @@ public class Updater {
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
     
-                            if(GlobalManager.getInstance().getMainActivity().getVersionCode() <=
+                            if(mActivity.getVersionCode() <=
                                 Long.valueOf(versionResponse.body().string())) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
@@ -78,7 +87,7 @@ public class Updater {
             }
 
             public void onComplete() {
-                GlobalManager.getInstance().getMainActivity().runOnUiThread(() -> {
+                mActivity.runOnUiThread(() -> {
                     if(loadingFragment != null) {
                         loadingFragment.dismiss();
                         loadingFragment = null;
@@ -90,7 +99,8 @@ public class Updater {
                             .setDownloadUrl(downloadUrl)
                             .show();
                     }else {
-                        ToastLogger.showTextId(R.string.update_info_latest, true);  
+                        Snackbar.make(mActivity.findViewById(android.R.id.content),
+                            StringTable.get(R.string.update_info_latest), 1500).show();
                     }
                 });
             }
