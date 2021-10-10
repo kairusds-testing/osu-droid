@@ -82,8 +82,8 @@ public class Updater {
                                 newUpdate = true;
                             }
                         }else if(asset.getName().endsWith(".apk") && newUpdate) {
-                            downloadUrl = asset.getBrowser_download_url();
-                        } */
+                            downloadUrl = asset.getBrowser_download_url(); */
+                        }
                     }
                 }catch(IOException e) {
                     Debug.e("Updater onRun: " + e.getMessage(), e); 
