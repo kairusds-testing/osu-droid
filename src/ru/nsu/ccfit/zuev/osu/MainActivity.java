@@ -840,7 +840,7 @@ public class MainActivity extends BaseGameActivity implements
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 versionCode = packageInfo.getLongVersionCode();
             }else {
-                versionCode = Long.valueOf(packageInfo.versionCode);
+                versionCode = Long.parseLong(packageInfo.versionCode);
             }
 
         } catch (PackageManager.NameNotFoundException e) {

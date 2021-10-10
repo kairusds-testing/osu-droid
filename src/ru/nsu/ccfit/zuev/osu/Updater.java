@@ -69,7 +69,7 @@ public class Updater {
                     for(Asset asset : updateInfo.getAssets()) {
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
-                            Long updateVersionCode = Long.valueOf(versionResponse.body().string());
+                            long updateVersionCode = Long.parseLong(versionResponse.body().string());
                             Debug.i("versionCode vs updateVersionCode equal: " + (mActivity.getVersionCode() == updateVersionCode));
 
                             if(mActivity.getVersionCode() < updateVersionCode) {
