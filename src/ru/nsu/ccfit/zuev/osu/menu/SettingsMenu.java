@@ -263,8 +263,13 @@ public class SettingsMenu extends SettingsFragment {
     @Override
     public void dismiss() {
         playOnDismissAnim(() -> {
-            Debug.i("skinNow = skinPath: " + (GlobalManager.getInstance().getSkinNow() == Config.getSkinPath()));
             Config.loadConfig(mActivity);
+            GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
+            GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
+            GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
+            GlobalManager.getInstance().getSongService().setGaming(false);
+
+            Debug.i("skinNow != skinPath: " + (GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()));
             if(GlobalManager.getInstance().getSkinNow() != Config.getSkinPath()) {
                 // SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
@@ -280,11 +285,6 @@ public class SettingsMenu extends SettingsFragment {
                     }
                 });
             }
-
-            GlobalManager.getInstance().getMainScene().reloadOnlinePanel();
-            GlobalManager.getInstance().getMainScene().loadTimeingPoints(false);
-            GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
-            GlobalManager.getInstance().getSongService().setGaming(false);
             SettingsMenu.super.dismiss();
         });
     }

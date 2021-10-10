@@ -68,9 +68,11 @@ public class Updater {
                     Response response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
                     GithubReleaseVO updateInfo = new Gson().fromJson(response.body().string(), GithubReleaseVO.class);
                     Debug.i("updateInfo body: " + updateInfo.getBody());
-                    List<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
+                    ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
+                    Debug.i("assets size: " + String.valueOf(assets.size()));
 
                     for(Asset asset : assets) {
+                        Debug.i(asset.getName());
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
                             long updateVersionCode = Long.parseLong(versionResponse.body().string());
