@@ -72,7 +72,6 @@ public class Updater {
                         if(!newUpdate && asset.getName() == "versioncode.txt") {
                             Response versionResponse = httpGet(asset.getBrowser_download_url());
                             Long updateVersionCode = Long.valueOf(versionResponse.body().string());
-
                             if(mActivity.getVersionCode() < updateVersionCode) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
