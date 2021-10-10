@@ -42,14 +42,14 @@ jobs:
         apk-path: ${{ steps.vars.outputs.apk_path }}
 
     - name: Output apk version code
-      run: echo ${{ steps.apk-info.outputs.version-code }} > versioncode.txt
+      run: echo "{\"version_code\": ${{ steps.apk-info.outputs.version-code }}}" > info.json
 
     - name: Upload binaries to a release
       uses: softprops/action-gh-release@v1
       with:
         body: ${{ github.event.head_commit.message }}
         files: |
-          versioncode.txt
+          info.json
           ${{ steps.vars.outputs.apk_path }}
         tag_name: ${{ steps.vars.outputs.sha_short }}
 

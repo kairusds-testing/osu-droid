@@ -24,6 +24,7 @@ import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO;
 import ru.nsu.ccfit.zuev.osu.model.vo.GithubReleaseVO.Asset;
+import ru.nsu.ccfit.zuev.osu.model.vo.VersionCodeVO;
 import ru.nsu.ccfit.zuev.osu.online.OnlineManager;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
@@ -64,7 +65,6 @@ public class Updater {
                         }
                     });
 
-                    Gson gson = new Gson();
                     ResponseBody response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
                     GithubReleaseVO updateInfo = new Gson().fromJson(response.string(), GithubReleaseVO.class);
                     Debug.i("updateInfo body: " + updateInfo.getBody());
@@ -73,11 +73,11 @@ public class Updater {
 
                     for(Asset asset : assets) {
                         // equal comparison doesn't seem to work for some reason
-                        if(asset.getName().endsWith("versioncode.txt") && !newUpdate) {
+                        if(asset.getName().endsWith("info.json") && !newUpdate) {
                             ResponseBody versionResponse = httpGet(asset.getBrowser_download_url());
-                            long updateVersionCode = Long.parseLong(versionResponse.string());
+                            VersionCodeVO updateVersionCode = new Gson().fromJson(versionResponse.string(), VersionCodeVO.class);
 
-                            if(mActivity.getVersionCode() < updateVersionCode) {
+                            if(updateVersionCode.getValue() > mActivity.getVersionCode()) {
                                 changelogMsg = updateInfo.getBody();
                                 newUpdate = true;
                             }
