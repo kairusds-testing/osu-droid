@@ -5,6 +5,8 @@ import android.util.DisplayMetrics;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 
+import java.util.Random;
+
 import ru.nsu.ccfit.zuev.audio.serviceAudio.SaveServiceObject;
 import ru.nsu.ccfit.zuev.audio.serviceAudio.SongService;
 import ru.nsu.ccfit.zuev.osu.game.GameScene;
@@ -57,6 +59,9 @@ public class GlobalManager {
         skinNow = Config.getSkinPath();
         ResourceManager.getInstance().loadSkin(skinNow);
         ScoreLibrary.getInstance().load(mainActivity);
+        String[] welcomeSnds = {"welcome", "welcome_piano"};
+        int randNum = new Random().nextInt((1 - 0) + 1) + 0;
+        ResourceManager.getInstance().getSound(welcomeSnds[randNum]).play();
         setLoadingProgress(20);
         PropertiesLibrary.getInstance().load(mainActivity);
         setLoadingProgress(30);

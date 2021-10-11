@@ -70,18 +70,11 @@ public class SettingsMenu extends SettingsFragment {
             if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
                 // SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-                    public void run() {
-                        ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
-                        GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                    }
-
-                    public void onComplete() {
-                        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                        Snackbar.make(mActivity.findViewById(android.R.id.content),
-                            StringTable.get(R.string.message_loaded_skin), 1500).show();
-                    }
-                });
+                ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
+                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+                Snackbar.make(mActivity.findViewById(android.R.id.content),
+                    StringTable.get(R.string.message_loaded_skin), 1500).show();
             }
             return true;
         });
