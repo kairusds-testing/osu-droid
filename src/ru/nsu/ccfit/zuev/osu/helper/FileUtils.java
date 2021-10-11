@@ -61,19 +61,19 @@ public class FileUtils {
     }
 
     public static File[] listFiles(File directory) {
-        return listFiles(directory, (dir, name) -> true);
+        return listFiles(directory, file -> true);
     }
 
     public static File[] listFiles(File directory, String endsWith) {
-        return listFiles(directory, (dir, name) ->
-            name.toLowerCase().endsWith(endsWith));
+        return listFiles(directory, file ->
+            file.getName().toLowerCase().endsWith(endsWith));
     }
 
     public static File[] listFiles(File directory, String[] endsWithExtensions) {
         // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-        return listFiles(directory, (dir, name) -> {
+        return listFiles(directory, file -> {
             for(String extension : endsWithExtensions) {
-                if(name.toLowerCase().endsWith(extension)) {
+                if(file.getName().toLowerCase().endsWith(extension)) {
                     return true;
                 }
             }
@@ -86,10 +86,10 @@ public class FileUtils {
         return null; */
     }
 
-    public static File[] listFiles(File directory, FileFilter filter) {
+    public static File[] listFiles(File directory, FileUtilsFilter filter) {
         File[] filelist = null;
         // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-        filelist = directory.listFiles((dir, name) -> filter.accept(dir, name));
+        filelist = directory.listFiles(pathname -> filter.accept(pathname));
         /* figure out why this is causing an sdcard corruption
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
@@ -111,8 +111,8 @@ public class FileUtils {
         return filelist;
     }
 
-    public interface FileFilter {
-        boolean accept(File dir, String name);
+    public interface FileUtilsFilter {
+        boolean accept(File file);
     }
 
 }

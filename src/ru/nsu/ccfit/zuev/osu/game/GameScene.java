@@ -2319,6 +2319,9 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             snd = ResourceManager.getInstance().getCustomSound(fullName,
                     soundTimingPoint.getCustomSound());
         }
+        if(snd == null) {
+            return;
+        }
         if (name.equals("sliderslide") || name.equals("sliderwhistle")) {
             snd.setLooping(true);
         }
