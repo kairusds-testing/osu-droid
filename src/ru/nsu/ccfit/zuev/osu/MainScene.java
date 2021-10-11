@@ -592,8 +592,6 @@ public class MainScene implements IUpdateHandler {
         createOnlinePanel(scene);
         scene.registerUpdateHandler(this);
 
-		ResourceManager.getInstance().getSound("welcome").play();
-		/* 
         int randNum = new Random().nextInt((1 - 0) + 1) + 0;
         switch (randNum){
             case 0:
@@ -602,7 +600,7 @@ public class MainScene implements IUpdateHandler {
             case 1:
                 ResourceManager.getInstance().loadSound("welcome", "sfx/welcome_piano.wav", true).play();
                 break;
-        } */
+        }
 
         hitsound = ResourceManager.getInstance().loadSound("menuhit", "sfx/menuhit.wav", false);
 
