@@ -302,6 +302,7 @@ public class MainActivity extends BaseGameActivity implements
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 GlobalManager.getInstance().init();
+                ResourceManager.getInstance().loadSkin(Config.getSkinPath());
                 analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
@@ -320,7 +321,6 @@ public class MainActivity extends BaseGameActivity implements
                 initPreferences();
                 availableInternalMemory();
                 initAccessibilityDetector();
-                ResourceManager.getInstance().loadSkin(skinNow);
                 if (willReplay) {
                     GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
                     willReplay = false;
