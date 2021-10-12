@@ -68,13 +68,13 @@ public class SettingsMenu extends SettingsFragment {
         skinPath.reloadSkinList();
         skinPath.setOnPreferenceChangeListener((preference, newValue) -> {
             if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                // SpritePool.getInstance().purge();
+                SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
                 ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                 mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                /* Snackbar.make(mActivity.findViewById(android.R.id.content),
-                    StringTable.get(R.string.message_loaded_skin), 1500).show(); */
+                Snackbar.make(mActivity.findViewById(android.R.id.content),
+                    StringTable.get(R.string.message_loaded_skin), 1500).show();
             }
             return true;
         });
