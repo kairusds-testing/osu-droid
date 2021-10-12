@@ -222,8 +222,9 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                 }
 
                 bgset = true;
-                final TextureRegion tex = ResourceManager.getInstance()
-                        .getTextureIfLoaded("::background");
+                final TextureRegion tex = Config.isSafeBeatmapBg() ?
+                    ResourceManager.getInstance().getTexture("menu-background") :
+                    ResourceManager.getInstance().getTextureIfLoaded("::background");
                 if (tex == null) {
                     continue;
                 }

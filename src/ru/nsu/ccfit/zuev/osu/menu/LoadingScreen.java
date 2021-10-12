@@ -3,7 +3,6 @@ package ru.nsu.ccfit.zuev.osu.menu;
 import android.annotation.SuppressLint;
 
 import org.anddev.andengine.engine.handler.IUpdateHandler;
-import org.anddev.andengine.entity.modifier.FadeInModifier;
 import org.anddev.andengine.entity.modifier.FadeOutModifier;
 import org.anddev.andengine.entity.modifier.LoopEntityModifier;
 import org.anddev.andengine.entity.modifier.RotationByModifier;
@@ -35,7 +34,6 @@ public class LoadingScreen implements IUpdateHandler {
         }
 
         scene = new LoadingScene();
-        scene.registerEntityModifier(new FadeInModifier(0.4f));
         scene.registerEntityModifier(new FadeOutModifier(0.4f));
 
         final TextureRegion tex = ResourceManager.getInstance().getTexture("menu-background");

@@ -240,33 +240,35 @@ public class SettingsMenu extends SettingsFragment {
 
     protected void playOnLoadAnim() {
         View body = findViewById(R.id.body);
-        body.setTranslationX(100);
-        body.setTranslationY(0);
+        body.setAlpha(0);
+        body.setTranslationX(400);
         body.animate().cancel();
         body.animate()
-            .translationX(0)
-            .setDuration(300)
-            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-            .start();
-        playBackgroundHideInAnim(200);
+                .translationX(0)
+                .alpha(1)
+                .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+                .setDuration(150)
+                .start();
+        playBackgroundHideInAnim(150);
     }
 
-    protected void playOnDismissAnim(Runnable runnable) {
+    protected void playOnDismissAnim(Runnable action) {
         View body = findViewById(R.id.body);
         body.animate().cancel();
         body.animate()
-            .translationX(100)
-            .setDuration(300)
-            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-            .setListener(new BaseAnimationListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (runnable != null) {
-                        runnable.run();
+                .translationXBy(400)
+                .alpha(0)
+                .setDuration(200)
+                .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+                .setListener(new BaseAnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (action != null) {
+                            action.run();
+                        }
                     }
-                }
-            })
-            .start();
+                })
+                .start();
         playBackgroundHideOutAnim(200);
     }
 
