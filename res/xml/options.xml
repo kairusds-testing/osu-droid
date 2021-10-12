@@ -86,6 +86,8 @@
             android:summary="@string/opt_dither_summary" android:defaultValue="true"/>
         <CheckBoxPreference android:key="superSlider" android:summary="@string/opt_superSlider_summary"
             android:title="@string/opt_superSlider_title" android:defaultValue="true"/>
+        <CheckBoxPreference android:key="trianglesAnimation" android:title="@string/opt_triangles_animation_title"
+            android:summary="@string/opt_triangles_animation_summary" android:defaultValue="true"/>
 
         <PreferenceScreen android:key="color" android:title="@string/opt_combo_colors_title" android:summary="">
             <CheckBoxPreference android:key="useCustomColors" android:title="@string/opt_combo_colors_title"

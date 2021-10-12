@@ -2,6 +2,7 @@ package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
 import android.text.InputType;
@@ -73,7 +74,7 @@ public class SettingsMenu extends SettingsFragment {
                 SkinManager.getInstance().clearSkin();
                 ResourceManager.getInstance().loadSkin(newValue.toString());
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                mActivity.startActivity(mActivity.getIntent());
+                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
                 Snackbar.make(mActivity.findViewById(android.R.id.content),
                     StringTable.get(R.string.message_loaded_skin), 1500).show();
             }
