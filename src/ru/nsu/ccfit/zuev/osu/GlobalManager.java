@@ -55,6 +55,7 @@ public class GlobalManager {
         getMainScene().load(mainActivity);
         setInfo("Loading skin...");
         skinNow = Config.getSkinPath();
+        ResourceManager.getInstance().loadSkin(skinNow);
         ScoreLibrary.getInstance().load(mainActivity);
         setLoadingProgress(20);
         PropertiesLibrary.getInstance().load(mainActivity);
