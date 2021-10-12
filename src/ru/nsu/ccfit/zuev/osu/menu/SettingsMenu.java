@@ -2,7 +2,6 @@ package ru.nsu.ccfit.zuev.osu.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
 import android.text.InputType;
@@ -45,7 +44,7 @@ import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.Updater;
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
-import ru.nsu.ccfit.zuev.osu.game.SpritePool;
+// import ru.nsu.ccfit.zuev.osu.game.SpritePool;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osu.online.OnlineInitializer;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -69,12 +68,12 @@ public class SettingsMenu extends SettingsFragment {
         skinPath.reloadSkinList();
         skinPath.setOnPreferenceChangeListener((preference, newValue) -> {
             if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-                SpritePool.getInstance().purge();
+                // SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
                 SkinManager.getInstance().clearSkin();
-                ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
+                ResourceManager.getInstance().loadSkin(newValue.toString());
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                mActivity.startActivity(mActivity.getIntent()/* new Intent(mActivity, MainActivity.class) */);
+                mActivity.startActivity(mActivity.getIntent());
                 Snackbar.make(mActivity.findViewById(android.R.id.content),
                     StringTable.get(R.string.message_loaded_skin), 1500).show();
             }

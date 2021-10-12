@@ -218,11 +218,11 @@ public class MainScene implements IUpdateHandler {
                                 LibraryManager.getInstance().scanLibrary(GlobalManager.getInstance().getMainActivity());
                             }
                             GlobalManager.getInstance().getSongMenu().reload();
-                            //To fixed skin load bug in some Android 10
+                            /* To fixed skin load bug in some Android 10
                             if (Build.VERSION.SDK_INT >= 29) {
                                 String skinNow = Config.getSkinPath();
                                 ResourceManager.getInstance().loadSkin(skinNow);
-                            }
+                            } */
                         }
 
                         public void onComplete() {
@@ -592,9 +592,6 @@ public class MainScene implements IUpdateHandler {
         createOnlinePanel(scene);
         scene.registerUpdateHandler(this);
 
-        String[] welcomeSnds = {"welcome", "welcome_piano"};
-        int randNum = new Random().nextInt((1 - 0) + 1) + 0;
-        ResourceManager.getInstance().loadSound("welcome", String.format("sfx/%s.ogg", welcomeSnds[randNum]), false).play();
         hitsound = ResourceManager.getInstance().loadSound("menuhit", "sfx/menuhit.ogg", false);
 
         /*if (BuildConfig.DEBUG) {
