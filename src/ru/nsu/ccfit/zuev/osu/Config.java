@@ -41,7 +41,6 @@ public class Config {
         showFPS,
         sliderBorders,
         complexAnimations,
-        multitouch,
         playMusicPreview,
         showCursor,
         accurateSlider,
@@ -447,14 +446,6 @@ public class Config {
 
     public static void setComplexAnimations(final boolean complexAnimations) {
         Config.complexAnimations = complexAnimations;
-    }
-
-    public static boolean isMultitouch() {
-        return multitouch;
-    }
-
-    public static void setMultitouch(final boolean multitouch) {
-        Config.multitouch = multitouch;
     }
 
     public static boolean isPlayMusicPreview() {
