@@ -320,7 +320,7 @@ public class MainActivity extends BaseGameActivity implements
                 initPreferences();
                 availableInternalMemory();
                 initAccessibilityDetector();
-                songService.setVolume(Config.getBgmVolume());
+                ResourceManager.getInstance().loadSkin(skinNow);
                 if (willReplay) {
                     GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
                     willReplay = false;
@@ -797,7 +797,7 @@ public class MainActivity extends BaseGameActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
-    private void cheatedExit() {
+    private void forcedExit() {
         if(GlobalManager.getInstance().getEngine().getScene() == GlobalManager.getInstance().getGameScene().getScene()) {
             GlobalManager.getInstance().getGameScene().quit();
         }
@@ -809,9 +809,11 @@ public class MainActivity extends BaseGameActivity implements
         handler.post(new Runnable() {
             @Override
             public void run() {
-                AccessibilityManager manager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+                AccessibilityManager manager = (AccessibilityManager)
+                    getSystemService(Context.ACCESSIBILITY_SERVICE);
                 List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(
-                    manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
+                    manager.getEnabledAccessibilityServiceList(
+                        AccessibilityServiceInfo.FEEDBACK_ALL_MASK));
 
                 for(AccessibilityServiceInfo activeService : activeServices) {
                      int capabilities = activeService.getCapabilities();
@@ -820,8 +822,8 @@ public class MainActivity extends BaseGameActivity implements
                         if(!autoclickerDialogShown && activityVisible) {
                             ConfirmDialogFragment dialog = new ConfirmDialogFragment()
                                 .setMessage(R.string.message_autoclicker_detected);
-                            dialog.setOnDismissListener(() -> cheatedExit());
-                            dialog.showForResult(isAccepted -> cheatedExit()); 
+                            dialog.setOnDismissListener(() -> forcedExit());
+                            dialog.showForResult(isAccepted -> forcedExit()); 
                             autoclickerDialogShown = true;
                         }
                     }
@@ -845,15 +847,6 @@ public class MainActivity extends BaseGameActivity implements
             Debug.e("PackageManager: " + e.getMessage(), e);
         }
         return versionCode;
-    }
-
-	public boolean isAppInstalled(String uri) {
-        PackageManager pm = getPackageManager();
-        try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
-            return true;
-        }catch(PackageManager.NameNotFoundException e) {}
-        return false;
     }
 
     private boolean checkPermissions() {
