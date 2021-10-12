@@ -879,9 +879,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         if (objects.isEmpty() == false)
             lastObjectTme = objects.getLast().getTime();
 
-        progressBar = new SongProgressBar(this, bgScene, lastObjectTme, objects
-                .getFirst().getTime(), new PointF(0, Config.getRES_HEIGHT() - 7), Config.getRES_WIDTH(), 7);
-        progressBar.setProgressRectColor(new RGBAColor(153f / 255f, 204f / 255f, 51f / 255f, 0.4f));
+        if(!Config.isHideInGameUI()) { 
+            progressBar = new SongProgressBar(this, bgScene, lastObjectTme, objects
+                    .getFirst().getTime(), new PointF(0, Config.getRES_HEIGHT() - 7), Config.getRES_WIDTH(), 7);
+            progressBar.setProgressRectColor(new RGBAColor(153f / 255f, 204f / 255f, 51f / 255f, 0.4f));
+        }
 
         if (Config.getErrorMeter() == 1
                 || (Config.getErrorMeter() == 2 && replaying)) {

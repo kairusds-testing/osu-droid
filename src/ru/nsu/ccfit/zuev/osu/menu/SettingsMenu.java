@@ -73,8 +73,8 @@ public class SettingsMenu extends SettingsFragment {
                 ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
                 GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
                 mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                Snackbar.make(mActivity.findViewById(android.R.id.content),
-                    StringTable.get(R.string.message_loaded_skin), 1500).show();
+                /* Snackbar.make(mActivity.findViewById(android.R.id.content),
+                    StringTable.get(R.string.message_loaded_skin), 1500).show(); */
             }
             return true;
         });

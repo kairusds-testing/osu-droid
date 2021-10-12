@@ -65,6 +65,7 @@ import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.zip.ZipFile;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -112,6 +113,9 @@ public class MainActivity extends BaseGameActivity implements
         analytics = FirebaseAnalytics.getInstance(this);
         crashlytics = FirebaseCrashlytics.getInstance();
         Config.loadConfig(this);
+        if(songService != null) {
+            songService.setVolume(Config.getBgmVolume());
+        }
         initialGameDirectory();
         //Debug.setDebugLevel(Debug.DebugLevel.NONE);
         StringTable.setContext(this);
@@ -304,6 +308,9 @@ public class MainActivity extends BaseGameActivity implements
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 GlobalManager.getInstance().init();
+                String[] welcomeSnds = {"welcome", "welcome_piano"};
+                int randNum = new Random().nextInt((1 - 0) + 1) + 0;
+                ResourceManager.getInstance().getSound(welcomeSnds[randNum]).play();
                 analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
