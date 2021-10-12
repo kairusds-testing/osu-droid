@@ -30,7 +30,7 @@
     </PreferenceScreen>
 
     <PreferenceScreen android:title="@string/opt_graphics" android:key="general">
-        <DropDownPreference android:entries="@array/bg_quality_names" android:entryValues="@array/bg_quality_values"
+        <ListPreference android:entries="@array/bg_quality_names" android:entryValues="@array/bg_quality_values"
             android:key="background" android:title="@string/opt_bg_title"
             android:summary="@string/opt_bg_summary" android:defaultValue="1"/>
         <SeekBarPreference android:summary="@string/opt_bgbrightness_summary" android:title="@string/opt_bgbrightness_title"
@@ -39,11 +39,11 @@
             android:key="bgbrightness" android:summary="@string/opt_bgbrightness_summary"
             android:defaultValue="25" android:entryValues="@array/bg_brightness_values"/> -->
         <com.edlplan.ui.SkinPathPreference android:title="@string/opt_skinpath_title" android:summary="@string/opt_skinpath_summary"
-            android:key="skinPath" android:entries="@array/placeholder_names" android:entryValues="@array/placeholder_values"/>
-        <DropDownPreference android:entries="@array/error_meter_display_names" android:title="@string/opt_error_meter_display_title"
+            android:key="skinPath" android:entries="@array/placeholder_array" android:entryValues="@array/placeholder_array"/>
+        <ListPreference android:entries="@array/error_meter_display_names" android:title="@string/opt_error_meter_display_title"
             android:key="errormeter" android:summary="@string/opt_error_meter_display_summary"
             android:defaultValue="0" android:entryValues="@array/error_meter_display_values"/>
-        <DropDownPreference android:entries="@array/spinner_style_names" android:title="@string/opt_spinner_style_title"
+        <ListPreference android:entries="@array/spinner_style_names" android:title="@string/opt_spinner_style_title"
             android:key="spinnerstyle" android:summary="@string/opt_spinner_style_summary"
             android:defaultValue="1" android:entryValues="@array/spinner_style_values"/>
         <CheckBoxPreference android:summary="@string/opt_show_first_approach_circle_summary" android:title="@string/opt_show_first_approach_circle_title"
@@ -123,7 +123,7 @@
             android:key="offset" app:min="-100" app:showSeekBarValue="true" android:defaultValue="0"/>
         <!-- <EditTextPreference android:title="@string/opt_offset_title" android:summary="@string/opt_offset_summary"
             android:key="offset" android:defaultValue="0"/> -->
-        <DropDownPreference android:entries="@array/metronome_switch_names" android:title="@string/opt_metronome_switch_title"
+        <ListPreference android:entries="@array/metronome_switch_names" android:title="@string/opt_metronome_switch_title"
             android:key="metronomeswitch" android:summary="@string/opt_metronome_switch_summary"
             android:defaultValue="1" android:entryValues="@array/metronome_switch_values"/>
         <CheckBoxPreference android:summary="@string/opt_beatmap_sounds_summary" android:title="@string/opt_beatmap_sounds_title"
@@ -180,7 +180,7 @@
                             android:title="@string/opt_enable_pp_title" android:defaultValue="true"/>
         <Preference android:key="clearPP" android:title="@string/opt_clear_pp_title"
                     android:summary="@string/opt_clear_pp_summary"/-->
-        <DropDownPreference android:entries="@array/set_playfield_names" android:title="@string/opt_setplayfield_title"
+        <ListPreference android:entries="@array/set_playfield_names" android:title="@string/opt_setplayfield_title"
             android:key="playfieldsize" android:summary="@string/opt_setplayfield_summary"
             android:defaultValue="100" android:entryValues="@array/set_playfield_values"/>
         <CheckBoxPreference android:key="shrinkPlayfieldDownwards" android:title="@string/opt_shrink_playfield_downwards_title"

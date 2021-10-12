@@ -54,10 +54,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="placeholder_names">
-        <item>placeholder</item>
-    </string-array>
-    <string-array name="placeholder_values">
+    <string-array name="placeholder_array">
         <item>placeholder</item>
     </string-array>
     <string-array name="set_playfield_names">

@@ -3,7 +3,7 @@ package com.edlplan.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.preference.DropDownPreference;
+import androidx.preference.ListPreference;
 
 import java.io.File;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
 import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
-public class SkinPathPreference extends DropDownPreference {
+public class SkinPathPreference extends ListPreference {
     
     public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
