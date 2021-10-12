@@ -40,6 +40,7 @@ import ru.nsu.ccfit.zuev.osu.LibraryManager;
 import ru.nsu.ccfit.zuev.osu.MainActivity;
 import ru.nsu.ccfit.zuev.osu.PropertiesLibrary;
 import ru.nsu.ccfit.zuev.osu.ResourceManager;
+import ru.nsu.ccfit.zuev.osu.SkinManager;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.Updater;
 import ru.nsu.ccfit.zuev.osu.async.AsyncTaskLoader;
@@ -70,10 +71,10 @@ public class SettingsMenu extends SettingsFragment {
             if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
                 SpritePool.getInstance().purge();
                 GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-                ResourceManager.getInstance().clearCustomResources();
+                SkinManager.getInstance().clearSkin();
                 ResourceManager.getInstance().loadCustomSkin(Config.getSkinPath());
-                // GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+                GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+                // mActivity.startActivity(new Intent(mActivity, MainActivity.class));
                 Snackbar.make(mActivity.findViewById(android.R.id.content),
                     StringTable.get(R.string.message_loaded_skin), 1500).show();
             }
