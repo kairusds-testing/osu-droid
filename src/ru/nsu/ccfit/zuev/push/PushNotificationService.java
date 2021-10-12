@@ -25,6 +25,9 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 import ru.nsu.ccfit.zuev.osu.helper.MD5Calcuator;
 import ru.nsu.ccfit.zuev.osu.online.OnlineFileOperator;
 
+/**
+ * @author kairusds
+ */
 public class PushNotificationService extends FirebaseMessagingService {
 
     public static int notificationCount = 0;

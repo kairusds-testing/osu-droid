@@ -51,10 +51,7 @@ public class SkinPathPreference extends ListPreference {
                     setEntries(entries);
                     setEntryValues(entryValues);
                 }
-
-                public void onComplete() {
-                    // setValueIndex(findIndexOfValue(Config.getSkinPath()));
-                }
+                public void onComplete() {}
             });
         } catch (Exception e) {
             e.printStackTrace();
