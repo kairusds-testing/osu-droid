@@ -322,7 +322,7 @@ public class MainActivity extends BaseGameActivity implements
                 initPreferences();
                 availableInternalMemory();
                 initAccessibilityDetector();
-                songService.getObject().setVolume(Config.getBgmVolume());
+                songService.setVolume(Config.getBgmVolume());
                 if (willReplay) {
                     GlobalManager.getInstance().getMainScene().watchReplay(beatmapToAdd);
                     willReplay = false;
