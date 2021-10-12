@@ -592,17 +592,10 @@ public class MainScene implements IUpdateHandler {
         createOnlinePanel(scene);
         scene.registerUpdateHandler(this);
 
-        /* int randNum = new Random().nextInt((1 - 0) + 1) + 0;
-        switch (randNum){
-            case 0:
-                ResourceManager.getInstance().loadSound("welcome", "sfx/welcome.wav", true).play();
-                break;
-            case 1:
-                ResourceManager.getInstance().loadSound("welcome", "sfx/welcome_piano.wav", true).play();
-                break;
-        } */
-
-        hitsound = ResourceManager.getInstance().loadSound("menuhit", "sfx/menuhit.wav", false);
+        String[] welcomeSnds = {"welcome", "welcome_piano"};
+        int randNum = new Random().nextInt((1 - 0) + 1) + 0;
+        ResourceManager.getInstance().loadSound("welcome", String.format("sfx/%s.ogg", welcomeSnds[randNum]), false).play();
+        hitsound = ResourceManager.getInstance().loadSound("menuhit", "sfx/menuhit.ogg", false);
 
         /*if (BuildConfig.DEBUG) {
             SupportSprite supportSprite = new SupportSprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT()) {
