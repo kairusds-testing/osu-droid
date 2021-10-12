@@ -294,17 +294,6 @@ public class MainActivity extends BaseGameActivity implements
 
     @Override
     public Scene onLoadScene() {
-        new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-            public void run() {
-                ResourceManager.getInstance().loadSkin(Config.getSkinPath());
-            }
-
-            public void onComplete() {
-                String[] welcomeSnds = {"welcome", "welcome_piano"};
-                int randNum = new Random().nextInt((1 - 0) + 1) + 0;
-                ResourceManager.getInstance().getSound(welcomeSnds[randNum]).play();
-            }
-        });
         return new SplashScene().getScene();
     }
 
@@ -313,6 +302,7 @@ public class MainActivity extends BaseGameActivity implements
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
                 GlobalManager.getInstance().init();
+                ResourceManager.getInstance().loadSkin(Config.getSkinPath());
                 analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();

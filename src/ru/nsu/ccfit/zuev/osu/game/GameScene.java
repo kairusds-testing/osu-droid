@@ -739,7 +739,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             final Font font = ResourceManager.getInstance().getFont(
                     "smallFont");
             final ChangeableText fpsText = new ChangeableText(Utils.toRes(790),
-                    Utils.toRes(520), font, "FPS: 12.34");
+                    Utils.toRes(520), font, "00.00 FPS");
             final ChangeableText accText = new ChangeableText(Utils.toRes(720),
                     Utils.toRes(480), font, "Avg offset: 0ms     ");
             fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
@@ -755,14 +755,18 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             }
             final ChangeableText fmemText = memText;
             fgScene.registerUpdateHandler(new FPSCounter() {
+                private float elapsedSecs = 0;
+
                 @Override
                 public void onUpdate(final float pSecondsElapsed) {
                     super.onUpdate(pSecondsElapsed);
-                    fpsText.setText("FPS: " + Math.round(this.getFPS()));
-                    if (offsetRegs != 0) {
+                    elapsedSecs++;
+                    fpsText.setText(Math.round(this.getFPS()) + " FPS");
+                    if (offsetRegs != 0 && elapsedSecs > 2) {
                         accText.setText("Avg offset: "
                                 + (int) (avgOffset * 1000f / offsetRegs)
                                 + "ms");
+                        this.elapsedSecs = 0;
                     }
                     fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
                     accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());

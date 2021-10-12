@@ -133,6 +133,7 @@ public class MainScene implements IUpdateHandler {
         this.context = context;
         Debug.i("Load: mainMenuLoaded()");
         scene = new Scene();
+
         final TextureRegion tex = ResourceManager.getInstance().getTexture("menu-background");
         
         if (tex != null) {
@@ -592,6 +593,10 @@ public class MainScene implements IUpdateHandler {
         createOnlinePanel(scene);
         scene.registerUpdateHandler(this);
 
+        String[] welcomeSounds = {"welcome", "welcome_piano"};
+        int randNum = new Random().nextInt((1 - 0) + 1) + 0;
+        String welcomeSound = welcomeSounds[randNum];
+        ResourceManager.getInstance().loadSound(welcomeSound, String.format("sfx/%s.ogg", welcomeSound), false).play();
         hitsound = ResourceManager.getInstance().loadSound("menuhit", "sfx/menuhit.ogg", false);
 
         /*if (BuildConfig.DEBUG) {
