@@ -145,21 +145,18 @@ public class MainActivity extends BaseGameActivity implements
         opt.getRenderOptions().disableExtensionVertexBufferObjects();
         opt.getTouchOptions().enableRunOnUpdateThread();
         final Engine engine = new Engine(opt);
-
-        if (Config.isMultitouch()) {
-            try {
-                if (MultiTouch.isSupported(this)) {
-                    engine.setTouchController(new MultiTouchController());
-                } else {
-                    ToastLogger.showText(
-                            StringTable.get(R.string.message_error_multitouch),
-                            false);
-                }
-            } catch (final MultiTouchException e) {
+        try {
+            if (MultiTouch.isSupported(this)) {
+                engine.setTouchController(new MultiTouchController());
+            } else {
                 ToastLogger.showText(
                         StringTable.get(R.string.message_error_multitouch),
                         false);
             }
+        } catch (final MultiTouchException e) {
+            ToastLogger.showText(
+                    StringTable.get(R.string.message_error_multitouch),
+                    false);
         }
         GlobalManager.getInstance().setCamera(mCamera);
         GlobalManager.getInstance().setEngine(engine);
