@@ -296,7 +296,6 @@ public class MainActivity extends BaseGameActivity implements
     public Scene onLoadScene() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
-                GlobalManager.getInstance().init();
                 ResourceManager.getInstance().loadSkin(Config.getSkinPath());
             }
 
@@ -313,6 +312,7 @@ public class MainActivity extends BaseGameActivity implements
     public void onLoadComplete() {
         new AsyncTaskLoader().execute(new OsuAsyncCallback() {
             public void run() {
+                GlobalManager.getInstance().init();
                 analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
                 GlobalManager.getInstance().setLoadingProgress(50);
                 checkNewBeatmaps();
