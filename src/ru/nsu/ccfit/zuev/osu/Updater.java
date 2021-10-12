@@ -65,8 +65,8 @@ public class Updater {
                         }
                     });
 
-                    ResponseBody response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases/latest");
-                    GithubReleaseVO updateInfo = new Gson().fromJson(response.string(), GithubReleaseVO.class);
+                    ResponseBody response = httpGet("https://api.github.com/repos/kairusds-testing/osu-droid/releases");
+                    GithubReleaseVO updateInfo = new Gson().fromJson(response.string(), GithubReleaseVO[].class)[0];
                     Debug.i("updateInfo body: " + updateInfo.getBody());
                     ArrayList<Asset> assets = new ArrayList<Asset>(updateInfo.getAssets());
                     Debug.i("assets size: " + String.valueOf(assets.size()));
