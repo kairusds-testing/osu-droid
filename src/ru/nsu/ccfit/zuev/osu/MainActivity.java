@@ -66,6 +66,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipFile;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -805,9 +808,10 @@ public class MainActivity extends BaseGameActivity implements
     }
 
     private void initAccessibilityDetector() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        ScheduledExecutorService scheduledExecutorService =
+            Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService
+            .scheduleAtFixedRate(() -> {
                 AccessibilityManager manager = (AccessibilityManager)
                     getSystemService(Context.ACCESSIBILITY_SERVICE);
                 List<AccessibilityServiceInfo> activeServices = new ArrayList<AccessibilityServiceInfo>(
@@ -819,17 +823,17 @@ public class MainActivity extends BaseGameActivity implements
                     if((AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES & capabilities)
                             == AccessibilityServiceInfo.CAPABILITY_CAN_PERFORM_GESTURES) {
                         if(!autoclickerDialogShown && activityVisible) {
-                            ConfirmDialogFragment dialog = new ConfirmDialogFragment()
-                                .setMessage(R.string.message_autoclicker_detected);
-                            dialog.setOnDismissListener(() -> forcedExit());
-                            dialog.showForResult(isAccepted -> forcedExit()); 
+                            runOnUiThread(() -> {
+                                ConfirmDialogFragment dialog = new ConfirmDialogFragment()
+                                    .setMessage(R.string.message_autoclicker_detected);
+                                dialog.setOnDismissListener(() -> forcedExit());
+                                dialog.showForResult(isAccepted -> forcedExit());
+                            });
                             autoclickerDialogShown = true;
                         }
                     }
                 }
-                handler.postDelayed(this, 1000);
-            }
-        });
+            }, 0, 1, TimeUnit.SECONDS);
     }
 
     public long getVersionCode() {
