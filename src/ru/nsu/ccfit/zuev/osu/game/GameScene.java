@@ -756,18 +756,18 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             }
             final ChangeableText fmemText = memText;
             fgScene.registerUpdateHandler(new FPSCounter() {
-                private float elapsedSecs = 0;
+                private int elapsedInt = 0;
 
                 @Override
                 public void onUpdate(final float pSecondsElapsed) {
                     super.onUpdate(pSecondsElapsed);
-                    elapsedSecs++;
+                    this.elapsedInt++;
                     fpsText.setText(Math.round(this.getFPS()) + " FPS");
-                    if (offsetRegs != 0 && elapsedSecs > 2) {
+                    if (offsetRegs != 0 && elapsedInt > 2000) {
                         accText.setText("Avg offset: "
                                 + (int) (avgOffset * 1000f / offsetRegs)
                                 + "ms");
-                        this.elapsedSecs = 0;
+                        this.elapsedInt = 0;
                     }
                     fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
                     accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());

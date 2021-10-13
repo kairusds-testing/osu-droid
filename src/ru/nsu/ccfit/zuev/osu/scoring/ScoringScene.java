@@ -461,11 +461,11 @@ public class ScoringScene {
             double max_aimpp = diffRecalculator.getAimPP();
             double max_spdpp = diffRecalculator.getSpdPP();
             double max_accpp = diffRecalculator.getAccPP();
-            ppinfo.append(String.format(Locale.ENGLISH, "%.2f*,", newstar));
-            ppinfo.append(String.format(Locale.ENGLISH, "PP:%.2f/%.2f(", pp, max_pp));
-            ppinfo.append(String.format(Locale.ENGLISH, "Aim:%.0f/%.0f,", aimpp, max_aimpp));
-            ppinfo.append(String.format(Locale.ENGLISH, "Spd:%.0f/%.0f,", spdpp, max_spdpp));
-            ppinfo.append(String.format(Locale.ENGLISH, "Acc:%.0f/%.0f)", accpp, max_accpp));
+            ppinfo.append(String.format(Locale.ENGLISH, "%.2f*, ", newstar));
+            ppinfo.append(String.format(Locale.ENGLISH, "%.2f/%.2fpp (", pp, max_pp));
+            ppinfo.append(String.format(Locale.ENGLISH, "Aim: %.0f/%.0f, ", aimpp, max_aimpp));
+            ppinfo.append(String.format(Locale.ENGLISH, "Speed: %.0f/%.0f, ", spdpp, max_spdpp));
+            ppinfo.append(String.format(Locale.ENGLISH, "Accuracy: %.0f/%.0f)", accpp, max_accpp));
             ppinfo.append("]");
             String ppStr = ppinfo.toString();
             final Text ppInfo = new Text(Utils.toRes(4), Config.getRES_HEIGHT() - playerInfo.getHeight() - Utils.toRes(2),
