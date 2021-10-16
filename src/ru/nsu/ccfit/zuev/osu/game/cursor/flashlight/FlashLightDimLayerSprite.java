@@ -5,6 +5,7 @@ import com.edlplan.andengine.TextureHelper;
 
 import org.anddev.andengine.entity.modifier.AlphaModifier;
 
+
 public class FlashLightDimLayerSprite extends FlashlightAreaSizedSprite {
     public final float BASE_SLIDER_DIM_ALPHA = 0.8f;
 

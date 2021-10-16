@@ -10,7 +10,8 @@ import org.anddev.andengine.util.modifier.ease.EaseExponentialOut;
 import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.menu.ModMenu;
 
-public class FlashLightEntity extends Entity {
+
+public class FlashLightEntity extends Entity  {
     private final MainFlashLightSprite mainSprite;
     private final FlashLightDimLayerSprite dimLayer;
     private boolean isTrackingSliders = false;
@@ -46,6 +47,7 @@ public class FlashLightEntity extends Entity {
         nextPX = FMath.clamp(pX, 0, Config.getRES_WIDTH());
         nextPY = FMath.clamp(pY, 0, Config.getRES_HEIGHT());
         currentModifier = new MoveModifier(flFollowDelay, this.getX(), nextPX, this.getY(), nextPY, EaseExponentialOut.getInstance());
+
         this.registerEntityModifier(currentModifier);
     }
 
@@ -58,3 +60,4 @@ public class FlashLightEntity extends Entity {
         mainSprite.onUpdate(combo);
     }
 }
+

@@ -11,13 +11,16 @@ import ru.nsu.ccfit.zuev.osu.ResourceManager;
 import ru.nsu.ccfit.zuev.osu.game.cursor.trail.CursorTrail;
 
 public class CursorEntity extends Entity {
-    private final CursorSprite cursorSprite;
+    protected final CursorSprite cursorSprite;
     private ParticleSystem particles = null;
     private PointParticleEmitter emitter = null;
     private boolean isShowing = false;
     private float particleOffsetX, particleOffsetY;
 
     public CursorEntity() {
+        TextureRegion cursorTex = ResourceManager.getInstance().getTexture("cursor");
+        cursorSprite = new CursorSprite(-cursorTex.getWidth() / 2f, -cursorTex.getWidth() / 2f, cursorTex);
+
         if (Config.isUseParticles()) {
             TextureRegion trailTex = ResourceManager.getInstance().getTexture("cursortrail");
 
@@ -25,11 +28,10 @@ public class CursorEntity extends Entity {
             particleOffsetY = -trailTex.getHeight() / 2f;
 
             emitter = new PointParticleEmitter(particleOffsetX, particleOffsetY);
-            particles = new CursorTrail(emitter, trailTex);
+            particles = new CursorTrail(
+                    emitter, 30, 2, 4, cursorSprite.baseSize, trailTex
+            );
         }
-
-        TextureRegion cursorTex = ResourceManager.getInstance().getTexture("cursor");
-        cursorSprite = new CursorSprite(-cursorTex.getWidth() / 2f, -cursorTex.getWidth() / 2f, cursorTex);
 
         attachChild(cursorSprite);
     }
