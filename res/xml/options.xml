@@ -126,7 +126,7 @@
         <ListPreference android:entries="@array/metronome_switch_names" android:title="@string/opt_metronome_switch_title"
             android:key="metronomeswitch" android:summary="@string/opt_metronome_switch_summary"
             android:defaultValue="1" android:entryValues="@array/metronome_switch_values"/>
-        <CheckBoxPreference android:summary="@string/opt_sounds_summary" android:title="@string/opt_sounds_title"
+        <CheckBoxPreference android:summary="@string/opt_sound_summary" android:title="@string/opt_sound_title"
             android:key="beatmapSounds" android:defaultValue="true"/>
         <CheckBoxPreference android:key="musicpreview" android:defaultValue="true"
             android:title="@string/opt_musicpreview_title"
