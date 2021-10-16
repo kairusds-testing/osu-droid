@@ -852,6 +852,12 @@ public class MainActivity extends BaseGameActivity implements
         return versionCode;
     }
 
+    public float getRefreshRate() {
+        return ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
+            .getDefaultDisplay()
+            .getRefreshRate();
+    }
+
     private boolean checkPermissions() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
                 Environment.isExternalStorageManager()) {
