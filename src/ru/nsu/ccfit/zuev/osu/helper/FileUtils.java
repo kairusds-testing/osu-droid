@@ -97,8 +97,10 @@ public class FileUtils {
                 return false;
             });
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return listFiles(directory, (file) ->
-                Arrays.stream(endsWithExtensions).anyMatch(file.getName::endsWith));
+            return listFiles(directory, file -> {
+                String filename = file.getName();
+                Arrays.stream(endsWithExtensions).anyMatch(filename::endsWith)
+            });
         }
         return null;
     }
