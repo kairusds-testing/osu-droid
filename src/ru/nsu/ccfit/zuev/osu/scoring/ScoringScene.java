@@ -502,7 +502,7 @@ public class ScoringScene {
                     || ModMenu.getInstance().isChangeSpeed()
                     || ModMenu.getInstance().isEnableForceAR()
                     || Float.compare(ModMenu.getInstance().getFLfollowDelay(),
-                        FlashLightEntity.defaultMoveDelayMS * 0.001f) != 0)){
+                        FlashLightEntity.defaultMoveDelayMS * 0.001f) != 1)){
                     SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
                             OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
                     sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
