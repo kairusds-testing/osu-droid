@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 
-public class ToastLogger /*implements Runnable */{
+public class ToastLogger {
     private static ToastLogger instance = null;
     Activity activity;
     String message = "";

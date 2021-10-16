@@ -30,14 +30,14 @@ public class FileUtils {
 
     private FileUtils() {}
 
-    public static void copyFile(File from, File to) throws FileNotFoundException, IOException {
+    public static void copy(File from, File to) throws FileNotFoundException, IOException {
         try (Source source = Okio.source(from);
             BufferedSink bufferedSink = Okio.buffer(Okio.sink(to))) {
             bufferedSink.writeAll(source);
         }
     }
 
-    public static void moveFile(File from, File to) throws FileNotFoundException, IOException {
+    public static void move(File from, File to) throws FileNotFoundException, IOException {
         copyFile(from, to);
         from.delete();
     }
