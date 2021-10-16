@@ -51,6 +51,7 @@ public class Spinner extends GameObject {
     private float metreY;
     private StatisticV2 stat;
     private float totalTime;
+    private boolean did = false;
 
     public Spinner() {
         ResourceManager.getInstance().checkSpinnerTextures();
