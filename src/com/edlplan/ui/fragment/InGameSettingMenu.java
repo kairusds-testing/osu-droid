@@ -68,7 +68,7 @@ public class InGameSettingMenu extends BaseFragment {
 
     private void applyCustomModColor() {
         final TextView customizedModsText = findViewById(R.id.customize_mods);
-        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayMS * 0.001f) == 1?  Color.RED: greenColor ;
+        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayMS * 0.001f) == 1?  Color.RED : greenColor;
         customizedModsText.setTextColor(color);
     }
 
