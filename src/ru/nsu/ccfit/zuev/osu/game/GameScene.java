@@ -715,7 +715,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
                     ModMenu.getInstance().setForceAR(Replay.oldForceAR);
                     ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
-                    ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay)
+                    ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
                     quit();
                 }
             }
@@ -795,7 +795,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         stat.setEnableForceAR(ModMenu.getInstance().isEnableForceAR());
         stat.setForceAR(ModMenu.getInstance().getForceAR());
         stat.setChangeSpeed(ModMenu.getInstance().getChangeSpeed());
-        stat.setFLFollowDelay(ModMenu.getInstance().getFLfollowDelay())
+        stat.setFLFollowDelay(ModMenu.getInstance().getFLfollowDelay());
 
         GameHelper.setHardrock(stat.getMod().contains(GameMod.MOD_HARDROCK));
         GameHelper.setDoubleTime(stat.getMod().contains(GameMod.MOD_DOUBLETIME));
@@ -1473,7 +1473,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                 gameStarted = false;
                 breakAnimator.init(breakPeriods.peek().getLength());
                 if(GameHelper.isFlashLight()){
-                    flashlightSprite.onBreak(true)
+                    flashlightSprite.onBreak(true);
                 }
                 if(scorebar != null) scorebar.setVisible(false);
                 breakPeriods.poll();
@@ -1886,7 +1886,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
                     ModMenu.getInstance().setForceAR(Replay.oldForceAR);
                     ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
-                    ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay)
+                    ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
                 }
 
                 if (replaying)

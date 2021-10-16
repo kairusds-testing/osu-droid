@@ -35,7 +35,7 @@ public class ModernSpinner extends Spinner {
 
     private GameObjectListener listener;
     private Scene scene;
-    public PointF center
+    public PointF center;
     private float needRotations;
     private int fullRotations = 0;
     private float rotations = 0;
