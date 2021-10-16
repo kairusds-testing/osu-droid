@@ -20,7 +20,7 @@ public class FlashLightEntity extends Entity  {
     private float nextPX;
     private float nextPY;
 
-    public static final float defaultMoveDelayMS = 0.12f;
+    public static final float defaultMoveDelayMS = 120f;
     public static final float defaultMoveDelayS = defaultMoveDelayMS * 0.001f;
 
     public FlashLightEntity() {

@@ -49,6 +49,15 @@ public class ModMenu implements IModSwitcher {
         return FLfollowDelay;
     }
 
+    public float getTrueFLFollowDelay() {
+        float trueFlDelay = (float) (Math.ceil(ModMenu.getInstance().getFLfollowDelay()
+            / FlashLightEntity.defaultMoveDelayMS)
+            * FlashLightEntity.defaultMoveDelayMS);
+        trueFlDelay = trueFlDelay <= 0 ? FlashLightEntity.defaultMoveDelayMS : trueFlDelay;
+
+        return trueFlDelay;
+    }
+
     public void setFLfollowDelay(float newfLfollowDelay) {
         FLfollowDelay = newfLfollowDelay;
     }
