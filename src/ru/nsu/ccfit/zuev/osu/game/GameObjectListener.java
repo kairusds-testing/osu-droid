@@ -6,14 +6,14 @@ import java.util.BitSet;
 
 import ru.nsu.ccfit.zuev.osu.RGBColor;
 
-interface GameObjectListener {
+public interface GameObjectListener {
 
     int SLIDER_START = 1, SLIDER_REPEAT = 2, SLIDER_END = 3, SLIDER_TICK = 4;
 
     void onCircleHit(int id, float accuracy, PointF pos, boolean endCombo, byte forcedScore, RGBColor color);
 
     void onSliderHit(int id, int score, PointF start, PointF end,
-                            boolean endCombo, RGBColor color, int type);
+                     boolean endCombo, RGBColor color, int type);
 
     void onSliderEnd(int id, int accuracy, BitSet tickSet);
 
@@ -43,7 +43,9 @@ interface GameObjectListener {
 
     void registerAccuracy(float acc);
     
-    void setFlashLightsPosition(float pX, float pY);
+    void updateAutoBasedPos(float pX, float pY);
 
-    void setFlashLightSliderDim(boolean isDim);
+    void onTrackingSliders(boolean isTrackingSliders);
+
+    void onUpdatedAutoCursor(float pX, float pY);
 }
