@@ -763,7 +763,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
                     super.onUpdate(pSecondsElapsed);
                     elapsedInt++;
                     fpsText.setText(Math.round(this.getFPS()) + " FPS");
-                    if (offsetRegs != 0 && elapsedInt > 60) {
+                    if (offsetRegs != 0 && elapsedInt > 200) {
                         accText.setText("Avg offset: "
                                 + (int) (avgOffset * 1000f / offsetRegs)
                                 + "ms");
