@@ -25,6 +25,7 @@ import ru.nsu.ccfit.zuev.osu.Config;
 import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.Utils;
 import ru.nsu.ccfit.zuev.osu.game.GameScene;
+import ru.nsu.ccfit.zuev.osu.game.cursor.flashlight.FlashLightEntity;
 import ru.nsu.ccfit.zuev.osu.game.mods.GameMod;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
@@ -54,6 +55,8 @@ public class Replay {
     public static float oldChangeSpeed = 1.0f;
     public static float oldForceAR = 9.0f;
     public static boolean oldEnableForceAR = false;
+    public static float oldFLFollowDelay = FlashLightEntity.defaultMoveDelayS;
+
     public Replay() {
         cursorMoves.add(new MoveArray(200));
         cursorMoves.add(new MoveArray(50));

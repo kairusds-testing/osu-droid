@@ -26,6 +26,7 @@ import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.TrackInfo;
 import ru.nsu.ccfit.zuev.osu.Utils;
 import ru.nsu.ccfit.zuev.osu.game.GameScene;
+import ru.nsu.ccfit.zuev.osu.game.cursor.flashlight.FlashLightEntity;
 import ru.nsu.ccfit.zuev.osu.game.mods.GameMod;
 import ru.nsu.ccfit.zuev.osu.helper.DifficultyReCalculator;
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
@@ -274,10 +275,13 @@ public class ScoringScene {
                     Replay.oldChangeSpeed = ModMenu.getInstance().getChangeSpeed();
                     Replay.oldForceAR = ModMenu.getInstance().getForceAR();
                     Replay.oldEnableForceAR = ModMenu.getInstance().isEnableForceAR();
+                    Replay.oldFLFollowDelay = ModMenu.getInstance().getFLfollowDelay();
+
                     ModMenu.getInstance().setMod(stat.getMod());
                     ModMenu.getInstance().setChangeSpeed(stat.getChangeSpeed());
                     ModMenu.getInstance().setForceAR(stat.getForceAR());
                     ModMenu.getInstance().setEnableForceAR(stat.isEnableForceAR());
+                    ModMenu.getInstance().setFLfollowDelay(stat.getFLFollowDelay());
 //					Replay.mod = stat.getMod();
                     game.startGame(trackToReplay, replay);
                     scene = null;
@@ -421,13 +425,20 @@ public class ScoringScene {
         String playerStr = "Played by " + stat.getPlayerName() + " on " +
                 new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(new java.util.Date(stat.getTime()));
         playerStr += String.format("  %s(%s)", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE);
-        if (stat.getChangeSpeed() != 1 || stat.isEnableForceAR()){
+        if (stat.getChangeSpeed() != 1 ||
+            stat.isEnableForceAR() ||
+            Float.compare(stat.getFLFollowDelay(), FlashLightEntity.defaultMoveDelayS) != 0 &&
+            stat.getMod().contains(GameMod.MOD_FLASHLIGHT)) {
+
             mapperStr += " [";
             if (stat.getChangeSpeed() != 1){
                 mapperStr += String.format(Locale.ENGLISH, "%.2fx,", stat.getChangeSpeed());
             }
             if (stat.isEnableForceAR()){
                 mapperStr += String.format(Locale.ENGLISH, "AR%.1f,", stat.getForceAR());
+            }
+            if (Float.compare(stat.getFLFollowDelay(), FlashLightEntity.defaultMoveDelayS) != 0 && stat.getMod().contains(GameMod.MOD_FLASHLIGHT)){
+                mapperStr += String.format(Locale.ENGLISH, "FLD%.2f,", stat.getFLFollowDelay());
             }
             if (mapperStr.endsWith(",")){
                 mapperStr = mapperStr.substring(0, mapperStr.length() - 1);
@@ -489,7 +500,8 @@ public class ScoringScene {
 
                 if(!hasUnrankedMod || !(Config.isRemoveSliderLock()
                     || ModMenu.getInstance().isChangeSpeed()
-                    || ModMenu.getInstance().isEnableForceAR())){
+                    || ModMenu.getInstance().isEnableForceAR()
+                    || Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayS) != 0)){
                     SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
                             OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
                     sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
