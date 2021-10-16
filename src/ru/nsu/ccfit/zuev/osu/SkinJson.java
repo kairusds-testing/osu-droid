@@ -51,7 +51,7 @@ public class SkinJson {
         BufferedSource source = Okio.buffer(Okio.source(file));
         String result = source.readUtf8();
         source.close();
-        return result
+        return result;
     }
 
     public float getComboTextScale() {
