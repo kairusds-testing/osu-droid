@@ -21,6 +21,7 @@ import java.util.UUID;
 
 public class Config {
     private static String corePath,
+        defaultCorePath,
         beatmapPath,
         cachePath,
         skinPath,
@@ -142,7 +143,7 @@ public class Config {
         }
 
         //advanced
-        String defaultCorePath = Environment.getExternalStorageDirectory() + "/osu!droid/";
+        defaultCorePath = Environment.getExternalStorageDirectory() + "/osu!droid/";
         corePath = prefs.getString("corePath", defaultCorePath);
         if (corePath.length() == 0) {
             corePath = defaultCorePath;
@@ -744,6 +745,10 @@ public class Config {
 
     public static void setTrianglesAnimation(boolean trianglesAnimation) {
         Config.trianglesAnimation = trianglesAnimation;
+    }
+
+    public static String getDefaultCorePath() {
+        return defaultCorePath;
     }
 
 }
