@@ -38,7 +38,6 @@ public class Replay {
     public static final byte ID_DOWN = 0;
     public static final byte ID_UP = 2;
 
-    ;
     public static final byte ID_MOVE = 1;
     public static EnumSet<GameMod> mod = EnumSet.noneOf(GameMod.class);
     public static EnumSet<GameMod> oldMod = EnumSet.noneOf(GameMod.class);
