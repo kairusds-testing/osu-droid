@@ -36,8 +36,8 @@ public class FileUtils {
     }
 
     public static void moveFile(File from, File to) {
-        from.delete();
         copyFile(from, to);
+        from.delete();
     }
 
     public static String getFileChecksum(String algorithm, File file) {
@@ -105,7 +105,7 @@ public class FileUtils {
         File[] filelist = null;
         // if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
         filelist = directory.listFiles(pathname -> filter.accept(pathname));
-        /* figure out why this is causing an sdcard corruption
+        /* TODO: figure out why NIO file operations are causing an sdcard corruption
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LinkedList<File> cachedFiles = new LinkedList<File>();
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
