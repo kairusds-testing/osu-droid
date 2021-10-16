@@ -36,7 +36,9 @@ public class SkinPathPreference extends ListPreference {
             new AsyncTaskLoader().execute(new OsuAsyncCallback() {
                 public void run() {
                     File skinMain = new File(Config.getSkinTopPath());
-                    if (!skinMain.exists()) skinMain.mkdir();
+                    if(!skinMain.exists() && !skinMain.mkdir()) {
+                        skinMain = new File(Config.getDefaultCorePath() + "Skin/");
+                    }
                     File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith("."));
                     CharSequence[] entries = new CharSequence[skinFolders.length + 1];
                     CharSequence[] entryValues = new CharSequence[skinFolders.length + 1];
