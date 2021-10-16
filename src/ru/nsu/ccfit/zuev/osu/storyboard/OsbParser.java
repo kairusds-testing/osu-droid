@@ -450,7 +450,7 @@ public class OsbParser {
     private void parseTimingPoints(BufferedSource source) throws IOException {
         String line;
         float lastLengthPerBeat = -100;
-        while ((line = source.readLine()) != null) {
+        while ((line = source.readUtf8Line()) != null) {
             line = line.trim();
             if (line.equals("")) return;
             String[] values = line.split(",");

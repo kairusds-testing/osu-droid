@@ -38,7 +38,7 @@ public class FileUtils {
     }
 
     public static void move(File from, File to) throws FileNotFoundException, IOException {
-        copyFile(from, to);
+        copy(from, to);
         from.delete();
     }
 
