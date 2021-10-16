@@ -20,6 +20,7 @@ import java.util.Locale;
 import org.anddev.andengine.input.touch.TouchEvent;
 
 import ru.nsu.ccfit.zuev.osu.Config;
+import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.game.cursor.flashlight.FlashLightEntity;
 import ru.nsu.ccfit.zuev.osu.menu.ModMenu;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -264,7 +265,6 @@ public class InGameSettingMenu extends BaseFragment {
         ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", ModMenu.getInstance().getForceAR()));
 
         flashlightFollowDelay = findViewById(R.id.flashlightFollowDelayBar);
-
         flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             final TextView flFollowDelayText = findViewById(R.id.flashlightFollowDelayText);
 
@@ -273,6 +273,7 @@ public class InGameSettingMenu extends BaseFragment {
                 float p = (float) (Math.ceil(i / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
                 p = p <= 0? FlashLightEntity.defaultMoveDelayMS : p;
                 ModMenu.getInstance().setFLfollowDelay(Math.round(p * 0.001 * 100) / 100f);
+                ToastLogger.showText("FL Follow Delay: " + (Math.round(p * 0.001 * 100) / 100f), false);
                 applyCustomModColor();
                 flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", p));
             }
