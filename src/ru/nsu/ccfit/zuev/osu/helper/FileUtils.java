@@ -97,8 +97,8 @@ public class FileUtils {
                 return false;
             });
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return listFiles(directory, (dir, name) ->
-                Arrays.stream(endsWithExtensions).anyMatch(name::endsWith));
+            return listFiles(directory, (file) ->
+                Arrays.stream(endsWithExtensions).anyMatch(file.getName::endsWith));
         }
         return null;
     }
@@ -112,7 +112,7 @@ public class FileUtils {
             DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
                 @Override
                 public boolean accept(Path entry) {
-                    return filter.accept(entry.toFile(), entry.toFile().getName());
+                    return filter.accept(entry.toFile());
                 }
             };
             try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory.getAbsolutePath()), directoryFilter)) {
