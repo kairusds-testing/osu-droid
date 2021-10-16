@@ -99,7 +99,7 @@ public class FileUtils {
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return listFiles(directory, file -> {
                 String filename = file.getName();
-                Arrays.stream(endsWithExtensions).anyMatch(filename::endsWith)
+                return Arrays.stream(endsWithExtensions).anyMatch(filename::endsWith);
             });
         }
         return null;
