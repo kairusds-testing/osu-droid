@@ -19,11 +19,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 // import java.util.LinkedList;
 
+import okio.BufferedSink;
+import okio.Source;
+
 import org.anddev.andengine.util.Debug;
 
 public class FileUtils {
 
     private FileUtils() {}
+
+    public static void copyFile(File from, File to) {
+        try (Source source = Okio.source(from);
+            BufferedSink bufferedSink = Okio.buffer(Okio.sink(to))) {
+            bufferedSink.writeAll(source);
+        }
+    }
+
+    public static void moveFile(File from, File to) {
+        from.delete();
+        copyFile(from, to);
+    }
 
     public static String getFileChecksum(String algorithm, File file) {
         StringBuilder sb = new StringBuilder();
