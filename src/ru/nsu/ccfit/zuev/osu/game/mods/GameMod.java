@@ -3,7 +3,7 @@ package ru.nsu.ccfit.zuev.osu.game.mods;
 public enum GameMod {
     /*
      * Temporarily unranked mods (until adjusted):
-     * sd, pf, sc, re, fl, scorev2(?)
+     * sd, pf, sc, re, fl
      */
     MOD_NOFAIL("nf", 0.5f),
     MOD_AUTO("auto", 0, true),
