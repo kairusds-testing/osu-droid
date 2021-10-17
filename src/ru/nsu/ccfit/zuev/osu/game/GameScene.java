@@ -1401,8 +1401,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
             autoCursor.update(dt);
         } else if (cursorSprites != null) {
             for (int i = 0; i < CursorCount; i++) {
-                cursorSprites[i].update(dt);
                 cursorSprites[i].setPosition(cursors[i].mousePos.x, cursors[i].mousePos.y);
+                cursorSprites[i].update(dt);
                 if (cursors[i].mouseDown) {
                     cursorSprites[i].setShowing(true);
                     if (cursors[i].mousePressed) {

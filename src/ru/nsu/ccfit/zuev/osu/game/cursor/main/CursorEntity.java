@@ -47,7 +47,7 @@ public class CursorEntity extends Entity {
     }
 
     public void update(float pSecondsElapsed) {
-        this.handleLongerTrail();
+        // this.handleLongerTrail();
         cursorSprite.update(pSecondsElapsed, isShowing);
         super.onManagedUpdate(pSecondsElapsed);
     }
