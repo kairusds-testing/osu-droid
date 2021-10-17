@@ -495,7 +495,7 @@ public class ScoringScene {
         if (track != null && mapMD5 != null) {
 
             boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
-                .applyFilter(m -> m.unranked).hasNext();
+                .applyFilter(m -> !m.unranked).hasNext();
             ToastLogger.showText("unranked: " + hasUnrankedMod, false);
 
             if (stat.getModifiedTotalScore() > 0 && OnlineManager.getInstance().isStayOnline() &&
