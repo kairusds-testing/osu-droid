@@ -497,12 +497,12 @@ public class ScoringScene {
                     OnlineManager.getInstance().isReadyToSend()) {
                 boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
                     .applyFilter(m -> m.unranked).hasNext();
+                ToastLogger.showText("unranked: " + hasUnrankedMod, false);
 
                 if(!hasUnrankedMod || !(Config.isRemoveSliderLock()
                     || ModMenu.getInstance().isChangeSpeed()
                     || ModMenu.getInstance().isEnableForceAR())
-                    || (ModMenu.getInstance().getFLfollowDelay() != FlashLightEntity.defaultMoveDelayS
-                        && !stat.getMod().contains(GameMod.MOD_FLASHLIGHT))){
+                    || ModMenu.getInstance().getFLfollowDelay() != FlashLightEntity.defaultMoveDelayS){
                     SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
                             OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
                     sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
