@@ -501,7 +501,7 @@ public class ScoringScene {
                     || ModMenu.getInstance().isChangeSpeed()
                     || ModMenu.getInstance().isEnableForceAR())
                     || (ModMenu.getInstance().getFLfollowDelay() == FlashLightEntity.defaultMoveDelayS
-                        && !GameHelper.isFlashLight())){
+                        && !stat.getMod().contains(GameMod.MOD_FLASHLIGHT))){
                     SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
                             OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
                     sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
