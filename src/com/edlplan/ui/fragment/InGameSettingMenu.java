@@ -273,7 +273,7 @@ public class InGameSettingMenu extends BaseFragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // float delayValue = (float) (Math.ceil(progress / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
                 //  delayValue = progress == 0 ? FlashLightEntity.defaultMoveDelayMS : progress;
-                ModMenu.getInstance().setFLfollowDelay(Math.round(((float) progress * FlashLightEntity.defaultMoveDelayMS) * 0.1 * 0.1 * 0.1));
+                ModMenu.getInstance().setFLfollowDelay(Math.round(((float) progress * FlashLightEntity.defaultMoveDelayMS) * 0.1f * 0.1f * 0.1f));
                 applyCustomModColor();
                 flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", (float) progress * FlashLightEntity.defaultMoveDelayMS));
             }
