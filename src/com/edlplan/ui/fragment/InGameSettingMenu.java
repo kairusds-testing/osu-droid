@@ -268,24 +268,21 @@ public class InGameSettingMenu extends BaseFragment {
         flashlightFollowDelay.incrementProgressBy(120);
         flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             final TextView flFollowDelayText = findViewById(R.id.flashlightFollowDelayText);
-            float delay = 0.12f;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // float delayValue = (float) (Math.ceil(progress / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
                 //  delayValue = progress == 0 ? FlashLightEntity.defaultMoveDelayMS : progress;
-                delay = Math.round((float) progress * 0.001f);
+                ModMenu.getInstance().setFLfollowDelay(Math.round((float) progress * 0.1 * 0.1 * 0.1);
                 applyCustomModColor();
-                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", (float) progress));
+                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", (float) progress * 120.0f));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                ModMenu.getInstance().setFLfollowDelay(delay);
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
         ((TextView) findViewById(R.id.forceARText)).setText(String.format("AR%.1f", ModMenu.getInstance().getForceAR()));
     }
