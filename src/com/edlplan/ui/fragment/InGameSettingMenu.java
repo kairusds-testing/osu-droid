@@ -20,7 +20,6 @@ import java.util.Locale;
 import org.anddev.andengine.input.touch.TouchEvent;
 
 import ru.nsu.ccfit.zuev.osu.Config;
-import ru.nsu.ccfit.zuev.osu.ToastLogger;
 import ru.nsu.ccfit.zuev.osu.game.cursor.flashlight.FlashLightEntity;
 import ru.nsu.ccfit.zuev.osu.menu.ModMenu;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -266,24 +265,19 @@ public class InGameSettingMenu extends BaseFragment {
 
         flashlightFollowDelay = findViewById(R.id.flashlightFollowDelayBar);
         flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            final TextView flFollowDelayText = findViewById(R.id.flashlightFollowDelayText);
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // float delayValue = (float) (Math.ceil(progress / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
-                //  delayValue = progress == 0 ? FlashLightEntity.defaultMoveDelayMS : progress;
                 ModMenu.getInstance().setFLfollowDelay((float) Math.round(progress * 1200f) / (10f * 1000f));
                 applyCustomModColor();
-                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", progress * FlashLightEntity.defaultMoveDelayMS));
+                ((TextView) findViewById(R.id.flashlightFollowDelayText))
+                    .setText(String.format(Locale.getDefault(), "%.1fms", progress * FlashLightEntity.defaultMoveDelayMS));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                ToastLogger.showText(ModMenu.getInstance().getFLfollowDelay() + "", false);
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
         ((TextView) findViewById(R.id.forceARText)).setText(String.format("AR%.1f", ModMenu.getInstance().getForceAR()));
     }
