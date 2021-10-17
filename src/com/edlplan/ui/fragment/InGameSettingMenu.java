@@ -276,7 +276,7 @@ public class InGameSettingMenu extends BaseFragment {
                 float delayValue = Math.round(progress * FlashLightEntity.defaultMoveDelayMS) * 0.1f * 0.1f * 0.1f;
                 ModMenu.getInstance().setFLfollowDelay(delayValue);
                 applyCustomModColor();
-                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", delayValue /* (float) progress * FlashLightEntity.defaultMoveDelayMS) */);
+                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", delayValue /* (float) progress * FlashLightEntity.defaultMoveDelayMS */));
             }
 
             @Override
