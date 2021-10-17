@@ -1247,7 +1247,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
         fgScene.attachChild(unranked);
 
         boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
-            .applyFilter(m -> !m.unranked).hasNext();
+            .applyFilter(m -> m.unranked).hasNext();
         if (hasUnrankedMod
                 || Config.isRemoveSliderLock()
                 || ModMenu.getInstance().isChangeSpeed()
