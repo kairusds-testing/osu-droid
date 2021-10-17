@@ -496,17 +496,19 @@ public class ScoringScene {
                     OnlineManager.getInstance().isReadyToSend()) {
                 boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
                     .applyFilter(m -> m.unranked).hasNext();
-
-                if(!hasUnrankedMod || !Config.isRemoveSliderLock()
-                    || !ModMenu.getInstance().isChangeSpeed()
-                    || !ModMenu.getInstance().isEnableForceAR()){
-                    SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
-                            OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
-                    sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
-                    scene.registerTouchArea(sendingPanel.getDismissTouchArea());
-                    scene.attachChild(sendingPanel);
-                    ScoreLibrary.getInstance().sendScoreOnline(stat, replay, sendingPanel);
+                if (hasUnrankedMod
+                    || Config.isRemoveSliderLock()
+                    || ModMenu.getInstance().isChangeSpeed()
+                    || ModMenu.getInstance().isEnableForceAR()) {
+                    return;
                 }
+
+                SendingPanel sendingPanel = new SendingPanel(OnlineManager.getInstance().getRank(),
+                        OnlineManager.getInstance().getScore(), OnlineManager.getInstance().getAccuracy());
+                sendingPanel.setPosition(Config.getRES_WIDTH() / 2 - 400, Utils.toRes(-300));
+                scene.registerTouchArea(sendingPanel.getDismissTouchArea());
+                scene.attachChild(sendingPanel);
+                ScoreLibrary.getInstance().sendScoreOnline(stat, replay, sendingPanel);
             }
 
             ResourceManager.getInstance().getSound("applause").play();
