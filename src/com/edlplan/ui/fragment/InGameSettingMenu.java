@@ -68,7 +68,7 @@ public class InGameSettingMenu extends BaseFragment {
 
     private void applyCustomModColor() {
         final TextView customizedModsText = findViewById(R.id.customize_mods);
-        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayS) != 0 ? Color.RED : greenColor;
+        int color = mModMenu.getInstance().getFLfollowDelay() != FlashLightEntity.defaultMoveDelayS ? Color.RED : greenColor;
         customizedModsText.setTextColor(color);
     }
 
@@ -265,7 +265,6 @@ public class InGameSettingMenu extends BaseFragment {
         ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", ModMenu.getInstance().getForceAR()));
 
         flashlightFollowDelay = findViewById(R.id.flashlightFollowDelayBar);
-        flashlightFollowDelay.incrementProgressBy(120);
         flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             final TextView flFollowDelayText = findViewById(R.id.flashlightFollowDelayText);
 
@@ -283,7 +282,9 @@ public class InGameSettingMenu extends BaseFragment {
             public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                ToastLogger.showText(ModMenu.getInstance().getFLfollowDelay() + "", false);
+            }
         });
         ((TextView) findViewById(R.id.forceARText)).setText(String.format("AR%.1f", ModMenu.getInstance().getForceAR()));
     }
