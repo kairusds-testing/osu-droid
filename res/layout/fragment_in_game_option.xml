@@ -343,6 +343,7 @@
 								android:layout_width="350dp"
 								android:layout_height="wrap_content"
 								android:layout_gravity="center_vertical"
+								android:min="120"
 								android:max="1200" />
 							<TextView
 								android:id="@+id/flashlightFollowDelayText"

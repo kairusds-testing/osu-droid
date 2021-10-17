@@ -68,7 +68,7 @@ public class InGameSettingMenu extends BaseFragment {
 
     private void applyCustomModColor() {
         final TextView customizedModsText = findViewById(R.id.customize_mods);
-        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayS) == 1 ? Color.RED : greenColor;
+        int color = ModMenu.getInstance().getFLfollowDelay() != FlashLightEntity.defaultMoveDelayS ? Color.RED : greenColor;
         customizedModsText.setTextColor(color);
     }
 
@@ -265,23 +265,27 @@ public class InGameSettingMenu extends BaseFragment {
         ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", ModMenu.getInstance().getForceAR()));
 
         flashlightFollowDelay = findViewById(R.id.flashlightFollowDelayBar);
+        flashlightFollowDelay.incrementProgressBy(120);
         flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             final TextView flFollowDelayText = findViewById(R.id.flashlightFollowDelayText);
+            float delay = 0.12f;
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                float p = (float) (Math.ceil(i / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
-                p = p <= 0? FlashLightEntity.defaultMoveDelayMS : p;
-                ModMenu.getInstance().setFLfollowDelay(Math.round(p * 0.001f * 100f) / 100f);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // float delayValue = (float) (Math.ceil(progress / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
+                //  delayValue = progress == 0 ? FlashLightEntity.defaultMoveDelayMS : progress;
+                delay = Math.round((float) progress * 0.001f);
                 applyCustomModColor();
-                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", p));
+                flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", (float) progress));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                ModMenu.getInstance().setFLfollowDelay(delay);
+            }
         });
         ((TextView) findViewById(R.id.forceARText)).setText(String.format("AR%.1f", ModMenu.getInstance().getForceAR()));
     }
