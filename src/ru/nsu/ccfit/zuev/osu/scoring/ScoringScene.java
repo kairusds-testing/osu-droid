@@ -493,11 +493,15 @@ public class ScoringScene {
 
         //save and upload score
         if (track != null && mapMD5 != null) {
+
+            boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
+                .applyFilter(m -> m.unranked).hasNext();
+            ToastLogger.showText("unranked: " + hasUnrankedMod, false);
+
             if (stat.getModifiedTotalScore() > 0 && OnlineManager.getInstance().isStayOnline() &&
                     OnlineManager.getInstance().isReadyToSend()) {
-                boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
-                    .applyFilter(m -> m.unranked).hasNext();
-                ToastLogger.showText("unranked: " + hasUnrankedMod, false);
+                /* boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
+                    .applyFilter(m -> m.unranked).hasNext();*/
 
                 if(!hasUnrankedMod || !(Config.isRemoveSliderLock()
                     || ModMenu.getInstance().isChangeSpeed()
