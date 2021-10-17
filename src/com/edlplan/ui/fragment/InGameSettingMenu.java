@@ -68,7 +68,7 @@ public class InGameSettingMenu extends BaseFragment {
 
     private void applyCustomModColor() {
         final TextView customizedModsText = findViewById(R.id.customize_mods);
-        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayMS * 0.001f) == 1?  Color.RED : greenColor;
+        int color = Float.compare(ModMenu.getInstance().getFLfollowDelay(), FlashLightEntity.defaultMoveDelayS) == 1 ? Color.RED : greenColor;
         customizedModsText.setTextColor(color);
     }
 
@@ -272,7 +272,7 @@ public class InGameSettingMenu extends BaseFragment {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float p = (float) (Math.ceil(i / FlashLightEntity.defaultMoveDelayMS) * FlashLightEntity.defaultMoveDelayMS);
                 p = p <= 0? FlashLightEntity.defaultMoveDelayMS : p;
-                ModMenu.getInstance().setFLfollowDelay(Math.round(p * 0.001 * 100) / 100f);
+                ModMenu.getInstance().setFLfollowDelay(Math.round(p * 0.001f * 100f) / 100f);
                 applyCustomModColor();
                 flFollowDelayText.setText(String.format(Locale.getDefault(), "%.1fms", p));
             }
