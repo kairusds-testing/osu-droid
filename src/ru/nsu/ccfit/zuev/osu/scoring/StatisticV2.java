@@ -23,7 +23,7 @@ public class StatisticV2 implements Serializable {
     long time = 0;
     private Random random;
     private int notes = 0;
-    private boolean perfect = false;
+    private boolean perfect = true;
     private int currentCombo = 0;
     private int scoreHash = 0;
     private int totalScore;
