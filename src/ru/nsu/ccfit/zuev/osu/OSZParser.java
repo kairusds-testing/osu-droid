@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
 import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osuplus.R;
@@ -48,7 +49,7 @@ public class OSZParser {
             // Adding to library
             LibraryManager.getInstance().addBeatmap(
                     new File(Config.getBeatmapPath() + folderName), null);
-        } catch (final FileNotFoundException e) {
+        } catch (final ZipException e) {
             Debug.e("OSZParser.ParseOSZ: " + e.getMessage(), e);
             return false;
         } catch (final Exception e) {
