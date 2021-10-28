@@ -7,8 +7,8 @@ import lt.ekgame.beatmap_analyzer.utils.Mods;
 
 public interface DifficultyCalculator {
 
-    public Difficulty calculate(Mods mods, Beatmap beatmap);
+	public Difficulty calculate(Mods mods, Beatmap beatmap);
 
-    public double calculateDifficulty(List<Double> strains);
+	public double calculateDifficulty(List<Double> strains);
 
 }

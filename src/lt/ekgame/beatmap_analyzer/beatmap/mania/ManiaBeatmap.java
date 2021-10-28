@@ -16,59 +16,59 @@ import lt.ekgame.beatmap_analyzer.utils.Mods;
 
 public class ManiaBeatmap extends Beatmap {
 
-    private List<ManiaObject> hitObjects;
+	private List<ManiaObject> hitObjects;
 
-    public ManiaBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-                        BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
-                        List<ManiaObject> hitObjects) {
-        super(generals, editorState, metadata, difficulties, breaks, timingPoints);
-        this.hitObjects = hitObjects;
+	public ManiaBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
+						BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
+						List<ManiaObject> hitObjects) {
+		super(generals, editorState, metadata, difficulties, breaks, timingPoints);
+		this.hitObjects = hitObjects;
 
-        finalizeObjects(hitObjects);
-    }
+		finalizeObjects(hitObjects);
+	}
 
-    @Override
-    public Gamemode getGamemode() {
-        return Gamemode.MANIA;
-    }
+	@Override
+	public Gamemode getGamemode() {
+		return Gamemode.MANIA;
+	}
 
-    @Override
-    public ManiaDifficultyCalculator getDifficultyCalculator() {
-        return new ManiaDifficultyCalculator();
-    }
+	@Override
+	public ManiaDifficultyCalculator getDifficultyCalculator() {
+		return new ManiaDifficultyCalculator();
+	}
 
-    @Override
-    public ManiaDifficulty getDifficulty(Mods mods) {
-        return getDifficultyCalculator().calculate(mods, this);
-    }
+	@Override
+	public ManiaDifficulty getDifficulty(Mods mods) {
+		return getDifficultyCalculator().calculate(mods, this);
+	}
 
-    @Override
-    public ManiaDifficulty getDifficulty() {
-        return getDifficulty(Mods.NOMOD);
-    }
+	@Override
+	public ManiaDifficulty getDifficulty() {
+		return getDifficulty(Mods.NOMOD);
+	}
 
-    public List<ManiaObject> getHitObjects() {
-        return hitObjects;
-    }
+	public List<ManiaObject> getHitObjects() {
+		return hitObjects;
+	}
 
-    public int getCollumns() {
-        return (int) difficulties.getCS();
-    }
+	public int getCollumns() {
+		return (int) difficulties.getCS();
+	}
 
-    @Override
-    public int getMaxCombo() {
-        int c = 0;
-        for (ManiaObject h : hitObjects) {
-            c += h.getCombo();
-        }
+	@Override
+	public int getMaxCombo() {
+		int c = 0;
+		for (ManiaObject h : hitObjects) {
+			c += h.getCombo();
+		}
 
-        return c;
+		return c;
 
-        //return hitObjects.stream().mapToInt(o->o.getCombo()).sum();
-    }
+		//return hitObjects.stream().mapToInt(o->o.getCombo()).sum();
+	}
 
-    @Override
-    public int getObjectCount() {
-        return hitObjects.size();
-    }
+	@Override
+	public int getObjectCount() {
+		return hitObjects.size();
+	}
 }

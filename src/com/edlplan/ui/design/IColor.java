@@ -4,10 +4,10 @@ import com.edlplan.framework.math.Color4;
 
 public interface IColor {
 
-    Color4 getColor();
+	Color4 getColor();
 
-    default boolean isContextNeeded() {
-        return false;
-    }
+	default boolean isContextNeeded() {
+		return false;
+	}
 
 }
