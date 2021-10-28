@@ -23,109 +23,109 @@ import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class WebViewFragment extends BaseFragment {
 
-    public static final String REGISTER_URL = "https://" + OnlineManager.hostname + "/user/?action=register";
-    public static final String PROFILE_URL = "https://" + OnlineManager.hostname + "/profile.php?uid=";
+	public static final String REGISTER_URL = "https://" + OnlineManager.hostname + "/user/?action=register";
+	public static final String PROFILE_URL = "https://" + OnlineManager.hostname + "/profile.php?uid=";
 
-    private WebView webview;
-    private String url;
-    private LoadingFragment loadingFragment;
+	private WebView webview;
+	private String url;
+	private LoadingFragment loadingFragment;
 
-    public WebViewFragment setURL(String url) {
-        this.url = url;
-        return this;
-    }
+	public WebViewFragment setURL(String url) {
+		this.url = url;
+		return this;
+	}
 
-    @Override
-    protected int getLayoutID() {
-        return R.layout.fragment_webview;
-    }
+	@Override
+	protected int getLayoutID() {
+		return R.layout.fragment_webview;
+	}
 
-    @Override
-    protected void onLoadView() {
-        webview = (WebView) findViewById(R.id.web);
-        WebSettings webSettings = webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setUserAgentString("osudroid");
+	@Override
+	protected void onLoadView() {
+		webview = (WebView) findViewById(R.id.web);
+		WebSettings webSettings = webview.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		webSettings.setUserAgentString("osudroid");
 
-        ((ImageButton) findViewById(R.id.close_button)).setOnClickListener(v -> {
-            dismiss();
-        });
+		((ImageButton) findViewById(R.id.close_button)).setOnClickListener(v -> {
+			dismiss();
+		});
 
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                if(loadingFragment == null) {
-                    loadingFragment = new LoadingFragment();
-                    loadingFragment.show();
-                }
-            }
+		webview.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				if(loadingFragment == null) {
+					loadingFragment = new LoadingFragment();
+					loadingFragment.show();
+				}
+			}
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if(loadingFragment != null) {
-                    loadingFragment.dismiss();
-                    loadingFragment = null;
-                }
-            }
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				if(loadingFragment != null) {
+					loadingFragment.dismiss();
+					loadingFragment = null;
+				}
+			}
 
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
-            }
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				return false;
+			}
 
-            @Override
-            @TargetApi(Build.VERSION_CODES.N)
-            public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
-                return false;
-            }
-        });
-        webview.loadUrl(url);
-        playOnLoadAnim();
-    }
+			@Override
+			@TargetApi(Build.VERSION_CODES.N)
+			public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
+				return false;
+			}
+		});
+		webview.loadUrl(url);
+		playOnLoadAnim();
+	}
 
-    @Override
-    public void dismiss() {
-        playOnDismissAnim(super::dismiss);
-    }
+	@Override
+	public void dismiss() {
+		playOnDismissAnim(super::dismiss);
+	}
 
-    @Override
-    public void callDismissOnBackPress() {
-        if(webview.canGoBack()) {
-            webview.goBack();
-        }else {
-            dismiss();
-        }
-    }
+	@Override
+	public void callDismissOnBackPress() {
+		if(webview.canGoBack()) {
+			webview.goBack();
+		}else {
+			dismiss();
+		}
+	}
 
-    protected void playOnLoadAnim() {
-        View body = findViewById(R.id.fullLayout);
-        body.setTranslationY(100);
-        body.animate().cancel();
-        body.animate()
-            .translationY(0)
-            .setDuration(200)
-            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-            .start();
-        playBackgroundHideInAnim(200);
-    }
+	protected void playOnLoadAnim() {
+		View body = findViewById(R.id.fullLayout);
+		body.setTranslationY(100);
+		body.animate().cancel();
+		body.animate()
+			.translationY(0)
+			.setDuration(200)
+			.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+			.start();
+		playBackgroundHideInAnim(200);
+	}
 
-    protected void playOnDismissAnim(Runnable runnable) {
-        View body = findViewById(R.id.fullLayout);
-        body.animate().cancel();
-        body.animate()
-            .translationY(100)
-            .setDuration(200)
-            .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-            .setListener(new BaseAnimationListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (runnable != null) {
-                        runnable.run();
-                    }
-                }
-            })
-            .start();
-        playBackgroundHideOutAnim(200);
-    }
+	protected void playOnDismissAnim(Runnable runnable) {
+		View body = findViewById(R.id.fullLayout);
+		body.animate().cancel();
+		body.animate()
+			.translationY(100)
+			.setDuration(200)
+			.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+			.setListener(new BaseAnimationListener() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					if (runnable != null) {
+						runnable.run();
+					}
+				}
+			})
+			.start();
+		playBackgroundHideOutAnim(200);
+	}
 
 }

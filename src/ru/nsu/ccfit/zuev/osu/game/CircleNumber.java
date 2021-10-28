@@ -13,74 +13,74 @@ import ru.nsu.ccfit.zuev.osu.SkinJson;
 import ru.nsu.ccfit.zuev.osu.async.SyncTaskManager;
 
 public class CircleNumber extends GameObject {
-    private final Sprite[] digits;
-    private final int num;
+	private final Sprite[] digits;
+	private final int num;
 
-    public CircleNumber(final int number) {
-        num = number;
-        final String snum = String.valueOf(Math.abs(number));
+	public CircleNumber(final int number) {
+		num = number;
+		final String snum = String.valueOf(Math.abs(number));
 
-        digits = new Sprite[snum.length()];
-        for (int i = 0; i < snum.length(); i++) {
-            final TextureRegion tex = ResourceManager.getInstance().getTexture(
-                    "default-" + snum.charAt(i));
-            digits[i] = new Sprite(0, 0, tex);
-        }
-    }
+		digits = new Sprite[snum.length()];
+		for (int i = 0; i < snum.length(); i++) {
+			final TextureRegion tex = ResourceManager.getInstance().getTexture(
+					"default-" + snum.charAt(i));
+			digits[i] = new Sprite(0, 0, tex);
+		}
+	}
 
-    public void init(final Scene scene, final PointF pos, float scale,
-                     final IEntityModifier... entityModifiers) {
-        scale *= SkinJson.get().getComboTextScale();
-        final String snum = String.valueOf(Math.abs(num));
+	public void init(final Scene scene, final PointF pos, float scale,
+					 final IEntityModifier... entityModifiers) {
+		scale *= SkinJson.get().getComboTextScale();
+		final String snum = String.valueOf(Math.abs(num));
 
-        float twidth = 0;
-        final PointF hitpos = new PointF();
-        for (int i = 0; i < snum.length(); i++) {
-            final TextureRegion tex = digits[i].getTextureRegion();
-            hitpos.set(twidth + pos.x, pos.y - tex.getHeight() / 2);
-            twidth += (snum.charAt(i) == '1' && snum.length() > 1) ? scale
-                    * tex.getWidth() / 1.5f : scale * tex.getWidth();
-            digits[i].setPosition(hitpos.x, hitpos.y);
+		float twidth = 0;
+		final PointF hitpos = new PointF();
+		for (int i = 0; i < snum.length(); i++) {
+			final TextureRegion tex = digits[i].getTextureRegion();
+			hitpos.set(twidth + pos.x, pos.y - tex.getHeight() / 2);
+			twidth += (snum.charAt(i) == '1' && snum.length() > 1) ? scale
+					* tex.getWidth() / 1.5f : scale * tex.getWidth();
+			digits[i].setPosition(hitpos.x, hitpos.y);
 
-            digits[i].registerEntityModifier(new ParallelEntityModifier(
-                    entityModifiers));
-            digits[i].setScale(scale);
-            scene.attachChild(digits[i], 0);
-        }
+			digits[i].registerEntityModifier(new ParallelEntityModifier(
+					entityModifiers));
+			digits[i].setScale(scale);
+			scene.attachChild(digits[i], 0);
+		}
 
-        twidth /= 2;
+		twidth /= 2;
 
-        for (final Sprite sp : digits) {
-            sp.setPosition(sp.getX() - twidth / scale, sp.getY());
-        }
-    }
+		for (final Sprite sp : digits) {
+			sp.setPosition(sp.getX() - twidth / scale, sp.getY());
+		}
+	}
 
-    public int getNum() {
-        return num;
-    }
+	public int getNum() {
+		return num;
+	}
 
-    public void detach(final boolean sync) {
-        if (sync) {
-            SyncTaskManager.getInstance().run(new Runnable() {
-
-
-                public void run() {
-                    for (final Sprite sp : digits) {
-                        sp.clearEntityModifiers();
-                        sp.detachSelf();
-                    }
-                }
-            });
-        } else {
-            for (final Sprite sp : digits) {
-                sp.clearEntityModifiers();
-                sp.detachSelf();
-            }
-        } // if (sync)
-    }
+	public void detach(final boolean sync) {
+		if (sync) {
+			SyncTaskManager.getInstance().run(new Runnable() {
 
 
-    @Override
-    public void update(final float dt) {
-    }
+				public void run() {
+					for (final Sprite sp : digits) {
+						sp.clearEntityModifiers();
+						sp.detachSelf();
+					}
+				}
+			});
+		} else {
+			for (final Sprite sp : digits) {
+				sp.clearEntityModifiers();
+				sp.detachSelf();
+			}
+		} // if (sync)
+	}
+
+
+	@Override
+	public void update(final float dt) {
+	}
 }

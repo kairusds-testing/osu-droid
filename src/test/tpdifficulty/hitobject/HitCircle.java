@@ -9,20 +9,20 @@ import test.tpdifficulty.TimingPoint;
  */
 public class HitCircle extends HitObject {
 
-    public HitCircle(int startTime, PointF pos, TimingPoint timingPoint) {
-        super(startTime, startTime, HitObjectType.Normal, pos, timingPoint);
-        this.repeat = 1;
-    }
+	public HitCircle(int startTime, PointF pos, TimingPoint timingPoint) {
+		super(startTime, startTime, HitObjectType.Normal, pos, timingPoint);
+		this.repeat = 1;
+	}
 
-    public String toString() {
-        return "HitCircle{" +
-                super.toString() +
-                ", Combo=" + getCombo(0, 0) +
-                "}";
-    }
+	public String toString() {
+		return "HitCircle{" +
+				super.toString() +
+				", Combo=" + getCombo(0, 0) +
+				"}";
+	}
 
-    @Override
-    public int getCombo(float sliderTick, float sliderSpeed) {
-        return 1;
-    }
+	@Override
+	public int getCombo(float sliderTick, float sliderSpeed) {
+		return 1;
+	}
 }

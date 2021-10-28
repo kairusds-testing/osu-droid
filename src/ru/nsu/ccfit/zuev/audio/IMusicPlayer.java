@@ -1,29 +1,29 @@
 package ru.nsu.ccfit.zuev.audio;
 
 public interface IMusicPlayer {
-    void prepare();
+	void prepare();
 
-    void play();
+	void play();
 
-    void pause();
+	void pause();
 
-    void stop();
+	void stop();
 
-    void release();
+	void release();
 
-    Status getStatus();
+	Status getStatus();
 
-    int getPosition();
+	int getPosition();
 
-    int getLength();
+	int getLength();
 
-    void seekTo(int ms);
+	void seekTo(int ms);
 
-    void setUseSoftDecoder(int decoder);
+	void setUseSoftDecoder(int decoder);
 
-    void setDecoderMultiplier(int multiplier);
+	void setDecoderMultiplier(int multiplier);
 
-    float getVolume();
+	float getVolume();
 
-    void setVolume(float volume);
+	void setVolume(float volume);
 }

@@ -14,159 +14,159 @@ import ru.nsu.ccfit.zuev.osu.polygon.PolygonVertexBuffer;
 
 public class TriangleTexture3DPack extends Shape {
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
+	// ===========================================================
+	// Fields
+	// ===========================================================
 
-    private final PolygonVertexBuffer mPolygonVertexBuffer;
-    private float[] mVertices;
-    private float[] mTextureCoord;
-    private TextureRegion textureRegion;
+	private final PolygonVertexBuffer mPolygonVertexBuffer;
+	private float[] mVertices;
+	private float[] mTextureCoord;
+	private TextureRegion textureRegion;
 
-    // ===========================================================
-    // Constructors
-    // ===========================================================
+	// ===========================================================
+	// Constructors
+	// ===========================================================
 
-    public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord) {
-        this(pX, pY, pVertices, pTextureCoord, new PolygonVertexBuffer(pVertices.length,
-                GL11.GL_STATIC_DRAW, true));
-    }
+	public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord) {
+		this(pX, pY, pVertices, pTextureCoord, new PolygonVertexBuffer(pVertices.length,
+				GL11.GL_STATIC_DRAW, true));
+	}
 
-    public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord,
-                                 final PolygonVertexBuffer pPolygonVertexBuffer) {
-        super(pX, pY);
+	public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord,
+								 final PolygonVertexBuffer pPolygonVertexBuffer) {
+		super(pX, pY);
 
-        this.mVertices = pVertices;
-        this.mTextureCoord = pTextureCoord;
+		this.mVertices = pVertices;
+		this.mTextureCoord = pTextureCoord;
 
-        this.mPolygonVertexBuffer = pPolygonVertexBuffer;
-        this.updateVertexBuffer();
-    }
+		this.mPolygonVertexBuffer = pPolygonVertexBuffer;
+		this.updateVertexBuffer();
+	}
 
-    public TextureRegion getTextureRegion() {
-        return textureRegion;
-    }
+	public TextureRegion getTextureRegion() {
+		return textureRegion;
+	}
 
-    public void setTextureRegion(TextureRegion textureRegion) {
-        this.textureRegion = textureRegion;
-    }
+	public void setTextureRegion(TextureRegion textureRegion) {
+		this.textureRegion = textureRegion;
+	}
 
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
+	// ===========================================================
+	// Getter & Setter
+	// ===========================================================
 
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
+	// ===========================================================
+	// Methods for/from SuperClass/Interfaces
+	// ===========================================================
 
-    @Override
-    protected void onInitDraw(final GL10 pGL) {
-        super.onInitDraw(pGL);
-        GLHelper.disableCulling(pGL);
-    }
-
-
-    @Override
-    protected VertexBuffer getVertexBuffer() {
-        return this.mPolygonVertexBuffer;
-    }
+	@Override
+	protected void onInitDraw(final GL10 pGL) {
+		super.onInitDraw(pGL);
+		GLHelper.disableCulling(pGL);
+	}
 
 
-    @Override
-    protected void onUpdateVertexBuffer() {
-        //this.mPolygonVertexBuffer.update(mVertices);
-    }
-
-    public void updateShape() {
-        onUpdateVertexBuffer();
-    }
-
-    public float[] getVertices() {
-        return mVertices;
-    }
-
-    public void setVertices(float[] v) {
-        mVertices = v;
-        //onUpdateVertexBuffer();
-    }
-
-    @Override
-    protected void drawVertices(final GL10 pGL, final Camera pCamera) {
-        if (mVertices.length == 0 || mTextureCoord.length == 0 || textureRegion == null) {
-            return;
-        }
-        boolean isEnable = GLHelper.isEnableDepthTest();
-        GLHelper.enableDepthTest(pGL);
-        GLHelper.enableTexCoordArray(pGL);
-        GLHelper.enableTextures(pGL);
-        textureRegion.getTexture().bind(pGL);
-        //pGL.glColor4f(getRed(), getGreen(), getBlue(), getAlpha());
-        TriangleTexture3DRenderer.get().renderTriangles(mVertices, mTextureCoord, pGL);
-        GLHelper.setDepthTest(pGL, isEnable);
-    }
+	@Override
+	protected VertexBuffer getVertexBuffer() {
+		return this.mPolygonVertexBuffer;
+	}
 
 
-    @Override
-    protected boolean isCulled(final Camera pCamera) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	@Override
+	protected void onUpdateVertexBuffer() {
+		//this.mPolygonVertexBuffer.update(mVertices);
+	}
+
+	public void updateShape() {
+		onUpdateVertexBuffer();
+	}
+
+	public float[] getVertices() {
+		return mVertices;
+	}
+
+	public void setVertices(float[] v) {
+		mVertices = v;
+		//onUpdateVertexBuffer();
+	}
+
+	@Override
+	protected void drawVertices(final GL10 pGL, final Camera pCamera) {
+		if (mVertices.length == 0 || mTextureCoord.length == 0 || textureRegion == null) {
+			return;
+		}
+		boolean isEnable = GLHelper.isEnableDepthTest();
+		GLHelper.enableDepthTest(pGL);
+		GLHelper.enableTexCoordArray(pGL);
+		GLHelper.enableTextures(pGL);
+		textureRegion.getTexture().bind(pGL);
+		//pGL.glColor4f(getRed(), getGreen(), getBlue(), getAlpha());
+		TriangleTexture3DRenderer.get().renderTriangles(mVertices, mTextureCoord, pGL);
+		GLHelper.setDepthTest(pGL, isEnable);
+	}
 
 
-    public boolean collidesWith(final IShape pOtherShape) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	@Override
+	protected boolean isCulled(final Camera pCamera) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
-    public float getBaseHeight() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	public boolean collidesWith(final IShape pOtherShape) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
-    public float getBaseWidth() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	public float getBaseHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
-    public float getHeight() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	public float getBaseWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
-    @Override
-    public float[] getSceneCenterCoordinates() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	public float getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
-    public float getWidth() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	@Override
+	public float[] getSceneCenterCoordinates() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
-    @Deprecated
-    public boolean contains(final float pX, final float pY) {
-        return false;
-    }
+	public float getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
-    @Override
-    @Deprecated
-    public float[] convertLocalToSceneCoordinates(final float pX, final float pY) {
-        return null;
-    }
+	@Deprecated
+	public boolean contains(final float pX, final float pY) {
+		return false;
+	}
 
 
-    @Override
-    @Deprecated
-    public float[] convertSceneToLocalCoordinates(final float pX, final float pY) {
-        return null;
-    }
+	@Override
+	@Deprecated
+	public float[] convertLocalToSceneCoordinates(final float pX, final float pY) {
+		return null;
+	}
+
+
+	@Override
+	@Deprecated
+	public float[] convertSceneToLocalCoordinates(final float pX, final float pY) {
+		return null;
+	}
 
 }

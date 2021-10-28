@@ -8,20 +8,20 @@ import lt.ekgame.beatmap_analyzer.utils.Vec2;
 
 public abstract class ManiaObject extends HitObject {
 
-    private int collumn;
+	private int collumn;
 
-    public ManiaObject(Vec2 position, int startTime, int endTime, int hitSound) {
-        super(position, startTime, endTime, hitSound);
-    }
+	public ManiaObject(Vec2 position, int startTime, int endTime, int hitSound) {
+		super(position, startTime, endTime, hitSound);
+	}
 
-    @Override
-    public void finalize(TimingPoint current, TimingPoint parent, Beatmap beatmap) {
-        int numCollumns = ((ManiaBeatmap) beatmap).getCollumns();
-        collumn = MathUtils.calculateManiaCollumn(position.getX(), numCollumns);
-    }
+	@Override
+	public void finalize(TimingPoint current, TimingPoint parent, Beatmap beatmap) {
+		int numCollumns = ((ManiaBeatmap) beatmap).getCollumns();
+		collumn = MathUtils.calculateManiaCollumn(position.getX(), numCollumns);
+	}
 
-    public int getCollumn() {
-        return collumn;
-    }
+	public int getCollumn() {
+		return collumn;
+	}
 
 }

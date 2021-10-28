@@ -25,65 +25,65 @@ import java.io.IOException;
  */
 public class VideoBackgroundTestActivity extends BaseGameActivity {
 
-    private static final int CAMERA_WIDTH = 640;
-    private static final int CAMERA_HEIGHT = 360;
+	private static final int CAMERA_WIDTH = 640;
+	private static final int CAMERA_HEIGHT = 360;
 
-    private VideoSprite mVideo;
+	private VideoSprite mVideo;
 
-    private TextureRegion mCursorTextureRegion;
-    private Sprite mCursor;
+	private TextureRegion mCursorTextureRegion;
+	private Sprite mCursor;
 
-    private TextureRegion mMenuBackTextureRegion;
-    private Sprite mMenuBack;
+	private TextureRegion mMenuBackTextureRegion;
+	private Sprite mMenuBack;
 
-    public Engine onLoadEngine() {
-        Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-        return new Engine(new EngineOptions(true,
-                EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-                camera));
-    }
+	public Engine onLoadEngine() {
+		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		return new Engine(new EngineOptions(true,
+				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+				camera));
+	}
 
-    public void onLoadResources() {
-        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+	public void onLoadResources() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
-        BitmapTextureAtlas cursorAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
-        mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                cursorAtlas, this, "cursor.png", 0, 0);
-        getEngine().getTextureManager().loadTexture(cursorAtlas);
+		BitmapTextureAtlas cursorAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
+		mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				cursorAtlas, this, "cursor.png", 0, 0);
+		getEngine().getTextureManager().loadTexture(cursorAtlas);
 
-        BitmapTextureAtlas menuBackAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
-        mMenuBackTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                menuBackAtlas, this, "menu-back.png", 0, 0);
-        getEngine().getTextureManager().loadTexture(menuBackAtlas);
+		BitmapTextureAtlas menuBackAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
+		mMenuBackTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				menuBackAtlas, this, "menu-back.png", 0, 0);
+		getEngine().getTextureManager().loadTexture(menuBackAtlas);
 
-        try {
-            mVideo = new VideoSprite(0, 0, 640, 360);
-            mVideo.setDataSource(Environment.getExternalStorageDirectory().getPath() + "/butterfly.avi");
-        } catch (IOException e) {
-            Log.i("Load avi", e.getMessage());
-        }
-    }
+		try {
+			mVideo = new VideoSprite(0, 0, 640, 360);
+			mVideo.setDataSource(Environment.getExternalStorageDirectory().getPath() + "/butterfly.avi");
+		} catch (IOException e) {
+			Log.i("Load avi", e.getMessage());
+		}
+	}
 
-    public Scene onLoadScene() {
-        final Scene scene = new Scene();
-        scene.setBackground(new ColorBackground(0f, 0f, 0f));
+	public Scene onLoadScene() {
+		final Scene scene = new Scene();
+		scene.setBackground(new ColorBackground(0f, 0f, 0f));
 
-        // missing texCoordinatePointer
-        scene.attachChild(mVideo);
+		// missing texCoordinatePointer
+		scene.attachChild(mVideo);
 
-        mCursor = new Sprite(CAMERA_WIDTH - this.mCursorTextureRegion.getWidth(), CAMERA_HEIGHT - this.mCursorTextureRegion.getHeight(), this.mCursorTextureRegion);
-        scene.attachChild(mCursor);
+		mCursor = new Sprite(CAMERA_WIDTH - this.mCursorTextureRegion.getWidth(), CAMERA_HEIGHT - this.mCursorTextureRegion.getHeight(), this.mCursorTextureRegion);
+		scene.attachChild(mCursor);
 
-        mMenuBack = new Sprite(0, CAMERA_HEIGHT - this.mMenuBackTextureRegion.getHeight(), this.mMenuBackTextureRegion);
-        // mMenuBack.setColor(1, 0, 0);
-        scene.attachChild(mMenuBack);
+		mMenuBack = new Sprite(0, CAMERA_HEIGHT - this.mMenuBackTextureRegion.getHeight(), this.mMenuBackTextureRegion);
+		// mMenuBack.setColor(1, 0, 0);
+		scene.attachChild(mMenuBack);
 
-        // scene.sortChildren();
+		// scene.sortChildren();
 
-        return scene;
-    }
+		return scene;
+	}
 
-    public void onLoadComplete() {
-        mVideo.play();
-    }
+	public void onLoadComplete() {
+		mVideo.play();
+	}
 }

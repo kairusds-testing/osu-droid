@@ -9,26 +9,26 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class InvalidateView extends View {
-    public InvalidateView(Context context) {
-        super(context);
-    }
+	public InvalidateView(Context context) {
+		super(context);
+	}
 
-    public InvalidateView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public InvalidateView(Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public InvalidateView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+	public InvalidateView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public InvalidateView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public InvalidateView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+	}
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        invalidate();
-    }
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		invalidate();
+	}
 }

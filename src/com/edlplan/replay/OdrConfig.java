@@ -8,20 +8,20 @@ import java.io.File;
 
 public class OdrConfig {
 
-    public static File getSongDir() {
-        return new File(Config.getBeatmapPath());
-    }
+	public static File getSongDir() {
+		return new File(Config.getBeatmapPath());
+	}
 
-    public static File getDatabaseDir() {
-        return new File(Config.getCorePath() + "/databases");
-    }
+	public static File getDatabaseDir() {
+		return new File(Config.getCorePath() + "/databases");
+	}
 
-    public static File getScoreDir() {
-        return new File(Config.getScorePath());
-    }
+	public static File getScoreDir() {
+		return new File(Config.getScorePath());
+	}
 
-    public static File getMainDatabase() {
-        return new File(getDatabaseDir(), "osudroid_test.db");
-    }
+	public static File getMainDatabase() {
+		return new File(getDatabaseDir(), "osudroid_test.db");
+	}
 
 }
