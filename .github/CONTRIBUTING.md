@@ -13,6 +13,7 @@ The following is a set of guidelines for contributing to osu!droid. These are mo
 
 [Styleguides](#styleguides)
   * [Git Commit Messages](#git-commit-messages)
+  * [Issues](#issues)
 
 ## I don't want to read this whole thing I just have a question!!!
 
@@ -51,6 +52,5 @@ While the prerequisites above must be satisfied prior to having your pull reques
 * Limit the first line to 72 characters or less
 
 ### Issues
-* Your issue must be written in English or Chinese.
-* Do not duplicate bug reports.
-* An issue with your actual work (such as a pull request that solves your issue) will be helpful.
+* Must be written in English or Chinese
+* Do not duplicate bug reports
