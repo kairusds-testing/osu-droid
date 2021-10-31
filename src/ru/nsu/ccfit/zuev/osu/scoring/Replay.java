@@ -280,7 +280,7 @@ public class Replay {
 
 	public boolean load(final String filename) {
 		ObjectInputStream os;
-		int version = msize = 0;
+		int version = 0, msize = 0;
 
 		try {
 			final ZipInputStream zip = new ZipInputStream(new FileInputStream(
