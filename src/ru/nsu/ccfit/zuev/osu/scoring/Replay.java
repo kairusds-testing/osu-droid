@@ -446,15 +446,8 @@ public class Replay {
 				array.time[i] >>= 2;
 				if (array.id[i] != ID_UP) {
 					PointF gamePoint;
-					try {
-						gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
-								(float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
-					}catch(EOFException e) {
-						// float doesn't exist which means its an old replay file
-						// Note: this might be lossy
-						gamePoint = new PointF((short) (is.readShort() / Config.getTextureQuality()),
-								(short) (is.readShort() / Config.getTextureQuality()));
-					}
+					gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
+								(float) (is.readShort() / Config.getTextureQuality()));
 
 					if (replay.replayVersion == 1) {
 						PointF realPoint = Utils.trackToRealCoords(Utils.realToTrackCoords(gamePoint, 1024, 600, true));
