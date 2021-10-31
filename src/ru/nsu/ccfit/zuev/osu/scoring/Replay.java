@@ -362,7 +362,7 @@ public class Replay {
 		}catch (IOException e) {
 			ToastLogger.showTextId(R.string.replay_corrupted, true);
 			Debug.e("Cannot load replay: " + e.getMessage(), e);
-			return null;
+			return false;
 		}
 
 		try {
