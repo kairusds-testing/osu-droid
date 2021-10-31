@@ -444,8 +444,8 @@ public class Replay {
 				array.id[i] = (byte) (array.time[i] & 3);
 				array.time[i] >>= 2;
 				if (array.id[i] != ID_UP) {
-					PointF gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
-							(float) (is.readShort() / Config.getTextureQuality()));
+					PointF gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
+							(float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
 					/*if (GameHelper.isHardrock())
 					{
 						array.y[i] = Utils.flipY(array.y[i]);
@@ -523,8 +523,8 @@ public class Replay {
 			for (int i = 0; i < size; i++) {
 				os.writeInt((time[i] << 2) + id[i]);
 				if (id[i] != ID_UP) {
-					os.writeShort(x[i] * Config.getTextureQuality());
-					os.writeShort(y[i] * Config.getTextureQuality());
+					os.writeFloat(x[i] * Config.getTextureQuality());
+					os.writeFloat(y[i] * Config.getTextureQuality());
 				}
 			}
 		}
