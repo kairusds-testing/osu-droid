@@ -265,6 +265,7 @@ public class Replay {
 
 		} catch (EOFException e) {
 			Debug.e("O_o eof...");
+			Debug.e("Replay.loadInfo: " + e.getMessage(), e);
 			ToastLogger.showTextId(R.string.replay_corrupted, true);
 			return false;
 
@@ -367,6 +368,7 @@ public class Replay {
 			}
 		} catch (EOFException e) {
 			Debug.e("O_o eof...");
+			Debug.e("Replay.load: " + e.getMessage(), e);
 			ToastLogger.showTextId(R.string.replay_corrupted, true);
 			return false;
 
