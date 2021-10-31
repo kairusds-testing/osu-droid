@@ -355,8 +355,14 @@ public class Replay {
 			return false;
 		}
 
-		for (int i = 0; i < msize; i++) {
-			cursorMoves.add(MoveArray.readFrom(os, this));
+		try {
+			for (int i = 0; i < msize; i++) {
+				cursorMoves.add(MoveArray.readFrom(os, this));
+			}
+		}catch (IOException e) {
+			ToastLogger.showTextId(R.string.replay_corrupted, true);
+			Debug.e("Cannot load replay: " + e.getMessage(), e);
+			return null;
 		}
 
 		try {
@@ -461,10 +467,6 @@ public class Replay {
 						// Note: this might be lossy
 						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
 								(float) (is.readShort() / Config.getTextureQuality()));
-					}catch (Exception e) {
-						ToastLogger.showTextId(R.string.replay_corrupted, true);
-						Debug.e("Cannot load replay: " + e.getMessage(), e);
-						return null;
 					}
 
 					if (replay.replayVersion == 1) {
