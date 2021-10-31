@@ -451,7 +451,7 @@ public class Replay {
 						gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
 								(float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
 					}catch(EOFException e) {
-						// short doesn't exist which means its an old replay file, if not throw an error
+						// float doesn't exist which means its an old replay file
 						// Note: this might be lossy
 						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
 								(float) (is.readShort() / Config.getTextureQuality()));
