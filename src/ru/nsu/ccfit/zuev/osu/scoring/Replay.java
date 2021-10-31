@@ -280,8 +280,6 @@ public class Replay {
 
 	public boolean load(final String filename) {
 		ObjectInputStream os;
-		int version = 0, msize = 0;
-
 		try {
 			final ZipInputStream zip = new ZipInputStream(new FileInputStream(
 					new File(filename)));
@@ -292,10 +290,11 @@ public class Replay {
 			Debug.e("Cannot load replay: " + e.getMessage(), e);
 			return false;
 		}
+
 		Debug.i("Loading replay " + filename);
 
 		cursorMoves.clear();
-
+		int version = 0;
 		try {
 			String mname;
 			Object firstObject = os.readObject();
@@ -344,28 +343,11 @@ public class Replay {
 				stat.setExtraModFromString((String) os.readObject());
 			}
 
-			msize = os.readInt();
-		}catch(EOFException e) {
-			Debug.e("Replay.load: " + e.getMessage(), e);
-			ToastLogger.showTextId(R.string.replay_corrupted, true);
-			return false;
-		}catch(Exception e) {
-			ToastLogger.showTextId(R.string.replay_corrupted, true);
-			Debug.e("Cannot load replay: " + e.getMessage(), e);
-			return false;
-		}
-
-		try {
+			int msize = os.readInt();
 			for (int i = 0; i < msize; i++) {
 				cursorMoves.add(MoveArray.readFrom(os, this));
 			}
-		}catch (IOException e) {
-			ToastLogger.showTextId(R.string.replay_corrupted, true);
-			Debug.e("Cannot load replay: " + e.getMessage(), e);
-			return false;
-		}
 
-		try {
 			os.readInt();
 			for (int i = 0; i < objectData.length; i++) {
 				ReplayObjectData data = new ReplayObjectData();
@@ -384,7 +366,12 @@ public class Replay {
 				}
 				objectData[i] = data;
 			}
-		}catch(Exception e) {
+		} catch (EOFException e) {
+			Debug.e("Replay.load: " + e.getMessage(), e);
+			ToastLogger.showTextId(R.string.replay_corrupted, true);
+			return false;
+		}
+		catch (Exception e) {
 			ToastLogger.showTextId(R.string.replay_corrupted, true);
 			Debug.e("Cannot load replay: " + e.getMessage(), e);
 			return false;
@@ -421,8 +408,9 @@ public class Replay {
 
 	public static class ReplayVersion implements Serializable {
 		private static final long serialVersionUID = 4643121693566795335L;
-		int version = 4;
+		int version = 5;
 		// version 4: Add ExtraModString's save and load in save()/load()/loadInfo()
+		// version 5: changed gamePoints to be a float type
 	}
 
 	public static class ReplayObjectData {
@@ -459,14 +447,13 @@ public class Replay {
 				array.time[i] >>= 2;
 				if (array.id[i] != ID_UP) {
 					PointF gamePoint;
-					try {
+
+					if(replay.replayVersion >= 5) {
 						gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
 								(float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
-					}catch(EOFException e) {
-						// float doesn't exist which means its an old replay file
-						// Note: this might be lossy
+					}else {
 						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
-								(float) (is.readShort() / Config.getTextureQuality()));
+							(float) (is.readShort() / Config.getTextureQuality()));
 					}
 
 					if (replay.replayVersion == 1) {
