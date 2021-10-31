@@ -105,14 +105,14 @@ public class Replay {
 		if (pid > GameScene.CursorCount) return;
 
 		int itime = Math.max(0, (int) (time * 1000));
-		cursorMoves.get(pid).pushBack(itime, (short) pos.x, (short) pos.y, ID_DOWN);
+		cursorMoves.get(pid).pushBack(itime, pos.x, pos.y, ID_DOWN);
 	}
 
 	public void addMove(final float time, final PointF pos, final int pid) {
 		if (pid > GameScene.CursorCount) return;
 
 		int itime = Math.max(0, (int) (time * 1000));
-		cursorMoves.get(pid).pushBack(itime, (short) pos.x, (short) pos.y, ID_MOVE);
+		cursorMoves.get(pid).pushBack(itime, pos.x, pos.y, ID_MOVE);
 	}
 
 	public void addUp(final float time, final int pid) {
@@ -419,8 +419,8 @@ public class Replay {
 
 	public static class MoveArray {
 		public int[] time;
-		public short[] x;
-		public short[] y;
+		public float[] x;
+		public float[] y;
 		public byte[] id;
 
 		public int size;
@@ -430,8 +430,8 @@ public class Replay {
 			allocated = startSize;
 			size = 0;
 			time = new int[allocated];
-			x = new short[allocated];
-			y = new short[allocated];
+			x = new float[allocated];
+			y = new float[allocated];
 			id = new byte[allocated];
 		}
 
@@ -444,20 +444,20 @@ public class Replay {
 				array.id[i] = (byte) (array.time[i] & 3);
 				array.time[i] >>= 2;
 				if (array.id[i] != ID_UP) {
-					PointF gamePoint = new PointF((short) (is.readShort() / Config.getTextureQuality()),
-							(short) (is.readShort() / Config.getTextureQuality()));
+					PointF gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
+							(float) (is.readShort() / Config.getTextureQuality()));
 					/*if (GameHelper.isHardrock())
 					{
 						array.y[i] = Utils.flipY(array.y[i]);
 					}*/
 					if (replay.replayVersion == 1) {
 						PointF realPoint = Utils.trackToRealCoords(Utils.realToTrackCoords(gamePoint, 1024, 600, true));
-						array.x[i] = (short) realPoint.x;
-						array.y[i] = (short) realPoint.y;
+						array.x[i] = (float) realPoint.x;
+						array.y[i] = (float) realPoint.y;
 					} else if (replay.replayVersion > 1) {
 						PointF realPoint = Utils.trackToRealCoords(gamePoint);
-						array.x[i] = (short) realPoint.x;
-						array.y[i] = (short) realPoint.y;
+						array.x[i] = (float) realPoint.x;
+						array.y[i] = (float) realPoint.y;
 					}
 				}
 				array.size = size;
@@ -469,8 +469,8 @@ public class Replay {
 		public void reallocate(int newSize) {
 			if (newSize <= allocated) return;
 			int[] newTime = new int[newSize];
-			short[] newX = new short[newSize];
-			short[] newY = new short[newSize];
+			float[] newX = new float[newSize];
+			float[] newY = new float[newSize];
 			byte[] newId = new byte[newSize];
 
 			System.arraycopy(time, 0, newTime, 0, size);
@@ -486,7 +486,7 @@ public class Replay {
 			allocated = newSize;
 		}
 
-		public boolean checkNewPoint(short px, short py) {
+		public boolean checkNewPoint(float px, float py) {
 			if (size < 2) return false;
 			float tx = (px + x[size - 2]) * 0.5f;
 			float ty = (py + y[size - 2]) * 0.5f;
@@ -494,7 +494,7 @@ public class Replay {
 			return (Utils.sqr(x[size - 1] - tx) + Utils.sqr(y[size - 1] - ty)) <= 25;
 		}
 
-		public void pushBack(int time, short x, short y, byte id) {
+		public void pushBack(int time, float x, float y, byte id) {
 			int idx = size;
 			if (id == ID_MOVE && checkNewPoint(x, y)) {
 				idx = size - 1;
