@@ -453,7 +453,7 @@ public class Replay {
 					}catch(EOFException e) {
 						// short doesn't exist which means its an old replay file, if not throw an error
 						// Note: this might be lossy
-						gamePoint = new PointF((float) (is.readShort()) / Config.getTextureQuality()),
+						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
 								(float) (is.readShort() / Config.getTextureQuality()));
 					} catch (Exception e) {
 						Debug.e("Replay.readFrom: " + e.getMessage(), e);
@@ -462,12 +462,12 @@ public class Replay {
 
 					if (replay.replayVersion == 1) {
 						PointF realPoint = Utils.trackToRealCoords(Utils.realToTrackCoords(gamePoint, 1024, 600, true));
-						array.x[i] = (float) realPoint.x;
-						array.y[i] = (float) realPoint.y;
+						array.x[i] = realPoint.x;
+						array.y[i] = realPoint.y;
 					} else if (replay.replayVersion > 1) {
 						PointF realPoint = Utils.trackToRealCoords(gamePoint);
-						array.x[i] = (float) realPoint.x;
-						array.y[i] = (float) realPoint.y;
+						array.x[i] = realPoint.x;
+						array.y[i] = realPoint.y;
 					}
 				}
 				array.size = size;
