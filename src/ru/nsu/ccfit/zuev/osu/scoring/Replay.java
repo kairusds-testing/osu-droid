@@ -367,7 +367,6 @@ public class Replay {
 				objectData[i] = data;
 			}
 		} catch (EOFException e) {
-			Debug.e("O_o eof...");
 			Debug.e("Replay.load: " + e.getMessage(), e);
 			ToastLogger.showTextId(R.string.replay_corrupted, true);
 			return false;
@@ -453,11 +452,8 @@ public class Replay {
 					}catch(EOFException e) {
 						// float doesn't exist which means its an old replay file
 						// Note: this might be lossy
-						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
-								(float) (is.readShort() / Config.getTextureQuality()));
-					} catch (Exception e) {
-						Debug.e("Replay.readFrom: " + e.getMessage(), e);
-						return null;
+						gamePoint = new PointF((short) (is.readShort() / Config.getTextureQuality()),
+								(short) (is.readShort() / Config.getTextureQuality()));
 					}
 
 					if (replay.replayVersion == 1) {
