@@ -50,6 +50,7 @@ While the prerequisites above must be satisfied prior to having your pull reques
 * Use the present tense ("Add feature" not "Added feature")
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 72 characters or less
+* When only changing non-code files, include [ci skip] in the commit title
 
 ### Issues
 * Must be written in English or Chinese
