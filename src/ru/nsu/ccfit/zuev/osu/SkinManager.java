@@ -89,8 +89,7 @@ public class SkinManager {
 			if (Config.isUseCustomSounds()
 					&& (f.getName().toLowerCase().matches(".*[.]wav")
 					|| f.getName().toLowerCase().matches(".*[.]mp3")
-					|| f.getName().toLowerCase().matches(".*[.]ogg"))
-				&& f.length() >= 1024) {
+					|| f.getName().toLowerCase().matches(".*[.]ogg"))) {
 				ResourceManager.getInstance().loadCustomSound(f);
 			} else if (Config.isUseCustomSkins()
 					&& (f.getName().toLowerCase().matches(".*[.]png")
