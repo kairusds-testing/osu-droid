@@ -489,7 +489,7 @@ public class MainActivity extends BaseGameActivity implements
 		final File skinDir = new File(Config.getSkinTopPath());
 
 		if (skinDir.exists() && skinDir.isDirectory()) {
-			final File[] folders = FileUtils.listFiles(skinDir, file -> file.isDirectory());
+			final File[] folders = FileUtils.listFiles(skinDir/*, file -> file.isDirectory()*/);
 			final File[] files = FileUtils.listFiles(skinDir, ".osk");
 
 			for(final File folder : folders) {
