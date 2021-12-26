@@ -771,7 +771,7 @@ public class Config {
 		return skins;
 	}
 
-	public static String addSkin(String name, String path) {
+	public static void addSkin(String name, String path) {
 		if(skins == null) skins = new HashMap<String, String>();
 		skins.put(name, path);
 	}
