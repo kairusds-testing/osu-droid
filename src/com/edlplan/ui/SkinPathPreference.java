@@ -65,6 +65,7 @@ public class SkinPathPreference extends ListPreference {
 				 public void onComplete() {}
 			}); */
 		} catch (Exception e) {
+			Debug.e("SkinPathPreference.reloadSkinList: ", e);
 			e.printStackTrace();
 		}
 	}
