@@ -197,7 +197,7 @@ public class Config {
 		}
 
 		// skins
-		File[] folders = FileUtils.listFiles(skinTopPath, file -> file.isDirectory());
+		File[] folders = FileUtils.listFiles(new File(skinTopPath), file -> file.isDirectory());
 		for(File folder : folders) {
 			skins = new HashMap<String, String>();
 			skins.put(folder.getName(), folder.getPath());
