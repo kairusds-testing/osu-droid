@@ -767,7 +767,7 @@ public class Config {
 		return defaultCorePath;
 	}
 
-	public static String getSkins(){
+	public static Map<String, String> getSkins(){
 		return skins;
 	}
 
