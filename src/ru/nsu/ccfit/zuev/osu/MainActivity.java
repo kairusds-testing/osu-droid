@@ -65,9 +65,7 @@ import java.math.RoundingMode;
 import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -103,7 +101,6 @@ public class MainActivity extends BaseGameActivity implements
 	public BroadcastReceiver onNotifyButtonClick;
 	private PowerManager.WakeLock wakeLock = null;
 	private String beatmapToAdd = null;
-	private Map<String, String> availableSkins = new HashMap<String, String>();
 	private SaveServiceObject saveServiceObject;
 	private IntentFilter filter;
 	private final Handler handler = new Handler(Looper.getMainLooper());
@@ -489,13 +486,7 @@ public class MainActivity extends BaseGameActivity implements
 		final File skinDir = new File(Config.getSkinTopPath());
 
 		if (skinDir.exists() && skinDir.isDirectory()) {
-			final File[] folders = FileUtils.listFiles(skinDir/*, file -> file.isDirectory()*/);
 			final File[] files = FileUtils.listFiles(skinDir, ".osk");
-
-			for(final File folder : folders) {
-				availableSkins.put(folder.getName(), folder.getPath());
-				Debug.i("checkNewSkins " + folder.getName() + " - " + folder.getPath());
-			}
 
 			for (final File file : files) {
 				ZipFile zip = new ZipFile(file);
@@ -533,14 +524,10 @@ public class MainActivity extends BaseGameActivity implements
 					ToastLogger.showText(
 							StringTable.format(R.string.message_lib_imported, folderName),
 							true);
-					availableSkins.put(folderName, skin);
+					Config.addSkin(folderName, skin);
 				}
 			}
 		}
-	}
-
-	public Map<String, String> getAvailableSkins() {
-		return availableSkins;
 	}
 
 	public Handler getHandler() {

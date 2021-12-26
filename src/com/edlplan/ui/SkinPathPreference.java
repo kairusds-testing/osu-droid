@@ -40,15 +40,16 @@ public class SkinPathPreference extends ListPreference {
 
 	public void reloadSkinList() {
 		try {
-			new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+			/* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
 				public void run() {
-					/* File skinMain = new File(Config.getSkinTopPath());
+					File skinMain = new File(Config.getSkinTopPath());
 					if(!skinMain.exists() && !skinMain.mkdir()) {
 						skinMain = new File(Config.getDefaultCorePath() + "Skin/");
 					}
 					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
 					File skinMain = new File(Config.getSkinTopPath());
-					Map<String, String> skins = new HashMap<String, String>(GlobalManager.getInstance().getMainActivity().getAvailableSkins());
+					// Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
+					HashMap<String, String> skins = Config.getSkins();
 					List<String> skinIndex = new ArrayList<String>(skins.keySet());
 					CharSequence[] entries = new CharSequence[skins.size() + 1];
 					CharSequence[] entryValues = new CharSequence[skins.size() + 1];
