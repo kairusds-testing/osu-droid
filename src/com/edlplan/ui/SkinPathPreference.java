@@ -64,9 +64,9 @@ public class SkinPathPreference extends ListPreference {
 					Arrays.sort(entryValues, 1, entryValues.length);
 					setEntries(entries);
 					setEntryValues(entryValues);
-				}
+				/* }
 				 public void onComplete() {}
-			});
+			}); */
 		} catch (Exception e) {
 			Debug.e("SkinPathPreference.reloadSkinList: ", e);
 			e.printStackTrace();
