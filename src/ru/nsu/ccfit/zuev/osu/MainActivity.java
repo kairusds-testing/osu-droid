@@ -312,6 +312,7 @@ public class MainActivity extends BaseGameActivity implements
 				GlobalManager.getInstance().init();
 				analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null);
 				GlobalManager.getInstance().setLoadingProgress(50);
+				checkNewSkins();
 				checkNewBeatmaps();
 				if (!LibraryManager.getInstance().loadLibraryCache(MainActivity.this, true)) {
 					LibraryManager.getInstance().scanLibrary(MainActivity.this);
@@ -425,7 +426,8 @@ public class MainActivity extends BaseGameActivity implements
 			File[] filelist = FileUtils.listFiles(mainDir, ".osz");
 			final ArrayList<String> beatmaps = new ArrayList<String>();
 			for (final File file : filelist) {
-				if (isBeatmapValid(file)) {
+				ZipFile zip = new ZipFile(file);
+				if(zip.isValidZipFile()) {
 					beatmaps.add(file.getPath());
 				}
 			}
@@ -435,7 +437,8 @@ public class MainActivity extends BaseGameActivity implements
 					&& beatmapDir.isDirectory()) {
 				filelist = FileUtils.listFiles(beatmapDir, ".osz");
 				for (final File file : filelist) {
-					if (isBeatmapValid(file)) {
+					ZipFile zip = new ZipFile(file);
+					if(zip.isValidZipFile()) {
 						beatmaps.add(file.getPath());
 					}
 				}
@@ -447,7 +450,8 @@ public class MainActivity extends BaseGameActivity implements
 					&& downloadDir.isDirectory()) {
 				filelist = FileUtils.listFiles(downloadDir, ".osz");
 				for (final File file : filelist) {
-					if (isBeatmapValid(file)) {
+					ZipFile zip = new ZipFile(file);
+					if(zip.isValidZipFile()) {
 						beatmaps.add(file.getPath());
 					}
 				}

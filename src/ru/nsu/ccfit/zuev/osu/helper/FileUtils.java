@@ -72,9 +72,9 @@ public class FileUtils {
 			ZipFile zip = new ZipFile(file);
 			if(!zip.isValidZipFile()) {
 				ToastLogger.showText(
-						StringTable.format(R.string.message_error, e.getMessage()),
+						StringTable.format(R.string.message_error, "Invalid file"),
 						false);
-				Debug.e("FileUtils.extractZip: ", e);
+				Debug.e("FileUtils.extractZip: " + file.getName() + " is invalid");
 				file.renameTo(new File(file.getParentFile(), file.getName() + ".badzip"));
 				LibraryManager.getInstance().deleteDir(folderFile);
 				return false;
