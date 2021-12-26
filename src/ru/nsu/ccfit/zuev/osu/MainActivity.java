@@ -494,7 +494,7 @@ public class MainActivity extends BaseGameActivity implements
 
 			for(final File folder : folders) {
 				availableSkins.put(folder.getName(), folder.getPath());
-				Debug.i("checkNewSkins " + folder.getName() " - " + folder.getPath());
+				Debug.i("checkNewSkins " + folder.getName() + " - " + folder.getPath());
 			}
 
 			for (final File file : files) {
