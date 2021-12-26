@@ -65,12 +65,15 @@ import java.math.RoundingMode;
 import java.security.Security;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.ZipFile;
+
+import net.lingala.zip4j.ZipFile;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -100,6 +103,7 @@ public class MainActivity extends BaseGameActivity implements
 	public BroadcastReceiver onNotifyButtonClick;
 	private PowerManager.WakeLock wakeLock = null;
 	private String beatmapToAdd = null;
+	private Map<String, String> availableSkins = new HashMap<>();
 	private SaveServiceObject saveServiceObject;
 	private IntentFilter filter;
 	private final Handler handler = new Handler(Looper.getMainLooper());
@@ -394,33 +398,24 @@ public class MainActivity extends BaseGameActivity implements
 		}
 	}
 
-	public static boolean isBeatmapValid(File file) {
-		ZipFile zipfile = null;
-		try {
-			zipfile = new ZipFile(file);
-			zipfile.close();
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
-	}
-
 	public void checkNewBeatmaps() {
 		GlobalManager.getInstance().setInfo("Checking for new maps...");
 		final File mainDir = new File(Config.getCorePath());
 		if (beatmapToAdd != null) {
 			File file = new File(beatmapToAdd);
-			if (file.getName().endsWith(".osz")) {
+			if (file.getName().toLowerCase().endsWith(".osz")) {
 				ToastLogger.showText(
 						StringTable.get(R.string.message_lib_importing),
 						false);
-				if (OSZParser.parseOSZ(MainActivity.this, beatmapToAdd)) {
+
+				if(FileUtils.extractZip(beatmapToAdd, Config.getBeatmapPath())) {
 					String folderName = beatmapToAdd.substring(0, beatmapToAdd.length() - 4);
 					// We have imported the beatmap!
 					ToastLogger.showText(
 							StringTable.format(R.string.message_lib_imported, folderName),
 							true);
 				}
+
 				// LibraryManager.getInstance().sort();
 				LibraryManager.getInstance().savetoCache(MainActivity.this);
 			} else if (file.getName().endsWith(".odr")) {
@@ -459,26 +454,88 @@ public class MainActivity extends BaseGameActivity implements
 			}
 
 			if (beatmaps.size() > 0) {
-				final boolean deleteOsz = Config.isDELETE_OSZ();
-				Config.setDELETE_OSZ(true);
+				// final boolean deleteOsz = Config.isDELETE_OSZ();
+				// Config.setDELETE_OSZ(true);
 				ToastLogger.showText(StringTable.format(
 						R.string.message_lib_importing_several,
 						beatmaps.size()), false);
-				for (final String s : beatmaps) {
-					if (OSZParser.parseOSZ(MainActivity.this, s)) {
-						String folderName = s.substring(0, s.length() - 4);
+				for (final String beatmap : beatmaps) {
+					if(FileUtils.extractZip(beatmap, Config.getBeatmapPath())) {
+						String folderName = beatmap.substring(0, beatmap.length() - 4);
 						// We have imported the beatmap!
 						ToastLogger.showText(
 								StringTable.format(R.string.message_lib_imported, folderName),
 								true);
 					}
 				}
-				Config.setDELETE_OSZ(deleteOsz);
+				// Config.setDELETE_OSZ(deleteOsz);
 
 				// LibraryManager.getInstance().sort();
 				LibraryManager.getInstance().savetoCache(MainActivity.this);
 			}
 		}
+	}
+
+	public void checkNewSkins() {
+		GlobalManager.getInstance().setInfo("Checking new skins...");
+
+		final ArrayList<String> skins = new ArrayList<>();
+
+		// Scanning skin directory
+		final File skinDir = new File(Config.getSkinTopPath());
+
+		if (skinDir.exists() && skinDir.isDirectory()) {
+			final File[] folders = FileUtils.listFiles(skinDir, file -> file.isDirectory());
+			final File[] files = FileUtils.listFiles(skinDir, ".osk");
+
+			for(final File folder : folders) {
+				availableSkins.put(folder.getName(), folder.getAbsolutePath());
+			}
+
+			for (final File file : files) {
+				ZipFile zip = new ZipFile(file);
+				if(zip.isValidZipFile()) {
+					skins.add(file.getPath());
+				}
+			}
+		}
+
+		// Scanning download directory
+		final File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+		if (Config.isSCAN_DOWNLOAD()
+				&& downloadDir.exists()
+				&& downloadDir.isDirectory()) {
+			final File[] files = FileUtils.listFiles(downloadDir, ".osk");
+
+			for (final File file : files) {
+				ZipFile zip = new ZipFile(file);
+				if(zip.isValidZipFile()) {
+					skins.add(file.getPath());
+				}
+			}
+		}
+
+		if (skins.size() > 0) {
+			ToastLogger.showText(StringTable.format(
+					R.string.message_skin_importing_several,
+					skins.size()), false);
+
+			for (final String skin : skins) {
+				if (FileUtils.extractZip(skin, Config.getSkinTopPath())) {
+					String folderName = skin.substring(0, skin.length() - 4);
+					// We have imported the skin!
+					ToastLogger.showText(
+							StringTable.format(R.string.message_lib_imported, folderName),
+							true);
+					availableSkins.put(folderName, skin);
+				}
+			}
+		}
+	}
+
+	public Map<String, String> getAvailableSkins() {
+		return availableSkins;
 	}
 
 	public Handler getHandler() {

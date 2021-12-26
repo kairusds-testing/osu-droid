@@ -163,7 +163,7 @@ public class Replay {
 				os.writeBoolean(stat.isPerfect());
 				os.writeObject(stat.getPlayerName());
 				os.writeObject(stat.getMod());
-				//Add in replay version 4
+				//Add in replay version
 				os.writeObject(stat.getExtraModString());
 			}
 
