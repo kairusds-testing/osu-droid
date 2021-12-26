@@ -103,7 +103,7 @@ public class MainActivity extends BaseGameActivity implements
 	public BroadcastReceiver onNotifyButtonClick;
 	private PowerManager.WakeLock wakeLock = null;
 	private String beatmapToAdd = null;
-	private Map<String, String> availableSkins = new HashMap<>();
+	private Map<String, String> availableSkins = new HashMap<String, String>();
 	private SaveServiceObject saveServiceObject;
 	private IntentFilter filter;
 	private final Handler handler = new Handler(Looper.getMainLooper());
@@ -493,7 +493,8 @@ public class MainActivity extends BaseGameActivity implements
 			final File[] files = FileUtils.listFiles(skinDir, ".osk");
 
 			for(final File folder : folders) {
-				availableSkins.put(folder.getName(), folder.getAbsolutePath());
+				availableSkins.put(folder.getName(), folder.getPath());
+				Debug.i("checkNewSkins " + folder.getName() " - " + folder.getPath());
 			}
 
 			for (final File file : files) {

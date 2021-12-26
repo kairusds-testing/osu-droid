@@ -48,7 +48,7 @@ public class SkinPathPreference extends ListPreference {
 					}
 					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
 					File skinMain = new File(Config.getSkinTopPath());
-					Map<String, String> skins = new HashMap<>(GlobalManager.getInstance().getMainActivity().getAvailableSkins());
+					Map<String, String> skins = new HashMap<String, String>(GlobalManager.getInstance().getMainActivity().getAvailableSkins());
 					List<String> skinIndex = new ArrayList<String>(skins.keySet());
 					CharSequence[] entries = new CharSequence[skins.size() + 1];
 					CharSequence[] entryValues = new CharSequence[skins.size() + 1];
