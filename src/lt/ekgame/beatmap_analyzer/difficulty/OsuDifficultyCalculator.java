@@ -60,11 +60,11 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		//List<Double> speedStrainsOriginal = new ArrayList<>(speedStrains);
 
 		double aimDifficulty =
-				//calculateNewDifficulty(objects, DIFF_AIM, timeRate);
-				calculateDifficulty(aimStrains);
+    //calculateNewDifficulty(objects, DIFF_AIM, timeRate);
+    calculateDifficulty(aimStrains);
 		double speedDifficulty =
-				//calculateNewDifficulty(objects, DIFF_SPEED, timeRate);
-				calculateDifficulty(speedStrains, SPEED_DECAY_WEIGHT);
+    //calculateNewDifficulty(objects, DIFF_SPEED, timeRate);
+    calculateDifficulty(speedStrains, SPEED_DECAY_WEIGHT);
 		Log.i("new-diff", 0 + ": " + speedDifficulty);
 		double starDifficulty = aimDifficulty + speedDifficulty + Math.abs(speedDifficulty - aimDifficulty) * EXTREME_SCALING_FACTOR;
 		return new OsuDifficulty(bm, mods, starDifficulty, aimDifficulty, speedDifficulty, null, null);
@@ -86,10 +86,10 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 			final DifficultyObject object = iterator.next();
 			currentTime = object.object.getStartTime();
 			while (currentTime > blockTime) {
-				//新的时间段开始
-				blockTime += STRAIN_TIME_WIDTH;
-				tmpList = new ArrayList<>();
-				classifyObj.add(tmpList);
+    //新的时间段开始
+    blockTime += STRAIN_TIME_WIDTH;
+    tmpList = new ArrayList<>();
+    classifyObj.add(tmpList);
 			}
 			tmpList.add(object);
 		}
@@ -98,12 +98,12 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		for (int i = 0; i < avgDiff.length; i++) {
 			final ArrayList<DifficultyObject> tmp = classifyObj.get(i);
 			if (tmp.size() == 0) {
-				avgDiff[i] = 0;
+    avgDiff[i] = 0;
 			} else {
-				for (DifficultyObject object : tmp) {
-					avgDiff[i] += object.strains[type];
-				}
-				avgDiff[i] /= tmp.size();
+    for (DifficultyObject object : tmp) {
+    	avgDiff[i] += object.strains[type];
+    }
+    avgDiff[i] /= tmp.size();
 			}
 		}
 
@@ -122,8 +122,8 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 			weight *= 0.9;
 
 			if (weight > 0.01) {
-				//Log.i("new-diff", type + ": w :" + weight);
-				//Log.i("new-diff", type + ": d :" + diff);
+    //Log.i("new-diff", type + ": w :" + weight);
+    //Log.i("new-diff", type + ": d :" + diff);
 			}
 			preDiff = diff;
 		}
@@ -147,7 +147,7 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		Collections.sort(difficultyObjects, new Comparator<DifficultyObject>() {
 			@Override
 			public int compare(OsuDifficultyCalculator.DifficultyObject o1, OsuDifficultyCalculator.DifficultyObject o2) {
-				return o1.object.getStartTime() - o2.object.getStartTime();
+    return o1.object.getStartTime() - o2.object.getStartTime();
 			}
 		});
 
@@ -159,7 +159,7 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : difficultyObjects) {
 			if (previous != null)
-				current.calculateStrains(previous, timeRate);
+    current.calculateStrains(previous, timeRate);
 			previous = current;
 		}
 
@@ -175,15 +175,15 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : objects) {
 			while (current.object.getStartTime() > intervalEnd) {
-				highestStrains.add(maxStrain);
-				if (previous != null) {
-					double decay = Math.pow(
-							STRIAN_DECAY_BASE[difficultyType],
-							(double) (intervalEnd - previous.object.getStartTime()) / 1000
-					);
-					maxStrain = previous.strains[difficultyType] * decay;
-				}
-				intervalEnd += realStrainStep;
+    highestStrains.add(maxStrain);
+    if (previous != null) {
+    	double decay = Math.pow(
+    			STRIAN_DECAY_BASE[difficultyType],
+    			(double) (intervalEnd - previous.object.getStartTime()) / 1000
+    	);
+    	maxStrain = previous.strains[difficultyType] * decay;
+    }
+    intervalEnd += realStrainStep;
 			}
 			maxStrain = Math.max(maxStrain, current.strains[difficultyType]);
 			previous = current;
@@ -200,7 +200,7 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 		Collections.sort(strains, new Comparator<Double>() {
 			@Override
 			public int compare(Double a, Double b) {
-				return (int) (Math.signum(b - a));
+    return (int) (Math.signum(b - a));
 			}
 		});
 		//(a,b)->(int)(Math.signum(b-a)));
@@ -228,7 +228,7 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 
 			double scalingFactor = 52 / radius;
 			if (radius < CIRCLE_SIZE_BUFF_TRESHOLD)
-				scalingFactor *= 1 + Math.min(CIRCLE_SIZE_BUFF_TRESHOLD - radius, 5) / 50;
+    scalingFactor *= 1 + Math.min(CIRCLE_SIZE_BUFF_TRESHOLD - radius, 5) / 50;
 
 			normStart = object.getPosition().scale(scalingFactor);
 			//normEnd = normStart;
@@ -246,8 +246,8 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 			double scaling = WEIGHT_SCALING[difficultyType];
 
 			if (!(object instanceof OsuSpinner)) {
-				double distance = normStart.distance(previous.normStart);
-				res = spacingWeight(distance, timeElapsed, difficultyType) * scaling;
+    double distance = normStart.distance(previous.normStart);
+    res = spacingWeight(distance, timeElapsed, difficultyType) * scaling;
 			}
 
 			res /= Math.max(timeElapsed, 50);
@@ -256,33 +256,33 @@ public class OsuDifficultyCalculator implements DifficultyCalculator {
 
 		private double spacingWeight(double distance, double time, byte difficultyType) {
 			if (difficultyType == DIFF_SPEED) {
-				double v = 0;
-				if (distance > SINGLE_SPACING) {
-					v = 2.3;
-				} else if (distance > STREAM_SPACING) {
-					v = 1.7 + 0.6 * (distance - STREAM_SPACING) / (SINGLE_SPACING - STREAM_SPACING);
-				} else if (distance > ALMOST_DIAMETER) {
-					v = 1.2 + 0.5 * (distance - ALMOST_DIAMETER) / (STREAM_SPACING - ALMOST_DIAMETER);
-				} else if (distance > ALMOST_DIAMETER / 2) {
-					v = 0.9 + 0.3 * (distance - ALMOST_DIAMETER / 2) / (ALMOST_DIAMETER / 2);
-				} else v = 0.9;
-				if (time < TIMES_STREAM) {
-					double t = time / TIMES_STREAM;
-					v *= 1.9 * (1 - t) + t * 0.5;
-				} else {
-					v *= 0.5f;
-				}
-				return v;
+    double v = 0;
+    if (distance > SINGLE_SPACING) {
+    	v = 2.3;
+    } else if (distance > STREAM_SPACING) {
+    	v = 1.7 + 0.6 * (distance - STREAM_SPACING) / (SINGLE_SPACING - STREAM_SPACING);
+    } else if (distance > ALMOST_DIAMETER) {
+    	v = 1.2 + 0.5 * (distance - ALMOST_DIAMETER) / (STREAM_SPACING - ALMOST_DIAMETER);
+    } else if (distance > ALMOST_DIAMETER / 2) {
+    	v = 0.9 + 0.3 * (distance - ALMOST_DIAMETER / 2) / (ALMOST_DIAMETER / 2);
+    } else v = 0.9;
+    if (time < TIMES_STREAM) {
+    	double t = time / TIMES_STREAM;
+    	v *= 1.9 * (1 - t) + t * 0.5;
+    } else {
+    	v *= 0.5f;
+    }
+    return v;
 			} else if (difficultyType == DIFF_AIM) {
-				if (time < TIMES_STREAM * 2) {
-					double t = time / TIMES_STREAM / 2;
-					distance *= 1.1 * (1 - t) + 0.9 * t;
-				} else {
-					distance *= 0.9;
-				}
-				return distance;
+    if (time < TIMES_STREAM * 2) {
+    	double t = time / TIMES_STREAM / 2;
+    	distance *= 1.1 * (1 - t) + 0.9 * t;
+    } else {
+    	distance *= 0.9;
+    }
+    return distance;
 			} else
-				return 0;
+    return 0;
 		}
 	}
 }

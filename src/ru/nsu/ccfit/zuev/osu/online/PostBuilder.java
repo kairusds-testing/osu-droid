@@ -25,7 +25,7 @@ public class PostBuilder {
 	public void addParam(final String key, final String value) {
 		try {
 			if (values.length() > 0) {
-				values.append("_");
+    values.append("_");
 			}
 			formBodyBuilder.add(key, value);
 			values.append(URLEncoder.encode(value, "UTF-8"));
@@ -44,23 +44,23 @@ public class PostBuilder {
 		}
 		for (int i = 0; i < attempts; i++) {
 			try {
-				response = request(scriptUrl);
+    response = request(scriptUrl);
 			} catch (RequestException e) {
-				if (e.getCause() instanceof UnknownHostException) {
-					Debug.e("Cannot resolve server name");
-					break;
-				}
-				Debug.e("Received error, continuing... ", e);
-				response = null;
+    if (e.getCause() instanceof UnknownHostException) {
+    	Debug.e("Cannot resolve server name");
+    	break;
+    }
+    Debug.e("Received error, continuing... ", e);
+    response = null;
 			}
 
 			if (response == null || response.isEmpty() || response.get(0).length() == 0
-					|| !(response.get(0).equals("FAIL") || response.get(0).equals("SUCCESS"))) {
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-				}
-				continue;
+    	|| !(response.get(0).equals("FAIL") || response.get(0).equals("SUCCESS"))) {
+    try {
+    	Thread.sleep(3000);
+    } catch (InterruptedException e) {
+    }
+    continue;
 			}
 			break;
 		}
@@ -79,9 +79,9 @@ public class PostBuilder {
 
 		try {
 			Request request = new Request.Builder()
-				.url(scriptUrl)
-				.post(formBodyBuilder.build())
-				.build();
+    .url(scriptUrl)
+    .post(formBodyBuilder.build())
+    .build();
 			Response resp = OnlineManager.client.newCall(request).execute();
 
 			Debug.i("request url=" + scriptUrl);
@@ -89,8 +89,8 @@ public class PostBuilder {
 			String line = null;
 			BufferedReader reader = new BufferedReader(new StringReader(resp.body().string()));
 			while((line = reader.readLine()) != null) {
-				Debug.i(String.format("request [%d]: %s", response.size(), line));
-				response.add(line);
+    Debug.i(String.format("request [%d]: %s", response.size(), line));
+    response.add(line);
 			}
 			Debug.i("request url=" + scriptUrl);
 			Debug.i("request -----End of content-----");

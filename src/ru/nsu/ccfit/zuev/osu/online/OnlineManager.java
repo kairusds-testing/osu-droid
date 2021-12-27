@@ -97,9 +97,9 @@ public class OnlineManager {
 		if (!response.get(0).equals("SUCCESS")) {
 			Debug.i("sendRequest response code:  " + response.get(0));
 			if (response.size() >= 2) {
-				failMessage = response.get(1);
+    failMessage = response.get(1);
 			} else
-				failMessage = "Unknown server error";
+    failMessage = "Unknown server error";
 			Debug.i("Received fail: " + failMessage);
 			return null;
 		}
@@ -169,7 +169,7 @@ public class OnlineManager {
 	}
 
 	public boolean register(final String username, final String password, final String email,
-							final String deviceID) throws OnlineManagerException {
+    			final String deviceID) throws OnlineManagerException {
 		PostBuilder post = new PostBuilder();
 		post.addParam("username", username);
 		post.addParam("password", MD5Calcuator.getStringMD5(password + "taikotaiko"));
@@ -216,9 +216,9 @@ public class OnlineManager {
 
 		if (response == null) {
 			if (failMessage.equals("Cannot log in") && stayOnline) {
-				if (tryToLogIn()) {
-					startPlay(track, hash);
-				}
+    if (tryToLogIn()) {
+    	startPlay(track, hash);
+    }
 			}
 			return;
 		}
@@ -340,7 +340,7 @@ public class OnlineManager {
 			//头像已经缓存好在本地
 			ResourceManager.getInstance().loadHighQualityFile(userName, picfile);
 			if (ResourceManager.getInstance().getTextureIfLoaded(userName) != null) {
-				return true;
+    return true;
 			}
 		}
 

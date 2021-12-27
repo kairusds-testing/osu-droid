@@ -58,11 +58,11 @@ public class InGameSettingMenu extends BaseFragment {
 		findViewById(R.id.frg_header).setAlpha(0);
 		findViewById(R.id.frg_header).setTranslationY(100);
 		findViewById(R.id.frg_header).animate()
-				.alpha(1)
-				.translationY(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.start();
+    .alpha(1)
+    .translationY(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .start();
 	}
 
 	private void applyCustomModColor() {
@@ -79,19 +79,19 @@ public class InGameSettingMenu extends BaseFragment {
 		}
 		showMoreButton.setOnTouchListener((v, event) -> {
 			if (event.getAction() == TouchEvent.ACTION_DOWN) {
-				v.animate().cancel();
-				v.animate().scaleY(0.9f).scaleX(0.9f).translationY(v.getHeight() * 0.1f).setDuration(100).start();
-				toggleSettingPanel();
-				return true;
+    v.animate().cancel();
+    v.animate().scaleY(0.9f).scaleX(0.9f).translationY(v.getHeight() * 0.1f).setDuration(100).start();
+    toggleSettingPanel();
+    return true;
 			} else if (event.getAction() == TouchEvent.ACTION_UP) {
-				v.animate().cancel();
-				v.animate().scaleY(1).scaleX(1).setDuration(100).translationY(0).start();
-				if (event.getX() < v.getWidth()
-						&& event.getY() < v.getHeight()
-						&& event.getX() > 0
-						&& event.getY() > 0) {
-				}
-				return true;
+    v.animate().cancel();
+    v.animate().scaleY(1).scaleX(1).setDuration(100).translationY(0).start();
+    if (event.getX() < v.getWidth()
+    		&& event.getY() < v.getHeight()
+    		&& event.getX() > 0
+    		&& event.getY() > 0) {
+    }
+    return true;
 			}
 			return false;
 		});
@@ -103,8 +103,8 @@ public class InGameSettingMenu extends BaseFragment {
 		enableStoryboard.setOnCheckedChangeListener((buttonView, isChecked) -> {
 			Config.setEnableStoryboard(isChecked);
 			PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
-					.putBoolean("enableStoryboard", isChecked)
-					.commit();
+    	.putBoolean("enableStoryboard", isChecked)
+    	.commit();
 		});
 
 		showScoreboard = findViewById(R.id.showScoreboard);
@@ -112,8 +112,8 @@ public class InGameSettingMenu extends BaseFragment {
 		showScoreboard.setOnCheckedChangeListener((buttonView, isChecked) -> {
 			Config.setShowScoreboard(isChecked);
 			PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
-					.putBoolean("showscoreboard", isChecked)
-					.commit();
+    	.putBoolean("showscoreboard", isChecked)
+    	.commit();
 		});
 
 		enableNCWhenSpeedChange = findViewById(R.id.enableNCwhenSpeedChange);
@@ -126,13 +126,13 @@ public class InGameSettingMenu extends BaseFragment {
 		enableSpeedChange.setChecked(ModMenu.getInstance().getChangeSpeed() != 1.0f);
 		enableSpeedChange.setOnCheckedChangeListener((buttonView, isChecked) -> {
 			if (!isChecked) {
-				ModMenu.getInstance().setChangeSpeed(1.0f);
-				((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", ModMenu.getInstance().getChangeSpeed()));
-				changeSpeed.setProgress(10);
-				ModMenu.getInstance().updateMultiplierText();
+    ModMenu.getInstance().setChangeSpeed(1.0f);
+    ((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", ModMenu.getInstance().getChangeSpeed()));
+    changeSpeed.setProgress(10);
+    ModMenu.getInstance().updateMultiplierText();
 			}
 			else if(ModMenu.getInstance().getChangeSpeed() == 1.0f){
-				enableSpeedChange.setChecked(false);
+    enableSpeedChange.setChecked(false);
 			}
 		});
 
@@ -145,36 +145,36 @@ public class InGameSettingMenu extends BaseFragment {
 
 		backgroundBrightness = findViewById(R.id.backgroundBrightnessBar);
 		backgroundBrightness.setProgress(
-				PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("bgbrightness", 25));
+    PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("bgbrightness", 25));
 		backgroundBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				((TextView) findViewById(R.id.brightPreviewText)).setText(String.valueOf(progress));
-				((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
-				int p = Math.round(FMath.clamp(255 * (progress / 100f), 0, 255));
-				findViewById(R.id.brightnessPreview).setBackgroundColor(Color.argb(255, p, p, p));
+    ((TextView) findViewById(R.id.brightPreviewText)).setText(String.valueOf(progress));
+    ((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
+    int p = Math.round(FMath.clamp(255 * (progress / 100f), 0, 255));
+    findViewById(R.id.brightnessPreview).setBackgroundColor(Color.argb(255, p, p, p));
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				findViewById(R.id.brightnessPreviewLayout).setVisibility(View.VISIBLE);
-				int progress = seekBar.getProgress();
-				((TextView) findViewById(R.id.brightPreviewText)).setText(String.valueOf(progress));
-				((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
-				int p = Math.round(FMath.clamp(255 * (progress / 100f), 0, 255));
-				findViewById(R.id.brightnessPreview).setBackgroundColor(Color.argb(255, p, p, p));
+    findViewById(R.id.brightnessPreviewLayout).setVisibility(View.VISIBLE);
+    int progress = seekBar.getProgress();
+    ((TextView) findViewById(R.id.brightPreviewText)).setText(String.valueOf(progress));
+    ((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
+    int p = Math.round(FMath.clamp(255 * (progress / 100f), 0, 255));
+    findViewById(R.id.brightnessPreview).setBackgroundColor(Color.argb(255, p, p, p));
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				findViewById(R.id.brightnessPreviewLayout).setVisibility(View.GONE);
-				int progress = seekBar.getProgress();
-				((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
-				Config.setBackgroundBrightness(seekBar.getProgress() / 100f);
-				PreferenceManager.getDefaultSharedPreferences(getContext())
-						.edit()
-						.putInt("bgbrightness", progress)
-						.commit();
+    findViewById(R.id.brightnessPreviewLayout).setVisibility(View.GONE);
+    int progress = seekBar.getProgress();
+    ((TextView) findViewById(R.id.bgBrightnessText)).setText(progress + "%");
+    Config.setBackgroundBrightness(seekBar.getProgress() / 100f);
+    PreferenceManager.getDefaultSharedPreferences(getContext())
+    		.edit()
+    		.putInt("bgbrightness", progress)
+    		.commit();
 			}
 		});
 		((TextView) findViewById(R.id.bgBrightnessText)).setText(
@@ -185,44 +185,44 @@ public class InGameSettingMenu extends BaseFragment {
 		changeSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				float p = 0.5f + 0.05f * progress;
-				((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
-				if (p == 1.0f){
-					enableSpeedChange.setChecked(false);
-				}
-				else {
-					enableSpeedChange.setChecked(true);
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    float p = 0.5f + 0.05f * progress;
+    ((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
+    if (p == 1.0f){
+    	enableSpeedChange.setChecked(false);
+    }
+    else {
+    	enableSpeedChange.setChecked(true);
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				int progress = seekBar.getProgress();
-				float p = 0.5f + 0.05f * progress;
-				((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
-				if (p == 1.0f){
-					enableSpeedChange.setChecked(false);
-				}
-				else {
-					enableSpeedChange.setChecked(true);
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    int progress = seekBar.getProgress();
+    float p = 0.5f + 0.05f * progress;
+    ((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
+    if (p == 1.0f){
+    	enableSpeedChange.setChecked(false);
+    }
+    else {
+    	enableSpeedChange.setChecked(true);
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				int progress = seekBar.getProgress();
-				float p = 0.5f + 0.05f * progress;
-				((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
-				ModMenu.getInstance().setChangeSpeed(p);
-				if (p == 1.0f){
-					enableSpeedChange.setChecked(false);
-				}
-				else {
-					enableSpeedChange.setChecked(true);
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    int progress = seekBar.getProgress();
+    float p = 0.5f + 0.05f * progress;
+    ((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", p));
+    ModMenu.getInstance().setChangeSpeed(p);
+    if (p == 1.0f){
+    	enableSpeedChange.setChecked(false);
+    }
+    else {
+    	enableSpeedChange.setChecked(true);
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 		});
 		((TextView) findViewById(R.id.changeSpeedText)).setText(String.format(Locale.getDefault(), "%.2fx", ModMenu.getInstance().getChangeSpeed()));
@@ -232,32 +232,32 @@ public class InGameSettingMenu extends BaseFragment {
 		forceAR.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				float p = 0.1f * progress;
-				((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
-				if(ModMenu.getInstance().isEnableForceAR()){
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    float p = 0.1f * progress;
+    ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
+    if(ModMenu.getInstance().isEnableForceAR()){
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				int progress = seekBar.getProgress();
-				float p = 0.1f * progress;
-				((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
-				if(ModMenu.getInstance().isEnableForceAR()){
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    int progress = seekBar.getProgress();
+    float p = 0.1f * progress;
+    ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
+    if(ModMenu.getInstance().isEnableForceAR()){
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				int progress = seekBar.getProgress();
-				float p = 0.1f * progress;
-				((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
-				ModMenu.getInstance().setForceAR(p);
-				if(ModMenu.getInstance().isEnableForceAR()){
-					ModMenu.getInstance().updateMultiplierText();
-				}
+    int progress = seekBar.getProgress();
+    float p = 0.1f * progress;
+    ((TextView) findViewById(R.id.forceARText)).setText(String.format(Locale.getDefault(), "AR%.1f", p));
+    ModMenu.getInstance().setForceAR(p);
+    if(ModMenu.getInstance().isEnableForceAR()){
+    	ModMenu.getInstance().updateMultiplierText();
+    }
 			}
 		});
 		
@@ -267,10 +267,10 @@ public class InGameSettingMenu extends BaseFragment {
 		flashlightFollowDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				ModMenu.getInstance().setFLfollowDelay((float) Math.round(progress * 1200f) / (10f * 1000f));
-				applyCustomModColor();
-				((TextView) findViewById(R.id.flashlightFollowDelayText))
-					.setText(String.format(Locale.getDefault(), "%.1fms", progress * FlashLightEntity.defaultMoveDelayMS));
+    ModMenu.getInstance().setFLfollowDelay((float) Math.round(progress * 1200f) / (10f * 1000f));
+    applyCustomModColor();
+    ((TextView) findViewById(R.id.flashlightFollowDelayText))
+    	.setText(String.format(Locale.getDefault(), "%.1fms", progress * FlashLightEntity.defaultMoveDelayMS));
 			}
 
 			@Override
@@ -306,13 +306,13 @@ public class InGameSettingMenu extends BaseFragment {
 		} else {
 			playShowPanelAnim();
 			findViewById(R.id.frg_background).setOnTouchListener((v, event) -> {
-				if (event.getAction() == TouchEvent.ACTION_DOWN) {
-					if (isSettingPanelShow()) {
-						toggleSettingPanel();
-						return true;
-					}
-				}
-				return false;
+    if (event.getAction() == TouchEvent.ACTION_DOWN) {
+    	if (isSettingPanelShow()) {
+    		toggleSettingPanel();
+    		return true;
+    	}
+    }
+    return false;
 			});
 			findViewById(R.id.frg_background).setClickable(true);
 		}
@@ -323,18 +323,18 @@ public class InGameSettingMenu extends BaseFragment {
 		if (fullLayout != null) {
 			fullLayout.animate().cancel();
 			fullLayout.animate()
-					.translationY(0)
-					.setDuration(200)
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.setListener(new BaseAnimationListener() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							super.onAnimationEnd(animation);
-							findViewById(R.id.frg_background).setClickable(true);
-							findViewById(R.id.frg_background).setOnClickListener(v -> playHidePanelAnim());
-						}
-					})
-					.start();
+    	.translationY(0)
+    	.setDuration(200)
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.setListener(new BaseAnimationListener() {
+    		@Override
+    		public void onAnimationEnd(Animator animation) {
+    			super.onAnimationEnd(animation);
+    			findViewById(R.id.frg_background).setClickable(true);
+    			findViewById(R.id.frg_background).setOnClickListener(v -> playHidePanelAnim());
+    		}
+    	})
+    	.start();
 		}
 	}
 
@@ -343,17 +343,17 @@ public class InGameSettingMenu extends BaseFragment {
 		if (fullLayout != null) {
 			fullLayout.animate().cancel();
 			fullLayout.animate()
-					.translationY(findViewById(R.id.optionBody).getHeight())
-					.setDuration(200)
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.setListener(new BaseAnimationListener() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							super.onAnimationEnd(animation);
-							findViewById(R.id.frg_background).setClickable(false);
-						}
-					})
-					.start();
+    	.translationY(findViewById(R.id.optionBody).getHeight())
+    	.setDuration(200)
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.setListener(new BaseAnimationListener() {
+    		@Override
+    		public void onAnimationEnd(Animator animation) {
+    			super.onAnimationEnd(animation);
+    			findViewById(R.id.frg_background).setClickable(false);
+    		}
+    	})
+    	.start();
 		}
 	}
 }

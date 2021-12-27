@@ -39,9 +39,9 @@ public class BlendProperty implements Copyable {
 		if (enable) {
 			GLES10.glEnable(GLES10.GL_BLEND);
 			if (isPreM) {
-				GLES10.glBlendFunc(blendType.srcTypePreM, blendType.dstTypePreM);
+    GLES10.glBlendFunc(blendType.srcTypePreM, blendType.dstTypePreM);
 			} else {
-				GLES10.glBlendFunc(blendType.srcType, blendType.dstType);
+    GLES10.glBlendFunc(blendType.srcType, blendType.dstType);
 			}
 		} else {
 			GLES10.glDisable(GLES10.GL_BLEND);

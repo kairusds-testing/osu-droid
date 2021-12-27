@@ -189,13 +189,13 @@ public class EdExtensionHelper {
 			intent.setComponent(componentName);
 			intent.putExtra("api", "openOsuFile");
 			try {
-				JSONObject game = new JSONObject();
-				game.put("file", filepath);
-				game.put("mods", new JSONArray(ModMenu.getInstance().getMod()));
-				intent.putExtra("data", game.toString());
-				GlobalManager.getInstance().getMainActivity().startActivity(intent);
+    JSONObject game = new JSONObject();
+    game.put("file", filepath);
+    game.put("mods", new JSONArray(ModMenu.getInstance().getMod()));
+    intent.putExtra("data", game.toString());
+    GlobalManager.getInstance().getMainActivity().startActivity(intent);
 			} catch (JSONException e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 			return true;
 		} catch (ActivityNotFoundException e) {

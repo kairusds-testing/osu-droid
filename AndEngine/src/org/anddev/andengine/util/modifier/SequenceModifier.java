@@ -114,7 +114,7 @@ public class SequenceModifier<T> extends BaseModifier<T> implements IModifierLis
 			float secondsElapsedRemaining = pSecondsElapsed;
 			this.mFinishedCached = false;
 			while(secondsElapsedRemaining > 0 && !this.mFinishedCached) {
-				secondsElapsedRemaining -= this.mSubSequenceModifiers[this.mCurrentSubSequenceModifierIndex].onUpdate(secondsElapsedRemaining, pItem);
+    secondsElapsedRemaining -= this.mSubSequenceModifiers[this.mCurrentSubSequenceModifierIndex].onUpdate(secondsElapsedRemaining, pItem);
 			}
 			this.mFinishedCached = false;
 

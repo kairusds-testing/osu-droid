@@ -161,9 +161,9 @@ public class BuildableTextureAtlas<T extends ITextureAtlasSource, A extends ITex
 		for(int i = textureSources.size() - 1; i >= 0; i--) {
 			final TextureAtlasSourceWithWithLocationCallback<T> textureSource = textureSources.get(i);
 			if(textureSource.mTextureAtlasSource == pTextureAtlasSource) {
-				textureSources.remove(i);
-				this.mTextureAtlas.setUpdateOnHardwareNeeded(true);
-				return;
+    textureSources.remove(i);
+    this.mTextureAtlas.setUpdateOnHardwareNeeded(true);
+    return;
 			}
 		}
 	}

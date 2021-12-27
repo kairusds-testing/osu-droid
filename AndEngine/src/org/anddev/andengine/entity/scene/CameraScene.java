@@ -65,10 +65,10 @@ public class CameraScene extends Scene {
 			final boolean handled = super.onSceneTouchEvent(pSceneTouchEvent);
 
 			if(handled) {
-				return true;
+    return true;
 			} else {
-				this.mCamera.convertCameraSceneToSceneTouchEvent(pSceneTouchEvent);
-				return false;
+    this.mCamera.convertCameraSceneToSceneTouchEvent(pSceneTouchEvent);
+    return false;
 			}
 		}
 	}
@@ -92,13 +92,13 @@ public class CameraScene extends Scene {
 			pGL.glMatrixMode(GL10.GL_PROJECTION);
 			this.mCamera.onApplyCameraSceneMatrix(pGL);
 			{
-				pGL.glMatrixMode(GL10.GL_MODELVIEW);
-				pGL.glPushMatrix();
-				pGL.glLoadIdentity();
+    pGL.glMatrixMode(GL10.GL_MODELVIEW);
+    pGL.glPushMatrix();
+    pGL.glLoadIdentity();
 
-				super.onManagedDraw(pGL, pCamera);
+    super.onManagedDraw(pGL, pCamera);
 
-				pGL.glPopMatrix();
+    pGL.glPopMatrix();
 			}
 			pGL.glMatrixMode(GL10.GL_PROJECTION);
 		}

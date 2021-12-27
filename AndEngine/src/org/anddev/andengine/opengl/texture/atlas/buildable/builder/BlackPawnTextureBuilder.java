@@ -27,9 +27,9 @@ public class BlackPawnTextureBuilder<T extends ITextureAtlasSource, A extends IT
 		public int compare(final TextureAtlasSourceWithWithLocationCallback<?> pTextureAtlasSourceWithWithLocationCallbackA, final TextureAtlasSourceWithWithLocationCallback<?> pTextureAtlasSourceWithWithLocationCallbackB) {
 			final int deltaWidth = pTextureAtlasSourceWithWithLocationCallbackB.getTextureAtlasSource().getWidth() - pTextureAtlasSourceWithWithLocationCallbackA.getTextureAtlasSource().getWidth();
 			if(deltaWidth != 0) {
-				return deltaWidth;
+    return deltaWidth;
 			} else {
-				return pTextureAtlasSourceWithWithLocationCallbackB.getTextureAtlasSource().getHeight() - pTextureAtlasSourceWithWithLocationCallbackA.getTextureAtlasSource().getHeight();
+    return pTextureAtlasSourceWithWithLocationCallbackB.getTextureAtlasSource().getHeight() - pTextureAtlasSourceWithWithLocationCallbackA.getTextureAtlasSource().getHeight();
 			}
 		}
 	};
@@ -71,7 +71,7 @@ public class BlackPawnTextureBuilder<T extends ITextureAtlasSource, A extends IT
 			final Node inserted = root.insert(textureSource, pTextureAtlas.getWidth(), pTextureAtlas.getHeight(), this.mTextureAtlasSourceSpacing);
 
 			if(inserted == null) {
-				throw new TextureAtlasSourcePackingException("Could not pack: " + textureSource.toString());
+    throw new TextureAtlasSourcePackingException("Could not pack: " + textureSource.toString());
 			}
 			pTextureAtlas.addTextureAtlasSource(textureSource, inserted.mRect.mLeft, inserted.mRect.mTop);
 			textureSourceWithLocationCallback.getCallback().onCallback(textureSource);
@@ -209,75 +209,75 @@ public class BlackPawnTextureBuilder<T extends ITextureAtlasSource, A extends IT
 
 		public Node insert(final ITextureAtlasSource pTextureAtlasSource, final int pTextureWidth, final int pTextureHeight, final int pTextureSpacing) throws IllegalArgumentException {
 			if(this.mChildA != null && this.mChildB != null) {
-				final Node newNode = this.mChildA.insert(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing);
-				if(newNode != null){
-					return newNode;
-				} else {
-					return this.mChildB.insert(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing);
-				}
+    final Node newNode = this.mChildA.insert(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing);
+    if(newNode != null){
+    	return newNode;
+    } else {
+    	return this.mChildB.insert(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing);
+    }
 			} else {
-				if(this.mTextureAtlasSource != null) {
-					return null;
-				}
+    if(this.mTextureAtlasSource != null) {
+    	return null;
+    }
 
-				final int textureSourceWidth = pTextureAtlasSource.getWidth();
-				final int textureSourceHeight = pTextureAtlasSource.getHeight();
+    final int textureSourceWidth = pTextureAtlasSource.getWidth();
+    final int textureSourceHeight = pTextureAtlasSource.getHeight();
 
-				final int rectWidth = this.mRect.getWidth();
-				final int rectHeight = this.mRect.getHeight();
+    final int rectWidth = this.mRect.getWidth();
+    final int rectHeight = this.mRect.getHeight();
 
-				if(textureSourceWidth > rectWidth || textureSourceHeight > rectHeight) {
-					return null;
-				}
+    if(textureSourceWidth > rectWidth || textureSourceHeight > rectHeight) {
+    	return null;
+    }
 
-				final int textureSourceWidthWithSpacing = textureSourceWidth + pTextureSpacing;
-				final int textureSourceHeightWithSpacing = textureSourceHeight + pTextureSpacing;
+    final int textureSourceWidthWithSpacing = textureSourceWidth + pTextureSpacing;
+    final int textureSourceHeightWithSpacing = textureSourceHeight + pTextureSpacing;
 
-				final int rectLeft = this.mRect.getLeft();
-				final int rectTop = this.mRect.getTop();
+    final int rectLeft = this.mRect.getLeft();
+    final int rectTop = this.mRect.getTop();
 
-				final boolean fitToBottomWithoutSpacing = textureSourceHeight == rectHeight && rectTop + textureSourceHeight == pTextureHeight;
-				final boolean fitToRightWithoutSpacing = textureSourceWidth == rectWidth && rectLeft + textureSourceWidth == pTextureWidth;
+    final boolean fitToBottomWithoutSpacing = textureSourceHeight == rectHeight && rectTop + textureSourceHeight == pTextureHeight;
+    final boolean fitToRightWithoutSpacing = textureSourceWidth == rectWidth && rectLeft + textureSourceWidth == pTextureWidth;
 
-				if(textureSourceWidthWithSpacing == rectWidth){
-					if(textureSourceHeightWithSpacing == rectHeight) { /* Normal case with padding. */
-						this.mTextureAtlasSource = pTextureAtlasSource;
-						return this;
-					} else if(fitToBottomWithoutSpacing) { /* Bottom edge of the BitmapTexture. */
-						this.mTextureAtlasSource = pTextureAtlasSource;
-						return this;
-					}
-				}
+    if(textureSourceWidthWithSpacing == rectWidth){
+    	if(textureSourceHeightWithSpacing == rectHeight) { /* Normal case with padding. */
+    		this.mTextureAtlasSource = pTextureAtlasSource;
+    		return this;
+    	} else if(fitToBottomWithoutSpacing) { /* Bottom edge of the BitmapTexture. */
+    		this.mTextureAtlasSource = pTextureAtlasSource;
+    		return this;
+    	}
+    }
 
-				if(fitToRightWithoutSpacing) { /* Right edge of the BitmapTexture. */
-					if(textureSourceHeightWithSpacing == rectHeight) {
-						this.mTextureAtlasSource = pTextureAtlasSource;
-						return this;
-					} else if(fitToBottomWithoutSpacing) { /* Bottom edge of the BitmapTexture. */
-						this.mTextureAtlasSource = pTextureAtlasSource;
-						return this;
-					} else if(textureSourceHeightWithSpacing > rectHeight) {
-						return null;
-					} else {
+    if(fitToRightWithoutSpacing) { /* Right edge of the BitmapTexture. */
+    	if(textureSourceHeightWithSpacing == rectHeight) {
+    		this.mTextureAtlasSource = pTextureAtlasSource;
+    		return this;
+    	} else if(fitToBottomWithoutSpacing) { /* Bottom edge of the BitmapTexture. */
+    		this.mTextureAtlasSource = pTextureAtlasSource;
+    		return this;
+    	} else if(textureSourceHeightWithSpacing > rectHeight) {
+    		return null;
+    	} else {
 
-						return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidth, rectHeight - textureSourceHeightWithSpacing);
-					}
-				}
+    		return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidth, rectHeight - textureSourceHeightWithSpacing);
+    	}
+    }
 
-				if(fitToBottomWithoutSpacing) {
-					if(textureSourceWidthWithSpacing == rectWidth) {
-						this.mTextureAtlasSource = pTextureAtlasSource;
-						return this;
-					} else if(textureSourceWidthWithSpacing > rectWidth) {
-						return null;
-					} else {
-						return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidthWithSpacing, rectHeight - textureSourceHeight);
-					}
-				} else if(textureSourceWidthWithSpacing > rectWidth || textureSourceHeightWithSpacing > rectHeight) {
-					return null;
-				} else {
-					return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidthWithSpacing, rectHeight - textureSourceHeightWithSpacing);
-				}
+    if(fitToBottomWithoutSpacing) {
+    	if(textureSourceWidthWithSpacing == rectWidth) {
+    		this.mTextureAtlasSource = pTextureAtlasSource;
+    		return this;
+    	} else if(textureSourceWidthWithSpacing > rectWidth) {
+    		return null;
+    	} else {
+    		return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidthWithSpacing, rectHeight - textureSourceHeight);
+    	}
+    } else if(textureSourceWidthWithSpacing > rectWidth || textureSourceHeightWithSpacing > rectHeight) {
+    	return null;
+    } else {
+    	return this.createChildren(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing, rectWidth - textureSourceWidthWithSpacing, rectHeight - textureSourceHeightWithSpacing);
+    }
 			}
 		}
 
@@ -285,35 +285,35 @@ public class BlackPawnTextureBuilder<T extends ITextureAtlasSource, A extends IT
 			final Rect rect = this.mRect;
 
 			if(pDeltaWidth >= pDeltaHeight) {
-				/* Split using a vertical axis. */
-				this.mChildA = new Node(
-						rect.getLeft(),
-						rect.getTop(),
-						pTextureAtlasSource.getWidth() + pTextureSpacing,
-						rect.getHeight()
-				);
+    /* Split using a vertical axis. */
+    this.mChildA = new Node(
+    		rect.getLeft(),
+    		rect.getTop(),
+    		pTextureAtlasSource.getWidth() + pTextureSpacing,
+    		rect.getHeight()
+    );
 
-				this.mChildB = new Node(
-						rect.getLeft() + (pTextureAtlasSource.getWidth() + pTextureSpacing),
-						rect.getTop(),
-						rect.getWidth() - (pTextureAtlasSource.getWidth() + pTextureSpacing),
-						rect.getHeight()
-				);
+    this.mChildB = new Node(
+    		rect.getLeft() + (pTextureAtlasSource.getWidth() + pTextureSpacing),
+    		rect.getTop(),
+    		rect.getWidth() - (pTextureAtlasSource.getWidth() + pTextureSpacing),
+    		rect.getHeight()
+    );
 			} else {
-				/* Split using a horizontal axis. */
-				this.mChildA = new Node(
-						rect.getLeft(),
-						rect.getTop(),
-						rect.getWidth(),
-						pTextureAtlasSource.getHeight() + pTextureSpacing
-				);
+    /* Split using a horizontal axis. */
+    this.mChildA = new Node(
+    		rect.getLeft(),
+    		rect.getTop(),
+    		rect.getWidth(),
+    		pTextureAtlasSource.getHeight() + pTextureSpacing
+    );
 
-				this.mChildB = new Node(
-						rect.getLeft(),
-						rect.getTop() + (pTextureAtlasSource.getHeight() + pTextureSpacing),
-						rect.getWidth(),
-						rect.getHeight() - (pTextureAtlasSource.getHeight() + pTextureSpacing)
-				);
+    this.mChildB = new Node(
+    		rect.getLeft(),
+    		rect.getTop() + (pTextureAtlasSource.getHeight() + pTextureSpacing),
+    		rect.getWidth(),
+    		rect.getHeight() - (pTextureAtlasSource.getHeight() + pTextureSpacing)
+    );
 			}
 
 			return this.mChildA.insert(pTextureAtlasSource, pTextureWidth, pTextureHeight, pTextureSpacing);

@@ -65,8 +65,8 @@ public class ComponentSizeChooser extends BaseConfigChooser {
 			final int s = this.findConfigAttrib(pEGL, pEGLDisplay, config, EGL10.EGL_STENCIL_SIZE, 0);
 			final int distance = Math.abs(r - this.mRedSize) + Math.abs(g - this.mGreenSize) + Math.abs(b - this.mBlueSize) + Math.abs(a - this.mAlphaSize) + Math.abs(d - this.mDepthSize) + Math.abs(s - this.mStencilSize);
 			if(distance < closestDistance) {
-				closestDistance = distance;
-				closestConfig = config;
+    closestDistance = distance;
+    closestConfig = config;
 			}
 		}
 		return closestConfig;

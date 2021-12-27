@@ -50,7 +50,7 @@ public class FrameCountCrasher implements IUpdateHandler, TimeConstants {
 			frameLengths[this.mFramesLeft] = pSecondsElapsed;
 		} else {
 			for(int i = frameLengths.length - 1; i >= 0; i--) {
-				Debug.d("Elapsed: " + frameLengths[i]);
+    Debug.d("Elapsed: " + frameLengths[i]);
 			}
 
 			throw new RuntimeException();

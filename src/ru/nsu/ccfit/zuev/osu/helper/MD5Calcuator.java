@@ -16,13 +16,13 @@ public class MD5Calcuator {
 			byte[] bytes = new byte[8192];
 			int byteCount;
 			while ((byteCount = in.read(bytes)) > 0) {
-				digester.update(bytes, 0, byteCount);
+    digester.update(bytes, 0, byteCount);
 			}
 
 			final BigInteger hash = new BigInteger(1, digester.digest());
 			md5 = hash.toString(16);
 			while (md5.length() < 32) {
-				md5 = "0" + md5;
+    md5 = "0" + md5;
 			}
 
 			in.close();
@@ -42,7 +42,7 @@ public class MD5Calcuator {
 			final BigInteger hash = new BigInteger(1, digester.digest());
 			md5 = hash.toString(16);
 			while (md5.length() < 32) {
-				md5 = "0" + md5;
+    md5 = "0" + md5;
 			}
 		} catch (Exception e) {
 			Debug.e("MD5Calculator: " + e.getMessage());

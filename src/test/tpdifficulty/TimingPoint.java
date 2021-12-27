@@ -41,9 +41,9 @@ public class TimingPoint {
 	@Override
 	public String toString() {
 		return "TimingPoint{" +
-				"bpm=" + bpm +
-				", offset=" + offset +
-				", speed=" + speed +
-				'}';
+    "bpm=" + bpm +
+    ", offset=" + offset +
+    ", speed=" + speed +
+    '}';
 	}
 }

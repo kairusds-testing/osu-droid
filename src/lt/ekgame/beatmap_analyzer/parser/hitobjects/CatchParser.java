@@ -20,8 +20,8 @@ public class CatchParser extends HitObjectParser<CatchObject> {
 
 	@Override
 	public Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
-								BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
-								List<TimingPoint> timingPoints, List<String> rawObjects) {
+        BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
+        List<TimingPoint> timingPoints, List<String> rawObjects) {
 		return null;
 	}
 }

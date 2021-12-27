@@ -128,11 +128,11 @@ import android.view.SurfaceView;
  * 	public boolean onKeyDown(int keyCode, KeyEvent event) {
  * 		if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
  * 			queueEvent(new Runnable() {
- * 				// This method will be called on the rendering
- * 				// thread:
- * 				public void run() {
- * 					mMyRenderer.handleDpadCenter();
- * 				}
+ *     // This method will be called on the rendering
+ *     // thread:
+ *     public void run() {
+ *     	mMyRenderer.handleDpadCenter();
+ *     }
  * 			});
  * 			return true;
  * 		}
@@ -541,16 +541,16 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 			 * EGL.
 			 */
 			try {
-				try {
-					sEglSemaphore.acquire();
-				} catch (final InterruptedException e) {
-					return;
-				}
-				this.guardedRun();
+    try {
+    	sEglSemaphore.acquire();
+    } catch (final InterruptedException e) {
+    	return;
+    }
+    this.guardedRun();
 			} catch (final InterruptedException e) {
-				// fall thru and exit normally
+    // fall thru and exit normally
 			} finally {
-				sEglSemaphore.release();
+    sEglSemaphore.release();
 			}
 		}
 
@@ -568,60 +568,60 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 			 */
 			while(!this.mDone) {
 
-				/*
-				 * Update the asynchronous state (window size)
-				 */
-				int w, h;
-				boolean changed;
-				boolean needStart = false;
-				synchronized (this) {
-					Runnable r;
-					while((r = this.getEvent()) != null) {
-						r.run();
-					}
-					if(this.mPaused) {
-						this.mEglHelper.finish();
-						needStart = true;
-					}
-					while(this.needToWait()) {
-						this.wait();
-					}
-					if(this.mDone) {
-						break;
-					}
-					changed = this.mSizeChanged;
-					w = this.mWidth;
-					h = this.mHeight;
-					this.mSizeChanged = false;
-					this.mRequestRender = false;
-				}
-				if(needStart) {
-					this.mEglHelper.start();
-					tellRendererSurfaceCreated = true;
-					changed = true;
-				}
-				if(changed) {
-					gl = (GL10) this.mEglHelper.createSurface(GLSurfaceView.this.getHolder());
-					tellRendererSurfaceChanged = true;
-				}
-				if(tellRendererSurfaceCreated) {
-					this.mRenderer.onSurfaceCreated(gl, this.mEglHelper.mEglConfig);
-					tellRendererSurfaceCreated = false;
-				}
-				if(tellRendererSurfaceChanged) {
-					this.mRenderer.onSurfaceChanged(gl, w, h);
-					tellRendererSurfaceChanged = false;
-				}
-				if((w > 0) && (h > 0)) {
-					/* draw a frame here */
-					this.mRenderer.onDrawFrame(gl);
+    /*
+     * Update the asynchronous state (window size)
+     */
+    int w, h;
+    boolean changed;
+    boolean needStart = false;
+    synchronized (this) {
+    	Runnable r;
+    	while((r = this.getEvent()) != null) {
+    		r.run();
+    	}
+    	if(this.mPaused) {
+    		this.mEglHelper.finish();
+    		needStart = true;
+    	}
+    	while(this.needToWait()) {
+    		this.wait();
+    	}
+    	if(this.mDone) {
+    		break;
+    	}
+    	changed = this.mSizeChanged;
+    	w = this.mWidth;
+    	h = this.mHeight;
+    	this.mSizeChanged = false;
+    	this.mRequestRender = false;
+    }
+    if(needStart) {
+    	this.mEglHelper.start();
+    	tellRendererSurfaceCreated = true;
+    	changed = true;
+    }
+    if(changed) {
+    	gl = (GL10) this.mEglHelper.createSurface(GLSurfaceView.this.getHolder());
+    	tellRendererSurfaceChanged = true;
+    }
+    if(tellRendererSurfaceCreated) {
+    	this.mRenderer.onSurfaceCreated(gl, this.mEglHelper.mEglConfig);
+    	tellRendererSurfaceCreated = false;
+    }
+    if(tellRendererSurfaceChanged) {
+    	this.mRenderer.onSurfaceChanged(gl, w, h);
+    	tellRendererSurfaceChanged = false;
+    }
+    if((w > 0) && (h > 0)) {
+    	/* draw a frame here */
+    	this.mRenderer.onDrawFrame(gl);
 
-					/*
-					 * Once we're done with GL, we need to call swapBuffers() to
-					 * instruct the system to display the rendered frame
-					 */
-					this.mEglHelper.swap();
-				}
+    	/*
+    	 * Once we're done with GL, we need to call swapBuffers() to
+    	 * instruct the system to display the rendered frame
+    	 */
+    	this.mEglHelper.swap();
+    }
 			}
 
 			/*
@@ -632,15 +632,15 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 		private boolean needToWait() {
 			if(this.mDone) {
-				return false;
+    return false;
 			}
 
 			if(this.mPaused || (!this.mHasSurface)) {
-				return true;
+    return true;
 			}
 
 			if((this.mWidth > 0) && (this.mHeight > 0) && (this.mRequestRender || (this.mRenderMode == RENDERMODE_CONTINUOUSLY))) {
-				return false;
+    return false;
 			}
 
 			return true;
@@ -648,62 +648,62 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 		public void setRenderMode(final int renderMode) {
 			if(!((RENDERMODE_WHEN_DIRTY <= renderMode) && (renderMode <= RENDERMODE_CONTINUOUSLY))) {
-				throw new IllegalArgumentException("renderMode");
+    throw new IllegalArgumentException("renderMode");
 			}
 			synchronized (this) {
-				this.mRenderMode = renderMode;
-				if(renderMode == RENDERMODE_CONTINUOUSLY) {
-					this.notify();
-				}
+    this.mRenderMode = renderMode;
+    if(renderMode == RENDERMODE_CONTINUOUSLY) {
+    	this.notify();
+    }
 			}
 		}
 
 		public int getRenderMode() {
 			synchronized (this) {
-				return this.mRenderMode;
+    return this.mRenderMode;
 			}
 		}
 
 		public void requestRender() {
 			synchronized (this) {
-				this.mRequestRender = true;
-				this.notify();
+    this.mRequestRender = true;
+    this.notify();
 			}
 		}
 
 		public void surfaceCreated() {
 			synchronized (this) {
-				this.mHasSurface = true;
-				this.notify();
+    this.mHasSurface = true;
+    this.notify();
 			}
 		}
 
 		public void surfaceDestroyed() {
 			synchronized (this) {
-				this.mHasSurface = false;
-				this.notify();
+    this.mHasSurface = false;
+    this.notify();
 			}
 		}
 
 		public void onPause() {
 			synchronized (this) {
-				this.mPaused = true;
+    this.mPaused = true;
 			}
 		}
 
 		public void onResume() {
 			synchronized (this) {
-				this.mPaused = false;
-				this.notify();
+    this.mPaused = false;
+    this.notify();
 			}
 		}
 
 		public void onWindowResize(final int w, final int h) {
 			synchronized (this) {
-				this.mWidth = w;
-				this.mHeight = h;
-				this.mSizeChanged = true;
-				this.notify();
+    this.mWidth = w;
+    this.mHeight = h;
+    this.mSizeChanged = true;
+    this.notify();
 			}
 		}
 
@@ -711,13 +711,13 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 			// don't call this from GLThread thread or it is a guaranteed
 			// deadlock!
 			synchronized (this) {
-				this.mDone = true;
-				this.notify();
+    this.mDone = true;
+    this.notify();
 			}
 			try {
-				this.join();
+    this.join();
 			} catch (final InterruptedException ex) {
-				Thread.currentThread().interrupt();
+    Thread.currentThread().interrupt();
 			}
 		}
 
@@ -729,15 +729,15 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 		 */
 		public void queueEvent(final Runnable r) {
 			synchronized (this) {
-				this.mEventQueue.add(r);
+    this.mEventQueue.add(r);
 			}
 		}
 
 		private Runnable getEvent() {
 			synchronized (this) {
-				if(this.mEventQueue.size() > 0) {
-					return this.mEventQueue.remove(0);
-				}
+    if(this.mEventQueue.size() > 0) {
+    	return this.mEventQueue.remove(0);
+    }
 
 			}
 			return null;
@@ -807,11 +807,11 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 			 */
 			if(this.mEglSurface != null) {
 
-				/*
-				 * Unbind and destroy the old EGL surface, if there is one.
-				 */
-				this.mEgl.eglMakeCurrent(this.mEglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
-				this.mEgl.eglDestroySurface(this.mEglDisplay, this.mEglSurface);
+    /*
+     * Unbind and destroy the old EGL surface, if there is one.
+     */
+    this.mEgl.eglMakeCurrent(this.mEglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
+    this.mEgl.eglDestroySurface(this.mEglDisplay, this.mEglSurface);
 			}
 
 			/*
@@ -827,7 +827,7 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 			GL gl = this.mEglContext.getGL();
 			if(GLSurfaceView.this.mGLWrapper != null) {
-				gl = GLSurfaceView.this.mGLWrapper.wrap(gl);
+    gl = GLSurfaceView.this.mGLWrapper.wrap(gl);
 			}
 
 			/* Debugging disabled */
@@ -860,17 +860,17 @@ public class GLSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 		public void finish() {
 			if(this.mEglSurface != null) {
-				this.mEgl.eglMakeCurrent(this.mEglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
-				this.mEgl.eglDestroySurface(this.mEglDisplay, this.mEglSurface);
-				this.mEglSurface = null;
+    this.mEgl.eglMakeCurrent(this.mEglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
+    this.mEgl.eglDestroySurface(this.mEglDisplay, this.mEglSurface);
+    this.mEglSurface = null;
 			}
 			if(this.mEglContext != null) {
-				this.mEgl.eglDestroyContext(this.mEglDisplay, this.mEglContext);
-				this.mEglContext = null;
+    this.mEgl.eglDestroyContext(this.mEglDisplay, this.mEglContext);
+    this.mEglContext = null;
 			}
 			if(this.mEglDisplay != null) {
-				this.mEgl.eglTerminate(this.mEglDisplay);
-				this.mEglDisplay = null;
+    this.mEgl.eglTerminate(this.mEglDisplay);
+    this.mEglDisplay = null;
 			}
 		}
 

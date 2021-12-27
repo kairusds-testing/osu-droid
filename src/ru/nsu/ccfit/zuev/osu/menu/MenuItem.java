@@ -45,17 +45,17 @@ public class MenuItem {
 		beatmap = info;
 		trackDir = ScoreLibrary.getTrackDir(beatmap.getPath());
 		bgHeight = ResourceManager.getInstance()
-				.getTexture("menu-button-background").getHeight()
-				- Utils.toRes(25);
+    .getTexture("menu-button-background").getHeight()
+    - Utils.toRes(25);
 //		titleStr = (beatmap.getArtistUnicode() == null ? beatmap.getArtist() : beatmap.getArtistUnicode()) + " - "
-//				+ (beatmap.getTitleUnicode() == null ? beatmap.getTitle() : beatmap.getTitleUnicode());
+//    + (beatmap.getTitleUnicode() == null ? beatmap.getTitle() : beatmap.getTitleUnicode());
 		titleStr = beatmap.getArtist() + " - " + beatmap.getTitle();
 		creatorStr = StringTable.format(R.string.menu_creator,
-				beatmap.getCreator());
+    beatmap.getCreator());
 		trackSprites = new MenuItemTrack[info.getCount()];
 
 		final BeatmapProperties props = PropertiesLibrary.getInstance()
-				.getProperties(info.getPath());
+    .getProperties(info.getPath());
 		favorite = props != null && props.isFavorite();
 
 	}
@@ -65,10 +65,10 @@ public class MenuItem {
 		beatmap = info;
 		trackDir = ScoreLibrary.getTrackDir(beatmap.getPath());
 		bgHeight = ResourceManager.getInstance()
-				.getTexture("menu-button-background").getHeight()
-				- Utils.toRes(25);
+    .getTexture("menu-button-background").getHeight()
+    - Utils.toRes(25);
 //		titleStr = (beatmap.getArtistUnicode() == null ? beatmap.getArtist() : beatmap.getArtistUnicode()) + " - "
-//				+ (beatmap.getTitleUnicode() == null ? beatmap.getTitle() : beatmap.getTitleUnicode());
+//    + (beatmap.getTitleUnicode() == null ? beatmap.getTitle() : beatmap.getTitleUnicode());
 		titleStr = beatmap.getArtist() + " - " + beatmap.getTitle();
 		creatorStr = StringTable.format(R.string.menu_creator, beatmap.getCreator());
 		trackSprites = new MenuItemTrack[1];
@@ -85,7 +85,7 @@ public class MenuItem {
 	public void updateMarks() {
 		for (final MenuItemTrack tr : trackSprites) {
 			if (tr != null) {
-				tr.updateMark();
+    tr.updateMark();
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class MenuItem {
 		}
 		if (selected) {
 			return bgHeight + percentAppeared * (bgHeight)
-					* (trackSprites.length - 1);
+    	* (trackSprites.length - 1);
 		}
 		return bgHeight - Utils.toRes(5);
 	}
@@ -122,27 +122,27 @@ public class MenuItem {
 		if (background != null) {
 			background.setPosition(x, y);
 			if (y > Config.getRES_HEIGHT() || y < -background.getHeight()) {
-				freeBackground();
+    freeBackground();
 			}
 		}
 		if (!selected) {
 			if (visible && background == null
-					&& y < Config.getRES_HEIGHT() && y > -bgHeight) {
-				initBackground();
-				background.setPosition(x, y);
+    	&& y < Config.getRES_HEIGHT() && y > -bgHeight) {
+    initBackground();
+    background.setPosition(x, y);
 			}
 			return;
 		}
 		float oy = 0;
 		for (final Sprite s : trackSprites) {
 			if (s == null) {
-				continue;
+    continue;
 			}
 			final float cy = y + oy + Config.getRES_HEIGHT() / 2f
-					+ s.getHeight() / 2;
+    	+ s.getHeight() / 2;
 			final float ox = x
-					+ Utils.toRes(170 * (float) Math.abs(Math.cos(cy * Math.PI
-					/ (Config.getRES_HEIGHT() * 2))));
+    	+ Utils.toRes(170 * (float) Math.abs(Math.cos(cy * Math.PI
+    	/ (Config.getRES_HEIGHT() * 2))));
 			s.setPosition(ox - Utils.toRes(100), y + oy);
 			oy += (s.getHeight() - Utils.toRes(25)) * percentAppeared;
 		}
@@ -194,10 +194,10 @@ public class MenuItem {
 
 	public void applyFilter(final String filter, final boolean favs, Set<String> limit) {
 		if ((favs && !isFavorite())
-				|| (limit != null && !limit.contains(trackDir))) {
+    || (limit != null && !limit.contains(trackDir))) {
 			//System.out.println(trackDir);
 			if (selected) {
-				deselect();
+    deselect();
 			}
 			freeBackground();
 			visible = false;
@@ -226,28 +226,28 @@ public class MenuItem {
 			Pattern pattern = Pattern.compile("(ar|od|cs|hp|star)(=|<|>|<=|>=)(\\d+)");
 			Matcher matcher = pattern.matcher(filterText);
 			if (matcher.find()) {
-				String key = matcher.group(1);
-				String opt = matcher.group(2);
-				String value = matcher.group(3);
-				boolean vis = false;
-				if(trackId < 0){
-					for (TrackInfo track : beatmap.getTracks()) {
-						if (key != null) {
-							vis |= visibleTrack(track, key, opt, value);
-						}
-					}
-				}
-				else{
-					if (key != null) {
-						vis = visibleTrack(beatmap.getTrack(trackId), key, opt, value);
-					}
-				}
-				canVisible &= vis;
+    String key = matcher.group(1);
+    String opt = matcher.group(2);
+    String value = matcher.group(3);
+    boolean vis = false;
+    if(trackId < 0){
+    	for (TrackInfo track : beatmap.getTracks()) {
+    		if (key != null) {
+    			vis |= visibleTrack(track, key, opt, value);
+    		}
+    	}
+    }
+    else{
+    	if (key != null) {
+    		vis = visibleTrack(beatmap.getTrack(trackId), key, opt, value);
+    	}
+    }
+    canVisible &= vis;
 			} else {
-				if (!lowerText.contains(filterText)) {
-					canVisible = false;
-					break;
-				}
+    if (!lowerText.contains(filterText)) {
+    	canVisible = false;
+    	break;
+    }
 			}
 		}
 
@@ -257,10 +257,10 @@ public class MenuItem {
 
 		if (canVisible) {
 			if (!visible) {
-				visible = true;
-				// initBackground();
-				selected = false;
-				percentAppeared = 0;
+    visible = true;
+    // initBackground();
+    selected = false;
+    percentAppeared = 0;
 			}
 			return;
 		}
@@ -275,34 +275,34 @@ public class MenuItem {
 	private boolean visibleTrack(TrackInfo track, String key, String opt, String value) {
 		switch (key) {
 			case "ar":
-				return calOpt(track.getApproachRate(), Float.parseFloat(value), opt);
+    return calOpt(track.getApproachRate(), Float.parseFloat(value), opt);
 			case "od":
-				return calOpt(track.getOverallDifficulty(), Float.parseFloat(value), opt);
+    return calOpt(track.getOverallDifficulty(), Float.parseFloat(value), opt);
 			case "cs":
-				return calOpt(track.getCircleSize(), Float.parseFloat(value), opt);
+    return calOpt(track.getCircleSize(), Float.parseFloat(value), opt);
 			case "hp":
-				return calOpt(track.getHpDrain(), Float.parseFloat(value), opt);
+    return calOpt(track.getHpDrain(), Float.parseFloat(value), opt);
 			case "star":
-				return calOpt(track.getDifficulty(), Float.parseFloat(value), opt);
+    return calOpt(track.getDifficulty(), Float.parseFloat(value), opt);
 			default:
-				return false;
+    return false;
 		}
 	}
 
 	private boolean calOpt(float val1, float val2, String opt) {
 		switch (opt) {
 			case "=":
-				return val1 == val2;
+    return val1 == val2;
 			case "<":
-				return val1 < val2;
+    return val1 < val2;
 			case ">":
-				return val1 > val2;
+    return val1 > val2;
 			case "<=":
-				return val1 <= val2;
+    return val1 <= val2;
 			case ">=":
-				return val1 >= val2;
+    return val1 >= val2;
 			default:
-				return false;
+    return false;
 		}
 	}
 
@@ -374,15 +374,15 @@ public class MenuItem {
 	private void initTracks() {
 		if (trackId == -1){
 			for (int i = 0; i < trackSprites.length; i++) {
-				trackSprites[i] = SongMenuPool.getInstance().newTrack();
-				trackSprites[i].setItem(this);
-				trackSprites[i].setTrack(beatmap.getTrack(i), beatmap);
-				beatmap.getTrack(i).setBeatmap(beatmap);
-				if (!trackSprites[i].hasParent()) {
-					layer.attachChild(trackSprites[i]);
-				}
-				scene.registerTouchArea(trackSprites[i]);
-				trackSprites[i].setVisible(true);
+    trackSprites[i] = SongMenuPool.getInstance().newTrack();
+    trackSprites[i].setItem(this);
+    trackSprites[i].setTrack(beatmap.getTrack(i), beatmap);
+    beatmap.getTrack(i).setBeatmap(beatmap);
+    if (!trackSprites[i].hasParent()) {
+    	layer.attachChild(trackSprites[i]);
+    }
+    scene.registerTouchArea(trackSprites[i]);
+    trackSprites[i].setVisible(true);
 			}
 		}
 		else{
@@ -391,7 +391,7 @@ public class MenuItem {
 			trackSprites[0].setTrack(beatmap.getTrack(trackId), beatmap);
 			beatmap.getTrack(trackId).setBeatmap(beatmap);
 			if (!trackSprites[0].hasParent()) {
-				layer.attachChild(trackSprites[0]);
+    layer.attachChild(trackSprites[0]);
 			}
 			scene.registerTouchArea(trackSprites[0]);
 			trackSprites[0].setVisible(true);
@@ -416,7 +416,7 @@ public class MenuItem {
 		}
 		for (final MenuItemTrack tr : trackSprites) {
 			if (tr != null) {
-				tr.update(dt);
+    tr.update(dt);
 			}
 		}
 	}
@@ -441,11 +441,11 @@ public class MenuItem {
 		if (trackId <= -1){
 			int i = 0;
 			for (TrackInfo track : beatmap.getTracks()){
-				if (track == null) continue;
-				if (track.getFilename().equals(oldTrackFileName)){
-					return i;
-				}
-				i++;
+    if (track == null) continue;
+    if (track.getFilename().equals(oldTrackFileName)){
+    	return i;
+    }
+    i++;
 			}
 		}
 		else if (beatmap.getTrack(trackId).getFilename().equals(oldTrackFileName)){

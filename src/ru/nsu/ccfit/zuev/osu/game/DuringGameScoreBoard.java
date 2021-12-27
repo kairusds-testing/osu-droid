@@ -31,7 +31,7 @@ public class DuringGameScoreBoard extends GameObject {
 	private Sprite playerSprite;
 	private float itemHeight;
 	private long lastRankChange;
-
+	
 	private float paddingTop = 15, paddingLeft = 10;
 
 	public DuringGameScoreBoard(final Scene scene, final StatisticV2 stat, String isNotMe) {
@@ -43,18 +43,18 @@ public class DuringGameScoreBoard extends GameObject {
 			int replayIndex = -1;
 			scoreBoardDatas = new ScoreBoard.ScoreBoardItems[items.length - 1];
 			for (int i = 0; i < items.length; i++) {
-				if (replayid == items[i].scoreId) {
-					replayIndex = i;
-					continue;
-				}
-				scoreBoardDatas[i - (replayIndex != -1 ? 1 : 0)] = items[i];
+    if (replayid == items[i].scoreId) {
+    	replayIndex = i;
+    	continue;
+    }
+    scoreBoardDatas[i - (replayIndex != -1 ? 1 : 0)] = items[i];
 			}
 		}
 		posNow = scoreBoardDatas.length;
 		currentUsername = isNotMe != null ? isNotMe :
-				OnlineScoring.getInstance().getPanel() == null ?
-						Config.getLocalUsername() :
-						Config.getOnlineUsername();
+    OnlineScoring.getInstance().getPanel() == null ?
+    		Config.getLocalUsername() :
+    		Config.getOnlineUsername();
 		TextureRegion tex = ResourceManager.getInstance().getTexture("menu-button-background").deepCopy();
 		tex.setHeight(90);
 		tex.setWidth(130);
@@ -65,12 +65,12 @@ public class DuringGameScoreBoard extends GameObject {
 			s.setAlpha(0.5f);
 			s.setColor(scoreBoardDatas[i].userName.equals(currentUsername) && !currentUsername.equals("osu!") ? 1 : 0.5f, 0.5f, 0.5f);
 			final Text info = new Text(paddingLeft, paddingTop,
-					ResourceManager.getInstance().getFont("font"), scoreBoardDatas[i].get());
+    	ResourceManager.getInstance().getFont("font"), scoreBoardDatas[i].get());
 			info.setScaleCenter(0, 0);
 			info.setScale(0.65f);
 			info.setColor(0.85f, 0.85f, 0.9f);
 			ranks[i] = new ChangeableText(paddingLeft, paddingTop,
-					ResourceManager.getInstance().getFont("CaptionFont"), "#1", 5);
+    	ResourceManager.getInstance().getFont("CaptionFont"), "#1", 5);
 			ranks[i].setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 			ranks[i].setScaleCenter(0, 0);
 			ranks[i].setScale(1.7f);
@@ -88,20 +88,20 @@ public class DuringGameScoreBoard extends GameObject {
 		playerSprite.setAlpha(0.5f);
 		playerSprite.setColor(0.5f, 0.5f, 1);
 		playerText = new ChangeableText(paddingLeft, paddingTop,
-				ResourceManager.getInstance().getFont("font"),
-				currentUsername + "\n0\n0x", 100);
+    ResourceManager.getInstance().getFont("font"),
+    currentUsername + "\n0\n0x", 100);
 		playerText.setScaleCenter(0, 0);
 		playerText.setScale(0.65f);
 		playerText.setColor(0.85f, 0.85f, 0.9f);
 		playerRank = new ChangeableText(paddingLeft, paddingTop,
-				ResourceManager.getInstance().getFont("CaptionFont"),
-				"#1", 5);
+    ResourceManager.getInstance().getFont("CaptionFont"),
+    "#1", 5);
 		playerRank.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 		playerRank.setScaleCenter(0, 0);
 		playerRank.setScale(1.7f);
 		playerRank.setColor(0.6f, 0.6f, 0.6f, 0.9f);
 		playerRank.setText("#" + (!GlobalManager.getInstance().getSongMenu().isBoardOnline() || posNow < (replayid == -1 ? 20 : 19) ?
-				String.valueOf(posNow + 1) : "?"));
+    String.valueOf(posNow + 1) : "?"));
 		playerRank.setPosition(100 - playerRank.getWidth(), paddingTop * 2);
 		playerSprite.attachChild(playerRank);
 		playerSprite.attachChild(playerText);
@@ -117,24 +117,24 @@ public class DuringGameScoreBoard extends GameObject {
 		playerSprite.setColor(passedAfterChange < 1 ? 1 - 0.5f * passedAfterChange : 0.5f, passedAfterChange < 1 ? 1 - 0.5f * passedAfterChange : 0.5f, 1, passedAfterChange < 1 ? 1 - 0.5f * passedAfterChange : 0.5f);
 		int score = stat.getAutoTotalScore();
 		playerText.setText(currentUsername + "\n" +
-				NumberFormat.getNumberInstance(Locale.US).format(score) + "\n" +
-				NumberFormat.getNumberInstance(Locale.US).format(stat.getMaxCombo()) + "x");
+    NumberFormat.getNumberInstance(Locale.US).format(score) + "\n" +
+    NumberFormat.getNumberInstance(Locale.US).format(stat.getMaxCombo()) + "x");
 		playerText.setScaleCenter(0, 0);
 		playerText.setScale(0.65f);
 		for (int i = posNow - 1; i >= 0; i--) {
 			if (score > scoreBoardDatas[i].playScore) {
-				posNow = i;
-				ranks[i].setText("#" + (i + 2));
-				ranks[i].setPosition(100 - ranks[i].getWidth(), paddingTop * 2);
-				playerRank.setText("#" + (i + 1));
-				playerRank.setPosition(100 - playerRank.getWidth(), paddingTop * 2);
-				lastRankChange = System.currentTimeMillis();
-				if (i > 2) {
-					boards[i].setVisible(false);
-					boards[i - 2].setVisible(true);
-				}
-				playerSprite.setColor(1, 1, 1);
-				playerSprite.setAlpha(1);
+    posNow = i;
+    ranks[i].setText("#" + (i + 2));
+    ranks[i].setPosition(100 - ranks[i].getWidth(), paddingTop * 2);
+    playerRank.setText("#" + (i + 1));
+    playerRank.setPosition(100 - playerRank.getWidth(), paddingTop * 2);
+    lastRankChange = System.currentTimeMillis();
+    if (i > 2) {
+    	boards[i].setVisible(false);
+    	boards[i - 2].setVisible(true);
+    }
+    playerSprite.setColor(1, 1, 1);
+    playerSprite.setAlpha(1);
 			}
 		}
 		if (boards.length > 4 && posNow > 3) {
@@ -144,9 +144,9 @@ public class DuringGameScoreBoard extends GameObject {
 			boards[0].setPosition(0, Config.getRES_HEIGHT() / 2 - itemHeight * 3);
 		} else {
 			for (int i = 0; i < 4; i++) {
-				if (boards.length <= i) break;
-				boards[i].setPosition(0,
-						Config.getRES_HEIGHT() / 2 + itemHeight * (i - (posNow <= i ? 2 : 3)));
+    if (boards.length <= i) break;
+    boards[i].setPosition(0,
+    		Config.getRES_HEIGHT() / 2 + itemHeight * (i - (posNow <= i ? 2 : 3)));
 			}
 			playerSprite.setPosition(0, Config.getRES_HEIGHT() / 2 + itemHeight * (posNow - 3));
 		}

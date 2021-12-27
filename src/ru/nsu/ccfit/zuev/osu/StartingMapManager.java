@@ -27,7 +27,7 @@ public class StartingMapManager {
 
 	public boolean checkStartingMaps() {
 		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(activity);
+    .getDefaultSharedPreferences(activity);
 		return prefs.getBoolean("initialized", false);
 	}
 
@@ -49,7 +49,7 @@ public class StartingMapManager {
 		}
 
 		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(activity);
+    .getDefaultSharedPreferences(activity);
 		final SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean("initialized", true);
 		editor.commit();
@@ -73,10 +73,10 @@ public class StartingMapManager {
 		for (final String file : fileList) {
 			final String fullname = "Songs/" + dirname + "/" + file;
 			try {
-				final InputStream istream = mgr.open(fullname);
-				copyFile(dirname + "/" + file, istream);
+    final InputStream istream = mgr.open(fullname);
+    copyFile(dirname + "/" + file, istream);
 			} catch (final IOException e) {
-				Debug.e("StartingMapManager: " + e.getMessage(), e);
+    Debug.e("StartingMapManager: " + e.getMessage(), e);
 			}
 		}
 	}
@@ -88,8 +88,8 @@ public class StartingMapManager {
 			out = new FileOutputStream(Config.getBeatmapPath() + "/" + filename);
 		} catch (final FileNotFoundException e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("StartingMapManager: " + e.getMessage(), e);
 			return;
 		}
@@ -98,7 +98,7 @@ public class StartingMapManager {
 			final byte[] buffer = new byte[4096];
 			int read;
 			while ((read = istream.read(buffer)) != -1) {
-				out.write(buffer, 0, read);
+    out.write(buffer, 0, read);
 			}
 
 			istream.close();

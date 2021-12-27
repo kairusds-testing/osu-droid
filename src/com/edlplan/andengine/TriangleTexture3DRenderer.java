@@ -19,9 +19,9 @@ public class TriangleTexture3DRenderer {
 		{
 			int offset = ver.length;
 			if (buffer == null || buffer.capacity() < offset) {
-				ByteBuffer bb = ByteBuffer.allocateDirect((offset + 18) * 4);
-				bb.order(ByteOrder.nativeOrder());
-				buffer = bb.asFloatBuffer();
+    ByteBuffer bb = ByteBuffer.allocateDirect((offset + 18) * 4);
+    bb.order(ByteOrder.nativeOrder());
+    buffer = bb.asFloatBuffer();
 			}
 			buffer.position(0).limit(buffer.capacity());
 			buffer.put(ver, 0, ver.length);
@@ -30,9 +30,9 @@ public class TriangleTexture3DRenderer {
 		{
 			int offset = coord.length;
 			if (coordBuffer == null || coordBuffer.capacity() < offset) {
-				ByteBuffer bb = ByteBuffer.allocateDirect((offset + 12) * 4);
-				bb.order(ByteOrder.nativeOrder());
-				coordBuffer = bb.asFloatBuffer();
+    ByteBuffer bb = ByteBuffer.allocateDirect((offset + 12) * 4);
+    bb.order(ByteOrder.nativeOrder());
+    coordBuffer = bb.asFloatBuffer();
 			}
 			coordBuffer.position(0).limit(coordBuffer.capacity());
 			coordBuffer.put(coord, 0, coord.length);

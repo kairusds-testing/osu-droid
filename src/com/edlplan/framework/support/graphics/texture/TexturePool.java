@@ -92,9 +92,9 @@ public class TexturePool {
 		}
 		Collections.sort(infos, (p1, p2) -> {
 			if (p1.size.y == p2.size.y) {
-				return Float.compare(p1.size.x, p2.size.x);
+    return Float.compare(p1.size.x, p2.size.x);
 			} else {
-				return Float.compare(p1.size.y, p2.size.y);
+    return Float.compare(p1.size.y, p2.size.y);
 			}
 		});
 
@@ -109,8 +109,8 @@ public class TexturePool {
 		while (iterator.hasNext()) {
 			TextureInfo info = iterator.next();
 			if (info.pageIndex != -1) {
-				iterator.previous();
-				break;
+    iterator.previous();
+    break;
 			}
 			Bitmap bmp = loadBitmap(info);
 			info.texture = TextureHelper.createRegion(bmp);
@@ -141,26 +141,26 @@ public class TexturePool {
 			int currentPack = iterator.next().pageIndex;
 			iterator.previous();
 			while (iterator.hasNext()) {
-				TextureInfo info = iterator.next();
-				if (info.pageIndex != currentPack) {
-					break;
-				}
-				toLoad.add(info);
-				canvas.drawBitmap(tmp = loadBitmap(info), info.pos.x, info.pos.y, paint);
-				tmp.recycle();
+    TextureInfo info = iterator.next();
+    if (info.pageIndex != currentPack) {
+    	break;
+    }
+    toLoad.add(info);
+    canvas.drawBitmap(tmp = loadBitmap(info), info.pos.x, info.pos.y, paint);
+    tmp.recycle();
 			}
 			if (onPackDrawDone != null) {
-				onPackDrawDone.consume(pack);
+    onPackDrawDone.consume(pack);
 			}
 			final QualityFileBitmapSource source = new QualityFileBitmapSource(
-					TextureHelper.createFactoryFromBitmap(pack));
+    	TextureHelper.createFactoryFromBitmap(pack));
 			final BitmapTextureAtlas tex = new BitmapTextureAtlas(glMaxWidth, glMaxWidth, TextureOptions.BILINEAR);
 			tex.addTextureAtlasSource(source, 0, 0);
 			GlobalManager.getInstance().getEngine().getTextureManager().loadTexture(tex);
 			createdTextures.add(tex);
 			for (TextureInfo info : toLoad) {
-				info.texture = new TextureRegion(tex, info.pos.x, info.pos.y, info.size.x, info.size.y);
-				info.texture.setTextureRegionBufferManaged(false);
+    info.texture = new TextureRegion(tex, info.pos.x, info.pos.y, info.size.x, info.size.y);
+    info.texture.setTextureRegionBufferManaged(false);
 			}
 		}
 		pack.recycle();
@@ -221,10 +221,10 @@ public class TexturePool {
 			bmp.setPixel(0, 0, Color.argb(255, 255, 0, 0));
 		} else {
 			try {
-				bmp = BitmapFactory.decodeFile(info.file, options);
+    bmp = BitmapFactory.decodeFile(info.file, options);
 			} catch (Exception e) {
-				bmp = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-				bmp.setPixel(0, 0, Color.argb(255, 255, 0, 0));
+    bmp = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+    bmp.setPixel(0, 0, Color.argb(255, 255, 0, 0));
 			}
 		}
 		return bmp;

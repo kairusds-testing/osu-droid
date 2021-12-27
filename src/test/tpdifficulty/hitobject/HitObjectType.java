@@ -20,17 +20,17 @@ public enum HitObjectType {
 	public static HitObjectType valueOf(int value) {
 		switch (value) {
 			case 1:
-				return Normal;
+    return Normal;
 			case 2:
-				return Slider;
+    return Slider;
 			case 4:
-				return NewCombo;
+    return NewCombo;
 			case 5:
-				return NormalNewCombo;
+    return NormalNewCombo;
 			case 6:
-				return SliderNewCombo;
+    return SliderNewCombo;
 			default:
-				return Spinner;
+    return Spinner;
 		}
 	}
 

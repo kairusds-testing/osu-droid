@@ -29,11 +29,11 @@ public class TriangleTexture3DPack extends Shape {
 
 	public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord) {
 		this(pX, pY, pVertices, pTextureCoord, new PolygonVertexBuffer(pVertices.length,
-				GL11.GL_STATIC_DRAW, true));
+    GL11.GL_STATIC_DRAW, true));
 	}
 
 	public TriangleTexture3DPack(final float pX, final float pY, final float[] pVertices, float[] pTextureCoord,
-								 final PolygonVertexBuffer pPolygonVertexBuffer) {
+         final PolygonVertexBuffer pPolygonVertexBuffer) {
 		super(pX, pY);
 
 		this.mVertices = pVertices;

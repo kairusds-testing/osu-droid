@@ -139,45 +139,45 @@ public class MainScene implements IUpdateHandler {
 		if (tex != null) {
 			float height = tex.getHeight();
 			height *= Config.getRES_WIDTH()
-					/ (float) tex.getWidth();
+    	/ (float) tex.getWidth();
 			final Sprite menuBg = new Sprite(
-					0,
-					(Config.getRES_HEIGHT() - height) / 2,
-					Config.getRES_WIDTH(),
-					height, tex);
+    	0,
+    	(Config.getRES_HEIGHT() - height) / 2,
+    	Config.getRES_WIDTH(),
+    	height, tex);
 			scene.setBackground(new SpriteBackground(menuBg));
 		} else {
 			scene.setBackground(new ColorBackground(70 / 255f, 129 / 255f,
-					252 / 255f));
+    	252 / 255f));
 		}
 		lastBackground = new Sprite(0, 0, Config.getRES_WIDTH(), Config.getRES_HEIGHT(), ResourceManager.getInstance().getTexture("emptyavatar"));
 		final TextureRegion logotex = ResourceManager.getInstance().getTexture("logo");
 		logo = new Sprite(Config.getRES_WIDTH() / 2 - logotex.getWidth() / 2, Config.getRES_HEIGHT() / 2 - logotex.getHeight() / 2, logotex) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					if (hitsound != null) {
-						hitsound.play();
-					}
-					Debug.i("logo down");
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					Debug.i("logo up");
-					Debug.i("doMenuShow " + doMenuShow + " isMenuShowed " + isMenuShowed + " showPassTime " + showPassTime);
-					if (doMenuShow == true && isMenuShowed == true) {
-						showPassTime = 20000;
-					}
-					if (doMenuShow == false && isMenuShowed == false && logo.getX() == (Config.getRES_WIDTH() - logo.getWidth()) / 2) {
-						doMenuShow = true;
-						showPassTime = 0;
-					}
-					Debug.i("doMenuShow " + doMenuShow + " isMenuShowed " + isMenuShowed + " showPassTime " + showPassTime);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	if (hitsound != null) {
+    		hitsound.play();
+    	}
+    	Debug.i("logo down");
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	Debug.i("logo up");
+    	Debug.i("doMenuShow " + doMenuShow + " isMenuShowed " + isMenuShowed + " showPassTime " + showPassTime);
+    	if (doMenuShow == true && isMenuShowed == true) {
+    		showPassTime = 20000;
+    	}
+    	if (doMenuShow == false && isMenuShowed == false && logo.getX() == (Config.getRES_WIDTH() - logo.getWidth()) / 2) {
+    		doMenuShow = true;
+    		showPassTime = 0;
+    	}
+    	Debug.i("doMenuShow " + doMenuShow + " isMenuShowed " + isMenuShowed + " showPassTime " + showPassTime);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
@@ -186,295 +186,295 @@ public class MainScene implements IUpdateHandler {
 		logoOverlay.setAlpha(0.2f);
 
 		play = new Sprite(logo.getX() + logo.getWidth() - Config.getRES_WIDTH() / 3,
-				60 + 82 - 32, ResourceManager.getInstance().getTexture("play")) {
+    60 + 82 - 32, ResourceManager.getInstance().getTexture("play")) {
 
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					if (hitsound != null) {
-						hitsound.play();
-					}
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					if (isOnExitAnim) return true;
-					GlobalManager.getInstance().getSongService().setGaming(true);
-					if (GlobalManager.getInstance().getCamera().getRotation() == 0) {
-						Utils.setAccelerometerSign(1);
-					} else {
-						Utils.setAccelerometerSign(-1);
-					}
-//					final Intent intent = new Intent(
-//							MainManager.getInstance().getMainActivity(), OsuActivity.class);
-//					MainManager.getInstance().getMainActivity().startActivity(intent);
-					new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-						public void run() {
-							GlobalManager.getInstance().getEngine().setScene(new LoadingScreen().getScene());
-							GlobalManager.getInstance().getMainActivity().checkNewBeatmaps();
-							if (!LibraryManager.getInstance().loadLibraryCache(GlobalManager.getInstance().getMainActivity(), false)) {
-								LibraryManager.getInstance().scanLibrary(GlobalManager.getInstance().getMainActivity());
-							}
-							GlobalManager.getInstance().getSongMenu().reload();
-							/* To fixed skin load bug in some Android 10
-							if (Build.VERSION.SDK_INT >= 29) {
-								String skinNow = Config.getSkinPath();
-								ResourceManager.getInstance().loadSkin(skinNow);
-							} */
-						}
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	if (hitsound != null) {
+    		hitsound.play();
+    	}
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	if (isOnExitAnim) return true;
+    	GlobalManager.getInstance().getSongService().setGaming(true);
+    	if (GlobalManager.getInstance().getCamera().getRotation() == 0) {
+    		Utils.setAccelerometerSign(1);
+    	} else {
+    		Utils.setAccelerometerSign(-1);
+    	}
+//    	final Intent intent = new Intent(
+//    			MainManager.getInstance().getMainActivity(), OsuActivity.class);
+//    	MainManager.getInstance().getMainActivity().startActivity(intent);
+    	new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+    		public void run() {
+    			GlobalManager.getInstance().getEngine().setScene(new LoadingScreen().getScene());
+    			GlobalManager.getInstance().getMainActivity().checkNewBeatmaps();
+    			if (!LibraryManager.getInstance().loadLibraryCache(GlobalManager.getInstance().getMainActivity(), false)) {
+        LibraryManager.getInstance().scanLibrary(GlobalManager.getInstance().getMainActivity());
+    			}
+    			GlobalManager.getInstance().getSongMenu().reload();
+    			/* To fixed skin load bug in some Android 10
+    			if (Build.VERSION.SDK_INT >= 29) {
+        String skinNow = Config.getSkinPath();
+        ResourceManager.getInstance().loadSkin(skinNow);
+    			} */
+    		}
 
-						public void onComplete() {
+    		public void onComplete() {
 
-							musicControl(MusicOption.PLAY);
-							GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getSongMenu().getScene());
-							GlobalManager.getInstance().getSongMenu().select();
-						}
-					});
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+    			musicControl(MusicOption.PLAY);
+    			GlobalManager.getInstance().getEngine().setScene(GlobalManager.getInstance().getSongMenu().getScene());
+    			GlobalManager.getInstance().getSongMenu().select();
+    		}
+    	});
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 
 		};
 
 		options = new Sprite(logo.getX() + logo.getWidth() - Config.getRES_WIDTH() / 3,
-				60 + 3 * 82 - 64, ResourceManager.getInstance().getTexture(
-				"options")) {
+    60 + 3 * 82 - 64, ResourceManager.getInstance().getTexture(
+    "options")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					if (hitsound != null) {
-						hitsound.play();
-					}
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					if (isOnExitAnim) return true;
-					GlobalManager.getInstance().getSongService().setGaming(true);
-					// GlobalManager.getInstance().getSongService().setIsSettingMenu(true);
-					/* final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
-							SettingsMenu.class);
-					GlobalManager.getInstance().getMainActivity().startActivity(intent); */
-					GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
-						new SettingsMenu().show());
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	if (hitsound != null) {
+    		hitsound.play();
+    	}
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	if (isOnExitAnim) return true;
+    	GlobalManager.getInstance().getSongService().setGaming(true);
+    	// GlobalManager.getInstance().getSongService().setIsSettingMenu(true);
+    	/* final Intent intent = new Intent(GlobalManager.getInstance().getMainActivity(),
+    			SettingsMenu.class);
+    	GlobalManager.getInstance().getMainActivity().startActivity(intent); */
+    	GlobalManager.getInstance().getMainActivity().runOnUiThread(() ->
+    		new SettingsMenu().show());
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		exit = new Sprite(logo.getX() + logo.getWidth() - Config.getRES_WIDTH() / 3, 60
-				+ 5 * 82 - 128 + 32, ResourceManager.getInstance().getTexture(
-				"exit")) {
+    + 5 * 82 - 128 + 32, ResourceManager.getInstance().getTexture(
+    "exit")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					// if (hitsound != null) {
-					//	 hitsound.play();
-					// }
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					if (GlobalManager.getInstance().getCamera().getRotation() == 0) {
-						Utils.setAccelerometerSign(1);
-					} else {
-						Utils.setAccelerometerSign(-1);
-					}
-					setColor(1, 1, 1);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	// if (hitsound != null) {
+    	//	 hitsound.play();
+    	// }
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	if (GlobalManager.getInstance().getCamera().getRotation() == 0) {
+    		Utils.setAccelerometerSign(1);
+    	} else {
+    		Utils.setAccelerometerSign(-1);
+    	}
+    	setColor(1, 1, 1);
 
-					showExitDialog();
+    	showExitDialog();
 
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		final Text author = new Text(10, 530, ResourceManager
-				.getInstance().getFont("font"),
-				String.format(
-						Locale.getDefault(),
-						"osu!droid %s\nby osu!droid Team\nosu! is \u00a9 peppy 2007-2021",
-						BuildConfig.VERSION_NAME + " (" + BuildConfig.BUILD_TYPE + ")"
-						)) {
+    .getInstance().getFont("font"),
+    String.format(
+    		Locale.getDefault(),
+    		"osu!droid %s\nby osu!droid Team\nosu! is \u00a9 peppy 2007-2021",
+    		BuildConfig.VERSION_NAME + " (" + BuildConfig.BUILD_TYPE + ")"
+    		)) {
 
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
-						isAccepted -> {
-							if(isAccepted) {
-								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
-								GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
-							}
-						}
-					);
-					return true;
-				}
-				return false;
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osu_website_message).showForResult(
+    		isAccepted -> {
+    			if(isAccepted) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://osu.ppy.sh"));
+        GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+    			}
+    		}
+    	);
+    	return true;
+    }
+    return false;
 			}
 		};
 		author.setPosition(10, Config.getRES_HEIGHT() - author.getHeight() - 10);
 
 		final Text yasonline = new Text(720, 530, ResourceManager
-				.getInstance().getFont("font"),
-				"  Performance Ranking\n   Provided by iBancho") {
+    .getInstance().getFont("font"),
+    "  Performance Ranking\n   Provided by iBancho") {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osudroid_website_message).showForResult(
-						isAccepted -> {
-							if(isAccepted) {
-								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + OnlineManager.hostname));
-								GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
-							}
-						}
-					);
-					return true;
-				}
-				return false;
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	new ConfirmDialogFragment().setMessage(R.string.dialog_visit_osudroid_website_message).showForResult(
+    		isAccepted -> {
+    			if(isAccepted) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + OnlineManager.hostname));
+        GlobalManager.getInstance().getMainActivity().startActivity(browserIntent);
+    			}
+    		}
+    	);
+    	return true;
+    }
+    return false;
 			}
 		};
 		yasonline.setPosition(Config.getRES_WIDTH() - yasonline.getWidth() - 40, Config.getRES_HEIGHT() - yasonline.getHeight() - 10);
 
 		final Sprite music_prev = new Sprite(Config.getRES_WIDTH() - 50 * 6 + 35,
-				47, 40, 40, ResourceManager.getInstance().getTexture(
-				"music_prev")) {
+    47, 40, 40, ResourceManager.getInstance().getTexture(
+    "music_prev")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					doChange = true;
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					if (lastHit == 0) {
-						lastHit = System.currentTimeMillis();
-					} else {
-						if (System.currentTimeMillis() - lastHit <= 1000 && !isOnExitAnim) {
-							return true;
-						}
-					}
-					lastHit = System.currentTimeMillis();
-					musicControl(MusicOption.PREV);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	doChange = true;
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	if (lastHit == 0) {
+    		lastHit = System.currentTimeMillis();
+    	} else {
+    		if (System.currentTimeMillis() - lastHit <= 1000 && !isOnExitAnim) {
+    			return true;
+    		}
+    	}
+    	lastHit = System.currentTimeMillis();
+    	musicControl(MusicOption.PREV);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		final Sprite music_play = new Sprite(Config.getRES_WIDTH() - 50 * 5 + 35,
-				47, 40, 40, ResourceManager.getInstance().getTexture(
-				"music_play")) {
+    47, 40, 40, ResourceManager.getInstance().getTexture(
+    "music_play")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					musicControl(MusicOption.PLAY);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	musicControl(MusicOption.PLAY);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		final Sprite music_pause = new Sprite(Config.getRES_WIDTH() - 50 * 4 + 35,
-				47, 40, 40, ResourceManager.getInstance().getTexture(
-				"music_pause")) {
+    47, 40, 40, ResourceManager.getInstance().getTexture(
+    "music_pause")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					musicControl(MusicOption.PAUSE);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	musicControl(MusicOption.PAUSE);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		final Sprite music_stop = new Sprite(Config.getRES_WIDTH() - 50 * 3 + 35,
-				47, 40, 40, ResourceManager.getInstance().getTexture(
-				"music_stop")) {
+    47, 40, 40, ResourceManager.getInstance().getTexture(
+    "music_stop")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					doStop = true;
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					musicControl(MusicOption.STOP);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	doStop = true;
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	musicControl(MusicOption.STOP);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
 		final Sprite music_next = new Sprite(Config.getRES_WIDTH() - 50 * 2 + 35,
-				47, 40, 40, ResourceManager.getInstance().getTexture(
-				"music_next")) {
+    47, 40, 40, ResourceManager.getInstance().getTexture(
+    "music_next")) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					setColor(0.7f, 0.7f, 0.7f);
-					doChange = true;
-					return true;
-				}
-				if (pSceneTouchEvent.isActionUp()) {
-					setColor(1, 1, 1);
-					if (lastHit == 0) {
-						lastHit = System.currentTimeMillis();
-					} else {
-						if (System.currentTimeMillis() - lastHit <= 1000 && !isOnExitAnim) {
-							return true;
-						}
-					}
-					lastHit = System.currentTimeMillis();
-					musicControl(MusicOption.NEXT);
-					return true;
-				}
-				return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
-						pTouchAreaLocalY);
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionDown()) {
+    	setColor(0.7f, 0.7f, 0.7f);
+    	doChange = true;
+    	return true;
+    }
+    if (pSceneTouchEvent.isActionUp()) {
+    	setColor(1, 1, 1);
+    	if (lastHit == 0) {
+    		lastHit = System.currentTimeMillis();
+    	} else {
+    		if (System.currentTimeMillis() - lastHit <= 1000 && !isOnExitAnim) {
+    			return true;
+    		}
+    	}
+    	lastHit = System.currentTimeMillis();
+    	musicControl(MusicOption.NEXT);
+    	return true;
+    }
+    return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX,
+    		pTouchAreaLocalY);
 			}
 		};
 
@@ -487,7 +487,7 @@ public class MainScene implements IUpdateHandler {
 		bgTopRect.setColor(0, 0, 0, 0.3f);
 
 		final Rectangle bgbottomRect = new Rectangle(0, 0, Config.getRES_WIDTH(),
-				Math.max(author.getHeight(), yasonline.getHeight()) + Utils.toRes(15));
+    Math.max(author.getHeight(), yasonline.getHeight()) + Utils.toRes(15));
 		bgbottomRect.setPosition(0, Config.getRES_HEIGHT() - bgbottomRect.getHeight());
 		bgbottomRect.setColor(0, 0, 0, 0.3f);
 
@@ -602,82 +602,82 @@ public class MainScene implements IUpdateHandler {
 		/*if (BuildConfig.DEBUG) {
 			SupportSprite supportSprite = new SupportSprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT()) {
 
-				TextureQuad[] quads;
+    TextureQuad[] quads;
 
-				{
-					Bitmap bitmap = Bitmap.createBitmap(4, 1, Bitmap.Config.ARGB_8888);
-					for (int i = 0; i < 4; i++) {
-						bitmap.setPixel(i, 0, Color.argb(i * 80 + 10, i * 80 + 10, i * 80 + 10, i * 80 + 10));
-					}
-					//bitmap.setPremultiplied(true);
-					TextureRegion region = TextureHelper.createRegion(bitmap);
-					quads = new TextureQuad[4];
-					{
-						TextureQuad quad = new TextureQuad();
-						quad.setTextureAndSize(region);
-						quad.enableScale().scale.set(10, 10);
-						quad.position.set(0, 0);
-						quads[0] = quad;
-					}
-					{
-						TextureQuad quad = new TextureQuad();
-						quad.setTextureAndSize(region);
-						quad.enableScale().scale.set(10, 10);
-						quad.position.set(640, 480);
-						quads[1] = quad;
-					}
-					{
-						TextureQuad quad = new TextureQuad();
-						quad.setTextureAndSize(region);
-						quad.enableScale().scale.set(10, 10);
-						quad.position.set(640, 0);
-						quads[2] = quad;
-					}
-					{
-						TextureQuad quad = new TextureQuad();
-						quad.setTextureAndSize(region);
-						quad.enableScale().scale.set(10, 10);
-						quad.position.set(0, 480);
-						quads[3] = quad;
-					}
-					*//*for (int i = 0; i < quads.length; i++) {
-						TextureQuad quad = new TextureQuad();
-						quad.setTextureAndSize(region);
-						quad.position.set((float) Math.random() * 1000, (float) Math.random() * 1000);
-						if (Math.random() > 0.2) {
-							//quad.enableColor().accentColor.set((float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-						}
-						if (Math.random() > 0.5) {
-							//quad.enableRotation().rotation.value = (float) (Math.PI * 2 * Math.random());
-						}
-						//if (Math.random() > 0.7) {
-						quad.enableScale().scale.set(10, 10);
-									//.set((float) Math.random() * 5, (float) Math.random() * 5);
-						//}
-						quads[i] = quad;
-					}*//*
-				}
+    {
+    	Bitmap bitmap = Bitmap.createBitmap(4, 1, Bitmap.Config.ARGB_8888);
+    	for (int i = 0; i < 4; i++) {
+    		bitmap.setPixel(i, 0, Color.argb(i * 80 + 10, i * 80 + 10, i * 80 + 10, i * 80 + 10));
+    	}
+    	//bitmap.setPremultiplied(true);
+    	TextureRegion region = TextureHelper.createRegion(bitmap);
+    	quads = new TextureQuad[4];
+    	{
+    		TextureQuad quad = new TextureQuad();
+    		quad.setTextureAndSize(region);
+    		quad.enableScale().scale.set(10, 10);
+    		quad.position.set(0, 0);
+    		quads[0] = quad;
+    	}
+    	{
+    		TextureQuad quad = new TextureQuad();
+    		quad.setTextureAndSize(region);
+    		quad.enableScale().scale.set(10, 10);
+    		quad.position.set(640, 480);
+    		quads[1] = quad;
+    	}
+    	{
+    		TextureQuad quad = new TextureQuad();
+    		quad.setTextureAndSize(region);
+    		quad.enableScale().scale.set(10, 10);
+    		quad.position.set(640, 0);
+    		quads[2] = quad;
+    	}
+    	{
+    		TextureQuad quad = new TextureQuad();
+    		quad.setTextureAndSize(region);
+    		quad.enableScale().scale.set(10, 10);
+    		quad.position.set(0, 480);
+    		quads[3] = quad;
+    	}
+    	*//*for (int i = 0; i < quads.length; i++) {
+    		TextureQuad quad = new TextureQuad();
+    		quad.setTextureAndSize(region);
+    		quad.position.set((float) Math.random() * 1000, (float) Math.random() * 1000);
+    		if (Math.random() > 0.2) {
+    			//quad.enableColor().accentColor.set((float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+    		}
+    		if (Math.random() > 0.5) {
+    			//quad.enableRotation().rotation.value = (float) (Math.PI * 2 * Math.random());
+    		}
+    		//if (Math.random() > 0.7) {
+    		quad.enableScale().scale.set(10, 10);
+        	//.set((float) Math.random() * 5, (float) Math.random() * 5);
+    		//}
+    		quads[i] = quad;
+    	}*//*
+    }
 
-				@Override
-				protected void onSupportDraw(BaseCanvas canvas) {
-					super.onSupportDraw(canvas);
-					canvas.save();
-					float scale = Math.max(640 / canvas.getWidth(), 480 / canvas.getHeight());
-					Vec2 startOffset = new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2)
-							.minus(640 * 0.5f / scale, 480 * 0.5f / scale);
+    @Override
+    protected void onSupportDraw(BaseCanvas canvas) {
+    	super.onSupportDraw(canvas);
+    	canvas.save();
+    	float scale = Math.max(640 / canvas.getWidth(), 480 / canvas.getHeight());
+    	Vec2 startOffset = new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2)
+    			.minus(640 * 0.5f / scale, 480 * 0.5f / scale);
 
-					canvas.translate(startOffset.x, startOffset.y).expendAxis(scale);//.translate(64, 48);
-
-
-
-					TextureQuadBatch batch = TextureQuadBatch.getDefaultBatch();
-					for (TextureQuad quad : quads) {
-						batch.add(quad);
-					}
+    	canvas.translate(startOffset.x, startOffset.y).expendAxis(scale);//.translate(64, 48);
 
 
-					canvas.restore();
-				}
+
+    	TextureQuadBatch batch = TextureQuadBatch.getDefaultBatch();
+    	for (TextureQuad quad : quads) {
+    		batch.add(quad);
+    	}
+
+
+    	canvas.restore();
+    }
 			};
 			scene.attachChild(supportSprite);
 		}*/
@@ -710,79 +710,79 @@ public class MainScene implements IUpdateHandler {
 		}
 		switch (option) {
 			case PREV: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
-					GlobalManager.getInstance().getSongService().stop();
-				}
-				firstTimingPoint = null;
-				LibraryManager.getInstance().getPrevBeatmap();
-				loadBeatmapInfo();
-				loadTimeingPoints(true);
-				doChange = false;
-				doStop = false;
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
+    	GlobalManager.getInstance().getSongService().stop();
+    }
+    firstTimingPoint = null;
+    LibraryManager.getInstance().getPrevBeatmap();
+    loadBeatmapInfo();
+    loadTimeingPoints(true);
+    doChange = false;
+    doStop = false;
 			}
 			break;
 			case PLAY: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED || GlobalManager.getInstance().getSongService().getStatus() == Status.STOPPED) {
-					if (GlobalManager.getInstance().getSongService().getStatus() == Status.STOPPED) {
-						loadTimeingPoints(false);
-						GlobalManager.getInstance().getSongService().preLoad(beatmapInfo.getMusic());
-						if (firstTimingPoint != null) {
-							bpmLength = firstTimingPoint.getBeatLength() * 1000f;
-							if (lastTimingPoint != null) {
-								offset = lastTimingPoint.getTime() * 1000f % bpmLength;
-							}
-						}
-					}
-					if (GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
-						bpmLength = lastBpmLength;
-						if (lastTimingPoint != null) {
-							int position = GlobalManager.getInstance().getSongService().getPosition();
-							offset = (position - lastTimingPoint.getTime() * 1000f) % bpmLength;
-						}
-					}
-					Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
-//						ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
-					GlobalManager.getInstance().getSongService().play();
-					doStop = false;
-				}
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED || GlobalManager.getInstance().getSongService().getStatus() == Status.STOPPED) {
+    	if (GlobalManager.getInstance().getSongService().getStatus() == Status.STOPPED) {
+    		loadTimeingPoints(false);
+    		GlobalManager.getInstance().getSongService().preLoad(beatmapInfo.getMusic());
+    		if (firstTimingPoint != null) {
+    			bpmLength = firstTimingPoint.getBeatLength() * 1000f;
+    			if (lastTimingPoint != null) {
+        offset = lastTimingPoint.getTime() * 1000f % bpmLength;
+    			}
+    		}
+    	}
+    	if (GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
+    		bpmLength = lastBpmLength;
+    		if (lastTimingPoint != null) {
+    			int position = GlobalManager.getInstance().getSongService().getPosition();
+    			offset = (position - lastTimingPoint.getTime() * 1000f) % bpmLength;
+    		}
+    	}
+    	Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
+//    		ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
+    	GlobalManager.getInstance().getSongService().play();
+    	doStop = false;
+    }
 			}
 			break;
 			case PAUSE: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING) {
-					GlobalManager.getInstance().getSongService().pause();
-					lastBpmLength = bpmLength;
-					bpmLength = 1000;
-				}
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING) {
+    	GlobalManager.getInstance().getSongService().pause();
+    	lastBpmLength = bpmLength;
+    	bpmLength = 1000;
+    }
 			}
 			break;
 			case STOP: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
-					GlobalManager.getInstance().getSongService().stop();
-					lastBpmLength = bpmLength;
-					bpmLength = 1000;
-				}
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
+    	GlobalManager.getInstance().getSongService().stop();
+    	lastBpmLength = bpmLength;
+    	bpmLength = 1000;
+    }
 			}
 			break;
 			case NEXT: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
-					GlobalManager.getInstance().getSongService().stop();
-				}
-				LibraryManager.getInstance().getNextBeatmap();
-				firstTimingPoint = null;
-				loadBeatmapInfo();
-				loadTimeingPoints(true);
-				doChange = false;
-				doStop = false;
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING || GlobalManager.getInstance().getSongService().getStatus() == Status.PAUSED) {
+    	GlobalManager.getInstance().getSongService().stop();
+    }
+    LibraryManager.getInstance().getNextBeatmap();
+    firstTimingPoint = null;
+    loadBeatmapInfo();
+    loadTimeingPoints(true);
+    doChange = false;
+    doStop = false;
 			}
 			break;
 			case SYNC: {
-				if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING) {
-					if (lastTimingPoint != null) {
-						int position = GlobalManager.getInstance().getSongService().getPosition();
-						offset = (position - lastTimingPoint.getTime() * 1000f) % bpmLength;
-					}
-					Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
-				}
+    if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING) {
+    	if (lastTimingPoint != null) {
+    		int position = GlobalManager.getInstance().getSongService().getPosition();
+    		offset = (position - lastTimingPoint.getTime() * 1000f) % bpmLength;
+    	}
+    	Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
+    }
 			}
 		}
 	}
@@ -792,8 +792,8 @@ public class MainScene implements IUpdateHandler {
 		beatPassTime += pSecondsElapsed * 1000f;
 		if (isOnExitAnim) {
 			for (Rectangle specRectangle : spectrum) {
-				specRectangle.setWidth(0);
-				specRectangle.setAlpha(0);
+    specRectangle.setWidth(0);
+    specRectangle.setAlpha(0);
 			}
 			return;
 		}
@@ -807,17 +807,17 @@ public class MainScene implements IUpdateHandler {
 			logo.registerEntityModifier(new MoveXModifier(0.3f, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, EaseExponentialOut.getInstance()));
 			logoOverlay.registerEntityModifier(new MoveXModifier(0.3f, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, EaseExponentialOut.getInstance()));
 			for (int i = 0; i < spectrum.length; i++) {
-				spectrum[i].registerEntityModifier(new MoveXModifier(0.3f, Config.getRES_WIDTH() / 2, Config.getRES_WIDTH() / 3, EaseExponentialOut.getInstance()));
+    spectrum[i].registerEntityModifier(new MoveXModifier(0.3f, Config.getRES_WIDTH() / 2, Config.getRES_WIDTH() / 3, EaseExponentialOut.getInstance()));
 			}
 			play.registerEntityModifier(new ParallelEntityModifier(
-					new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
-					new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
+    	new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
+    	new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
 			options.registerEntityModifier(new ParallelEntityModifier(
-					new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
-					new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
+    	new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
+    	new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
 			exit.registerEntityModifier(new ParallelEntityModifier(
-					new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
-					new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
+    	new MoveXModifier(0.5f, menuBarX - 100, menuBarX, EaseElasticOut.getInstance()),
+    	new org.anddev.andengine.entity.modifier.AlphaModifier(0.5f, 0, 0.9f, EaseCubicOut.getInstance())));
 			scene.registerTouchArea(play);
 			scene.registerTouchArea(options);
 			scene.registerTouchArea(exit);
@@ -826,30 +826,30 @@ public class MainScene implements IUpdateHandler {
 
 		if (doMenuShow == true && isMenuShowed == true) {
 			if (showPassTime > 10000f) {
-				scene.unregisterTouchArea(play);
-				scene.unregisterTouchArea(options);
-				scene.unregisterTouchArea(exit);
-				play.registerEntityModifier(new ParallelEntityModifier(
-						new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
-						new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
-				options.registerEntityModifier(new ParallelEntityModifier(
-						new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
-						new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
-				exit.registerEntityModifier(new ParallelEntityModifier(
-						new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
-						new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
-				logo.registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2,
-						EaseBounceOut.getInstance()));
-				logoOverlay.registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2,
-						EaseBounceOut.getInstance()));
-				for (int i = 0; i < spectrum.length; i++) {
-					spectrum[i].registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3, Config.getRES_WIDTH() / 2, EaseBounceOut.getInstance()));
-				}
-				isMenuShowed = false;
-				doMenuShow = false;
-				showPassTime = 0;
+    scene.unregisterTouchArea(play);
+    scene.unregisterTouchArea(options);
+    scene.unregisterTouchArea(exit);
+    play.registerEntityModifier(new ParallelEntityModifier(
+    		new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
+    		new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
+    options.registerEntityModifier(new ParallelEntityModifier(
+    		new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
+    		new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
+    exit.registerEntityModifier(new ParallelEntityModifier(
+    		new MoveXModifier(1f, menuBarX, menuBarX - 50, EaseExponentialOut.getInstance()),
+    		new org.anddev.andengine.entity.modifier.AlphaModifier(1f, 0.9f, 0, EaseExponentialOut.getInstance())));
+    logo.registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2,
+    		EaseBounceOut.getInstance()));
+    logoOverlay.registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3 - logo.getWidth() / 2, Config.getRES_WIDTH() / 2 - logo.getWidth() / 2,
+    		EaseBounceOut.getInstance()));
+    for (int i = 0; i < spectrum.length; i++) {
+    	spectrum[i].registerEntityModifier(new MoveXModifier(1f, Config.getRES_WIDTH() / 3, Config.getRES_WIDTH() / 2, EaseBounceOut.getInstance()));
+    }
+    isMenuShowed = false;
+    doMenuShow = false;
+    showPassTime = 0;
 			} else {
-				showPassTime += pSecondsElapsed * 1000f;
+    showPassTime += pSecondsElapsed * 1000f;
 			}
 		}
 
@@ -862,112 +862,112 @@ public class MainScene implements IUpdateHandler {
 			lastBeatPassTime = beatPassTime;
 			offset = 0;
 			if (logo != null) {
-//				logo.clearEntityModifiers();
-				logo.registerEntityModifier(new SequenceEntityModifier(new org.anddev.andengine.entity.modifier.ScaleModifier(bpmLength / 1000 * 0.9f, 1f, 1.07f),
-						new org.anddev.andengine.entity.modifier.ScaleModifier(bpmLength / 1000 * 0.07f, 1.07f, 1f)));
+//    logo.clearEntityModifiers();
+    logo.registerEntityModifier(new SequenceEntityModifier(new org.anddev.andengine.entity.modifier.ScaleModifier(bpmLength / 1000 * 0.9f, 1f, 1.07f),
+    		new org.anddev.andengine.entity.modifier.ScaleModifier(bpmLength / 1000 * 0.07f, 1.07f, 1f)));
 			}
 		}
 
 		if (GlobalManager.getInstance().getSongService() != null) {
 			if (!musicStarted) {
-				if (firstTimingPoint != null) {
-					bpmLength = firstTimingPoint.getBeatLength() * 1000f;
-				} else {
-					return;
-				}
-				progressBar.setStartTime(0);
-				GlobalManager.getInstance().getSongService().play();
-				if (lastTimingPoint != null) {
-					offset = lastTimingPoint.getTime() * 1000f % bpmLength;
-				}
-				Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
-//				ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
-				musicStarted = true;
+    if (firstTimingPoint != null) {
+    	bpmLength = firstTimingPoint.getBeatLength() * 1000f;
+    } else {
+    	return;
+    }
+    progressBar.setStartTime(0);
+    GlobalManager.getInstance().getSongService().play();
+    if (lastTimingPoint != null) {
+    	offset = lastTimingPoint.getTime() * 1000f % bpmLength;
+    }
+    Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
+//    ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
+    musicStarted = true;
 			}
 
 			if (GlobalManager.getInstance().getSongService().getStatus() == Status.PLAYING) {
-//				syncPassedTime += pSecondsElapsed * 1000f;
-				int position = GlobalManager.getInstance().getSongService().getPosition();
-				progressBar.setTime(GlobalManager.getInstance().getSongService().getLength());
-				progressBar.setPassedTime(position);
-				progressBar.update(pSecondsElapsed * 1000);
+//    syncPassedTime += pSecondsElapsed * 1000f;
+    int position = GlobalManager.getInstance().getSongService().getPosition();
+    progressBar.setTime(GlobalManager.getInstance().getSongService().getLength());
+    progressBar.setPassedTime(position);
+    progressBar.update(pSecondsElapsed * 1000);
 
-//				if (syncPassedTime > bpmLength * 8) {
-//					musicControl(MusicOption.SYNC);
-//					syncPassedTime = 0;
-//				}
+//    if (syncPassedTime > bpmLength * 8) {
+//    	musicControl(MusicOption.SYNC);
+//    	syncPassedTime = 0;
+//    }
 
-				if (currentTimingPoint != null && position > currentTimingPoint.getTime() * 1000) {
-					if (!isContinuousKiai && currentTimingPoint.isKiai()) {
-						for (ParticleSystem particleSpout : particleSystem) {
-							particleSpout.setParticlesSpawnEnabled(true);
-						}
-						particleBeginTime = position;
-						particleEnabled = true;
-					}
-					isContinuousKiai = currentTimingPoint.isKiai();
+    if (currentTimingPoint != null && position > currentTimingPoint.getTime() * 1000) {
+    	if (!isContinuousKiai && currentTimingPoint.isKiai()) {
+    		for (ParticleSystem particleSpout : particleSystem) {
+    			particleSpout.setParticlesSpawnEnabled(true);
+    		}
+    		particleBeginTime = position;
+    		particleEnabled = true;
+    	}
+    	isContinuousKiai = currentTimingPoint.isKiai();
 
-					if (timingPoints.size() > 0) {
-						currentTimingPoint = timingPoints.remove(0);
-						if (!currentTimingPoint.wasInderited()) {
-							lastTimingPoint = currentTimingPoint;
-							bpmLength = currentTimingPoint.getBeatLength() * 1000;
-							offset = lastTimingPoint.getTime() * 1000f % bpmLength;
-							Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
-//							ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
-						}
-					} else {
-						currentTimingPoint = null;
-					}
-				}
+    	if (timingPoints.size() > 0) {
+    		currentTimingPoint = timingPoints.remove(0);
+    		if (!currentTimingPoint.wasInderited()) {
+    			lastTimingPoint = currentTimingPoint;
+    			bpmLength = currentTimingPoint.getBeatLength() * 1000;
+    			offset = lastTimingPoint.getTime() * 1000f % bpmLength;
+    			Debug.i("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset);
+//    			ToastLogger.showText("BPM: " + 60 / bpmLength * 1000 + " Offset: " + offset, false);
+    		}
+    	} else {
+    		currentTimingPoint = null;
+    	}
+    }
 
-				if (particleEnabled && (position - particleBeginTime > 2000)) {
-					for (ParticleSystem particleSpout : particleSystem) {
-						particleSpout.setParticlesSpawnEnabled(false);
-					}
-					particleEnabled = false;
-				}
+    if (particleEnabled && (position - particleBeginTime > 2000)) {
+    	for (ParticleSystem particleSpout : particleSystem) {
+    		particleSpout.setParticlesSpawnEnabled(false);
+    	}
+    	particleEnabled = false;
+    }
 
-				int windowSize = 240;
-				int spectrumWidth = 120;
-				float[] fft = GlobalManager.getInstance().getSongService().getSpectrum();
-				if (fft == null) return;
-				for (int i = 0, leftBound = 0; i < spectrumWidth; i++) {
-					float peak = 0;
-					int rightBound = (int) Math.pow(2., i * 9. / (windowSize - 1));
-					if (rightBound <= leftBound) rightBound = leftBound + 1;
-					if (rightBound > 511) rightBound = 511;
+    int windowSize = 240;
+    int spectrumWidth = 120;
+    float[] fft = GlobalManager.getInstance().getSongService().getSpectrum();
+    if (fft == null) return;
+    for (int i = 0, leftBound = 0; i < spectrumWidth; i++) {
+    	float peak = 0;
+    	int rightBound = (int) Math.pow(2., i * 9. / (windowSize - 1));
+    	if (rightBound <= leftBound) rightBound = leftBound + 1;
+    	if (rightBound > 511) rightBound = 511;
 
-					for (; leftBound < rightBound; leftBound++) {
-						if (peak < fft[1 + leftBound])
-							peak = fft[1 + leftBound];
-					}
+    	for (; leftBound < rightBound; leftBound++) {
+    		if (peak < fft[1 + leftBound])
+    			peak = fft[1 + leftBound];
+    	}
 
-					float initialAlpha = 0.4f;
-					float gradient = 20;
-					float currPeakLevel = peak * 500;
+    	float initialAlpha = 0.4f;
+    	float gradient = 20;
+    	float currPeakLevel = peak * 500;
 
-					if (currPeakLevel > peakLevel[i]) {
-						peakLevel[i] = currPeakLevel;
-						peakDownRate[i] = peakLevel[i] / gradient;
-						peakAlpha[i] = initialAlpha;
+    	if (currPeakLevel > peakLevel[i]) {
+    		peakLevel[i] = currPeakLevel;
+    		peakDownRate[i] = peakLevel[i] / gradient;
+    		peakAlpha[i] = initialAlpha;
 
-					} else {
-						peakLevel[i] = Math.max(peakLevel[i] - peakDownRate[i], 0f);
-						peakAlpha[i] = Math.max(peakAlpha[i] - initialAlpha / gradient, 0f);
-					}
+    	} else {
+    		peakLevel[i] = Math.max(peakLevel[i] - peakDownRate[i], 0f);
+    		peakAlpha[i] = Math.max(peakAlpha[i] - initialAlpha / gradient, 0f);
+    	}
 
-					spectrum[i].setWidth(250f + peakLevel[i]);
-					spectrum[i].setAlpha(peakAlpha[i]);
-				}
+    	spectrum[i].setWidth(250f + peakLevel[i]);
+    	spectrum[i].setAlpha(peakAlpha[i]);
+    }
 			} else {
-				for (Rectangle specRectangle : spectrum) {
-					specRectangle.setWidth(0);
-					specRectangle.setAlpha(0);
-				}
-				if (!doChange && !doStop && GlobalManager.getInstance().getSongService() != null && GlobalManager.getInstance().getSongService().getPosition() >= GlobalManager.getInstance().getSongService().getLength()) {
-					musicControl(MusicOption.NEXT);
-				}
+    for (Rectangle specRectangle : spectrum) {
+    	specRectangle.setWidth(0);
+    	specRectangle.setAlpha(0);
+    }
+    if (!doChange && !doStop && GlobalManager.getInstance().getSongService() != null && GlobalManager.getInstance().getSongService().getPosition() >= GlobalManager.getInstance().getSongService().getLength()) {
+    	musicControl(MusicOption.NEXT);
+    }
 			}
 		}
 	}
@@ -989,22 +989,22 @@ public class MainScene implements IUpdateHandler {
 			Log.w("MainMenuActivity", "Next song: " + beatmapInfo.getMusic() + ", Start at: " + beatmapInfo.getPreviewTime());
 
 			if (musicInfoText == null) {
-				musicInfoText = new ChangeableText(Utils.toRes(Config.getRES_WIDTH() - 500), Utils.toRes(3),
-						ResourceManager.getInstance().getFont("font"), "None...", HorizontalAlign.RIGHT, 35);
+    musicInfoText = new ChangeableText(Utils.toRes(Config.getRES_WIDTH() - 500), Utils.toRes(3),
+    		ResourceManager.getInstance().getFont("font"), "None...", HorizontalAlign.RIGHT, 35);
 			}
 			if (beatmapInfo.getArtistUnicode() != null && beatmapInfo.getTitleUnicode() != null && Config.isForceRomanized() == false) {
-				musicInfoText.setText(beatmapInfo.getArtistUnicode() + " - " + beatmapInfo.getTitleUnicode(), true);
+    musicInfoText.setText(beatmapInfo.getArtistUnicode() + " - " + beatmapInfo.getTitleUnicode(), true);
 			} else if (beatmapInfo.getArtist() != null && beatmapInfo.getTitle() != null) {
-				musicInfoText.setText(beatmapInfo.getArtist() + " - " + beatmapInfo.getTitle(), true);
+    musicInfoText.setText(beatmapInfo.getArtist() + " - " + beatmapInfo.getTitle(), true);
 			} else {
-				musicInfoText.setText("Failure to load QAQ", true);
+    musicInfoText.setText("Failure to load QAQ", true);
 			}
 			try {
-				musicInfoText.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - musicInfoText.getWidth()), musicInfoText.getY());
-				music_nowplay.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - musicInfoText.getWidth() - 130), 0);
+    musicInfoText.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - musicInfoText.getWidth()), musicInfoText.getY());
+    music_nowplay.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - musicInfoText.getWidth() - 130), 0);
 			} catch (NullPointerException e) {
-				musicInfoText.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - 200), 5);
-				music_nowplay.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - 200 - 130), 0);
+    musicInfoText.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - 200), 5);
+    music_nowplay.setPosition(Utils.toRes(Config.getRES_WIDTH() - 500 + 470 - 200 - 130), 0);
 			}
 		}
 	}
@@ -1025,52 +1025,52 @@ public class MainScene implements IUpdateHandler {
 			selectedTrack = trackInfos.get(trackIndex);
 
 			if (selectedTrack.getBackground() != null) {
-				try {
-					final TextureRegion tex = Config.isSafeBeatmapBg() ?
-						ResourceManager.getInstance().getTexture("menu-background") :
-						ResourceManager.getInstance().loadBackground(selectedTrack.getBackground());
+    try {
+    	final TextureRegion tex = Config.isSafeBeatmapBg() ?
+    		ResourceManager.getInstance().getTexture("menu-background") :
+    		ResourceManager.getInstance().loadBackground(selectedTrack.getBackground());
 
-					if (tex != null) {
-						float height = tex.getHeight();
-						height *= Config.getRES_WIDTH()
-								/ (float) tex.getWidth();
-						background = new Sprite(0,
-								(Config.getRES_HEIGHT() - height) / 2, Config
-								.getRES_WIDTH(), height, tex);
-						lastBackground.registerEntityModifier(new org.anddev.andengine.entity.modifier.AlphaModifier(1.5f, 1, 0, new IEntityModifier.IEntityModifierListener() {
-							@Override
-							public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
-								scene.attachChild(background, 0);
-							}
+    	if (tex != null) {
+    		float height = tex.getHeight();
+    		height *= Config.getRES_WIDTH()
+        / (float) tex.getWidth();
+    		background = new Sprite(0,
+        (Config.getRES_HEIGHT() - height) / 2, Config
+        .getRES_WIDTH(), height, tex);
+    		lastBackground.registerEntityModifier(new org.anddev.andengine.entity.modifier.AlphaModifier(1.5f, 1, 0, new IEntityModifier.IEntityModifierListener() {
+    			@Override
+    			public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+        scene.attachChild(background, 0);
+    			}
 
-							@Override
-							public void onModifierFinished(IModifier<IEntity> pModifier, final IEntity pItem) {
-								GlobalManager.getInstance().getMainActivity().runOnUpdateThread(new Runnable() {
-									@Override
-									public void run() {
-										// TODO Auto-generated method stub
-										pItem.detachSelf();
-									}
-								});
-							}
-						}));
-						lastBackground = background;
-					}
-				} catch (Exception e) {
-					Debug.e(e.toString());
-					lastBackground.setAlpha(0);
-				}
+    			@Override
+    			public void onModifierFinished(IModifier<IEntity> pModifier, final IEntity pItem) {
+        GlobalManager.getInstance().getMainActivity().runOnUpdateThread(new Runnable() {
+        	@Override
+        	public void run() {
+        		// TODO Auto-generated method stub
+        		pItem.detachSelf();
+        	}
+        });
+    			}
+    		}));
+    		lastBackground = background;
+    	}
+    } catch (Exception e) {
+    	Debug.e(e.toString());
+    	lastBackground.setAlpha(0);
+    }
 			} else {
-				lastBackground.setAlpha(0);
+    lastBackground.setAlpha(0);
 			}
 
 			if (reloadMusic) {
-				if (GlobalManager.getInstance().getSongService() != null) {
-					GlobalManager.getInstance().getSongService().preLoad(beatmapInfo.getMusic());
-					musicStarted = false;
-				} else {
-					Log.w("nullpoint", "GlobalManager.getInstance().getSongService() is null while reload music (MainScene.loadTimeingPoints)");
-				}
+    if (GlobalManager.getInstance().getSongService() != null) {
+    	GlobalManager.getInstance().getSongService().preLoad(beatmapInfo.getMusic());
+    	musicStarted = false;
+    } else {
+    	Log.w("nullpoint", "GlobalManager.getInstance().getSongService() is null while reload music (MainScene.loadTimeingPoints)");
+    }
 			}
 
 			Arrays.fill(peakLevel, 0f);
@@ -1079,21 +1079,21 @@ public class MainScene implements IUpdateHandler {
 
 			OSUParser parser = new OSUParser(selectedTrack.getFilename());
 			if (parser.openFile()) {
-				beatmapData = parser.readData();
+    beatmapData = parser.readData();
 
-				timingPoints = new LinkedList<TimingPoint>();
-				currentTimingPoint = null;
-				for (final String s : beatmapData.getData("TimingPoints")) {
-					final TimingPoint tp = new TimingPoint(s.split("[,]"), currentTimingPoint);
-					timingPoints.add(tp);
-					if (tp.wasInderited() == false || currentTimingPoint == null) {
-						currentTimingPoint = tp;
-					}
-				}
-				firstTimingPoint = timingPoints.remove(0);
-				currentTimingPoint = firstTimingPoint;
-				lastTimingPoint = currentTimingPoint;
-				bpmLength = firstTimingPoint.getBeatLength() * 1000f;
+    timingPoints = new LinkedList<TimingPoint>();
+    currentTimingPoint = null;
+    for (final String s : beatmapData.getData("TimingPoints")) {
+    	final TimingPoint tp = new TimingPoint(s.split("[,]"), currentTimingPoint);
+    	timingPoints.add(tp);
+    	if (tp.wasInderited() == false || currentTimingPoint == null) {
+    		currentTimingPoint = tp;
+    	}
+    }
+    firstTimingPoint = timingPoints.remove(0);
+    currentTimingPoint = firstTimingPoint;
+    lastTimingPoint = currentTimingPoint;
+    bpmLength = firstTimingPoint.getBeatLength() * 1000f;
 			}
 		}
 	}
@@ -1101,13 +1101,13 @@ public class MainScene implements IUpdateHandler {
 	public void showExitDialog() {
 		GlobalManager.getInstance().getMainActivity().runOnUiThread(new Runnable() {
 			public void run() {
-				new ConfirmDialogFragment().setMessage(R.string.dialog_exit_message).showForResult(
-					isAccepted -> {
-						if (isAccepted) {
-							exit();
-						}
-					}
-				);
+    new ConfirmDialogFragment().setMessage(R.string.dialog_exit_message).showForResult(
+    	isAccepted -> {
+    		if (isAccepted) {
+    			exit();
+    		}
+    	}
+    );
 			}
 		});
 	}
@@ -1139,32 +1139,32 @@ public class MainScene implements IUpdateHandler {
 		}
 		
 		Rectangle bg = new Rectangle(0, 0, Config.getRES_WIDTH(),
-				Config.getRES_HEIGHT());
+    Config.getRES_HEIGHT());
 		bg.setColor(0, 0, 0, 1.0f);
 		bg.registerEntityModifier(ModifierFactory.newAlphaModifier(3.0f, 0, 1));
 		scene.attachChild(bg);
 		logo.registerEntityModifier(new ParallelEntityModifier(
-				new RotationModifier(3.0f, 0, -15),
-				ModifierFactory.newScaleModifier(3.0f, 1f, 0.8f)
+    new RotationModifier(3.0f, 0, -15),
+    ModifierFactory.newScaleModifier(3.0f, 1f, 0.8f)
 		));
 		logoOverlay.registerEntityModifier(new ParallelEntityModifier(
-				new RotationModifier(3.0f, 0, -15),
-				ModifierFactory.newScaleModifier(3.0f, 1f, 0.8f)
+    new RotationModifier(3.0f, 0, -15),
+    ModifierFactory.newScaleModifier(3.0f, 1f, 0.8f)
 		));
 
 		ScheduledExecutorService taskPool = Executors.newScheduledThreadPool(1);
 		taskPool.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				if (GlobalManager.getInstance().getSongService() != null) {
-					GlobalManager.getInstance().getSongService().hideNotifyPanel();
-					if (Build.VERSION.SDK_INT > 10)
-						GlobalManager.getInstance().getMainActivity().unregisterReceiver(GlobalManager.getInstance().getMainActivity().onNotifyButtonClick);
-					GlobalManager.getInstance().getMainActivity().unbindService(GlobalManager.getInstance().getMainActivity().connection);
-					GlobalManager.getInstance().getMainActivity().stopService(new Intent(GlobalManager.getInstance().getMainActivity(), SongService.class));
-					musicStarted = false;
-				}
-				android.os.Process.killProcess(android.os.Process.myPid());
+    if (GlobalManager.getInstance().getSongService() != null) {
+    	GlobalManager.getInstance().getSongService().hideNotifyPanel();
+    	if (Build.VERSION.SDK_INT > 10)
+    		GlobalManager.getInstance().getMainActivity().unregisterReceiver(GlobalManager.getInstance().getMainActivity().onNotifyButtonClick);
+    	GlobalManager.getInstance().getMainActivity().unbindService(GlobalManager.getInstance().getMainActivity().connection);
+    	GlobalManager.getInstance().getMainActivity().stopService(new Intent(GlobalManager.getInstance().getMainActivity(), SongService.class));
+    	musicStarted = false;
+    }
+    android.os.Process.killProcess(android.os.Process.myPid());
 			}
 		}, 3000, TimeUnit.MILLISECONDS);
 	}
@@ -1189,19 +1189,19 @@ public class MainScene implements IUpdateHandler {
 		replay = new Replay();
 		if (replay.loadInfo(replayFile)) {
 			if (replay.replayVersion >= 3) {
-				//replay
-				ScoringScene scorescene = GlobalManager.getInstance().getScoring();
-				StatisticV2 stat = replay.getStat();
-				TrackInfo track = LibraryManager.getInstance().findTrackByFileNameAndMD5(replay.getMapfile(), replay.getMd5());
-				if (track != null) {
-					GlobalManager.getInstance().getMainScene().setBeatmap(track.getBeatmap());
-					GlobalManager.getInstance().getSongMenu().select();
-					ResourceManager.getInstance().loadBackground(track.getBackground());
-					GlobalManager.getInstance().getSongService().preLoad(track.getBeatmap().getMusic());
-					GlobalManager.getInstance().getSongService().play();
-					scorescene.load(stat, null, ru.nsu.ccfit.zuev.osu.GlobalManager.getInstance().getSongService(), replayFile, null, track);
-					GlobalManager.getInstance().getEngine().setScene(scorescene.getScene());
-				}
+    //replay
+    ScoringScene scorescene = GlobalManager.getInstance().getScoring();
+    StatisticV2 stat = replay.getStat();
+    TrackInfo track = LibraryManager.getInstance().findTrackByFileNameAndMD5(replay.getMapfile(), replay.getMd5());
+    if (track != null) {
+    	GlobalManager.getInstance().getMainScene().setBeatmap(track.getBeatmap());
+    	GlobalManager.getInstance().getSongMenu().select();
+    	ResourceManager.getInstance().loadBackground(track.getBackground());
+    	GlobalManager.getInstance().getSongService().preLoad(track.getBeatmap().getMusic());
+    	GlobalManager.getInstance().getSongService().play();
+    	scorescene.load(stat, null, ru.nsu.ccfit.zuev.osu.GlobalManager.getInstance().getSongService(), replayFile, null, track);
+    	GlobalManager.getInstance().getEngine().setScene(scorescene.getScene());
+    }
 			}
 		}
 	}

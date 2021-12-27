@@ -66,10 +66,10 @@ public class CollisionHandler implements IUpdateHandler {
 
 		for(int i = 0; i < staticEntityCount; i++){
 			if(checkShape.collidesWith(staticEntities.get(i))){
-				final boolean proceed = this.mCollisionCallback.onCollision(checkShape, staticEntities.get(i));
-				if(!proceed) {
-					return;
-				}
+    final boolean proceed = this.mCollisionCallback.onCollision(checkShape, staticEntities.get(i));
+    if(!proceed) {
+    	return;
+    }
 			}
 		}
 	}

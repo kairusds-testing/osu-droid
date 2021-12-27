@@ -27,7 +27,7 @@ public class OSZParser {
 	 * and storage availability.
 	 */
 	public static boolean parseOSZ(final Activity activity,
-								   final String filename) {
+           final String filename) {
 		final File osz = new File(filename);
 
 		// Checking if we can use SD card for storage
@@ -48,14 +48,14 @@ public class OSZParser {
 			new ZipFile(osz).extractAll(folderFile.getAbsolutePath());
 			// Adding to library
 			LibraryManager.getInstance().addBeatmap(
-					new File(Config.getBeatmapPath() + folderName), null);
+    	new File(Config.getBeatmapPath() + folderName), null);
 		} catch (final ZipException e) {
 			Debug.e("OSZParser.ParseOSZ: " + e.getMessage(), e);
 			return false;
 		} catch (final Exception e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("OSZParser.ParseOSZ: ", e);
 			osz.renameTo(new File(osz.getParentFile(), osz.getName() + ".badosz"));
 			LibraryManager.getInstance().deleteDir(folderFile);
@@ -72,17 +72,17 @@ public class OSZParser {
 
 	public static boolean canUseSD() {
 		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+    Environment.MEDIA_MOUNTED)) {
 			return true;
 		} else {
 			if (Environment.getExternalStorageState().equals(
-					Environment.MEDIA_MOUNTED_READ_ONLY)) {
-				ToastLogger.showText(
-						StringTable.get(R.string.message_error_sdcardread),
-						false);
+    	Environment.MEDIA_MOUNTED_READ_ONLY)) {
+    ToastLogger.showText(
+    		StringTable.get(R.string.message_error_sdcardread),
+    		false);
 			} else {
-				ToastLogger.showText(
-						StringTable.get(R.string.message_error_sdcard), false);
+    ToastLogger.showText(
+    		StringTable.get(R.string.message_error_sdcard), false);
 			}
 		}
 

@@ -161,10 +161,10 @@ public class FileUtils {
 			final String[] children = pFileOrDirectory.list();
 			final int childrenCount = children.length;
 			for(int i = 0; i < childrenCount; i++) {
-				final boolean success = FileUtils.deleteDirectory(new File(pFileOrDirectory, children[i]));
-				if(!success) {
-					return false;
-				}
+    final boolean success = FileUtils.deleteDirectory(new File(pFileOrDirectory, children[i]));
+    if(!success) {
+    	return false;
+    }
 			}
 		}
 

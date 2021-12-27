@@ -117,7 +117,7 @@ public abstract class ETC1Texture extends Texture {
 
 		public ETC1TextureHeader(final byte[] pData) {
 			if(pData.length != ETC1.ETC_PKM_HEADER_SIZE) {
-				throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
+    throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
 			}
 
 			this.mDataByteBuffer = ByteBuffer.allocateDirect(ETC1.ETC_PKM_HEADER_SIZE).order(ByteOrder.nativeOrder());
@@ -125,7 +125,7 @@ public abstract class ETC1Texture extends Texture {
 			this.mDataByteBuffer.position(0);
 
 			if (!ETC1.isValid(this.mDataByteBuffer)) {
-				throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
+    throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
 			}
 
 			this.mWidth = ETC1.getWidth(this.mDataByteBuffer);

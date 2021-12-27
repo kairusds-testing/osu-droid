@@ -19,7 +19,7 @@ public class TextButton extends Sprite {
 
 	public TextButton(Font font, String text, float scale) {
 		super(0, 0, ResourceManager.getInstance().getTexture(
-				"button"));
+    "button"));
 		buttonText = new Text(0, 0, font, text);
 		buttonText.setScale(scale);
 		setColor(201 / 255f, 31 / 255f, 55 / 255f);

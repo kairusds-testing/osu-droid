@@ -45,10 +45,10 @@ abstract class BaseFragment : Fragment(), BackPressListener {
 			background.alpha = 0f
 			background.animate().cancel()
 			background.animate()
-					.alpha(1f)
-					.setDuration(duration.toLong())
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.start()
+    	.alpha(1f)
+    	.setDuration(duration.toLong())
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.start()
 		}
 	}
 
@@ -57,10 +57,10 @@ abstract class BaseFragment : Fragment(), BackPressListener {
 		if (background != null) {
 			background.animate().cancel()
 			background.animate()
-					.alpha(0f)
-					.setDuration(duration.toLong())
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.start()
+    	.alpha(0f)
+    	.setDuration(duration.toLong())
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.start()
 		}
 	}
 
@@ -84,7 +84,7 @@ abstract class BaseFragment : Fragment(), BackPressListener {
 		root = inflater.inflate(layoutID, container, false)
 		findViewById<View>(backgroundId)?.setOnClickListener {
 			if (isDismissOnBackgroundClick) {
-				dismiss()
+    dismiss()
 			}
 		}
 		onLoadView()

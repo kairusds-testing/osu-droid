@@ -23,8 +23,8 @@ public class OsuParser extends HitObjectParser<OsuObject> {
 	public OsuObject parse(String line) {
 		String[] args = line.split(",");
 		Vec2 position = new Vec2(
-				Integer.parseInt(args[0].trim()),
-				Integer.parseInt(args[1].trim())
+    Integer.parseInt(args[0].trim()),
+    Integer.parseInt(args[1].trim())
 		);
 		int time = Integer.parseInt(args[2].trim());
 		int type = Integer.parseInt(args[3].trim());
@@ -42,11 +42,11 @@ public class OsuParser extends HitObjectParser<OsuObject> {
 			List<Vec2> sliderPoints = new ArrayList<>();
 
 			for (int i = 1; i < sliderData.length; i++) {
-				String[] pointData = sliderData[i].split(":");
-				sliderPoints.add(new Vec2(
-						Integer.parseInt(pointData[0]),
-						Integer.parseInt(pointData[1])
-				));
+    String[] pointData = sliderData[i].split(":");
+    sliderPoints.add(new Vec2(
+    		Integer.parseInt(pointData[0]),
+    		Integer.parseInt(pointData[1])
+    ));
 			}
 			int repetitions = Integer.parseInt(args[6].trim());
 			double pixelLength = Double.parseDouble(args[7].trim());
@@ -60,8 +60,8 @@ public class OsuParser extends HitObjectParser<OsuObject> {
 
 	@Override
 	public Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
-								BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
-								List<TimingPoint> timingPoints, List<String> rawObjects) {
+        BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
+        List<TimingPoint> timingPoints, List<String> rawObjects) {
 		List<OsuObject> hitObjects = parse(rawObjects);
 		return new OsuBeatmap(generals, editorState, metadata, difficulties, breaks, timingPoints, hitObjects);
 	}

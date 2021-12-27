@@ -298,8 +298,8 @@ public class BASS
 	}
 
 	public static class BASS_PLUGININFO {
-		public int version;					// version (same form as BASS_GetVersion)
-		public int formatc;					// number of formats
+		public int version;    	// version (same form as BASS_GetVersion)
+		public int formatc;    	// number of formats
 		public BASS_PLUGINFORM[] formats;	// the array of formats
 	}
 
@@ -336,7 +336,7 @@ public class BASS
 		length : Number of bytes to write
 		user   : The 'user' parameter value given when calling BASS_StreamCreate
 		RETURN : Number of bytes written. Set the BASS_STREAMPROC_END flag to end
-				 the stream. */
+     the stream. */
 	}
 
 	public static final int BASS_STREAMPROC_END = 0x80000000;	// end of user stream flag

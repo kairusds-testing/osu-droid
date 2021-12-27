@@ -52,7 +52,7 @@ public class AStarPathFinder<T> implements IPathFinder<T> {
 		final Node[][] nodes = this.mNodes;
 		for(int x = pTiledMap.getTileColumns() - 1; x >= 0; x--) {
 			for(int y = pTiledMap.getTileRows() - 1; y >= 0; y--) {
-				nodes[y][x] = new Node(x, y);
+    nodes[y][x] = new Node(x, y);
 			}
 		}
 	}
@@ -99,57 +99,57 @@ public class AStarPathFinder<T> implements IPathFinder<T> {
 			/* The first Node in the open list is the one with the lowest cost. */
 			final Node current = openNodes.remove(0);
 			if(current == toNode) {
-				break;
+    break;
 			}
 
 			visitedNodes.add(current);
 
 			/* Loop over all neighbors of this tile. */
 			for(int dX = -1; dX <= 1; dX++) {
-				for(int dY = -1; dY <= 1; dY++) {
-					if((dX == 0) && (dY == 0)) {
-						continue;
-					}
+    for(int dY = -1; dY <= 1; dY++) {
+    	if((dX == 0) && (dY == 0)) {
+    		continue;
+    	}
 
-					if(!allowDiagonalMovement) {
-						if((dX != 0) && (dY != 0)) {
-							continue;
-						}
-					}
+    	if(!allowDiagonalMovement) {
+    		if((dX != 0) && (dY != 0)) {
+    			continue;
+    		}
+    	}
 
-					final int neighborTileColumn = dX + current.mTileColumn;
-					final int neighborTileRow = dY + current.mTileRow;
+    	final int neighborTileColumn = dX + current.mTileColumn;
+    	final int neighborTileRow = dY + current.mTileRow;
 
-					if(!this.isTileBlocked(pEntity, pFromTileColumn, pFromTileRow, neighborTileColumn, neighborTileRow)) {
-						final float neighborCost = current.mCost + tiledMap.getStepCost(pEntity, current.mTileColumn, current.mTileRow, neighborTileColumn, neighborTileRow);
-						final Node neighbor = nodes[neighborTileRow][neighborTileColumn];
-						tiledMap.onTileVisitedByPathFinder(neighborTileColumn, neighborTileRow);
+    	if(!this.isTileBlocked(pEntity, pFromTileColumn, pFromTileRow, neighborTileColumn, neighborTileRow)) {
+    		final float neighborCost = current.mCost + tiledMap.getStepCost(pEntity, current.mTileColumn, current.mTileRow, neighborTileColumn, neighborTileRow);
+    		final Node neighbor = nodes[neighborTileRow][neighborTileColumn];
+    		tiledMap.onTileVisitedByPathFinder(neighborTileColumn, neighborTileRow);
 
-						/* Re-evaluate if there is a better path. */
-						if(neighborCost < neighbor.mCost) {
-							// TODO Is this ever possible with AStar ??
-							if(openNodes.contains(neighbor)) {
-								openNodes.remove(neighbor);
-							}
-							if(visitedNodes.contains(neighbor)) {
-								visitedNodes.remove(neighbor);
-							}
-						}
+    		/* Re-evaluate if there is a better path. */
+    		if(neighborCost < neighbor.mCost) {
+    			// TODO Is this ever possible with AStar ??
+    			if(openNodes.contains(neighbor)) {
+        openNodes.remove(neighbor);
+    			}
+    			if(visitedNodes.contains(neighbor)) {
+        visitedNodes.remove(neighbor);
+    			}
+    		}
 
-						if(!openNodes.contains(neighbor) && !(visitedNodes.contains(neighbor))) {
-							neighbor.mCost = neighborCost;
-							if(neighbor.mCost <= pMaxCost) {
-								neighbor.mExpectedRestCost = aStarHeuristic.getExpectedRestCost(tiledMap, pEntity, neighborTileColumn, neighborTileRow, pToTileColumn, pToTileRow);
-								currentDepth = Math.max(currentDepth, neighbor.setParent(current));
-								openNodes.add(neighbor);
+    		if(!openNodes.contains(neighbor) && !(visitedNodes.contains(neighbor))) {
+    			neighbor.mCost = neighborCost;
+    			if(neighbor.mCost <= pMaxCost) {
+        neighbor.mExpectedRestCost = aStarHeuristic.getExpectedRestCost(tiledMap, pEntity, neighborTileColumn, neighborTileRow, pToTileColumn, pToTileRow);
+        currentDepth = Math.max(currentDepth, neighbor.setParent(current));
+        openNodes.add(neighbor);
 
-								/* Ensure always the node with the lowest cost+heuristic
-								 * will be used next, simply by sorting. */
-								Collections.sort(openNodes);
-							}
-						}
-					}
-				}
+        /* Ensure always the node with the lowest cost+heuristic
+         * will be used next, simply by sorting. */
+        Collections.sort(openNodes);
+    			}
+    		}
+    	}
+    }
 			}
 		}
 
@@ -236,11 +236,11 @@ public class AStarPathFinder<T> implements IPathFinder<T> {
 			final float totalCostOther = pOther.mExpectedRestCost + pOther.mCost;
 
 			if (totalCost < totalCostOther) {
-				return -1;
+    return -1;
 			} else if (totalCost > totalCostOther) {
-				return 1;
+    return 1;
 			} else {
-				return 0;
+    return 0;
 			}
 		}
 

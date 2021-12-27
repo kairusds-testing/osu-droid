@@ -244,9 +244,9 @@ public class SpriteBatch extends Entity {
 			this.assertTexture(textureRegion);
 
 			if(pBaseSprite.getRotation() == 0 && !pBaseSprite.isScaled()) {
-				this.mSpriteBatchVertexBuffer.add(pBaseSprite.getX(), pBaseSprite.getY(), pBaseSprite.getWidth(), pBaseSprite.getHeight());
+    this.mSpriteBatchVertexBuffer.add(pBaseSprite.getX(), pBaseSprite.getY(), pBaseSprite.getWidth(), pBaseSprite.getHeight());
 			} else {
-				this.mSpriteBatchVertexBuffer.add(pBaseSprite.getWidth(), pBaseSprite.getHeight(), pBaseSprite.getLocalToParentTransformation());
+    this.mSpriteBatchVertexBuffer.add(pBaseSprite.getWidth(), pBaseSprite.getHeight(), pBaseSprite.getLocalToParentTransformation());
 			}
 
 			this.mSpriteBatchTextureRegionBuffer.add(textureRegion);
@@ -260,9 +260,9 @@ public class SpriteBatch extends Entity {
 			final BaseTextureRegion textureRegion = pBaseSprite.getTextureRegion();
 
 			if(pBaseSprite.getRotation() == 0 && !pBaseSprite.isScaled()) {
-				this.mSpriteBatchVertexBuffer.add(pBaseSprite.getX(), pBaseSprite.getY(), pBaseSprite.getWidth(), pBaseSprite.getHeight());
+    this.mSpriteBatchVertexBuffer.add(pBaseSprite.getX(), pBaseSprite.getY(), pBaseSprite.getWidth(), pBaseSprite.getHeight());
 			} else {
-				this.mSpriteBatchVertexBuffer.add(pBaseSprite.getWidth(), pBaseSprite.getHeight(), pBaseSprite.getLocalToParentTransformation());
+    this.mSpriteBatchVertexBuffer.add(pBaseSprite.getWidth(), pBaseSprite.getHeight(), pBaseSprite.getLocalToParentTransformation());
 			}
 
 			this.mSpriteBatchTextureRegionBuffer.add(textureRegion);

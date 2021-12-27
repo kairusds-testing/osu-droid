@@ -26,29 +26,29 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCORES_TABLENAME + " ("
-				+ "id INTEGER PRIMARY KEY,"
-				+ "filename TEXT,"
-				+ "playername TEXT,"
-				+ "replayfile TEXT,"
-				+ "mode TEXT,"
-				+ "score INTEGER,"
-				+ "combo INTEGER,"
-				+ "mark TEXT,"
-				+ "h300k INTEGER,"
-				+ "h300 INTEGER,"
-				+ "h100k INTEGER,"
-				+ "h100 INTEGER,"
-				+ "h50 INTEGER,"
-				+ "misses INTEGER,"
-				+ "accuracy FLOAT,"
-				+ "time TIMESTAMP,"
-				+ "perfect INTEGER);");
+    + "id INTEGER PRIMARY KEY,"
+    + "filename TEXT,"
+    + "playername TEXT,"
+    + "replayfile TEXT,"
+    + "mode TEXT,"
+    + "score INTEGER,"
+    + "combo INTEGER,"
+    + "mark TEXT,"
+    + "h300k INTEGER,"
+    + "h300 INTEGER,"
+    + "h100k INTEGER,"
+    + "h100 INTEGER,"
+    + "h50 INTEGER,"
+    + "misses INTEGER,"
+    + "accuracy FLOAT,"
+    + "time TIMESTAMP,"
+    + "perfect INTEGER);");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + MAPS_TABLENAME + " ("
-				+ "id INTEGER PRIMARY KEY,"
-				+ "size INTEGER,"
-				+ "inserttime INTEGER,"
-				+ "link TEXT);");
+    + "id INTEGER PRIMARY KEY,"
+    + "size INTEGER,"
+    + "inserttime INTEGER,"
+    + "link TEXT);");
 
 	}
 
@@ -58,8 +58,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		//db.execSQL("DROP TABLE IF EXISTS " + TABLENAME);
 		if (oldVersion <= 5 && newVersion == 6) {
 			if (oldVersion != 5) {
-				String sql = "alter table [" + SCORES_TABLENAME + "] add [time] TIMESTAMP";
-				db.execSQL(sql);
+    String sql = "alter table [" + SCORES_TABLENAME + "] add [time] TIMESTAMP";
+    db.execSQL(sql);
 			}
 			String sql = "alter table [" + SCORES_TABLENAME + "] add [perfect] INTEGER";
 			db.execSQL(sql);

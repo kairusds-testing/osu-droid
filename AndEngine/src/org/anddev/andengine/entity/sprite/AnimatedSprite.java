@@ -72,25 +72,25 @@ public class AnimatedSprite extends TiledSprite implements TimeConstants {
 			this.mAnimationProgress += nanoSecondsElapsed;
 
 			if(this.mAnimationProgress > this.mAnimationDuration) {
-				this.mAnimationProgress %= this.mAnimationDuration;
-				if(this.mInitialLoopCount != AnimatedSprite.LOOP_CONTINUOUS) {
-					this.mLoopCount--;
-				}
+    this.mAnimationProgress %= this.mAnimationDuration;
+    if(this.mInitialLoopCount != AnimatedSprite.LOOP_CONTINUOUS) {
+    	this.mLoopCount--;
+    }
 			}
 
 			if(this.mInitialLoopCount == AnimatedSprite.LOOP_CONTINUOUS || this.mLoopCount >= 0) {
-				final int currentFrameIndex = this.calculateCurrentFrameIndex();
-				
-				if(this.mFrames == null) {
-					this.setCurrentTileIndex(this.mFirstTileIndex + currentFrameIndex);
-				} else {
-					this.setCurrentTileIndex(this.mFrames[currentFrameIndex]);
-				}
+    final int currentFrameIndex = this.calculateCurrentFrameIndex();
+
+    if(this.mFrames == null) {
+    	this.setCurrentTileIndex(this.mFirstTileIndex + currentFrameIndex);
+    } else {
+    	this.setCurrentTileIndex(this.mFrames[currentFrameIndex]);
+    }
 			} else {
-				this.mAnimationRunning = false;
-				if(this.mAnimationListener != null) {
-					this.mAnimationListener.onAnimationEnd(this);
-				}
+    this.mAnimationRunning = false;
+    if(this.mAnimationListener != null) {
+    	this.mAnimationListener.onAnimationEnd(this);
+    }
 			}
 		}
 	}
@@ -114,7 +114,7 @@ public class AnimatedSprite extends TiledSprite implements TimeConstants {
 		final int frameCount = this.mFrameCount;
 		for(int i = 0; i < frameCount; i++) {
 			if(frameEnds[i] > animationProgress) {
-				return i;
+    return i;
 			}
 		}
 

@@ -284,19 +284,19 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	public void onAccuracyChanged(final Sensor pSensor, final int pAccuracy) {
 		if(this.mRunning) {
 			switch(pSensor.getType()) {
-				case Sensor.TYPE_ACCELEROMETER:
-					if(this.mAccelerometerData != null) {
-						this.mAccelerometerData.setAccuracy(pAccuracy);
-						this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
-					} else if(this.mOrientationData != null) {
-						this.mOrientationData.setAccelerometerAccuracy(pAccuracy);
-						this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					}
-					break;
-				case Sensor.TYPE_MAGNETIC_FIELD:
-					this.mOrientationData.setMagneticFieldAccuracy(pAccuracy);
-					this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					break;
+    case Sensor.TYPE_ACCELEROMETER:
+    	if(this.mAccelerometerData != null) {
+    		this.mAccelerometerData.setAccuracy(pAccuracy);
+    		this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
+    	} else if(this.mOrientationData != null) {
+    		this.mOrientationData.setAccelerometerAccuracy(pAccuracy);
+    		this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+    	}
+    	break;
+    case Sensor.TYPE_MAGNETIC_FIELD:
+    	this.mOrientationData.setMagneticFieldAccuracy(pAccuracy);
+    	this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+    	break;
 			}
 		}
 	}
@@ -305,19 +305,19 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	public void onSensorChanged(final SensorEvent pEvent) {
 		if(this.mRunning) {
 			switch(pEvent.sensor.getType()) {
-				case Sensor.TYPE_ACCELEROMETER:
-					if(this.mAccelerometerData != null) {
-						this.mAccelerometerData.setValues(pEvent.values);
-						this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
-					} else if(this.mOrientationData != null) {
-						this.mOrientationData.setAccelerometerValues(pEvent.values);
-						this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					}
-					break;
-				case Sensor.TYPE_MAGNETIC_FIELD:
-					this.mOrientationData.setMagneticFieldValues(pEvent.values);
-					this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					break;
+    case Sensor.TYPE_ACCELEROMETER:
+    	if(this.mAccelerometerData != null) {
+    		this.mAccelerometerData.setValues(pEvent.values);
+    		this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
+    	} else if(this.mOrientationData != null) {
+    		this.mOrientationData.setAccelerometerValues(pEvent.values);
+    		this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+    	}
+    	break;
+    case Sensor.TYPE_MAGNETIC_FIELD:
+    	this.mOrientationData.setMagneticFieldValues(pEvent.values);
+    	this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+    	break;
 			}
 		}
 	}
@@ -328,10 +328,10 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 			this.mLocation = pLocation;
 		} else {
 			if(pLocation == null) {
-				this.mLocationListener.onLocationLost();
+    this.mLocationListener.onLocationLost();
 			} else {
-				this.mLocation = pLocation;
-				this.mLocationListener.onLocationChanged(pLocation);
+    this.mLocation = pLocation;
+    this.mLocationListener.onLocationChanged(pLocation);
 			}
 		}
 	}
@@ -350,14 +350,14 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	public void onStatusChanged(final String pProvider, final int pStatus, final Bundle pExtras) {
 		switch(pStatus) {
 			case LocationProvider.AVAILABLE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.AVAILABLE, pExtras);
-				break;
+    this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.AVAILABLE, pExtras);
+    break;
 			case LocationProvider.OUT_OF_SERVICE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.OUT_OF_SERVICE, pExtras);
-				break;
+    this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.OUT_OF_SERVICE, pExtras);
+    break;
 			case LocationProvider.TEMPORARILY_UNAVAILABLE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.TEMPORARILY_UNAVAILABLE, pExtras);
-				break;
+    this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.TEMPORARILY_UNAVAILABLE, pExtras);
+    break;
 		}
 	}
 
@@ -367,16 +367,16 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		if(this.mRunning) {
 			final boolean handled = this.mTouchController.onHandleMotionEvent(pSurfaceMotionEvent);
 			try {
-				/*
-				 * As a human cannot interact 1000x per second, we pause the
-				 * UI-Thread for a little.
-				 */
-				if (INPUT_PAUSE_DURATION != 0) {
-					Thread.sleep(INPUT_PAUSE_DURATION);
-				}
-				// TODO Maybe this can be removed, when TouchEvents are handled on the UpdateThread!}
+    /*
+     * As a human cannot interact 1000x per second, we pause the
+     * UI-Thread for a little.
+     */
+    if (INPUT_PAUSE_DURATION != 0) {
+    	Thread.sleep(INPUT_PAUSE_DURATION);
+    }
+    // TODO Maybe this can be removed, when TouchEvents are handled on the UpdateThread!}
 			} catch (final InterruptedException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 			return handled;
 		} else {
@@ -553,12 +553,12 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		public void run() {
 			android.os.Process.setThreadPriority(Engine.this.mEngineOptions.getUpdateThreadPriority());
 			try {
-				while(true) {
-					Engine.this.onTickUpdate();
-				}
+    while(true) {
+    	Engine.this.onTickUpdate();
+    }
 			} catch (final InterruptedException e) {
-				Debug.d("UpdateThread interrupted. Don't worry - this Exception is most likely expected!", e);
-				this.interrupt();
+    Debug.d("UpdateThread interrupted. Don't worry - this Exception is most likely expected!", e);
+    this.interrupt();
 			}
 		}
 	}
@@ -583,7 +583,7 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		public synchronized void waitUntilCanDraw() throws InterruptedException {
 			// Debug.d(">>> waitUntilCanDraw");
 			while(!this.mDrawing) {
-				this.wait();
+    this.wait();
 			}
 			// Debug.d("<<< waitUntilCanDraw");
 		}
@@ -591,7 +591,7 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		public synchronized void waitUntilCanUpdate() throws InterruptedException {
 			// Debug.d(">>> waitUntilCanUpdate");
 			while(this.mDrawing) {
-				this.wait();
+    this.wait();
 			}
 			// Debug.d("<<< waitUntilCanUpdate");
 		}

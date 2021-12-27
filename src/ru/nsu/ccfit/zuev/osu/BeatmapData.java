@@ -28,7 +28,7 @@ public class BeatmapData {
 	public String getData(final String section, final String name) {
 		if (sections.containsKey(section)) {
 			if (sections.get(section).containsKey(name)) {
-				return sections.get(section).get(name);
+    return sections.get(section).get(name);
 			}
 		}
 		return "";

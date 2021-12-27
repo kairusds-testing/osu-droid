@@ -18,8 +18,8 @@ public class SliderBody2D extends AbstractSliderBody {
 		public BuildCache get() {
 			BuildCache cache = super.get();
 			if (cache == null) {
-				cache = new BuildCache();
-				set(cache);
+    cache = new BuildCache();
+    set(cache);
 			}
 			return cache;
 		}
@@ -99,19 +99,19 @@ public class SliderBody2D extends AbstractSliderBody {
 		if (hint != null) {
 			hint.setAlpha(alpha * hintAlpha);
 			cache.drawLinePath
-					.reset(sub, hintWidth)
-					.getTriangles(cache.triangleBuilder)
-					.getVertex(hint.getVertices());
+    	.reset(sub, hintWidth)
+    	.getTriangles(cache.triangleBuilder)
+    	.getVertex(hint.getVertices());
 		}
 
 		cache.drawLinePath
-				.reset(sub, bodyWidth)
-				.getTriangles(cache.triangleBuilder)
-				.getVertex(body.getVertices());
+    .reset(sub, bodyWidth)
+    .getTriangles(cache.triangleBuilder)
+    .getVertex(body.getVertices());
 		cache.drawLinePath
-				.reset(sub, borderWidth)
-				.getTriangles(cache.triangleBuilder)
-				.getVertex(border.getVertices());
+    .reset(sub, borderWidth)
+    .getTriangles(cache.triangleBuilder)
+    .getVertex(border.getVertices());
 	}
 
 	@Override
@@ -176,8 +176,8 @@ public class SliderBody2D extends AbstractSliderBody {
 			body.setAlpha(0);
 			border.setAlpha(0);
 			if (hint != null) {
-				hint.setAlpha(0);
-				hint.getVertices().length = 0;
+    hint.setAlpha(0);
+    hint.getVertices().length = 0;
 			}
 			body.getVertices().length = 0;
 			border.getVertices().length = 0;
@@ -185,20 +185,20 @@ public class SliderBody2D extends AbstractSliderBody {
 			body.setAlpha(sliderBodyBaseAlpha);
 			border.setAlpha(1);
 			if (hint != null) {
-				hint.setAlpha(hintAlpha);
-				cache.drawLinePath
-						.reset(path, hintWidth)
-						.getTriangles(cache.triangleBuilder)
-						.getVertex(hint.getVertices());
+    hint.setAlpha(hintAlpha);
+    cache.drawLinePath
+    		.reset(path, hintWidth)
+    		.getTriangles(cache.triangleBuilder)
+    		.getVertex(hint.getVertices());
 			}
 			cache.drawLinePath
-					.reset(path, bodyWidth)
-					.getTriangles(cache.triangleBuilder)
-					.getVertex(body.getVertices());
+    	.reset(path, bodyWidth)
+    	.getTriangles(cache.triangleBuilder)
+    	.getVertex(body.getVertices());
 			cache.drawLinePath
-					.reset(path, borderWidth)
-					.getTriangles(cache.triangleBuilder)
-					.getVertex(border.getVertices());
+    	.reset(path, borderWidth)
+    	.getTriangles(cache.triangleBuilder)
+    	.getVertex(border.getVertices());
 		}
 
 

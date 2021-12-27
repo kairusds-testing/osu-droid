@@ -53,7 +53,7 @@ public class BuildableTextureAtlasTextureRegionFactory {
 		pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
 			@Override
 			public void onCallback(final T pCallbackValue) {
-				textureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
+    textureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
 			}
 		});
 		textureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);
@@ -65,7 +65,7 @@ public class BuildableTextureAtlasTextureRegionFactory {
 		pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
 			@Override
 			public void onCallback(final T pCallbackValue) {
-				tiledTextureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
+    tiledTextureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
 			}
 		});
 		tiledTextureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);

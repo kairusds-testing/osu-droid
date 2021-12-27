@@ -78,9 +78,9 @@ public abstract class HitObject {
 	@Override
 	public String toString() {
 		return "startTime=" + startTime +
-				", endTime=" + endTime +
-				", pos=" + pos +
-				", timingPoint=" + timingPoint;
+    ", endTime=" + endTime +
+    ", pos=" + pos +
+    ", timingPoint=" + timingPoint;
 	}
 
 	public String toString(float sliderTick, float sliderSpeed) {

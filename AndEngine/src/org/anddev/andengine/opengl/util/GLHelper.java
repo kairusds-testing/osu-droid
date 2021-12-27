@@ -278,9 +278,9 @@ public class GLHelper {
 		if (sEnableDepthTest != depthTest) {
 			sEnableDepthTest = depthTest;
 			if (depthTest) {
-				pGL.glEnable(GL10.GL_DEPTH_TEST);
+    pGL.glEnable(GL10.GL_DEPTH_TEST);
 			} else {
-				pGL.glDisable(GL10.GL_DEPTH_TEST);
+    pGL.glDisable(GL10.GL_DEPTH_TEST);
 			}
 		}
 	}
@@ -461,30 +461,30 @@ public class GLHelper {
 
 		switch(pPixelFormat) {
 			case RGB_565:
-				return ByteBuffer.wrap(GLHelper.convertARGB_8888toRGB_565(pixelsARGB_8888));
+    return ByteBuffer.wrap(GLHelper.convertARGB_8888toRGB_565(pixelsARGB_8888));
 			case RGBA_8888:
-				return IntBuffer.wrap(GLHelper.convertARGB_8888toRGBA_8888(pixelsARGB_8888));
+    return IntBuffer.wrap(GLHelper.convertARGB_8888toRGBA_8888(pixelsARGB_8888));
 			case RGBA_4444:
-				return ByteBuffer.wrap(GLHelper.convertARGB_8888toARGB_4444(pixelsARGB_8888));
+    return ByteBuffer.wrap(GLHelper.convertARGB_8888toARGB_4444(pixelsARGB_8888));
 			case A_8:
-				return ByteBuffer.wrap(GLHelper.convertARGB_8888toA_8(pixelsARGB_8888));
+    return ByteBuffer.wrap(GLHelper.convertARGB_8888toA_8(pixelsARGB_8888));
 			default:
-				throw new IllegalArgumentException("Unexpected " + PixelFormat.class.getSimpleName() + ": '" + pPixelFormat + "'.");
+    throw new IllegalArgumentException("Unexpected " + PixelFormat.class.getSimpleName() + ": '" + pPixelFormat + "'.");
 		}
 	}
 
 	private static int[] convertARGB_8888toRGBA_8888(final int[] pPixelsARGB_8888) {
 		if(GLHelper.IS_LITTLE_ENDIAN) {
 			for(int i = pPixelsARGB_8888.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
-				/* ARGB to ABGR */
-				pPixelsARGB_8888[i] = pixel & 0xFF00FF00 | (pixel & 0x000000FF) << 16 | (pixel & 0x00FF0000) >> 16;
+    final int pixel = pPixelsARGB_8888[i];
+    /* ARGB to ABGR */
+    pPixelsARGB_8888[i] = pixel & 0xFF00FF00 | (pixel & 0x000000FF) << 16 | (pixel & 0x00FF0000) >> 16;
 			}
 		} else {
 			for(int i = pPixelsARGB_8888.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
-				/* ARGB to RGBA */
-				pPixelsARGB_8888[i] = (pixel & 0x00FFFFFF) << 8 | (pixel & 0xFF000000) >> 24;
+    final int pixel = pPixelsARGB_8888[i];
+    /* ARGB to RGBA */
+    pPixelsARGB_8888[i] = (pixel & 0x00FFFFFF) << 8 | (pixel & 0xFF000000) >> 24;
 			}
 		}
 		return pPixelsARGB_8888;
@@ -494,31 +494,31 @@ public class GLHelper {
 		final byte[] pixelsRGB_565 = new byte[pPixelsARGB_8888.length * 2];
 		if(GLHelper.IS_LITTLE_ENDIAN) {
 			for(int i = pPixelsARGB_8888.length - 1, j = pixelsRGB_565.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
+    final int pixel = pPixelsARGB_8888[i];
 
-				final int red = (pixel >> 16) & 0xFF;
-				final int green = (pixel >> 8) & 0xFF;
-				final int blue = (pixel) & 0xFF;
+    final int red = (pixel >> 16) & 0xFF;
+    final int green = (pixel >> 8) & 0xFF;
+    final int blue = (pixel) & 0xFF;
 
-				/* Byte1: [R1 R2 R3 R4 R5 G1 G2 G3]
-				 * Byte2: [G4 G5 G6 B1 B2 B3 B4 B5] */
+    /* Byte1: [R1 R2 R3 R4 R5 G1 G2 G3]
+     * Byte2: [G4 G5 G6 B1 B2 B3 B4 B5] */
 
-				pixelsRGB_565[j--] = (byte)((red & 0xF8) | (green >> 5));
-				pixelsRGB_565[j--] = (byte)(((green << 3) & 0xE0) | (blue >> 3));
+    pixelsRGB_565[j--] = (byte)((red & 0xF8) | (green >> 5));
+    pixelsRGB_565[j--] = (byte)(((green << 3) & 0xE0) | (blue >> 3));
 			}
 		} else {
 			for(int i = pPixelsARGB_8888.length - 1, j = pixelsRGB_565.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
+    final int pixel = pPixelsARGB_8888[i];
 
-				final int red = (pixel >> 16) & 0xFF;
-				final int green = (pixel >> 8) & 0xFF;
-				final int blue = (pixel) & 0xFF;
+    final int red = (pixel >> 16) & 0xFF;
+    final int green = (pixel >> 8) & 0xFF;
+    final int blue = (pixel) & 0xFF;
 
-				/* Byte2: [G4 G5 G6 B1 B2 B3 B4 B5]
-				 * Byte1: [R1 R2 R3 R4 R5 G1 G2 G3]*/
+    /* Byte2: [G4 G5 G6 B1 B2 B3 B4 B5]
+     * Byte1: [R1 R2 R3 R4 R5 G1 G2 G3]*/
 
-				pixelsRGB_565[j--] = (byte)(((green << 3) & 0xE0) | (blue >> 3));
-				pixelsRGB_565[j--] = (byte)((red & 0xF8) | (green >> 5));
+    pixelsRGB_565[j--] = (byte)(((green << 3) & 0xE0) | (blue >> 3));
+    pixelsRGB_565[j--] = (byte)((red & 0xF8) | (green >> 5));
 			}
 		}
 		return pixelsRGB_565;
@@ -528,33 +528,33 @@ public class GLHelper {
 		final byte[] pixelsARGB_4444 = new byte[pPixelsARGB_8888.length * 2];
 		if(GLHelper.IS_LITTLE_ENDIAN) {
 			for(int i = pPixelsARGB_8888.length - 1, j = pixelsARGB_4444.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
+    final int pixel = pPixelsARGB_8888[i];
 
-				final int alpha = (pixel >> 28) & 0x0F;
-				final int red = (pixel >> 16) & 0xF0;
-				final int green = (pixel >> 8) & 0xF0;
-				final int blue = ((pixel) & 0x0F);
+    final int alpha = (pixel >> 28) & 0x0F;
+    final int red = (pixel >> 16) & 0xF0;
+    final int green = (pixel >> 8) & 0xF0;
+    final int blue = ((pixel) & 0x0F);
 
-				/* Byte1: [A1 A2 A3 A4 R1 R2 R3 R4]
-				 * Byte2: [G1 G2 G3 G4 G2 G2 G3 G4] */
+    /* Byte1: [A1 A2 A3 A4 R1 R2 R3 R4]
+     * Byte2: [G1 G2 G3 G4 G2 G2 G3 G4] */
 
-				pixelsARGB_4444[j--] = (byte)(alpha | red);
-				pixelsARGB_4444[j--] = (byte)(green | blue);
+    pixelsARGB_4444[j--] = (byte)(alpha | red);
+    pixelsARGB_4444[j--] = (byte)(green | blue);
 			}
 		} else {
 			for(int i = pPixelsARGB_8888.length - 1, j = pixelsARGB_4444.length - 1; i >= 0; i--) {
-				final int pixel = pPixelsARGB_8888[i];
+    final int pixel = pPixelsARGB_8888[i];
 
-				final int alpha = (pixel >> 28) & 0x0F;
-				final int red = (pixel >> 16) & 0xF0;
-				final int green = (pixel >> 8) & 0xF0;
-				final int blue = (pixel) & 0x0F;
+    final int alpha = (pixel >> 28) & 0x0F;
+    final int red = (pixel >> 16) & 0xF0;
+    final int green = (pixel >> 8) & 0xF0;
+    final int blue = (pixel) & 0x0F;
 
-				/* Byte2: [G1 G2 G3 G4 G2 G2 G3 G4]
-				 * Byte1: [A1 A2 A3 A4 R1 R2 R3 R4] */
+    /* Byte2: [G1 G2 G3 G4 G2 G2 G3 G4]
+     * Byte1: [A1 A2 A3 A4 R1 R2 R3 R4] */
 
-				pixelsARGB_4444[j--] = (byte)(green | blue);
-				pixelsARGB_4444[j--] = (byte)(alpha | red);
+    pixelsARGB_4444[j--] = (byte)(green | blue);
+    pixelsARGB_4444[j--] = (byte)(alpha | red);
 			}
 		}
 		return pixelsARGB_4444;
@@ -564,11 +564,11 @@ public class GLHelper {
 		final byte[] pixelsA_8 = new byte[pPixelsARGB_8888.length];
 		if(GLHelper.IS_LITTLE_ENDIAN) {
 			for(int i = pPixelsARGB_8888.length - 1; i >= 0; i--) {
-				pixelsA_8[i] = (byte) (pPixelsARGB_8888[i] >> 24);
+    pixelsA_8[i] = (byte) (pPixelsARGB_8888[i] >> 24);
 			}
 		} else {
 			for(int i = pPixelsARGB_8888.length - 1; i >= 0; i--) {
-				pixelsA_8[i] = (byte) (pPixelsARGB_8888[i] & 0xFF);
+    pixelsA_8[i] = (byte) (pPixelsARGB_8888[i] & 0xFF);
 			}
 		}
 		return pixelsA_8;

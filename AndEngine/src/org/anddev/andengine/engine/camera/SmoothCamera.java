@@ -62,11 +62,11 @@ public class SmoothCamera extends ZoomCamera {
 	public void setZoomFactor(final float pZoomFactor) {
 		if(this.mTargetZoomFactor != pZoomFactor) {
 			if(this.mTargetZoomFactor == this.mZoomFactor) {
-				this.mTargetZoomFactor = pZoomFactor;
+    this.mTargetZoomFactor = pZoomFactor;
 
-				this.onSmoothZoomStarted();
+    this.onSmoothZoomStarted();
 			} else {
-				this.mTargetZoomFactor = pZoomFactor;
+    this.mTargetZoomFactor = pZoomFactor;
 			}
 		}
 	}
@@ -143,7 +143,7 @@ public class SmoothCamera extends ZoomCamera {
 			super.setZoomFactor(currentZoom + zoomChange);
 
 			if(this.mZoomFactor == this.mTargetZoomFactor) {
-				this.onSmoothZoomFinished();
+    this.onSmoothZoomFinished();
 			}
 		}
 	}

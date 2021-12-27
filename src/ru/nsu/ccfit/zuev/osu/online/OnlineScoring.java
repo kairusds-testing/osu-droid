@@ -76,41 +76,41 @@ public class OnlineScoring {
 
 
 			public void run() {
-				synchronized (onlineMutex) {
-					boolean success = false;
+    synchronized (onlineMutex) {
+    	boolean success = false;
 
-					//Trying to send request
-					for (int i = 0; i < 3; i++) {
-						setPanelMessage("Logging in...", "");
+    	//Trying to send request
+    	for (int i = 0; i < 3; i++) {
+    		setPanelMessage("Logging in...", "");
 
-						try {
-							success = OnlineManager.getInstance().logIn();
-						} catch (OnlineManagerException e) {
-							Debug.e("Login error: " + e.getMessage());
-							setPanelMessage("Login failed", "Retrying in 5 sec");
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e1) {
-								break;
-							}
-							continue;
-						}
-						break;
-					}
-					if (success) {
-						updatePanels();
-						OnlineManager.getInstance().setStayOnline(true);
-						loadAvatar(true);
-					} else {
-						setPanelMessage("Cannot log in", OnlineManager.getInstance().getFailMessage());
-						OnlineManager.getInstance().setStayOnline(false);
-					}
-				}
+    		try {
+    			success = OnlineManager.getInstance().logIn();
+    		} catch (OnlineManagerException e) {
+    			Debug.e("Login error: " + e.getMessage());
+    			setPanelMessage("Login failed", "Retrying in 5 sec");
+    			try {
+        Thread.sleep(3000);
+    			} catch (InterruptedException e1) {
+        break;
+    			}
+    			continue;
+    		}
+    		break;
+    	}
+    	if (success) {
+    		updatePanels();
+    		OnlineManager.getInstance().setStayOnline(true);
+    		loadAvatar(true);
+    	} else {
+    		setPanelMessage("Cannot log in", OnlineManager.getInstance().getFailMessage());
+    		OnlineManager.getInstance().setStayOnline(false);
+    	}
+    }
 			}
 
 
 			public void onComplete() {
-				// TODO Auto-generated method stub
+    // TODO Auto-generated method stub
 
 			}
 		});
@@ -123,27 +123,27 @@ public class OnlineScoring {
 
 
 			public void run() {
-				synchronized (onlineMutex) {
+    synchronized (onlineMutex) {
 
-					for (int i = 0; i < attemptCount; i++) {
-						try {
-							OnlineManager.getInstance().startPlay(track, hash);
-						} catch (OnlineManagerException e) {
-							Debug.e("Login error: " + e.getMessage());
-							continue;
-						}
-						break;
-					}
+    	for (int i = 0; i < attemptCount; i++) {
+    		try {
+    			OnlineManager.getInstance().startPlay(track, hash);
+    		} catch (OnlineManagerException e) {
+    			Debug.e("Login error: " + e.getMessage());
+    			continue;
+    		}
+    		break;
+    	}
 
-					if (OnlineManager.getInstance().getFailMessage().length() > 0) {
-						ToastLogger.showText(OnlineManager.getInstance().getFailMessage(), true);
-					}
-				}
+    	if (OnlineManager.getInstance().getFailMessage().length() > 0) {
+    		ToastLogger.showText(OnlineManager.getInstance().getFailMessage(), true);
+    	}
+    }
 			}
 
 
 			public void onComplete() {
-				// TODO Auto-generated method stub
+    // TODO Auto-generated method stub
 
 			}
 		});
@@ -163,50 +163,50 @@ public class OnlineScoring {
 
 
 			public void run() {
-				boolean success = false;
-				synchronized (onlineMutex) {
-					for (int i = 0; i < attemptCount; i++) {
-						if (!record.isScoreValid()) {
-							Debug.e("Detected illegal actions.");
-							break;
-						}
+    boolean success = false;
+    synchronized (onlineMutex) {
+    	for (int i = 0; i < attemptCount; i++) {
+    		if (!record.isScoreValid()) {
+    			Debug.e("Detected illegal actions.");
+    			break;
+    		}
 
-						try {
-							success = OnlineManager.getInstance().sendRecord(recordData);
-						} catch (OnlineManagerException e) {
-							Debug.e("Login error: " + e.getMessage());
-							success = false;
-						}
+    		try {
+    			success = OnlineManager.getInstance().sendRecord(recordData);
+    		} catch (OnlineManagerException e) {
+    			Debug.e("Login error: " + e.getMessage());
+    			success = false;
+    		}
 
-						if (OnlineManager.getInstance().getFailMessage().length() > 0) {
-							ToastLogger.showText(OnlineManager.getInstance().getFailMessage(), true);
-							if (OnlineManager.getInstance().getFailMessage().equals("Invalid record data"))
-								i = attemptCount;
-						} else if (success) {
-							updatePanels();
-							OnlineManager mgr = OnlineManager.getInstance();
-							panel.show(mgr.getMapRank(), mgr.getScore(), mgr.getRank(), mgr.getAccuracy());
-							OnlineManager.getInstance().sendReplay(replay);
-							break;
-						}
+    		if (OnlineManager.getInstance().getFailMessage().length() > 0) {
+    			ToastLogger.showText(OnlineManager.getInstance().getFailMessage(), true);
+    			if (OnlineManager.getInstance().getFailMessage().equals("Invalid record data"))
+        i = attemptCount;
+    		} else if (success) {
+    			updatePanels();
+    			OnlineManager mgr = OnlineManager.getInstance();
+    			panel.show(mgr.getMapRank(), mgr.getScore(), mgr.getRank(), mgr.getAccuracy());
+    			OnlineManager.getInstance().sendReplay(replay);
+    			break;
+    		}
 
 
-						try {
-							Thread.sleep(5000);
-						} catch (InterruptedException e) {
-						}
-					}
+    		try {
+    			Thread.sleep(5000);
+    		} catch (InterruptedException e) {
+    		}
+    	}
 
-					if (!success) {
-						panel.setFail();
-					}
+    	if (!success) {
+    		panel.setFail();
+    	}
 
-				}
+    }
 			}
 
 
 			public void onComplete() {
-				// TODO Auto-generated method stub
+    // TODO Auto-generated method stub
 
 			}
 		});
@@ -215,10 +215,10 @@ public class OnlineScoring {
 	public ArrayList<String> getTop(final File trackFile, final String hash) {
 		synchronized (onlineMutex) {
 			try {
-				return OnlineManager.getInstance().getTop(trackFile, hash);
+    return OnlineManager.getInstance().getTop(trackFile, hash);
 			} catch (OnlineManagerException e) {
-				Debug.e("Cannot load scores " + e.getMessage());
-				return new ArrayList<String>();
+    Debug.e("Cannot load scores " + e.getMessage());
+    return new ArrayList<String>();
 			}
 		}
 	}
@@ -233,21 +233,21 @@ public class OnlineScoring {
 
 
 			public void run() {
-				synchronized (onlineMutex) {
-					if (OnlineManager.getInstance().loadAvatarToTextureManager()) {
-						avatarLoaded = true;
-					} else
-						avatarLoaded = false;
-					if (both)
-						updatePanelAvatars();
-					else if (secondPanel != null)
-						secondPanel.setAvatar(avatarLoaded ? "userAvatar" : null);
-				}
+    synchronized (onlineMutex) {
+    	if (OnlineManager.getInstance().loadAvatarToTextureManager()) {
+    		avatarLoaded = true;
+    	} else
+    		avatarLoaded = false;
+    	if (both)
+    		updatePanelAvatars();
+    	else if (secondPanel != null)
+    		secondPanel.setAvatar(avatarLoaded ? "userAvatar" : null);
+    }
 			}
 
 
 			public void onComplete() {
-				// TODO Auto-generated method stub
+    // TODO Auto-generated method stub
 
 			}
 		});

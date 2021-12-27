@@ -113,10 +113,10 @@ public class ColorPickerPreference
 		if (widgetFrameView == null) return;
 		widgetFrameView.setVisibility(View.VISIBLE);
 		widgetFrameView.setPadding(
-				widgetFrameView.getPaddingLeft(),
-				widgetFrameView.getPaddingTop(),
-				(int) (mDensity * 8),
-				widgetFrameView.getPaddingBottom()
+    widgetFrameView.getPaddingLeft(),
+    widgetFrameView.getPaddingTop(),
+    (int) (mDensity * 8),
+    widgetFrameView.getPaddingBottom()
 		);
 		// remove already create preview image
 		int count = widgetFrameView.getChildCount();
@@ -138,11 +138,11 @@ public class ColorPickerPreference
 		int c = color;
 		for (int i = 0; i < w; i++) {
 			for (int j = i; j < h; j++) {
-				c = (i <= 1 || j <= 1 || i >= w - 2 || j >= h - 2) ? Color.GRAY : color;
-				bm.setPixel(i, j, c);
-				if (i != j) {
-					bm.setPixel(j, i, c);
-				}
+    c = (i <= 1 || j <= 1 || i >= w - 2 || j >= h - 2) ? Color.GRAY : color;
+    bm.setPixel(i, j, c);
+    if (i != j) {
+    	bm.setPixel(j, i, c);
+    }
 			}
 		}
 
@@ -322,14 +322,14 @@ public class ColorPickerPreference
 
 		@SuppressWarnings("unused")
 		public static final Parcelable.Creator<SavedState> CREATOR =
-				new Parcelable.Creator<SavedState>() {
-					public SavedState createFromParcel(Parcel in) {
-						return new SavedState(in);
-					}
+    new Parcelable.Creator<SavedState>() {
+    	public SavedState createFromParcel(Parcel in) {
+    		return new SavedState(in);
+    	}
 
-					public SavedState[] newArray(int size) {
-						return new SavedState[size];
-					}
-				};
+    	public SavedState[] newArray(int size) {
+    		return new SavedState[size];
+    	}
+    };
 	}
 }

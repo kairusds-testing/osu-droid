@@ -83,16 +83,16 @@ public class SlideMenuAnimator extends BaseMenuAnimator {
 
 			final float offsetX;
 			switch(this.mHorizontalAlign) {
-				case LEFT:
-					offsetX = 0;
-					break;
-				case RIGHT:
-					offsetX = maximumWidth - menuItem.getWidthScaled();
-					break;
-				case CENTER:
-				default:
-					offsetX = (maximumWidth - menuItem.getWidthScaled()) * 0.5f;
-					break;
+    case LEFT:
+    	offsetX = 0;
+    	break;
+    case RIGHT:
+    	offsetX = maximumWidth - menuItem.getWidthScaled();
+    	break;
+    case CENTER:
+    default:
+    	offsetX = (maximumWidth - menuItem.getWidthScaled()) * 0.5f;
+    	break;
 			}
 
 			final MoveModifier moveModifier = new MoveModifier(DURATION, -maximumWidth, baseX + offsetX, baseY + offsetY, baseY + offsetY, easeFunction);

@@ -19,8 +19,8 @@ public abstract class Beatmap {
 	protected List<TimingPoint> timingPoints;
 
 	protected Beatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
-					  BeatmapMetadata metadata, BeatmapDifficulties difficulties,
-					  List<BreakPeriod> breaks, List<TimingPoint> timingPoints) {
+    	  BeatmapMetadata metadata, BeatmapDifficulties difficulties,
+    	  List<BreakPeriod> breaks, List<TimingPoint> timingPoints) {
 		this.generals = generals;
 		this.editorState = editorState;
 		this.metadata = metadata;
@@ -44,13 +44,13 @@ public abstract class Beatmap {
 			if (!previous.isInherited()) parent = previous;
 
 			while (objectIterator.hasNext()) {
-				HitObject object = objectIterator.next();
-				if (current == null || object.getStartTime() < current.getTimestamp()) {
-					object.finalize(previous, parent, this);
-				} else {
-					objectIterator.previous();
-					break;
-				}
+    HitObject object = objectIterator.next();
+    if (current == null || object.getStartTime() < current.getTimestamp()) {
+    	object.finalize(previous, parent, this);
+    } else {
+    	objectIterator.previous();
+    	break;
+    }
 			}
 
 			if (current == null) break;

@@ -9,7 +9,7 @@ public class UniversalModifier extends SingleValueSpanEntityModifier {
 	;
 
 	public UniversalModifier(final float duration, final float from,
-							 final float to, final ValueType type) {
+    			 final float to, final ValueType type) {
 		super(duration, from, to);
 		this.type = type;
 	}
@@ -23,28 +23,28 @@ public class UniversalModifier extends SingleValueSpanEntityModifier {
 	protected void onSetInitialValue(final IEntity pItem, final float pValue) {
 		switch (type) {
 			case ALPHA:
-				pItem.setAlpha(pValue);
-				break;
+    pItem.setAlpha(pValue);
+    break;
 			case SCALE:
-				pItem.setScale(pValue);
-				break;
+    pItem.setScale(pValue);
+    break;
 			default:
-				break;
+    break;
 		}
 	}
 
 	@Override
 	protected void onSetValue(final IEntity pItem, final float pPercentageDone,
-							  final float pValue) {
+    			  final float pValue) {
 		switch (type) {
 			case ALPHA:
-				pItem.setAlpha(pValue);
-				break;
+    pItem.setAlpha(pValue);
+    break;
 			case SCALE:
-				pItem.setScale(pValue);
-				break;
+    pItem.setScale(pValue);
+    break;
 			default:
-				break;
+    break;
 		}
 	}
 
@@ -54,7 +54,7 @@ public class UniversalModifier extends SingleValueSpanEntityModifier {
 	}
 
 	public void init(final float duration, final float from, final float to,
-					 final ValueType type) {
+    	 final ValueType type) {
 		reset();
 		mDuration = duration;
 		mFromValue = from;

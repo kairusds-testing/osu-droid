@@ -37,7 +37,7 @@ public class MultiKeyHashMap<K, V> extends HashMap<MultiKey<K>, V> {
 			final Entry<MultiKey<K>, V> entry = it.next();
 			final MultiKey<K> entryKey = entry.getKey();
 			if (entryKey.hashCode() == hashCode && this.isEqualKey(entryKey.getKeys(), pKeys)) {
-				return entry.getValue();
+    return entry.getValue();
 			}
 		}
 		return null;
@@ -56,17 +56,17 @@ public class MultiKeyHashMap<K, V> extends HashMap<MultiKey<K>, V> {
 			return false;
 		} else {
 			for (int i = 0; i < pKeysA.length; i++) {
-				final K keyA = pKeysA[i];
-				final K keyB = pKeysB[i];
-				if(keyA == null) {
-					if(keyB != null) {
-						return false;
-					}
-				} else {
-					if(!keyA.equals(keyB)) {
-						return false;
-					}
-				}
+    final K keyA = pKeysA[i];
+    final K keyB = pKeysB[i];
+    if(keyA == null) {
+    	if(keyB != null) {
+    		return false;
+    	}
+    } else {
+    	if(!keyA.equals(keyB)) {
+    		return false;
+    	}
+    }
 			}
 		}
 		return true;

@@ -23,8 +23,8 @@ public class OnlineFileOperator {
 		try {
 			File file = new File(filename);
 			if (!file.exists()) {
-				Debug.i(filename + " does not exist.");
-				return;
+    Debug.i(filename + " does not exist.");
+    return;
 			}
 
 			String checksum = FileUtils.getSHA256Checksum(file);
@@ -37,13 +37,13 @@ public class OnlineFileOperator {
 			MediaType mime = MediaType.parse("application/octet-stream");
 			RequestBody fileBody = RequestBody.create(mime, file);
 			RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-				.addFormDataPart("uploadedfile", file.getName(), fileBody)
-				.addFormDataPart("hash", checksum)
-				.addFormDataPart("replayID", replayID)
-				.addFormDataPart("sign", signature)
-				.build();
+    .addFormDataPart("uploadedfile", file.getName(), fileBody)
+    .addFormDataPart("hash", checksum)
+    .addFormDataPart("replayID", replayID)
+    .addFormDataPart("sign", signature)
+    .build();
 			Request request = new Request.Builder().url(urlstr)
-				.post(requestBody).build();
+    .post(requestBody).build();
 			Response response = OnlineManager.client.newCall(request).execute();
 			String responseMsg = response.body().string();
 
@@ -60,15 +60,15 @@ public class OnlineFileOperator {
 		File file = new File(filename);
 		try {
 			if(file.exists()) {
-				Debug.i(file.getName() + " already exists");
-				return true;
+    Debug.i(file.getName() + " already exists");
+    return true;
 			}
 			// Cheching for errors
 			Debug.i("Connected to " + urlstr);
 
 			Request request = new Request.Builder()
-				.url(urlstr)
-				.build();
+    .url(urlstr)
+    .build();
 			Response response = OnlineManager.client.newCall(request).execute();
 			BufferedSink sink = Okio.buffer(Okio.sink(file));
 			sink.writeAll(response.body().source());

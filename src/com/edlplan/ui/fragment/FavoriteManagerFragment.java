@@ -49,11 +49,11 @@ public class FavoriteManagerFragment extends BaseFragment {
 		newFolder.setOnClickListener(v -> {
 			InputDialog dialog = new InputDialog(getContext());
 			dialog.showForResult(s -> {
-				if (s.isEmpty()) return;
-				if (FavoriteLibrary.get().getMaps(s) == null && !s.equals(StringTable.get(R.string.favorite_default))) {
-					FavoriteLibrary.get().addFolder(s);
-					adapter.add(s);
-				}
+    if (s.isEmpty()) return;
+    if (FavoriteLibrary.get().getMaps(s) == null && !s.equals(StringTable.get(R.string.favorite_default))) {
+    	FavoriteLibrary.get().addFolder(s);
+    	adapter.add(s);
+    }
 			});
 		});
 
@@ -69,9 +69,9 @@ public class FavoriteManagerFragment extends BaseFragment {
 		body.setTranslationY(600);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.setDuration(200)
-				.start();
+    .translationY(0)
+    .setDuration(200)
+    .start();
 		playBackgroundHideInAnim(200);
 	}
 
@@ -79,19 +79,19 @@ public class FavoriteManagerFragment extends BaseFragment {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationXBy(50)
-				.alpha(0)
-				.setDuration(150)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationXBy(50)
+    .alpha(0)
+    .setDuration(150)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 
@@ -194,61 +194,61 @@ public class FavoriteManagerFragment extends BaseFragment {
 		public void onBindViewHolder(@NonNull VH holder, int position) {
 			final String f = folders.get(position);
 			holder.folderName.setText(String.format("%s (%s)",
-					f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
+    	f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
 			holder.button1.setText(R.string.favorite_delete);
 			if (position == 0) {
-				holder.button2.setText("( • ̀ω•́ )✧");
+    holder.button2.setText("( • ̀ω•́ )✧");
 			} else {
-				holder.button2.setText(FavoriteLibrary.get().inFolder(f, track) ? R.string.favorite_remove : R.string.favorite_add);
+    holder.button2.setText(FavoriteLibrary.get().inFolder(f, track) ? R.string.favorite_remove : R.string.favorite_add);
 			}
 
 			holder.button1.setOnClickListener(new View.OnClickListener() {
-				boolean clicked = false;
-				boolean deleted = false;
+    boolean clicked = false;
+    boolean deleted = false;
 
-				@Override
-				public void onClick(View v) {
-					if (clicked) {
-						FavoriteLibrary.get().remove(f);
-						deleted = true;
-						holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
-						load();
-						notifyDataSetChanged();
-					} else {
-						clicked = true;
-						holder.button1.setText(R.string.favorite_ensure);
-						holder.button1.setTextColor(Color.argb(255, 255, 0, 0));
-						findViewById(R.id.main_recycler_view).postDelayed(() -> {
-							if (!deleted) {
-								clicked = false;
-								holder.button1.setTextColor(Color.argb(255, 0, 0, 0));
-								holder.button1.setText(R.string.favorite_delete);
-							}
-						}, 2000);
-					}
-				}
+    @Override
+    public void onClick(View v) {
+    	if (clicked) {
+    		FavoriteLibrary.get().remove(f);
+    		deleted = true;
+    		holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
+    		load();
+    		notifyDataSetChanged();
+    	} else {
+    		clicked = true;
+    		holder.button1.setText(R.string.favorite_ensure);
+    		holder.button1.setTextColor(Color.argb(255, 255, 0, 0));
+    		findViewById(R.id.main_recycler_view).postDelayed(() -> {
+    			if (!deleted) {
+        clicked = false;
+        holder.button1.setTextColor(Color.argb(255, 0, 0, 0));
+        holder.button1.setText(R.string.favorite_delete);
+    			}
+    		}, 2000);
+    	}
+    }
 			});
 
 			holder.button2.setOnClickListener(view -> {
-				if (FavoriteLibrary.get().inFolder(f, track)) {
-					FavoriteLibrary.get().remove(f, track);
-					holder.folderName.setText(String.format("%s (%s)",
-							f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
-					holder.button2.setText(R.string.favorite_add);
-				} else {
-					FavoriteLibrary.get().add(f, track);
-					holder.folderName.setText(String.format("%s (%s)",
-							f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
-					holder.button2.setText(R.string.favorite_remove);
-				}
+    if (FavoriteLibrary.get().inFolder(f, track)) {
+    	FavoriteLibrary.get().remove(f, track);
+    	holder.folderName.setText(String.format("%s (%s)",
+    			f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
+    	holder.button2.setText(R.string.favorite_add);
+    } else {
+    	FavoriteLibrary.get().add(f, track);
+    	holder.folderName.setText(String.format("%s (%s)",
+    			f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
+    	holder.button2.setText(R.string.favorite_remove);
+    }
 			});
 
 			if (position == 0) {
-				holder.button1.setOnClickListener(view -> {
-					ToastLogger.showText(StringTable.get(R.string.favorite_warning_on_delete_default), false);
-				});
-				holder.button2.setOnClickListener(view -> {
-				});
+    holder.button1.setOnClickListener(view -> {
+    	ToastLogger.showText(StringTable.get(R.string.favorite_warning_on_delete_default), false);
+    });
+    holder.button2.setOnClickListener(view -> {
+    });
 			}
 		}
 	}
@@ -265,59 +265,59 @@ public class FavoriteManagerFragment extends BaseFragment {
 		public void onBindViewHolder(@NonNull VH holder, int position) {
 			final String f = folders.get(position);
 			holder.folderName.setText(String.format("%s (%s)",
-					f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
+    	f, FavoriteLibrary.get().getMaps(f) == null ? "*" : ("" + FavoriteLibrary.get().getMaps(f).size())));
 			holder.button1.setText(R.string.favorite_delete);
 			holder.button2.setText(R.string.favorite_select);
 
 			View.OnClickListener mainClick;
 			if (position != 0) {
-				mainClick = view -> {
-					selected = folders.get(position);
-					dismiss();
-					onSelectListener.onSelect(selected);
-				};
+    mainClick = view -> {
+    	selected = folders.get(position);
+    	dismiss();
+    	onSelectListener.onSelect(selected);
+    };
 			} else {
-				mainClick = view -> {
-					selected = folders.get(position);
-					dismiss();
-					onSelectListener.onSelect(null);
-				};
+    mainClick = view -> {
+    	selected = folders.get(position);
+    	dismiss();
+    	onSelectListener.onSelect(null);
+    };
 			}
 
 			holder.button2.setOnClickListener(mainClick);
 			holder.mainBody.setOnClickListener(mainClick);
 
 			holder.button1.setOnClickListener(new View.OnClickListener() {
-				boolean clicked = false;
-				boolean deleted = false;
+    boolean clicked = false;
+    boolean deleted = false;
 
-				@Override
-				public void onClick(View v) {
-					if (clicked) {
-						FavoriteLibrary.get().remove(f);
-						deleted = true;
-						holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
-						load();
-						notifyDataSetChanged();
-					} else {
-						clicked = true;
-						holder.button1.setText(R.string.favorite_ensure);
-						holder.button1.setTextColor(Color.argb(255, 255, 0, 0));
-						findViewById(R.id.main_recycler_view).postDelayed(() -> {
-							if (!deleted) {
-								clicked = false;
-								holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
-								holder.button1.setText(R.string.favorite_delete);
-							}
-						}, 2000);
-					}
-				}
+    @Override
+    public void onClick(View v) {
+    	if (clicked) {
+    		FavoriteLibrary.get().remove(f);
+    		deleted = true;
+    		holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
+    		load();
+    		notifyDataSetChanged();
+    	} else {
+    		clicked = true;
+    		holder.button1.setText(R.string.favorite_ensure);
+    		holder.button1.setTextColor(Color.argb(255, 255, 0, 0));
+    		findViewById(R.id.main_recycler_view).postDelayed(() -> {
+    			if (!deleted) {
+        clicked = false;
+        holder.button1.setTextColor(Color.argb(255, 255, 255, 255));
+        holder.button1.setText(R.string.favorite_delete);
+    			}
+    		}, 2000);
+    	}
+    }
 			});
 
 			if (position == 0) {
-				holder.button1.setOnClickListener(view -> {
-					ToastLogger.showText(StringTable.get(R.string.favorite_warning_on_delete_default), false);
-				});
+    holder.button1.setOnClickListener(view -> {
+    	ToastLogger.showText(StringTable.get(R.string.favorite_warning_on_delete_default), false);
+    });
 			}
 		}
 	}

@@ -25,7 +25,7 @@ public class AnimSprite extends Sprite {
 	private LoopType loopType = LoopType.LOOP;
 
 	public AnimSprite(final float px, final float py, final String texname,
-					  int count, final float fps) {
+    	  int count, final float fps) {
 		super(px, py, ResourceManager.getInstance().getTexture(texname + "0"));
 		if (count == 0) {
 			count = 1;
@@ -44,7 +44,7 @@ public class AnimSprite extends Sprite {
 	}
 
 	public AnimSprite(final float px, final float py, final float fps,
-					  final String... textures) {
+    	  final String... textures) {
 		super(px, py, ResourceManager.getInstance().getTextureIfLoaded(textures[0]));
 		this.count = textures.length;
 		this.fps = fps;
@@ -79,16 +79,16 @@ public class AnimSprite extends Sprite {
 		int frameByTime = (int) (this.animTime * fps);
 		switch (loopType) {
 			case LOOP:
-				frame = frameByTime % count;
-				break;
+    frame = frameByTime % count;
+    break;
 			case STOP:
-				frame = Math.min(frameByTime, count - 1);
-				break;
+    frame = Math.min(frameByTime, count - 1);
+    break;
 			case DISAPPEAR:
-				frame = Math.min(frameByTime, count);
-				break;
+    frame = Math.min(frameByTime, count);
+    break;
 			default:
-				break;
+    break;
 		}
 	}
 

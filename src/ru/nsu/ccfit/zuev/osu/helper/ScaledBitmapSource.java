@@ -31,14 +31,14 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 	}
 
 	public ScaledBitmapSource(final File pFile, final int pTexturePositionX,
-							  final int pTexturePositionY) {
+    			  final int pTexturePositionY) {
 		super(pTexturePositionX, pTexturePositionY);
 		this.mFile = pFile;
 
 		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
 		decodeOptions.inJustDecodeBounds = true;
 		decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-				.getBackgroundQuality();
+    .getBackgroundQuality();
 
 		InputStream in = null;
 		try {
@@ -49,7 +49,7 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 
 		} catch (final IOException e) {
 			Debug.e("Failed loading Bitmap in FileBitmapTextureAtlasSource. File: "
-					+ pFile, e);
+    	+ pFile, e);
 			this.mWidth = 0;
 			this.mHeight = 0;
 		} finally {
@@ -58,7 +58,7 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 	}
 
 	ScaledBitmapSource(final File pFile, final int pTexturePositionX,
-					   final int pTexturePositionY, final int pWidth, final int pHeight) {
+    	   final int pTexturePositionY, final int pWidth, final int pHeight) {
 		super(pTexturePositionX, pTexturePositionY);
 		this.mFile = pFile;
 		this.mWidth = pWidth;
@@ -69,7 +69,7 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 	@Override
 	public ScaledBitmapSource clone() {
 		return new ScaledBitmapSource(this.mFile, this.mTexturePositionX,
-				this.mTexturePositionY, this.mWidth, this.mHeight);
+    this.mTexturePositionY, this.mWidth, this.mHeight);
 	}
 
 	// ===========================================================
@@ -105,7 +105,7 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
 		decodeOptions.inPreferredConfig = pBitmapConfig;
 		decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-				.getBackgroundQuality();
+    .getBackgroundQuality();
 
 		InputStream in = null;
 		try {
@@ -113,8 +113,8 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 			return BitmapFactory.decodeStream(in, null, decodeOptions);
 		} catch (final IOException e) {
 			Debug.e("Failed loading Bitmap in "
-							+ this.getClass().getSimpleName() + ". File: " + this.mFile,
-					e);
+    			+ this.getClass().getSimpleName() + ". File: " + this.mFile,
+    	e);
 			return null;
 		} finally {
 			StreamUtils.close(in);
@@ -130,7 +130,7 @@ public class ScaledBitmapSource extends BaseTextureAtlasSource implements
 
 	public ScaledBitmapSource deepCopy() {
 		return new ScaledBitmapSource(mFile, mTexturePositionX,
-				mTexturePositionY);
+    mTexturePositionY);
 	}
 
 }

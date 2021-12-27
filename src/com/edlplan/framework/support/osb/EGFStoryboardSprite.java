@@ -42,33 +42,33 @@ public class EGFStoryboardSprite extends PlayingSprite {
 	public CommandHandleTimeline createByTarget(Target target) {
 		switch (target) {
 			case X:
-				return new CommandFloatHandleTimeline(textureQuad.position.x);
+    return new CommandFloatHandleTimeline(textureQuad.position.x);
 			case Y:
-				return new CommandFloatHandleTimeline(textureQuad.position.y);
+    return new CommandFloatHandleTimeline(textureQuad.position.y);
 			case ScaleX:
-				return new CommandFloatHandleTimeline(textureQuad.enableScale().scale.x);
+    return new CommandFloatHandleTimeline(textureQuad.enableScale().scale.x);
 			case ScaleY:
-				return new CommandFloatHandleTimeline(textureQuad.enableScale().scale.y);
+    return new CommandFloatHandleTimeline(textureQuad.enableScale().scale.y);
 			case Alpha:
-				return new CommandFloatHandleTimeline(textureQuad.alpha);
+    return new CommandFloatHandleTimeline(textureQuad.alpha);
 			case Rotation:
-				return new CommandFloatHandleTimeline(textureQuad.enableRotation().rotation);
+    return new CommandFloatHandleTimeline(textureQuad.enableRotation().rotation);
 			case Color:
-				return new CommandColor4HandleTimeline() {{
-					value = textureQuad.enableColor().accentColor;
-				}};
+    return new CommandColor4HandleTimeline() {{
+    	value = textureQuad.enableColor().accentColor;
+    }};
 			case FlipH:
-				return new CommandBooleanHandleTimeline() {{
-					value = textureQuad.flipH;
-				}};
+    return new CommandBooleanHandleTimeline() {{
+    	value = textureQuad.flipH;
+    }};
 			case FlipV:
-				return new CommandBooleanHandleTimeline() {{
-					value = textureQuad.flipV;
-				}};
+    return new CommandBooleanHandleTimeline() {{
+    	value = textureQuad.flipV;
+    }};
 			case BlendingMode:
-				return new CommandBooleanHandleTimeline() {{
-					value = blendMode;
-				}};
+    return new CommandBooleanHandleTimeline() {{
+    	value = blendMode;
+    }};
 		}
 		return null;
 	}

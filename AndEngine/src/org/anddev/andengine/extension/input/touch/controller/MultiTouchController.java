@@ -45,17 +45,17 @@ public class MultiTouchController extends BaseTouchController {
 		switch(action) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_POINTER_DOWN:
-				return this.onHandleTouchAction(MotionEvent.ACTION_DOWN, pMotionEvent);
+    return this.onHandleTouchAction(MotionEvent.ACTION_DOWN, pMotionEvent);
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_POINTER_UP:
-				return this.onHandleTouchAction(MotionEvent.ACTION_UP, pMotionEvent);
+    return this.onHandleTouchAction(MotionEvent.ACTION_UP, pMotionEvent);
 			case MotionEvent.ACTION_CANCEL:
 			case MotionEvent.ACTION_OUTSIDE:
-				return this.onHandleTouchAction(action, pMotionEvent);
+    return this.onHandleTouchAction(action, pMotionEvent);
 			case MotionEvent.ACTION_MOVE:
-				return this.onHandleTouchMove(pMotionEvent);
+    return this.onHandleTouchMove(pMotionEvent);
 			default:
-				throw new IllegalArgumentException("Invalid Action detected: " + action);
+    throw new IllegalArgumentException("Invalid Action detected: " + action);
 		}
 	}
 

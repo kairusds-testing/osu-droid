@@ -49,16 +49,16 @@ public class BeatmapParser {
 			boolean isKiai = false;
 
 			if (args.length > 2) {
-				meter = Integer.parseInt(args[2].trim());
-				sampleType = Integer.parseInt(args[3].trim());
-				sampleSet = Integer.parseInt(args[4].trim());
-				volume = Integer.parseInt(args[5].trim());
+    meter = Integer.parseInt(args[2].trim());
+    sampleType = Integer.parseInt(args[3].trim());
+    sampleSet = Integer.parseInt(args[4].trim());
+    volume = Integer.parseInt(args[5].trim());
 			}
 
 			if (args.length >= 7)
-				isInherited = Integer.parseInt(args[6].trim()) == 0;
+    isInherited = Integer.parseInt(args[6].trim()) == 0;
 			if (args.length >= 8)
-				isKiai = Integer.parseInt(args[7].trim()) == 0;
+    isKiai = Integer.parseInt(args[7].trim()) == 0;
 
 			return new TimingPoint(timestamp, beatLength, meter, sampleType, sampleSet, volume, isInherited, isKiai);
 
@@ -68,11 +68,11 @@ public class BeatmapParser {
 		@Override
 		public BreakPeriod apply(String line) {
 			{
-				String[] args = line.split(",");
-				return new BreakPeriod(
-						Integer.parseInt(args[1].trim()),
-						Integer.parseInt(args[2].trim())
-				);
+    String[] args = line.split(",");
+    return new BreakPeriod(
+    		Integer.parseInt(args[1].trim()),
+    		Integer.parseInt(args[2].trim())
+    );
 			}
 		}
 	};
@@ -145,19 +145,19 @@ public class BeatmapParser {
 			String line = scanner.nextLine().trim();
 			//Log.i("ed-test","line : "+line);
 			if (line.startsWith("[")) {
-				parts.put(tag, new FilePart(tag, lines));
-				lines = new ArrayList<>();
-				tag = line.substring(1, line.indexOf("]"));
-				//Log.i("ed-test","tag : "+tag);
+    parts.put(tag, new FilePart(tag, lines));
+    lines = new ArrayList<>();
+    tag = line.substring(1, line.indexOf("]"));
+    //Log.i("ed-test","tag : "+tag);
 			} else if (!line.isEmpty() && !line.startsWith("//")) {
-				lines.add(line);
+    lines.add(line);
 			}
 		}
 		parts.put(tag, new FilePart(tag, lines));
 
 		for (String reqiredTag : REQUIRED_TAGS)
 			if (!parts.containsKey(reqiredTag))
-				throw new BeatmapException("Couldn't find required \"" + reqiredTag + "\" tag found.");
+    throw new BeatmapException("Couldn't find required \"" + reqiredTag + "\" tag found.");
 
 		BeatmapGenerals generalSettings = new BeatmapGenerals(parts.get("General"));
 		HitObjectParser<?> parser = PARSERS.get(generalSettings.getGamemode());
@@ -189,7 +189,7 @@ public class BeatmapParser {
 		Collections.sort(l, new Comparator<TimingPoint>() {
 			@Override
 			public int compare(TimingPoint o1, TimingPoint o2) {
-				return (int) (o1.getTimestamp() - o2.getTimestamp());
+    return (int) (o1.getTimestamp() - o2.getTimestamp());
 			}
 		});
 		return l;
@@ -211,7 +211,7 @@ public class BeatmapParser {
 		List<BreakPeriod> breakPeriods = new ArrayList<BreakPeriod>();
 		for (int i = 0; i < part.getLines().size(); i++) {
 			if (part.getLines().get(i).trim().startsWith("2,")) {
-				breakPeriods.add(breakPeriodMapper.apply(part.getLines().get(i)));
+    breakPeriods.add(breakPeriodMapper.apply(part.getLines().get(i)));
 			}
 		}
 		return breakPeriods;

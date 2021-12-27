@@ -25,40 +25,40 @@ public class AccelerometerData extends BaseSensorData {
 		AXISSWAPS[Surface.ROTATION_0] = new IAxisSwap() {
 			@Override
 			public void swapAxis(final float[] pValues) {
-				final float x = -pValues[SensorManager.DATA_X];
-				final float y = pValues[SensorManager.DATA_Y];
-				pValues[SensorManager.DATA_X] = x;
-				pValues[SensorManager.DATA_Y] = y;
+    final float x = -pValues[SensorManager.DATA_X];
+    final float y = pValues[SensorManager.DATA_Y];
+    pValues[SensorManager.DATA_X] = x;
+    pValues[SensorManager.DATA_Y] = y;
 			}
 		};
 
 		AXISSWAPS[Surface.ROTATION_90] = new IAxisSwap() {
 			@Override
 			public void swapAxis(final float[] pValues) {
-				final float x = pValues[SensorManager.DATA_Y];
-				final float y = pValues[SensorManager.DATA_X];
-				pValues[SensorManager.DATA_X] = x;
-				pValues[SensorManager.DATA_Y] = y;
+    final float x = pValues[SensorManager.DATA_Y];
+    final float y = pValues[SensorManager.DATA_X];
+    pValues[SensorManager.DATA_X] = x;
+    pValues[SensorManager.DATA_Y] = y;
 			}
 		};
 
 		AXISSWAPS[Surface.ROTATION_180] = new IAxisSwap() {
 			@Override
 			public void swapAxis(final float[] pValues) {
-				final float x = pValues[SensorManager.DATA_X];
-				final float y = -pValues[SensorManager.DATA_Y];
-				pValues[SensorManager.DATA_X] = x;
-				pValues[SensorManager.DATA_Y] = y;
+    final float x = pValues[SensorManager.DATA_X];
+    final float y = -pValues[SensorManager.DATA_Y];
+    pValues[SensorManager.DATA_X] = x;
+    pValues[SensorManager.DATA_Y] = y;
 			}
 		};
 
 		AXISSWAPS[Surface.ROTATION_270] = new IAxisSwap() {
 			@Override
 			public void swapAxis(final float[] pValues) {
-				final float x = -pValues[SensorManager.DATA_Y];
-				final float y = -pValues[SensorManager.DATA_X];
-				pValues[SensorManager.DATA_X] = x;
-				pValues[SensorManager.DATA_Y] = y;
+    final float x = -pValues[SensorManager.DATA_Y];
+    final float y = -pValues[SensorManager.DATA_X];
+    pValues[SensorManager.DATA_X] = x;
+    pValues[SensorManager.DATA_Y] = y;
 			}
 		};
 	}

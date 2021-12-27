@@ -39,8 +39,8 @@ public final class Introsort {
 	private static <T extends Comparable<? super T>> void introSortLoop(List<T> list, int lo, int hi, int depth_limit) {
 		while (hi - lo > size_threshold) {
 			if (depth_limit == 0) {
-				heapsort(list, lo, hi);
-				return;
+    heapsort(list, lo, hi);
+    return;
 			}
 			depth_limit = depth_limit - 1;
 			int p = partition(list, lo, hi, medianof3(list, lo, lo + ((hi - lo) / 2) + 1, hi - 1));
@@ -54,12 +54,12 @@ public final class Introsort {
 		int i = lo, j = hi;
 		while (true) {
 			while (list.get(i).compareTo(x) < 0)
-				i++;
+    i++;
 			j = j - 1;
 			while (x.compareTo(list.get(j)) < 0)
-				j = j - 1;
+    j = j - 1;
 			if (!(i < j))
-				return i;
+    return i;
 			exchange(list, i, j);
 			i++;
 		}
@@ -69,21 +69,21 @@ public final class Introsort {
 
 		if (list.get(mid).compareTo(list.get(lo)) < 0) {
 			if (list.get(hi).compareTo(list.get(mid)) < 0)
-				return list.get(mid);
+    return list.get(mid);
 			else {
-				if (list.get(hi).compareTo(list.get(lo)) < 0)
-					return list.get(hi);
-				else
-					return list.get(lo);
+    if (list.get(hi).compareTo(list.get(lo)) < 0)
+    	return list.get(hi);
+    else
+    	return list.get(lo);
 			}
 		} else {
 			if (list.get(hi).compareTo(list.get(mid)) < 0) {
-				if (list.get(hi).compareTo(list.get(lo)) < 0)
-					return list.get(lo);
-				else
-					return list.get(hi);
+    if (list.get(hi).compareTo(list.get(lo)) < 0)
+    	return list.get(lo);
+    else
+    	return list.get(hi);
 			} else
-				return list.get(mid);
+    return list.get(mid);
 		}
 	}
 
@@ -107,10 +107,10 @@ public final class Introsort {
 		while (i <= n / 2) {
 			child = 2 * i;
 			if (child < n && (list.get(lo + child - 1).compareTo(list.get(lo + child)) < 0)) {
-				child++;
+    child++;
 			}
 			if (d.compareTo(list.get(lo + child - 1)) >= 0)
-				break;
+    break;
 			list.set(lo + i - 1, list.get(lo + child - 1));
 			i = child;
 		}
@@ -127,8 +127,8 @@ public final class Introsort {
 			j = i;
 			t = list.get(i);
 			while (j != lo && t.compareTo(list.get(j - 1)) < 0) {
-				list.set(j, list.get(j - 1));
-				j--;
+    list.set(j, list.get(j - 1));
+    j--;
 			}
 			list.set(j, t);
 		}

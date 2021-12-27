@@ -39,11 +39,11 @@ public class PopupScene extends CameraScene {
 		this.registerUpdateHandler(new TimerHandler(pDurationSeconds, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
-				PopupScene.this.unregisterUpdateHandler(pTimerHandler);
-				pParentScene.clearChildScene();
-				if(pRunnable != null) {
-					pRunnable.run();
-				}
+    PopupScene.this.unregisterUpdateHandler(pTimerHandler);
+    pParentScene.clearChildScene();
+    if(pRunnable != null) {
+    	pRunnable.run();
+    }
 			}
 		}));
 	}

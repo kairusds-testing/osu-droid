@@ -41,7 +41,7 @@ public class OsuDroidReplayPack {
 		outputStream.putNextEntry(new ZipEntry(replay.getReplayFileName()));
 
 		File file = replay.isAbsoluteReplay() ?
-				new File(replay.getReplayFile()) : new File(OdrConfig.getScoreDir(), replay.getReplayFileName());
+    new File(replay.getReplayFile()) : new File(OdrConfig.getScoreDir(), replay.getReplayFileName());
 		FileInputStream inputStream = new FileInputStream(file);
 
 		byte[] buffer = new byte[1024];
@@ -63,7 +63,7 @@ public class OsuDroidReplayPack {
 			byte[] buffer = new byte[1024];
 			int l;
 			while ((l = inputStream.read(buffer)) != -1) {
-				byteArrayOutputStream.write(buffer, 0, l);
+    byteArrayOutputStream.write(buffer, 0, l);
 			}
 			zipEntryMap.put(zipEntry.getName(), byteArrayOutputStream.toByteArray());
 			System.out.println("解压文件：" + zipEntry.getName() + " size: " + zipEntryMap.get(zipEntry.getName()).length);

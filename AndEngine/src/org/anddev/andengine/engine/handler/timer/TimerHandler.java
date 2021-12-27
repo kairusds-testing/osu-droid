@@ -79,16 +79,16 @@ public class TimerHandler implements IUpdateHandler {
 		if(this.mAutoReset) {
 			this.mTimerSecondsElapsed += pSecondsElapsed;
 			while(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
-				this.mTimerSecondsElapsed -= this.mTimerSeconds;
-				this.mTimerCallback.onTimePassed(this);
+    this.mTimerSecondsElapsed -= this.mTimerSeconds;
+    this.mTimerCallback.onTimePassed(this);
 			}
 		} else {
 			if(!this.mTimerCallbackTriggered) {
-				this.mTimerSecondsElapsed += pSecondsElapsed;
-				if(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
-					this.mTimerCallbackTriggered = true;
-					this.mTimerCallback.onTimePassed(this);
-				}
+    this.mTimerSecondsElapsed += pSecondsElapsed;
+    if(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
+    	this.mTimerCallbackTriggered = true;
+    	this.mTimerCallback.onTimePassed(this);
+    }
 			}
 		}
 	}

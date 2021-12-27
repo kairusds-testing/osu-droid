@@ -32,7 +32,7 @@ public class BreakAnimator extends GameObject {
 	private Sprite bgSprite = null;
 
 	public BreakAnimator(final GameObjectListener listener, final Scene scene,
-						 final StatisticV2 stat, final boolean showMark, Sprite bgSprtie) {
+    		 final StatisticV2 stat, final boolean showMark, Sprite bgSprtie) {
 		length = 0;
 		this.showMark = showMark;
 		this.scene = scene;
@@ -42,25 +42,25 @@ public class BreakAnimator extends GameObject {
 
 		for (int i = 0; i < 4; i++) {
 			arrows[i] = new Sprite(0, 0, ResourceManager.getInstance()
-					.getTexture("play-warningarrow").deepCopy());
+    	.getTexture("play-warningarrow").deepCopy());
 			arrows[i]
-					.registerEntityModifier(new LoopEntityModifier(
-							new SequenceEntityModifier(
-									new FadeInModifier(0.05f),
-									new DelayModifier(0.1f),
-									new FadeOutModifier(0.1f))));
+    	.registerEntityModifier(new LoopEntityModifier(
+    			new SequenceEntityModifier(
+        	new FadeInModifier(0.05f),
+        	new DelayModifier(0.1f),
+        	new FadeOutModifier(0.1f))));
 			if (i > 1) {
-				arrows[i].setFlippedHorizontal(true);
+    arrows[i].setFlippedHorizontal(true);
 			}
 		}
 		arrows[0].setPosition(Utils.toRes(64), Utils.toRes(72));
 		arrows[1].setPosition(Utils.toRes(64), Config.getRES_HEIGHT()
-				- arrows[1].getHeight());
+    - arrows[1].getHeight());
 		arrows[2].setPosition(Config.getRES_WIDTH() - arrows[1].getWidth()
-				- Utils.toRes(64), Utils.toRes(72));
+    - Utils.toRes(64), Utils.toRes(72));
 		arrows[3].setPosition(Config.getRES_WIDTH() - arrows[1].getWidth()
-						- Utils.toRes(64),
-				Config.getRES_HEIGHT() - arrows[1].getHeight());
+    		- Utils.toRes(64),
+    Config.getRES_HEIGHT() - arrows[1].getHeight());
 
 	}
 
@@ -84,9 +84,9 @@ public class BreakAnimator extends GameObject {
 		time = 0;
 		ending = stat.getHp() > 0.5f ? "pass" : "fail";
 		final PointF center = new PointF(Config.getRES_WIDTH() / 2,
-				Config.getRES_HEIGHT() / 2);
+    Config.getRES_HEIGHT() / 2);
 		passfail = SpritePool.getInstance().getCenteredSprite(
-				"section-" + ending, center);
+    "section-" + ending, center);
 		scene.attachChild(passfail, 0);
 		passfail.setVisible(false);
 
@@ -97,10 +97,10 @@ public class BreakAnimator extends GameObject {
 		}
 		if (showMark) {
 			final TextureRegion zeroRect = ResourceManager.getInstance()
-					.getTexture("score-0");
+    	.getTexture("score-0");
 			mark = new Sprite(Config.getRES_WIDTH() - zeroRect.getWidth() * 11,
-					Utils.toRes(5), ResourceManager.getInstance().getTexture(
-					"ranking-" + stat.getMark() + "-small"));
+    	Utils.toRes(5), ResourceManager.getInstance().getTexture(
+    	"ranking-" + stat.getMark() + "-small"));
 			mark.setScale(1.2f);
 			scene.attachChild(mark, 0);
 		}
@@ -112,8 +112,8 @@ public class BreakAnimator extends GameObject {
 		if (bgSprite != null) {
 			float brightness = Config.getBackgroundBrightness();
 			bgSprite.setColor(brightness + percent * (1 - brightness),
-					brightness + percent * (1 - brightness),
-					brightness + percent * (1 - brightness));
+    	brightness + percent * (1 - brightness),
+    	brightness + percent * (1 - brightness));
 		}
 	}
 
@@ -133,28 +133,28 @@ public class BreakAnimator extends GameObject {
 		time += dt;
 
 		if (length > 3 && time > (length - 1) / 2
-				&& time - dt < (length - 1) / 2) {
+    && time - dt < (length - 1) / 2) {
 			passfail.setVisible(true);
 			passfail.registerEntityModifier(new SequenceEntityModifier(
-					new DelayModifier(0.25f), new FadeOutModifier(0.025f),
-					new DelayModifier(0.025f), new FadeInModifier(0.025f),
-					new DelayModifier(0.6725f), new FadeOutModifier(0.3f)));
+    	new DelayModifier(0.25f), new FadeOutModifier(0.025f),
+    	new DelayModifier(0.025f), new FadeInModifier(0.025f),
+    	new DelayModifier(0.6725f), new FadeOutModifier(0.3f)));
 			if (ResourceManager.getInstance().getCustomSound("section" + ending, 1) != null)
-				ResourceManager.getInstance().getCustomSound("section" + ending, 1).play();
+    ResourceManager.getInstance().getCustomSound("section" + ending, 1).play();
 		}
 		if (length - time <= 1 && length - time + dt > 1) {
 			for (final Sprite sp : arrows) {
-				sp.setVisible(true);
-				sp.setIgnoreUpdate(false);
+    sp.setVisible(true);
+    sp.setIgnoreUpdate(false);
 			}
 		}
 		if (length > 1) {
 			if (time < 0.5f) {
-				setBgFade(time * 2);
+    setBgFade(time * 2);
 			} else if (length - time < 0.5f) {
-				setBgFade((length - time) * 2);
+    setBgFade((length - time) * 2);
 			} else if (time >= 0.5f && time - dt < 0.5f)
-				setBgFade(1);
+    setBgFade(1);
 		}
 
 		if (time >= length) {
@@ -164,17 +164,17 @@ public class BreakAnimator extends GameObject {
 			SyncTaskManager.getInstance().run(new Runnable() {
 
 
-				public void run() {
-					if (mark != null) {
-						mark.detachSelf();
-					}
-					for (final Sprite sp : arrows) {
-						sp.detachSelf();
-					}
-					passfail.detachSelf();
-					SpritePool.getInstance().putSprite("section-" + ending,
-							passfail);
-				}
+    public void run() {
+    	if (mark != null) {
+    		mark.detachSelf();
+    	}
+    	for (final Sprite sp : arrows) {
+    		sp.detachSelf();
+    	}
+    	passfail.detachSelf();
+    	SpritePool.getInstance().putSprite("section-" + ending,
+    			passfail);
+    }
 			});
 		}
 	}

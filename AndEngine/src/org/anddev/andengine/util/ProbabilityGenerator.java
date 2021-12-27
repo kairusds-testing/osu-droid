@@ -51,7 +51,7 @@ public class ProbabilityGenerator<T> {
 			final Entry<T> entry = factors.get(i);
 			random -= entry.mFactor;
 			if(random <= 0){
-				return entry.getReturnValue();
+    return entry.getReturnValue();
 			}
 		}
 
@@ -95,9 +95,9 @@ public class ProbabilityGenerator<T> {
 
 		public T getReturnValue() {
 			if(this.mData.length == 1){
-				return this.mData[0];
+    return this.mData[0];
 			}else{
-				return ArrayUtils.random(mData);
+    return ArrayUtils.random(mData);
 			}
 		}
 

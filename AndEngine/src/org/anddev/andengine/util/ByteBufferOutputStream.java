@@ -83,9 +83,9 @@ public class ByteBufferOutputStream extends OutputStream {
 		}
 		if(newCapacity < 0) {
 			if(pDesiredCapacity < 0) {
-				throw new OutOfMemoryError();
+    throw new OutOfMemoryError();
 			} else {
-				newCapacity = Integer.MAX_VALUE;
+    newCapacity = Integer.MAX_VALUE;
 			}
 		}
 

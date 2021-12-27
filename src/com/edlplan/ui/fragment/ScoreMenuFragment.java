@@ -41,64 +41,64 @@ public class ScoreMenuFragment extends BaseFragment {
 		findViewById(R.id.exportReplay).setOnClickListener(v -> {
 			List<OsuDroidReplay> replays = OdrDatabase.get().getReplayById(scoreId);
 			if (replays.size() == 0) {
-				return;
+    return;
 			} else {
-				try {
-					OsuDroidReplay replay = replays.get(0);
-					final File file = new File(
-							new File(Environment.getExternalStorageDirectory(), "osu!droid/export"),
-							String.format(Locale.getDefault(), "%s [%s]-%d.edr",
-									replay.getFileName().subSequence(replay.getFileName().indexOf('/') + 1, replay.getFileName().lastIndexOf('.')),
-									replay.getPlayerName(),
-									replay.getTime())
-					);
-					if (!file.getParentFile().exists()) {
-						file.getParentFile().mkdirs();
-					}
-					OsuDroidReplayPack.packTo(file, replay);
+    try {
+    	OsuDroidReplay replay = replays.get(0);
+    	final File file = new File(
+    			new File(Environment.getExternalStorageDirectory(), "osu!droid/export"),
+    			String.format(Locale.getDefault(), "%s [%s]-%d.edr",
+        	replay.getFileName().subSequence(replay.getFileName().indexOf('/') + 1, replay.getFileName().lastIndexOf('.')),
+        	replay.getPlayerName(),
+        	replay.getTime())
+    	);
+    	if (!file.getParentFile().exists()) {
+    		file.getParentFile().mkdirs();
+    	}
+    	OsuDroidReplayPack.packTo(file, replay);
 
-					Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), 2750).setAction("Share", new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							Intent intent = new Intent();
-							intent.setAction(Intent.ACTION_VIEW);
-							intent.setDataAndType(FileProvider.getUriForFile(
-									GlobalManager.getInstance().getMainActivity(),
-									BuildConfig.APPLICATION_ID + ".fileProvider",
-									file), "*/*");
-							intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-							GlobalManager.getInstance().getMainActivity().startActivityForResult(intent, 0);
-						}
-					}).show();
-				} catch (Exception e) {
-					e.printStackTrace();
-					Toast.makeText(v.getContext(), R.string.frg_score_menu_export_failed, Toast.LENGTH_SHORT).show();
-				}
+    	Snackbar.make(v, String.format(getResources().getString(R.string.frg_score_menu_export_succeed), file.getAbsolutePath()), 2750).setAction("Share", new View.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Intent intent = new Intent();
+    			intent.setAction(Intent.ACTION_VIEW);
+    			intent.setDataAndType(FileProvider.getUriForFile(
+        	GlobalManager.getInstance().getMainActivity(),
+        	BuildConfig.APPLICATION_ID + ".fileProvider",
+        	file), "*/*");
+    			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    			GlobalManager.getInstance().getMainActivity().startActivityForResult(intent, 0);
+    		}
+    	}).show();
+    } catch (Exception e) {
+    	e.printStackTrace();
+    	Toast.makeText(v.getContext(), R.string.frg_score_menu_export_failed, Toast.LENGTH_SHORT).show();
+    }
 			}
 		});
 		findViewById(R.id.deleteReplay).setOnClickListener(v -> {
 			ConfirmDialogFragment confirm = new ConfirmDialogFragment();
 			confirm.showForResult(isAccepted -> {
-				if (isAccepted) {
-					List<OsuDroidReplay> replays = OdrDatabase.get().getReplayById(scoreId);
-					if (replays.size() == 0) {
-						return;
-					} else {
-						try {
-							if (OdrDatabase.get().deleteReplay(scoreId) == 0) {
-								Snackbar.make(v, "Failed to delete replay!", 1500)
-										.show();
-							} else {
-								Snackbar.make(v, R.string.menu_deletescore_delete_success, 1500)
-										.show();
-							}
-							ScoreMenuFragment.this.dismiss();
-						} catch (Exception e) {
-							e.printStackTrace();
-							Toast.makeText(v.getContext(), "Failed to delete replay!", Toast.LENGTH_SHORT).show();
-						}
-					}
-				}
+    if (isAccepted) {
+    	List<OsuDroidReplay> replays = OdrDatabase.get().getReplayById(scoreId);
+    	if (replays.size() == 0) {
+    		return;
+    	} else {
+    		try {
+    			if (OdrDatabase.get().deleteReplay(scoreId) == 0) {
+        Snackbar.make(v, "Failed to delete replay!", 1500)
+        		.show();
+    			} else {
+        Snackbar.make(v, R.string.menu_deletescore_delete_success, 1500)
+        		.show();
+    			}
+    			ScoreMenuFragment.this.dismiss();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			Toast.makeText(v.getContext(), "Failed to delete replay!", Toast.LENGTH_SHORT).show();
+    		}
+    	}
+    }
 			});
 		});
 		playOnLoadAnim();
@@ -115,11 +115,11 @@ public class ScoreMenuFragment extends BaseFragment {
 		body.setTranslationY(200);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.alpha(1)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setDuration(150)
-				.start();
+    .translationY(0)
+    .alpha(1)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setDuration(150)
+    .start();
 		playBackgroundHideInAnim(150);
 	}
 
@@ -127,19 +127,19 @@ public class ScoreMenuFragment extends BaseFragment {
 		View body = findViewById(R.id.fullLayout);
 		body.animate().cancel();
 		body.animate()
-				.translationY(200)
-				.alpha(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationY(200)
+    .alpha(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 

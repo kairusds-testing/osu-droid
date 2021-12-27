@@ -161,7 +161,7 @@ public class ArrayUtils {
 		
 		for(int a = pOffsetA, b = pOffsetB; a < lastIndexA; a++, b++) {
 			if(pArrayA[a] != pArrayB[b]) {
-				return false;
+    return false;
 			}
 		}
 		

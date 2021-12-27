@@ -87,39 +87,39 @@ public class PathModifier extends EntityModifier {
 		/* Create a new SequenceModifier and register the listeners that
 		 * call through to mEntityModifierListener and mPathModifierListener. */
 		this.mSequenceModifier = new SequenceModifier<IEntity>(
-				new ISubSequenceModifierListener<IEntity>() {
-					@Override
-					public void onSubSequenceStarted(final IModifier<IEntity> pModifier, final IEntity pEntity, final int pIndex) {
-						if(PathModifier.this.mPathModifierListener != null) {
-							PathModifier.this.mPathModifierListener.onPathWaypointStarted(PathModifier.this, pEntity, pIndex);
-						}
-					}
+    new ISubSequenceModifierListener<IEntity>() {
+    	@Override
+    	public void onSubSequenceStarted(final IModifier<IEntity> pModifier, final IEntity pEntity, final int pIndex) {
+    		if(PathModifier.this.mPathModifierListener != null) {
+    			PathModifier.this.mPathModifierListener.onPathWaypointStarted(PathModifier.this, pEntity, pIndex);
+    		}
+    	}
 
-					@Override
-					public void onSubSequenceFinished(final IModifier<IEntity> pEntityModifier, final IEntity pEntity, final int pIndex) {
-						if(PathModifier.this.mPathModifierListener != null) {
-							PathModifier.this.mPathModifierListener.onPathWaypointFinished(PathModifier.this, pEntity, pIndex);
-						}
-					}
-				},
-				new IEntityModifierListener() {
-					@Override
-					public void onModifierStarted(final IModifier<IEntity> pModifier, final IEntity pEntity) {
-						PathModifier.this.onModifierStarted(pEntity);
-						if(PathModifier.this.mPathModifierListener != null) {
-							PathModifier.this.mPathModifierListener.onPathStarted(PathModifier.this, pEntity);
-						}
-					}
+    	@Override
+    	public void onSubSequenceFinished(final IModifier<IEntity> pEntityModifier, final IEntity pEntity, final int pIndex) {
+    		if(PathModifier.this.mPathModifierListener != null) {
+    			PathModifier.this.mPathModifierListener.onPathWaypointFinished(PathModifier.this, pEntity, pIndex);
+    		}
+    	}
+    },
+    new IEntityModifierListener() {
+    	@Override
+    	public void onModifierStarted(final IModifier<IEntity> pModifier, final IEntity pEntity) {
+    		PathModifier.this.onModifierStarted(pEntity);
+    		if(PathModifier.this.mPathModifierListener != null) {
+    			PathModifier.this.mPathModifierListener.onPathStarted(PathModifier.this, pEntity);
+    		}
+    	}
 
-					@Override
-					public void onModifierFinished(final IModifier<IEntity> pEntityModifier, final IEntity pEntity) {
-						PathModifier.this.onModifierFinished(pEntity);
-						if(PathModifier.this.mPathModifierListener != null) {
-							PathModifier.this.mPathModifierListener.onPathFinished(PathModifier.this, pEntity);
-						}
-					}
-				},
-				moveModifiers
+    	@Override
+    	public void onModifierFinished(final IModifier<IEntity> pEntityModifier, final IEntity pEntity) {
+    		PathModifier.this.onModifierFinished(pEntity);
+    		if(PathModifier.this.mPathModifierListener != null) {
+    			PathModifier.this.mPathModifierListener.onPathFinished(PathModifier.this, pEntity);
+    		}
+    	}
+    },
+    moveModifiers
 		);
 	}
 
@@ -231,7 +231,7 @@ public class PathModifier extends EntityModifier {
 
 		public Path(final float[] pCoordinatesX, final float[] pCoordinatesY) throws IllegalArgumentException {
 			if (pCoordinatesX.length != pCoordinatesY.length) {
-				throw new IllegalArgumentException("Coordinate-Arrays must have the same length.");
+    throw new IllegalArgumentException("Coordinate-Arrays must have the same length.");
 			}
 
 			this.mCoordinatesX = pCoordinatesX;
@@ -287,7 +287,7 @@ public class PathModifier extends EntityModifier {
 
 		public float getLength() {
 			if(this.mLengthChanged) {
-				this.updateLength();
+    this.updateLength();
 			}
 			return this.mLength;
 		}
@@ -316,7 +316,7 @@ public class PathModifier extends EntityModifier {
 			float length = 0.0f;
 
 			for(int i = this.mIndex - 2; i >= 0; i--) {
-				length += this.getSegmentLength(i);
+    length += this.getSegmentLength(i);
 			}
 			this.mLength = length;
 		}

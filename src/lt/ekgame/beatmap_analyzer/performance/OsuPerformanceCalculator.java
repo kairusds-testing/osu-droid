@@ -37,7 +37,7 @@ public class OsuPerformanceCalculator implements PerformanceCalculator {
 		} else if (approachRate < 8) {
 			double lowARBonus = 0.01 * (8 - approachRate);
 			if (diff.hasMod(Mod.HIDDEN))
-				lowARBonus *= 2;
+    lowARBonus *= 2;
 			ARBonus += lowARBonus;
 		}
 

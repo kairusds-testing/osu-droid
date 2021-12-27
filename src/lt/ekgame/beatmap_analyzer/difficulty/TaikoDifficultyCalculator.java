@@ -46,7 +46,7 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 		Collections.sort(difficultyObjects, new Comparator<DifficultyObject>() {
 			@Override
 			public int compare(TaikoDifficultyCalculator.DifficultyObject a, TaikoDifficultyCalculator.DifficultyObject b) {
-				return a.object.getStartTime() - b.object.getStartTime();
+    return a.object.getStartTime() - b.object.getStartTime();
 			}
 		});
 
@@ -58,7 +58,7 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : difficultyObjects) {
 			if (previous != null)
-				current.calculateStrain(previous, timeRate);
+    current.calculateStrain(previous, timeRate);
 			previous = current;
 		}
 
@@ -74,12 +74,12 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : difficultyObjects) {
 			while (current.object.getStartTime() > intervalEnd) {
-				highestStrains.add(maxStrain);
-				if (previous != null) {
-					double decay = Math.pow(DECAY_BASE, (double) (intervalEnd - previous.object.getStartTime()) / 1000);
-					maxStrain = previous.strain * decay;
-				}
-				intervalEnd += realStrainStep;
+    highestStrains.add(maxStrain);
+    if (previous != null) {
+    	double decay = Math.pow(DECAY_BASE, (double) (intervalEnd - previous.object.getStartTime()) / 1000);
+    	maxStrain = previous.strain * decay;
+    }
+    intervalEnd += realStrainStep;
 			}
 			maxStrain = Math.max(maxStrain, current.strain);
 			previous = current;
@@ -92,7 +92,7 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 		Collections.sort(strains, new Comparator<Double>() {
 			@Override
 			public int compare(Double a, Double b) {
-				return (int) Math.signum(b - a);
+    return (int) Math.signum(b - a);
 			}
 		});
 		//(a,b)->(int)(Math.signum(b-a)));
@@ -122,7 +122,7 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 
 			// XXX: can drumrolls be blue?
 			if (object instanceof TaikoCircle)
-				isBlue = ((TaikoCircle) object).getColor() == TaikoColor.BLUE;
+    isBlue = ((TaikoCircle) object).getColor() == TaikoColor.BLUE;
 		}
 
 		private void calculateStrain(DifficultyObject previous, double timeRate) {
@@ -133,41 +133,41 @@ public class TaikoDifficultyCalculator implements DifficultyCalculator {
 
 			boolean isClose = object.getStartTime() - previous.object.getStartTime() < 1000;
 			if (object instanceof TaikoCircle && previous.object instanceof TaikoCircle && isClose) {
-				addition += colorChangeAddition(previous);
-				addition += rhythmChangeAddition(previous);
+    addition += colorChangeAddition(previous);
+    addition += rhythmChangeAddition(previous);
 			}
 
 			double additionFactor = 1;
 			if (timeElapsed < 50)
-				additionFactor = 0.4 + 0.6 * timeElapsed / 50;
+    additionFactor = 0.4 + 0.6 * timeElapsed / 50;
 
 			strain = previous.strain * decay + addition * additionFactor;
 		}
 
 		private double colorChangeAddition(DifficultyObject previous) {
 			if (isBlue != previous.isBlue) {
-				lastColorSwitch = previous.sameColorChain % 2 == 0 ? ColorSwitch.EVEN : ColorSwitch.ODD;
+    lastColorSwitch = previous.sameColorChain % 2 == 0 ? ColorSwitch.EVEN : ColorSwitch.ODD;
 
-				if (previous.lastColorSwitch != ColorSwitch.NONE && previous.lastColorSwitch != lastColorSwitch)
-					return COLOR_CHANGE_BONUS;
+    if (previous.lastColorSwitch != ColorSwitch.NONE && previous.lastColorSwitch != lastColorSwitch)
+    	return COLOR_CHANGE_BONUS;
 			} else {
-				lastColorSwitch = previous.lastColorSwitch;
-				sameColorChain = previous.sameColorChain + 1;
+    lastColorSwitch = previous.lastColorSwitch;
+    sameColorChain = previous.sameColorChain + 1;
 			}
 			return 0;
 		}
 
 		private double rhythmChangeAddition(DifficultyObject previous) {
 			if (timeElapsed == 0 || previous.timeElapsed == 0)
-				return 0;
+    return 0;
 
 			double timeElapsedRatio = Math.max(previous.timeElapsed / timeElapsed, timeElapsed / previous.timeElapsed);
 			if (timeElapsedRatio > 8)
-				return 0;
+    return 0;
 
 			double difference = (Math.log(timeElapsedRatio) / Math.log(RHYTHM_CHANGE_BASE)) % 1.0;
 			if (difference > RHYTHM_CHANGE_BASE_THRESHOLD && difference < 1 - RHYTHM_CHANGE_BASE_THRESHOLD)
-				return RHYTHM_CHANGE_BONUS;
+    return RHYTHM_CHANGE_BONUS;
 
 			return 0;
 		}

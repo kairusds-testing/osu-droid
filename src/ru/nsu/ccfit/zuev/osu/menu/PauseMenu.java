@@ -34,39 +34,39 @@ public class PauseMenu implements IOnMenuItemClickListener {
 	private boolean savedFailedReplay;
 
 	public PauseMenu(final Engine engine, final GameScene game,
-					 final boolean fail) {
+    	 final boolean fail) {
 		this.game = game;
 		this.fail = fail;
 		savedFailedReplay = false;
 		final ChangeableText saveFailedReplay = new ChangeableText(Utils.toRes(4), Utils.toRes(2),
-				ResourceManager.getInstance().getFont("font"), StringTable.get(R.string.str_save_failed_replay));
+    ResourceManager.getInstance().getFont("font"), StringTable.get(R.string.str_save_failed_replay));
 		class PauseMenuScene extends MenuScene implements IOnSceneTouchListener{
 			PauseMenuScene(final Camera pCamera){
-				super(pCamera);
+    super(pCamera);
 			}
 			public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
-				float pTouchX = FMath.clamp(pSceneTouchEvent.getX(), 0, Config.getRES_WIDTH());
-				float pTouchY = FMath.clamp(pSceneTouchEvent.getY(), 0, Config.getRES_HEIGHT());
-				if (fail && pSceneTouchEvent.isActionUp() && pTouchX < Config.getRES_WIDTH() / 2 && pTouchY < 50 && savedFailedReplay == false && game.getReplaying() == false){
-					//save replay
-					if (game.saveFailedReplay()){
-						saveFailedReplay.setText(StringTable.get(R.string.message_save_replay_successful));
-						savedFailedReplay = true;
-					}
-				}
-				return true;
+    float pTouchX = FMath.clamp(pSceneTouchEvent.getX(), 0, Config.getRES_WIDTH());
+    float pTouchY = FMath.clamp(pSceneTouchEvent.getY(), 0, Config.getRES_HEIGHT());
+    if (fail && pSceneTouchEvent.isActionUp() && pTouchX < Config.getRES_WIDTH() / 2 && pTouchY < 50 && savedFailedReplay == false && game.getReplaying() == false){
+    	//save replay
+    	if (game.saveFailedReplay()){
+    		saveFailedReplay.setText(StringTable.get(R.string.message_save_replay_successful));
+    		savedFailedReplay = true;
+    	}
+    }
+    return true;
 			}
 		}
 		scene = new PauseMenuScene(engine.getCamera());
 
 		final SpriteMenuItem itemContinue = new SpriteMenuItem(ITEM_CONTINUE,
-				ResourceManager.getInstance().getTexture("pause-continue"));
+    ResourceManager.getInstance().getTexture("pause-continue"));
 		scene.addMenuItem(itemContinue);
 		final SpriteMenuItem itemRetry = new SpriteMenuItem(ITEM_RETRY,
-				ResourceManager.getInstance().getTexture("pause-retry"));
+    ResourceManager.getInstance().getTexture("pause-retry"));
 		scene.addMenuItem(itemRetry);
 		final SpriteMenuItem itemBack = new SpriteMenuItem(ITEM_BACK,
-				ResourceManager.getInstance().getTexture("pause-back"));
+    ResourceManager.getInstance().getTexture("pause-back"));
 		scene.addMenuItem(itemBack);
 		scene.attachChild(saveFailedReplay);
 		scene.setBackgroundEnabled(false);
@@ -75,7 +75,7 @@ public class PauseMenu implements IOnMenuItemClickListener {
 			itemContinue.setVisible(false);
 			tex = ResourceManager.getInstance().getTexture("fail-background");
 			if (game.getReplaying()){
-				saveFailedReplay.setVisible(false);
+    saveFailedReplay.setVisible(false);
 			}
 		} else {
 			saveFailedReplay.setVisible(false);
@@ -87,8 +87,8 @@ public class PauseMenu implements IOnMenuItemClickListener {
 			float height = tex.getHeight();
 			height *= Config.getRES_WIDTH() / (float) (tex.getWidth());
 			final Sprite bg = new Sprite(0,
-					(Config.getRES_HEIGHT() - height) / 2,
-					Config.getRES_WIDTH(), height, tex);
+    	(Config.getRES_HEIGHT() - height) / 2,
+    	Config.getRES_WIDTH(), height, tex);
 			scene.attachChild(bg, 0);
 		}
 
@@ -102,8 +102,8 @@ public class PauseMenu implements IOnMenuItemClickListener {
 
 
 	public boolean onMenuItemClicked(final MenuScene pMenuScene,
-									 final IMenuItem pMenuItem, final float pMenuItemLocalX,
-									 final float pMenuItemLocalY) {
+        	 final IMenuItem pMenuItem, final float pMenuItemLocalX,
+        	 final float pMenuItemLocalY) {
 
 		if (pMenuItem.getAlpha() < 0.75f) {
 			return false;
@@ -111,32 +111,32 @@ public class PauseMenu implements IOnMenuItemClickListener {
 		BassSoundProvider playSnd;
 		switch (pMenuItem.getID()) {
 			case ITEM_CONTINUE:
-				if (fail) {
-					return false;
-				}
-				playSnd = ResourceManager.getInstance().getSound("menuback");
-				if (playSnd != null) {
-					playSnd.play();
-				}
-				game.resume();
-				return true;
+    if (fail) {
+    	return false;
+    }
+    playSnd = ResourceManager.getInstance().getSound("menuback");
+    if (playSnd != null) {
+    	playSnd.play();
+    }
+    game.resume();
+    return true;
 			case ITEM_BACK:
-				GlobalManager.getInstance().getScoring().setReplayID(-1);
-				playSnd = ResourceManager.getInstance().getSound("menuback");
-				if (playSnd != null) {
-					playSnd.play();
-				}
-				game.resume();
-				game.quit();
-				return true;
+    GlobalManager.getInstance().getScoring().setReplayID(-1);
+    playSnd = ResourceManager.getInstance().getSound("menuback");
+    if (playSnd != null) {
+    	playSnd.play();
+    }
+    game.resume();
+    game.quit();
+    return true;
 			case ITEM_RETRY:
-				ResourceManager.getInstance().getSound("failsound").stop();
-				playSnd = ResourceManager.getInstance().getSound("menuhit");
-				if (playSnd != null) {
-					playSnd.play();
-				}
-				game.restartGame();
-				return true;
+    ResourceManager.getInstance().getSound("failsound").stop();
+    playSnd = ResourceManager.getInstance().getSound("menuhit");
+    if (playSnd != null) {
+    	playSnd.play();
+    }
+    game.restartGame();
+    return true;
 		}
 		return false;
 	}

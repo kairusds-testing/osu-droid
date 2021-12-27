@@ -22,8 +22,8 @@ public class TaikoParser extends HitObjectParser<TaikoObject> {
 	public TaikoObject parse(String line) {
 		String[] args = line.split(",");
 		Vec2 position = new Vec2(
-				Integer.parseInt(args[0].trim()),
-				Integer.parseInt(args[1].trim())
+    Integer.parseInt(args[0].trim()),
+    Integer.parseInt(args[1].trim())
 		);
 		int time = Integer.parseInt(args[2].trim());
 		int type = Integer.parseInt(args[3].trim());
@@ -47,8 +47,8 @@ public class TaikoParser extends HitObjectParser<TaikoObject> {
 
 	@Override
 	public Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
-								BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
-								List<TimingPoint> timingPoints, List<String> rawObjects) {
+        BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
+        List<TimingPoint> timingPoints, List<String> rawObjects) {
 		List<TaikoObject> hitObjects = parse(rawObjects);
 		return new TaikoBeatmap(generals, editorState, metadata, difficulties, breaks, timingPoints, hitObjects);
 	}

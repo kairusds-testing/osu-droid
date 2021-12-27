@@ -56,7 +56,7 @@ public abstract class BaseOnScreenControl extends HUD implements IOnSceneTouchLi
 		this.mControlBase = new Sprite(pX, pY, pControlBaseTextureRegion) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				return BaseOnScreenControl.this.onHandleControlBaseTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+    return BaseOnScreenControl.this.onHandleControlBaseTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
 			}
 		};
 
@@ -70,7 +70,7 @@ public abstract class BaseOnScreenControl extends HUD implements IOnSceneTouchLi
 		this.registerUpdateHandler(new TimerHandler(pTimeBetweenUpdates, true, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
-				BaseOnScreenControl.this.mOnScreenControlListener.onControlChange(BaseOnScreenControl.this, BaseOnScreenControl.this.mControlValueX, BaseOnScreenControl.this.mControlValueY);
+    BaseOnScreenControl.this.mOnScreenControlListener.onControlChange(BaseOnScreenControl.this, BaseOnScreenControl.this.mControlValueX, BaseOnScreenControl.this.mControlValueY);
 			}
 		}));
 
@@ -107,9 +107,9 @@ public abstract class BaseOnScreenControl extends HUD implements IOnSceneTouchLi
 			this.onHandleControlBaseLeft();
 
 			switch(pSceneTouchEvent.getAction()) {
-				case MotionEvent.ACTION_UP:
-				case MotionEvent.ACTION_CANCEL:
-					this.mActivePointerID = INVALID_POINTER_ID;
+    case MotionEvent.ACTION_UP:
+    case MotionEvent.ACTION_CANCEL:
+    	this.mActivePointerID = INVALID_POINTER_ID;
 			}
 		}
 		return false;
@@ -142,26 +142,26 @@ public abstract class BaseOnScreenControl extends HUD implements IOnSceneTouchLi
 
 		switch(pSceneTouchEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				if(this.mActivePointerID == INVALID_POINTER_ID) {
-					this.mActivePointerID = pointerID;
-					this.updateControlKnob(pTouchAreaLocalX, pTouchAreaLocalY);
-					return true;
-				}
-				break;
+    if(this.mActivePointerID == INVALID_POINTER_ID) {
+    	this.mActivePointerID = pointerID;
+    	this.updateControlKnob(pTouchAreaLocalX, pTouchAreaLocalY);
+    	return true;
+    }
+    break;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
-				if(this.mActivePointerID == pointerID) {
-					this.mActivePointerID = INVALID_POINTER_ID;
-					this.onHandleControlKnobReleased();
-					return true;
-				}
-				break;
+    if(this.mActivePointerID == pointerID) {
+    	this.mActivePointerID = INVALID_POINTER_ID;
+    	this.onHandleControlKnobReleased();
+    	return true;
+    }
+    break;
 			default:
-				if(this.mActivePointerID == pointerID) {
-					this.updateControlKnob(pTouchAreaLocalX, pTouchAreaLocalY);
-					return true;
-				}
-				break;
+    if(this.mActivePointerID == pointerID) {
+    	this.updateControlKnob(pTouchAreaLocalX, pTouchAreaLocalY);
+    	return true;
+    }
+    break;
 		}
 		return true;
 	}

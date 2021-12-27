@@ -39,8 +39,8 @@ public class VideoBackgroundTestActivity extends BaseGameActivity {
 	public Engine onLoadEngine() {
 		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
+    EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+    camera));
 	}
 
 	public void onLoadResources() {
@@ -48,12 +48,12 @@ public class VideoBackgroundTestActivity extends BaseGameActivity {
 
 		BitmapTextureAtlas cursorAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
 		mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				cursorAtlas, this, "cursor.png", 0, 0);
+    cursorAtlas, this, "cursor.png", 0, 0);
 		getEngine().getTextureManager().loadTexture(cursorAtlas);
 
 		BitmapTextureAtlas menuBackAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
 		mMenuBackTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				menuBackAtlas, this, "menu-back.png", 0, 0);
+    menuBackAtlas, this, "menu-back.png", 0, 0);
 		getEngine().getTextureManager().loadTexture(menuBackAtlas);
 
 		try {

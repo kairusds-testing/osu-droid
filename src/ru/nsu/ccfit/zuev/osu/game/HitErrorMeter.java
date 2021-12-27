@@ -65,13 +65,13 @@ public class HitErrorMeter extends GameObject {
 	public void update(float dt) {
 		while (!onDisplayIndicators.isEmpty()) {
 			if (onDisplayIndicators.get(0).getAlpha() <= 0) {
-				Rectangle removed = onDisplayIndicators.remove(0);
-				removed.setVisible(false);
-				removed.setIgnoreUpdate(true);
-				removed.detachSelf();
-				recycledIndicators.add(removed);
+    Rectangle removed = onDisplayIndicators.remove(0);
+    removed.setVisible(false);
+    removed.setIgnoreUpdate(true);
+    removed.detachSelf();
+    recycledIndicators.add(removed);
 			} else {
-				break;
+    break;
 			}
 		}
 		for (final Rectangle result : onDisplayIndicators) {

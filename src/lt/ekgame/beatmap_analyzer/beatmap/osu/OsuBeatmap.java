@@ -21,7 +21,7 @@ public class OsuBeatmap extends Beatmap {
 	private List<OsuObject> hitObjects;
 
 	public OsuBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-					  BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints, List<OsuObject> hitObjects) {
+    	  BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints, List<OsuObject> hitObjects) {
 		super(generals, editorState, metadata, difficulties, breaks, timingPoints);
 		this.hitObjects = hitObjects;
 

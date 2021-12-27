@@ -109,9 +109,9 @@ public class Debug implements Constants {
 		if(!BuildConfig.DEBUG) return;
 		if(sDebugLevel.isSameOrLessThan(DebugLevel.WARNING)) {
 			if(pThrowable == null) {
-				Log.w(sDebugTag, pMessage, new Exception());
+    Log.w(sDebugTag, pMessage, new Exception());
 			} else {
-				Log.w(sDebugTag, pMessage, pThrowable);
+    Log.w(sDebugTag, pMessage, pThrowable);
 			}
 		}
 	}
@@ -130,9 +130,9 @@ public class Debug implements Constants {
 		if(!BuildConfig.DEBUG) return;
 		if(sDebugLevel.isSameOrLessThan(DebugLevel.ERROR)) {
 			if(pThrowable == null) {
-				Log.e(sDebugTag, pMessage, new Exception());
+    Log.e(sDebugTag, pMessage, new Exception());
 			} else {
-				Log.e(sDebugTag, pMessage, pThrowable);
+    Log.e(sDebugTag, pMessage, pThrowable);
 			}
 		}
 	}

@@ -59,15 +59,15 @@ public class TextVertexBuffer extends VertexBuffer {
 
 			int lineX;
 			switch(this.mHorizontalAlign) {
-				case RIGHT:
-					lineX = pMaximumLineWidth - pWidths[lineIndex];
-					break;
-				case CENTER:
-					lineX = (pMaximumLineWidth - pWidths[lineIndex]) >> 1;
-					break;
-				case LEFT:
-				default:
-					lineX = 0;
+    case RIGHT:
+    	lineX = pMaximumLineWidth - pWidths[lineIndex];
+    	break;
+    case CENTER:
+    	lineX = (pMaximumLineWidth - pWidths[lineIndex]) >> 1;
+    	break;
+    case LEFT:
+    default:
+    	lineX = 0;
 			}
 
 			final int lineY = lineIndex * (font.getLineHeight() + font.getLineGap());
@@ -75,34 +75,34 @@ public class TextVertexBuffer extends VertexBuffer {
 
 			final int lineLength = line.length();
 			for (int letterIndex = 0; letterIndex < lineLength; letterIndex++) {
-				final Letter letter = font.getLetter(line.charAt(letterIndex));
+    final Letter letter = font.getLetter(line.charAt(letterIndex));
 
-				final int lineY2 = lineY + lineHeight;
-				final int lineX2 = lineX + letter.mWidth;
+    final int lineY2 = lineY + lineHeight;
+    final int lineX2 = lineX + letter.mWidth;
 
-				final int lineXBits = Float.floatToRawIntBits(lineX);
-				final int lineX2Bits = Float.floatToRawIntBits(lineX2);
-				final int lineY2Bits = Float.floatToRawIntBits(lineY2);
+    final int lineXBits = Float.floatToRawIntBits(lineX);
+    final int lineX2Bits = Float.floatToRawIntBits(lineX2);
+    final int lineY2Bits = Float.floatToRawIntBits(lineY2);
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineYBits;
+    bufferData[i++] = lineXBits;
+    bufferData[i++] = lineYBits;
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineY2Bits;
+    bufferData[i++] = lineXBits;
+    bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineY2Bits;
+    bufferData[i++] = lineX2Bits;
+    bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineY2Bits;
+    bufferData[i++] = lineX2Bits;
+    bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineYBits;
+    bufferData[i++] = lineX2Bits;
+    bufferData[i++] = lineYBits;
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineYBits;
+    bufferData[i++] = lineXBits;
+    bufferData[i++] = lineYBits;
 
-				lineX += letter.mAdvance;
+    lineX += letter.mAdvance;
 			}
 		}
 

@@ -128,10 +128,10 @@ public class TextureQuadBatch extends AbstractBatch<ATextureQuad> {
 
 
 			pGL.glDrawElements(
-					GL10.GL_TRIANGLES,
-					offset / SIZE_PER_QUAD * 6,
-					GL10.GL_UNSIGNED_SHORT,
-					indicesBuffer);
+    	GL10.GL_TRIANGLES,
+    	offset / SIZE_PER_QUAD * 6,
+    	GL10.GL_UNSIGNED_SHORT,
+    	indicesBuffer);
 
 			pGL.glDisableClientState(GL10.GL_COLOR_ARRAY);
 
@@ -147,10 +147,10 @@ public class TextureQuadBatch extends AbstractBatch<ATextureQuad> {
 			shader.loadBuffer(buffer);
 
 			BatchEngine.pGL.glDrawElements(
-					GL10.GL_TRIANGLES,
-					offset / SIZE_PER_QUAD * 6,
-					GL10.GL_UNSIGNED_SHORT,
-					indicesBuffer);*/
+    	GL10.GL_TRIANGLES,
+    	offset / SIZE_PER_QUAD * 6,
+    	GL10.GL_UNSIGNED_SHORT,
+    	indicesBuffer);*/
 			return true;
 		} else {
 			return false;

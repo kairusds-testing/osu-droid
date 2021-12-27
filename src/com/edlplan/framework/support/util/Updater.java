@@ -12,11 +12,11 @@ public abstract class Updater {
 		synchronized (lock) {
 			updateId++;
 			if (runningEvent == null) {
-				Event event = new Event();
-				event.updateId = updateId;
-				event.runnable = createEventRunnable();
-				runningEvent = event;
-				postEvent(event);
+    Event event = new Event();
+    event.updateId = updateId;
+    event.runnable = createEventRunnable();
+    runningEvent = event;
+    postEvent(event);
 			}
 		}
 	}
@@ -33,17 +33,17 @@ public abstract class Updater {
 		public void run() {
 			runnable.run();
 			synchronized (lock) {
-				if (this.updateId > Updater.this.updateId) {
-					//表示之后又发生了更新，应该再次更新
-					Event event = new Event();
-					event.updateId = Updater.this.updateId;
-					event.runnable = createEventRunnable();
-					runningEvent = event;
-					postEvent(event);
-				} else {
-					//表示没有新的更新了
-					runningEvent = null;
-				}
+    if (this.updateId > Updater.this.updateId) {
+    	//表示之后又发生了更新，应该再次更新
+    	Event event = new Event();
+    	event.updateId = Updater.this.updateId;
+    	event.runnable = createEventRunnable();
+    	runningEvent = event;
+    	postEvent(event);
+    } else {
+    	//表示没有新的更新了
+    	runningEvent = null;
+    }
 			}
 		}
 	}

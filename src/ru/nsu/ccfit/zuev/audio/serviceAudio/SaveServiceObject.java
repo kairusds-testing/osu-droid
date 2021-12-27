@@ -71,11 +71,11 @@ public class SaveServiceObject extends Application {
 
 			@Override
 			public void onActivityDestroyed(Activity activity) {
-				Log.w("onActivityDestroyed", "I'm going to Dead O_x");
-				if (songService != null) {
-					Log.w("onActivityDestroyed", "I'm Dead x_x");
-					songService.hideNotifyPanel();
-				}
+    Log.w("onActivityDestroyed", "I'm going to Dead O_x");
+    if (songService != null) {
+    	Log.w("onActivityDestroyed", "I'm Dead x_x");
+    	songService.hideNotifyPanel();
+    }
 			}
 		});
 	}

@@ -37,9 +37,9 @@ public class UpdateDialogFragment extends BaseFragment {
 
 		findViewById(R.id.changelogButton).setOnClickListener(v -> {
 			new MarkdownFragment()
-				.setTitle(R.string.changelog_title)
-				.setMarkdown(changelogMsg)
-				.show();
+    .setTitle(R.string.changelog_title)
+    .setMarkdown(changelogMsg)
+    .show();
 		});
 
 		findViewById(R.id.laterButton).setOnClickListener(v -> dismiss());
@@ -66,10 +66,10 @@ public class UpdateDialogFragment extends BaseFragment {
 		body.setTranslationY(100);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.start();
+    .translationY(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .start();
 		playBackgroundHideInAnim(200);
 	}
 
@@ -77,18 +77,18 @@ public class UpdateDialogFragment extends BaseFragment {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationY(100)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (runnable != null) {
-							runnable.run();
-						}
-					}
-				})
-				.start();
+    .translationY(100)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (runnable != null) {
+    			runnable.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 

@@ -37,10 +37,10 @@ public abstract class AbstractTexture {
 	public Quad toTextureQuad(IQuad q) {
 		Quad r = new Quad();
 		r.set(
-				toTexturePosition(q.getTopLeft()),
-				toTexturePosition(q.getTopRight()),
-				toTexturePosition(q.getBottomLeft()),
-				toTexturePosition(q.getBottomRight()));
+    toTexturePosition(q.getTopLeft()),
+    toTexturePosition(q.getTopRight()),
+    toTexturePosition(q.getBottomLeft()),
+    toTexturePosition(q.getBottomRight()));
 		return r;
 	}
 

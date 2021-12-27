@@ -102,10 +102,10 @@ public abstract class GenericPool<T> {
 			item = this.mAvailableItems.pop();
 		} else {
 			if(this.mGrowth == 1) {
-				item = this.onHandleAllocatePoolItem();
+    item = this.onHandleAllocatePoolItem();
 			} else {
-				this.batchAllocatePoolItems(this.mGrowth);
-				item = this.mAvailableItems.pop();
+    this.batchAllocatePoolItems(this.mGrowth);
+    item = this.mAvailableItems.pop();
 			}
 			Debug.i(this.getClass().getName() + "<" + item.getClass().getSimpleName() +"> was exhausted, with " + this.mUnrecycledCount + " item not yet recycled. Allocated " + this.mGrowth + " more.");
 		}

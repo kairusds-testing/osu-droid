@@ -132,8 +132,8 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 		StackTraceElement[] stacks = ex.getStackTrace();
 		for (StackTraceElement stack : stacks) {
 			sb.append("class: ").append(stack.getClassName()).append("; method: ")
-					.append(stack.getMethodName()).append("; line: ").append(stack.getLineNumber())
-					.append(";  Exception: ").append(ex.toString()).append("\n");
+    	.append(stack.getMethodName()).append("; line: ").append(stack.getLineNumber())
+    	.append(";  Exception: ").append(ex.toString()).append("\n");
 		}
 		return sb;
 	}
@@ -154,27 +154,27 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 	public void makeToast(Context ctx) {
 		switch (this.getType()) {
 			case TYPE_HTTP_CODE:
-				String err = ctx.getString(R.string.http_status_code_error, this.getCode());
-				Toast.makeText(ctx, err, Toast.LENGTH_SHORT).show();
-				break;
+    String err = ctx.getString(R.string.http_status_code_error, this.getCode());
+    Toast.makeText(ctx, err, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_HTTP_ERROR:
-				Toast.makeText(ctx, R.string.http_exception_error, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.http_exception_error, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_SOCKET:
-				Toast.makeText(ctx, R.string.socket_exception_error, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.socket_exception_error, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_NETWORK:
-				Toast.makeText(ctx, R.string.network_not_connected, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.network_not_connected, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_XML:
-				Toast.makeText(ctx, R.string.xml_parser_failed, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.xml_parser_failed, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_IO:
-				Toast.makeText(ctx, R.string.io_exception_error, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.io_exception_error, Toast.LENGTH_SHORT).show();
+    break;
 			case TYPE_RUN:
-				Toast.makeText(ctx, R.string.app_run_code_error, Toast.LENGTH_SHORT).show();
-				break;
+    Toast.makeText(ctx, R.string.app_run_code_error, Toast.LENGTH_SHORT).show();
+    break;
 		}
 	}
 
@@ -202,25 +202,25 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 			// 判断是否挂载了SD卡
 			String storageState = Environment.getExternalStorageState();
 			if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-				savePath = Config.getCorePath() + File.separator + "Log/";
-				File file = new File(savePath);
-				if (!file.exists()) {
-					file.mkdirs();
-				}
-				logFilePath = savePath + errorlog;
+    savePath = Config.getCorePath() + File.separator + "Log/";
+    File file = new File(savePath);
+    if (!file.exists()) {
+    	file.mkdirs();
+    }
+    logFilePath = savePath + errorlog;
 			}
 			// 没有挂载SD卡，无法写文件
 			if (logFilePath.equals("")) {
-				return;
+    return;
 			}
 			File logFile = new File(logFilePath);
 			if (!logFile.exists()) {
-				logFile.createNewFile();
+    logFile.createNewFile();
 			}
 			fw = new FileWriter(logFile, true);
 			pw = new PrintWriter(fw);
 			pw.println("--------------------" + (DateFormat.format("yyyy-MM-dd hh:mm:ss", new Date()))
-					+ "---------------------");
+    	+ "---------------------");
 			pw.println(excpMessage);
 			pw.close();
 			fw.close();
@@ -228,13 +228,13 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 			Log.e("AppException", "[Exception]" + e.getLocalizedMessage());
 		} finally {
 			if (pw != null) {
-				pw.close();
+    pw.close();
 			}
 			if (fw != null) {
-				try {
-					fw.close();
-				} catch (IOException e) {
-				}
+    try {
+    	fw.close();
+    } catch (IOException e) {
+    }
 			}
 		}
 
@@ -248,9 +248,9 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 			mDefaultHandler.uncaughtException(thread, ex);
 		} else {
 			try {
-				Thread.sleep(5000);
+    Thread.sleep(5000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 			// 结束所有Activity
 			SaveServiceObject.finishAllActivities();
@@ -281,9 +281,9 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 		// 显示异常信息&发送报告
 		new Thread() {
 			public void run() {
-				Looper.prepare();
-				Toast.makeText(context, StringTable.get(R.string.crash), Toast.LENGTH_SHORT).show();
-				Looper.loop();
+    Looper.prepare();
+    Toast.makeText(context, StringTable.get(R.string.crash), Toast.LENGTH_SHORT).show();
+    Looper.loop();
 			}
 
 		}.start();
@@ -332,11 +332,11 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 			PackageManager pm = ctx.getPackageManager();
 			PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
 			if (pi != null) {
-				String versionName = pi.versionName == null ? "null" : pi.versionName;
-				String versionCode = pi.versionCode + "";
+    String versionName = pi.versionName == null ? "null" : pi.versionName;
+    String versionCode = pi.versionCode + "";
 
-				activePackageJson.put("versionName", versionName);
-				activePackageJson.put("versionCode", versionCode);
+    activePackageJson.put("versionName", versionName);
+    activePackageJson.put("versionCode", versionCode);
 			}
 		} catch (NameNotFoundException e) {
 			Log.e("AppException", "an error occured when collect package info", e);
@@ -361,11 +361,11 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 		Field[] fields = Build.class.getDeclaredFields();
 		for (Field field : fields) {
 			try {
-				field.setAccessible(true);
-				osJson.put(field.getName(), field.get(null).toString());
-				Log.d("AppException", field.getName() + " : " + field.get(null));
+    field.setAccessible(true);
+    osJson.put(field.getName(), field.get(null).toString());
+    Log.d("AppException", field.getName() + " : " + field.get(null));
 			} catch (Exception e) {
-				Log.e("AppException", "an error occured when collect crash info", e);
+    Log.e("AppException", "an error occured when collect crash info", e);
 			}
 		}
 
@@ -384,11 +384,11 @@ public class AppException extends Exception implements Thread.UncaughtExceptionH
 		((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		for (Field field : displaymetrics.getClass().getDeclaredFields()) {
 			try {
-				field.setAccessible(true);
-				osJson.put(field.getName(), field.get(displaymetrics).toString());
-				Log.d("AppException", field.getName() + " : " + field.get(displaymetrics));
+    field.setAccessible(true);
+    osJson.put(field.getName(), field.get(displaymetrics).toString());
+    Log.d("AppException", field.getName() + " : " + field.get(displaymetrics));
 			} catch (Exception e) {
-				Log.e("AppException", "an error occured when collect crash info", e);
+    Log.e("AppException", "an error occured when collect crash info", e);
 			}
 		}
 

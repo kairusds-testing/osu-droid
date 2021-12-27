@@ -52,8 +52,8 @@ public class SupportSprite extends Entity {
 
 		if (canvas == null) {
 			canvas = new SupportCanvas(new SupportCanvas.SupportInfo() {{
-				supportWidth = width;
-				supportHeight = height;
+    supportWidth = width;
+    supportHeight = height;
 			}});
 		}
 		canvas.prepare();

@@ -29,7 +29,7 @@ public class CursorEntity extends Entity {
 
 			emitter = new PointParticleEmitter(particleOffsetX, particleOffsetY);
 			particles = new CursorTrail(
-					emitter, 30, 2, 4, cursorSprite.baseSize, trailTex
+    	emitter, 30, 2, 4, cursorSprite.baseSize, trailTex
 			);
 		}
 
@@ -57,41 +57,41 @@ public class CursorEntity extends Entity {
 		/*
 		if (isShowing && Config.isUseLongTrail()) {
 			if (oldPoint != null){
-				float px = cursorSprite.getX() - oldPoint.x;
-				float py = cursorSprite.getY() - oldPoint.y;
-				float ds = (float)Math.sqrt(px * px + py * py);
-				float length = (float)Math.sqrt(particleOffsetX * particleOffsetX + particleOffsetY * particleOffsetY);
-				int count = (int)(ds / length);
-				for (int i = 1; i < count - 1; i++){
-					final Particle particle = new Particle(oldPoint.x + px * i / count + particleOffsetX,
-							oldPoint.y + py * i / count + particleOffsetY, ResourceManager.getInstance().getTexture("cursortrail"));
-					new ExpireModifier(0.25f).onInitializeParticle(particle);
-					new AlphaModifier(1.0f, 0.0f, 0f, 0.25f).onInitializeParticle(particle);
-					particle.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-					new ScaleInitializer(csize).onInitializeParticle(particle);
-					if (tails == null){
-						tails = new ArrayList<>();
-					}
-					tails.add(particle);
-					GlobalManager.getInstance().getGameScene().getScene().attachChild(particle);
-				}
+    float px = cursorSprite.getX() - oldPoint.x;
+    float py = cursorSprite.getY() - oldPoint.y;
+    float ds = (float)Math.sqrt(px * px + py * py);
+    float length = (float)Math.sqrt(particleOffsetX * particleOffsetX + particleOffsetY * particleOffsetY);
+    int count = (int)(ds / length);
+    for (int i = 1; i < count - 1; i++){
+    	final Particle particle = new Particle(oldPoint.x + px * i / count + particleOffsetX,
+    			oldPoint.y + py * i / count + particleOffsetY, ResourceManager.getInstance().getTexture("cursortrail"));
+    	new ExpireModifier(0.25f).onInitializeParticle(particle);
+    	new AlphaModifier(1.0f, 0.0f, 0f, 0.25f).onInitializeParticle(particle);
+    	particle.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+    	new ScaleInitializer(csize).onInitializeParticle(particle);
+    	if (tails == null){
+    		tails = new ArrayList<>();
+    	}
+    	tails.add(particle);
+    	GlobalManager.getInstance().getGameScene().getScene().attachChild(particle);
+    }
 			}
 			oldPoint = new PointF(cursorSprite.getX(), cursorSprite.getY());
 			if (tails != null){
-				for (Particle p : tails){
-					new ExpireModifier(0.25f).onUpdateParticle(p);
-					new AlphaModifier(1.0f, 0.0f, 0f, 0.25f).onUpdateParticle(p);
-					if (p.getAlpha() == 0f){
-						p.setDead(true);
-					}
-				}
-				for (int i = tails.size() - 1; i >= 0; i--){
-					Particle p = tails.get(i);
-					if (p.isDead()) {
-						GlobalManager.getInstance().getGameScene().getScene().detachChild(p);
-						tails.remove(p);
-					}
-				}
+    for (Particle p : tails){
+    	new ExpireModifier(0.25f).onUpdateParticle(p);
+    	new AlphaModifier(1.0f, 0.0f, 0f, 0.25f).onUpdateParticle(p);
+    	if (p.getAlpha() == 0f){
+    		p.setDead(true);
+    	}
+    }
+    for (int i = tails.size() - 1; i >= 0; i--){
+    	Particle p = tails.get(i);
+    	if (p.isDead()) {
+    		GlobalManager.getInstance().getGameScene().getScene().detachChild(p);
+    		tails.remove(p);
+    	}
+    }
 			}
 		}*/
 	}

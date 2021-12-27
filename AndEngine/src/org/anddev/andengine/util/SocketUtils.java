@@ -46,9 +46,9 @@ public class SocketUtils {
 	public static void closeSocket(final Socket pSocket) {
 		if(pSocket != null && !pSocket.isClosed()) {
 			try {
-				pSocket.close();
+    pSocket.close();
 			} catch (final IOException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 		}
 	}
@@ -56,9 +56,9 @@ public class SocketUtils {
 	public static void closeSocket(final ServerSocket pServerSocket) {
 		if(pServerSocket != null && !pServerSocket.isClosed()) {
 			try {
-				pServerSocket.close();
+    pServerSocket.close();
 			} catch (final IOException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 		}
 	}

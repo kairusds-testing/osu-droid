@@ -22,11 +22,11 @@ public interface IModifier<T> {
 			final float durationB = pModifierB.getDuration();
 
 			if (durationA < durationB) {
-				return 1;
+    return 1;
 			} else if (durationA > durationB) {
-				return -1;
+    return -1;
 			} else {
-				return 0;
+    return 0;
 			}
 		}
 	};

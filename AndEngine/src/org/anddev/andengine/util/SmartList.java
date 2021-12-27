@@ -56,7 +56,7 @@ public class SmartList<T> extends ArrayList<T> {
 	public T remove(final IMatcher<T> pMatcher) {
 		for(int i = 0; i < this.size(); i++) {
 			if(pMatcher.matches(this.get(i))) {
-				return this.remove(i);
+    return this.remove(i);
 			}
 		}
 		return null;
@@ -65,9 +65,9 @@ public class SmartList<T> extends ArrayList<T> {
 	public T remove(final IMatcher<T> pMatcher, final ParameterCallable<T> pParameterCallable) {
 		for(int i = this.size() - 1; i >= 0; i--) {
 			if(pMatcher.matches(this.get(i))) {
-				final T removed = this.remove(i);
-				pParameterCallable.call(removed);
-				return removed;
+    final T removed = this.remove(i);
+    pParameterCallable.call(removed);
+    return removed;
 			}
 		}
 		return null;
@@ -77,8 +77,8 @@ public class SmartList<T> extends ArrayList<T> {
 		boolean result = false;
 		for(int i = this.size() - 1; i >= 0; i--) {
 			if(pMatcher.matches(this.get(i))) {
-				this.remove(i);
-				result = true;
+    this.remove(i);
+    result = true;
 			}
 		}
 		return result;
@@ -92,9 +92,9 @@ public class SmartList<T> extends ArrayList<T> {
 		boolean result = false;
 		for(int i = this.size() - 1; i >= 0; i--) {
 			if(pMatcher.matches(this.get(i))) {
-				final T removed = this.remove(i);
-				pParameterCallable.call(removed);
-				result = true;
+    final T removed = this.remove(i);
+    pParameterCallable.call(removed);
+    result = true;
 			}
 		}
 		return result;
@@ -111,7 +111,7 @@ public class SmartList<T> extends ArrayList<T> {
 		for(int i = this.size() - 1; i >= 0; i--) {
 			final T item = this.get(i);
 			if(pMatcher.matches(item)) {
-				return item;
+    return item;
 			}
 		}
 		return null;
@@ -126,7 +126,7 @@ public class SmartList<T> extends ArrayList<T> {
 		for(int i = 0; i < size; i++) {
 			final T item = this.get(i);
 			if(pMatcher.matches(item)) {
-				pResult.add(item);
+    pResult.add(item);
 			}
 		}
 
@@ -143,7 +143,7 @@ public class SmartList<T> extends ArrayList<T> {
 		for(int i = 0; i < size; i++) {
 			final T item = this.get(i);
 			if(pMatcher.matches(item)) {
-				pResult.add((S)item);
+    pResult.add((S)item);
 			}
 		}
 
@@ -161,7 +161,7 @@ public class SmartList<T> extends ArrayList<T> {
 		for(int i = this.size() - 1; i >= 0; i--) {
 			final T item = this.get(i);
 			if(pMatcher.matches(item)) {
-				pParameterCallable.call(item);
+    pParameterCallable.call(item);
 			}
 		}
 	}

@@ -529,7 +529,7 @@ public class Entity implements IEntity {
 		for(int i = 0; i < childCount; i++) {
 			final IEntity item = this.mChildren.get(i);
 			if(pEntityMatcher.matches(item)) {
-				pResult.add(item);
+    pResult.add(item);
 			}
 
 			item.query(pEntityMatcher, pResult);
@@ -550,7 +550,7 @@ public class Entity implements IEntity {
 		for(int i = 0; i < childCount; i++) {
 			final IEntity item = this.mChildren.get(i);
 			if(pEntityMatcher.matches(item)) {
-				pResult.add((S)item);
+    pResult.add((S)item);
 			}
 
 			item.queryForSubclass(pEntityMatcher, pResult);
@@ -708,15 +708,15 @@ public class Entity implements IEntity {
 			final float scaleX = this.mScaleX;
 			final float scaleY = this.mScaleY;
 			if(scaleX != 1 || scaleY != 1) {
-				final float scaleCenterX = this.mScaleCenterX;
-				final float scaleCenterY = this.mScaleCenterY;
+    final float scaleCenterX = this.mScaleCenterX;
+    final float scaleCenterY = this.mScaleCenterY;
 
-				/* TODO Check if it is worth to check for scaleCenterX == 0 && scaleCenterY == 0 as the two postTranslate can be saved.
-				 * The same obviously applies for all similar occurrences of this pattern in this class. */
+    /* TODO Check if it is worth to check for scaleCenterX == 0 && scaleCenterY == 0 as the two postTranslate can be saved.
+     * The same obviously applies for all similar occurrences of this pattern in this class. */
 
-				localToParentTransformation.postTranslate(-scaleCenterX, -scaleCenterY);
-				localToParentTransformation.postScale(scaleX, scaleY);
-				localToParentTransformation.postTranslate(scaleCenterX, scaleCenterY);
+    localToParentTransformation.postTranslate(-scaleCenterX, -scaleCenterY);
+    localToParentTransformation.postScale(scaleX, scaleY);
+    localToParentTransformation.postTranslate(scaleCenterX, scaleCenterY);
 			}
 
 			/* TODO There is a special, but very likely case when mRotationCenter and mScaleCenter are the same.
@@ -725,12 +725,12 @@ public class Entity implements IEntity {
 			/* Rotation. */
 			final float rotation = this.mRotation;
 			if(rotation != 0) {
-				final float rotationCenterX = this.mRotationCenterX;
-				final float rotationCenterY = this.mRotationCenterY;
+    final float rotationCenterX = this.mRotationCenterX;
+    final float rotationCenterY = this.mRotationCenterY;
 
-				localToParentTransformation.postTranslate(-rotationCenterX, -rotationCenterY);
-				localToParentTransformation.postRotate(rotation);
-				localToParentTransformation.postTranslate(rotationCenterX, rotationCenterY);
+    localToParentTransformation.postTranslate(-rotationCenterX, -rotationCenterY);
+    localToParentTransformation.postRotate(rotation);
+    localToParentTransformation.postTranslate(rotationCenterX, rotationCenterY);
 			}
 
 			/* Translation. */
@@ -752,12 +752,12 @@ public class Entity implements IEntity {
 			/* Rotation. */
 			final float rotation = this.mRotation;
 			if(rotation != 0) {
-				final float rotationCenterX = this.mRotationCenterX;
-				final float rotationCenterY = this.mRotationCenterY;
+    final float rotationCenterX = this.mRotationCenterX;
+    final float rotationCenterY = this.mRotationCenterY;
 
-				parentToLocalTransformation.postTranslate(-rotationCenterX, -rotationCenterY);
-				parentToLocalTransformation.postRotate(-rotation);
-				parentToLocalTransformation.postTranslate(rotationCenterX, rotationCenterY);
+    parentToLocalTransformation.postTranslate(-rotationCenterX, -rotationCenterY);
+    parentToLocalTransformation.postRotate(-rotation);
+    parentToLocalTransformation.postTranslate(rotationCenterX, rotationCenterY);
 			}
 
 			/* TODO There is a special, but very likely case when mRotationCenter and mScaleCenter are the same.
@@ -767,12 +767,12 @@ public class Entity implements IEntity {
 			final float scaleX = this.mScaleX;
 			final float scaleY = this.mScaleY;
 			if(scaleX != 1 || scaleY != 1) {
-				final float scaleCenterX = this.mScaleCenterX;
-				final float scaleCenterY = this.mScaleCenterY;
+    final float scaleCenterX = this.mScaleCenterX;
+    final float scaleCenterY = this.mScaleCenterY;
 
-				parentToLocalTransformation.postTranslate(-scaleCenterX, -scaleCenterY);
-				parentToLocalTransformation.postScale(1 / scaleX, 1 / scaleY);
-				parentToLocalTransformation.postTranslate(scaleCenterX, scaleCenterY);
+    parentToLocalTransformation.postTranslate(-scaleCenterX, -scaleCenterY);
+    parentToLocalTransformation.postScale(1 / scaleX, 1 / scaleY);
+    parentToLocalTransformation.postTranslate(scaleCenterX, scaleCenterY);
 			}
 
 			this.mParentToLocalTransformationDirty = false;
@@ -951,7 +951,7 @@ public class Entity implements IEntity {
 		if(this.mChildren != null) {
 			final ArrayList<IEntity> entities = this.mChildren;
 			for(int i = entities.size() - 1; i >= 0; i--) {
-				entities.get(i).reset();
+    entities.get(i).reset();
 			}
 		}
 	}
@@ -1064,7 +1064,7 @@ public class Entity implements IEntity {
 			final ArrayList<IEntity> entities = this.mChildren;
 			final int entityCount = entities.size();
 			for(int i = 0; i < entityCount; i++) {
-				entities.get(i).onUpdate(pSecondsElapsed);
+    entities.get(i).onUpdate(pSecondsElapsed);
 			}
 		}
 	}

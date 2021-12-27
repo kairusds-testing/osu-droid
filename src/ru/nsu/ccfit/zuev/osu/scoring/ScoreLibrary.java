@@ -64,8 +64,8 @@ public class ScoreLibrary {
 			db = helper.getWritableDatabase();
 		} catch (SQLiteCantOpenDatabaseException e) {
 			ToastLogger.showText(
-					StringTable.get(R.string.require_storage_permission),
-					true);
+    	StringTable.get(R.string.require_storage_permission),
+    	true);
 			throw new RuntimeException(e);
 		}
 		loadOld(context);
@@ -84,51 +84,51 @@ public class ScoreLibrary {
 		Debug.i("Loading old scores...");
 		try {
 			final ObjectInputStream in = new ObjectInputStream(
-					new FileInputStream(f));
+    	new FileInputStream(f));
 
 			Object obj = in.readObject();
 			String versionStr = "";
 			if (obj instanceof String) {
-				versionStr = (String) obj;
-				if (versionStr.equals("scores1") == false
-						&& versionStr.equals("scores2") == false) {
-					in.close();
-					return;
-				}
+    versionStr = (String) obj;
+    if (versionStr.equals("scores1") == false
+    		&& versionStr.equals("scores2") == false) {
+    	in.close();
+    	return;
+    }
 			} else {
-				in.close();
-				return;
+    in.close();
+    return;
 			}
 			obj = in.readObject();
 			Map<String, ArrayList<StatisticV2>> scores = null;
 			if (obj instanceof Map<?, ?>) {
-				if (versionStr.equals("scores1")) {
-					final Map<String, ArrayList<Statistic>> oldStat = (Map<String, ArrayList<Statistic>>) obj;
-					scores = new HashMap<String, ArrayList<StatisticV2>>();
-					for (final String str : oldStat.keySet()) {
-						final ArrayList<StatisticV2> newStat = new ArrayList<StatisticV2>();
-						for (final Statistic s : oldStat.get(str)) {
-							newStat.add(new StatisticV2(s));
-						}
-						final Matcher newPathMather = newPathPattern
-								.matcher(str);
-						if (newPathMather.find()) {
-							scores.put(newPathMather.group(), newStat);
-						} else {
-							scores.put(str, newStat);
-						}
-					}
-				} else if (versionStr.equals("scores2")) {
-					scores = (Map<String, ArrayList<StatisticV2>>) obj;
-				}
+    if (versionStr.equals("scores1")) {
+    	final Map<String, ArrayList<Statistic>> oldStat = (Map<String, ArrayList<Statistic>>) obj;
+    	scores = new HashMap<String, ArrayList<StatisticV2>>();
+    	for (final String str : oldStat.keySet()) {
+    		final ArrayList<StatisticV2> newStat = new ArrayList<StatisticV2>();
+    		for (final Statistic s : oldStat.get(str)) {
+    			newStat.add(new StatisticV2(s));
+    		}
+    		final Matcher newPathMather = newPathPattern
+        .matcher(str);
+    		if (newPathMather.find()) {
+    			scores.put(newPathMather.group(), newStat);
+    		} else {
+    			scores.put(str, newStat);
+    		}
+    	}
+    } else if (versionStr.equals("scores2")) {
+    	scores = (Map<String, ArrayList<StatisticV2>>) obj;
+    }
 			}
 
 			if (scores != null) {
-				for (String track : scores.keySet()) {
-					for (StatisticV2 stat : scores.get(track)) {
-						addScore(track, stat, null);
-					}
-				}
+    for (String track : scores.keySet()) {
+    	for (StatisticV2 stat : scores.get(track)) {
+    		addScore(track, stat, null);
+    	}
+    }
 			}
 
 			in.close();
@@ -144,7 +144,7 @@ public class ScoreLibrary {
 	}
 
 	public void sendScoreOnline(final StatisticV2 stat, final String replay,
-								final SendingPanel panel) {
+        final SendingPanel panel) {
 		Debug.i("Preparing for online!");
 		if (stat.getModifiedTotalScore() <= 0) return;
 		OnlineScoring.getInstance().sendRecord(stat, panel, replay);
@@ -181,7 +181,7 @@ public class ScoreLibrary {
 //		String[] columns = {"id", "filename", "score", "replayfile"};
 //		Cursor response =
 //			db.query(DBOpenHelper.SCORES_TABLENAME, columns, "filename = \"" + track + "\"" ,
-//												null, null, null, "score ASC");
+//            null, null, null, "score ASC");
 		//if scores > 5, we need to remove some
 //		if (response.getCount() > 5)
 //		{
@@ -190,16 +190,16 @@ public class ScoreLibrary {
 //			String filter = "";
 //			for (int i = 0; i < rowsToDelete; i++)
 //			{
-//				filter += response.getString(0);
-//				if (i < rowsToDelete - 1)
-//					filter += ",";
+//    filter += response.getString(0);
+//    if (i < rowsToDelete - 1)
+//    	filter += ",";
 //
-//				//removing score replay
-//				try{
-//					new File(response.getString(3)).delete();
-//				} catch (Exception e){}
+//    //removing score replay
+//    try{
+//    	new File(response.getString(3)).delete();
+//    } catch (Exception e){}
 //
-//				response.moveToNext();
+//    response.moveToNext();
 //
 //			}
 //			//removing all unnecessary scores
@@ -214,15 +214,15 @@ public class ScoreLibrary {
 		final String track = getTrackPath(filename);
 		if (db == null) return null;
 		return db.query(DBOpenHelper.SCORES_TABLENAME, columns, "filename = ?",
-				new String[]{track}, null, null, "score DESC");
+    new String[]{track}, null, null, "score DESC");
 	}
 
 	public String getBestMark(final String trackPath) {
 		final String track = getTrackPath(trackPath);
 		String[] columns = {"mark", "filename", "id", "score"};
 		Cursor response =
-				db.query(DBOpenHelper.SCORES_TABLENAME, columns, "filename = ?",
-						new String[]{track}, null, null, "score DESC");
+    db.query(DBOpenHelper.SCORES_TABLENAME, columns, "filename = ?",
+    		new String[]{track}, null, null, "score DESC");
 		if (response.getCount() == 0) {
 			response.close();
 			return null;
@@ -233,28 +233,28 @@ public class ScoreLibrary {
 //		do {
 //			final String s = response.getString(0);
 //			if (s.equals("XH")) {
-//				mark = s;
+//    mark = s;
 //			} else if (s.equals("X") && mark.equals("XH") == false) {
-//				mark = s;
+//    mark = s;
 //			} else if (s.equals("SH") && mark.equals("XH") == false
-//					&& mark.equals("X") == false) {
-//				mark = s;
+//    	&& mark.equals("X") == false) {
+//    mark = s;
 //			} else if (s.equals("S") && mark.equals("XH") == false
-//					&& mark.equals("X") == false && mark.equals("SH") == false) {
-//				mark = s;
+//    	&& mark.equals("X") == false && mark.equals("SH") == false) {
+//    mark = s;
 //			} else if (s.equals("A") && mark.equals("XH") == false
-//					&& mark.equals("X") == false && mark.equals("SH") == false
-//					&& mark.equals("S") == false) {
-//				mark = s;
+//    	&& mark.equals("X") == false && mark.equals("SH") == false
+//    	&& mark.equals("S") == false) {
+//    mark = s;
 //			} else if (s.equals("B") && mark.equals("XH") == false
-//					&& mark.equals("X") == false && mark.equals("SH") == false
-//					&& mark.equals("S") == false && mark.equals("A") == false) {
-//				mark = s;
+//    	&& mark.equals("X") == false && mark.equals("SH") == false
+//    	&& mark.equals("S") == false && mark.equals("A") == false) {
+//    mark = s;
 //			} else if (s.equals("C") && mark.equals("XH") == false
-//					&& mark.equals("X") == false && mark.equals("SH") == false
-//					&& mark.equals("S") == false && mark.equals("A") == false
-//					&& mark.equals("B") == false) {
-//				mark = s;
+//    	&& mark.equals("X") == false && mark.equals("SH") == false
+//    	&& mark.equals("S") == false && mark.equals("A") == false
+//    	&& mark.equals("B") == false) {
+//    mark = s;
 //			}
 //		} while (response.moveToNext());
 
@@ -265,7 +265,7 @@ public class ScoreLibrary {
 
 	public StatisticV2 getScore(int id) {
 		Cursor c = db.query(DBOpenHelper.SCORES_TABLENAME, null, "id = " + id,
-				null, null, null, null);
+    null, null, null, null);
 		StatisticV2 stat = new StatisticV2();
 		if (c.getCount() == 0) {
 			c.close();

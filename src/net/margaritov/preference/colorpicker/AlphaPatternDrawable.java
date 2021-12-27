@@ -111,14 +111,14 @@ public class AlphaPatternDrawable extends Drawable {
 			boolean isWhite = verticalStartWhite;
 			for (int j = 0; j <= numRectanglesHorizontal; j++) {
 
-				r.top = i * mRectangleSize;
-				r.left = j * mRectangleSize;
-				r.bottom = r.top + mRectangleSize;
-				r.right = r.left + mRectangleSize;
+    r.top = i * mRectangleSize;
+    r.left = j * mRectangleSize;
+    r.bottom = r.top + mRectangleSize;
+    r.right = r.left + mRectangleSize;
 
-				canvas.drawRect(r, isWhite ? mPaintWhite : mPaintGray);
+    canvas.drawRect(r, isWhite ? mPaintWhite : mPaintGray);
 
-				isWhite = !isWhite;
+    isWhite = !isWhite;
 			}
 
 			verticalStartWhite = !verticalStartWhite;

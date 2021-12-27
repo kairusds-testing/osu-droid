@@ -106,9 +106,9 @@ public class TriangleDrawable extends Drawable {
 		if (time == -1) {
 			time = System.currentTimeMillis();
 			if (this.preSpawnTriangles) {
-				for (int i = 0; i < 200; i++) {
-					update(36);
-				}
+    for (int i = 0; i < 200; i++) {
+    	update(36);
+    }
 			}
 			return;
 		}
@@ -139,9 +139,9 @@ public class TriangleDrawable extends Drawable {
 
 	private PointF nextPos() {
 		return new PointF(
-				FMath.clamp(width / 2 * (1 +
-						(xDistribution != null ? xDistribution.generate() : defaultX())), 0, width),
-				height
+    FMath.clamp(width / 2 * (1 +
+    		(xDistribution != null ? xDistribution.generate() : defaultX())), 0, width),
+    height
 		);
 	}
 
@@ -176,7 +176,7 @@ public class TriangleDrawable extends Drawable {
 		while (spawnClock > spawnCost) {
 			/*int count = random.nextInt(2);
 			for (int i = 0; i < count; i++) {
-				spawnOneTriangle();
+    spawnOneTriangle();
 			}*/
 			spawnOneTriangle();
 			spawnClock -= spawnCost;
@@ -194,7 +194,7 @@ public class TriangleDrawable extends Drawable {
 			Triangle triangle = iterator.next();
 			triangle.update(dt);
 			if (triangle.updateAlpha < 0.005) {
-				iterator.remove();
+    iterator.remove();
 			}
 		}
 	}

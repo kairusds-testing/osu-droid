@@ -58,8 +58,8 @@ public class StoryBoardTestActivity extends BaseGameActivity implements IUpdateH
 	public Engine onLoadEngine() {
 		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
+    EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+    camera));
 	}
 
 	@Override
@@ -121,11 +121,11 @@ public class StoryBoardTestActivity extends BaseGameActivity implements IUpdateH
 		if (pSecondsElapsed >= nextSprite.spriteStartTime) {
 			nextSprite.play();
 			if (osuSprites.size() > 0) {
-				nextSprite = osuSprites.remove(0);
-				// Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
-				checkSpriteTime(pSecondsElapsed);
+    nextSprite = osuSprites.remove(0);
+    // Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
+    checkSpriteTime(pSecondsElapsed);
 			} else {
-				nextSprite = null;
+    nextSprite = null;
 			}
 		}
 	}

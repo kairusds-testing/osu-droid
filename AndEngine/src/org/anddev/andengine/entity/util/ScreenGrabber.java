@@ -50,11 +50,11 @@ public class ScreenGrabber extends Entity {
 	protected void onManagedDraw(final GL10 pGL, final Camera pCamera) {
 		if(this.mScreenGrabPending) {
 			try {
-				final Bitmap screenGrab = ScreenGrabber.grab(this.mGrabX, this.mGrabY, this.mGrabWidth, this.mGrabHeight, pGL);
+    final Bitmap screenGrab = ScreenGrabber.grab(this.mGrabX, this.mGrabY, this.mGrabWidth, this.mGrabHeight, pGL);
 
-				this.mScreenGrabCallback.onScreenGrabbed(screenGrab);
+    this.mScreenGrabCallback.onScreenGrabbed(screenGrab);
 			} catch (final Exception e) {
-				this.mScreenGrabCallback.onScreenGrabFailed(e);
+    this.mScreenGrabCallback.onScreenGrabFailed(e);
 			}
 
 			this.mScreenGrabPending = false;
@@ -103,13 +103,13 @@ public class ScreenGrabber extends Entity {
 		// Convert from RGBA_8888 (Which is actually ABGR as the whole buffer seems to be inverted) --> ARGB_8888
 		for (int y = 0; y < pGrabHeight; y++) {
 			for (int x = 0; x < pGrabWidth; x++) {
-				final int pixel = source[x + ((pGrabY + y) * pGrabWidth)];
+    final int pixel = source[x + ((pGrabY + y) * pGrabWidth)];
 
-				final int blue = (pixel & 0x00FF0000) >> 16;
-				final int red = (pixel  & 0x000000FF) << 16;
-				final int greenAlpha = pixel & 0xFF00FF00;
+    final int blue = (pixel & 0x00FF0000) >> 16;
+    final int red = (pixel  & 0x000000FF) << 16;
+    final int greenAlpha = pixel & 0xFF00FF00;
 	
-				pixels[x + ((pGrabHeight - y - 1) * pGrabWidth)] = greenAlpha | red | blue;
+    pixels[x + ((pGrabHeight - y - 1) * pGrabWidth)] = greenAlpha | red | blue;
 			}
 		}
 

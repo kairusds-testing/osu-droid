@@ -125,7 +125,7 @@ public class Statistic implements Serializable {
 		if (score == 0 && k == true) {
 			changeHp(-(5 + GameHelper.getDrain()) / 100f);
 			if (currentCombo > maxCombo) {
-				maxCombo = currentCombo;
+    maxCombo = currentCombo;
 			}
 			currentCombo = 0;
 			return;
@@ -136,41 +136,41 @@ public class Statistic implements Serializable {
 
 		switch (score) {
 			case 300:
-				changeHp(k ? 0.10f : 0.05f);
-				if (g) {
-					hit300k++;
-				}
-				hit300++;
-				addScore(300);
-				realScore += 300;
-				currentCombo++;
-				break;
+    changeHp(k ? 0.10f : 0.05f);
+    if (g) {
+    	hit300k++;
+    }
+    hit300++;
+    addScore(300);
+    realScore += 300;
+    currentCombo++;
+    break;
 			case 100:
-				changeHp(k ? 0.15f : 0.05f);
-				if (k) {
-					hit100k++;
-				}
+    changeHp(k ? 0.15f : 0.05f);
+    if (k) {
+    	hit100k++;
+    }
 
-				hit100++;
-				addScore(100);
-				realScore += 100;
-				currentCombo++;
-				break;
+    hit100++;
+    addScore(100);
+    realScore += 100;
+    currentCombo++;
+    break;
 			case 50:
-				changeHp(0.05f);
-				hit50++;
-				addScore(50);
-				realScore += 50;
-				currentCombo++;
-				break;
+    changeHp(0.05f);
+    hit50++;
+    addScore(50);
+    realScore += 50;
+    currentCombo++;
+    break;
 			default:
-				changeHp(-(5 + GameHelper.getDrain()) / 100f);
-				misses++;
-				if (currentCombo > maxCombo) {
-					maxCombo = currentCombo;
-				}
-				currentCombo = 0;
-				break;
+    changeHp(-(5 + GameHelper.getDrain()) / 100f);
+    misses++;
+    if (currentCombo > maxCombo) {
+    	maxCombo = currentCombo;
+    }
+    currentCombo = 0;
+    break;
 		}
 	}
 
@@ -190,33 +190,33 @@ public class Statistic implements Serializable {
 		forcycle:
 		for (final GameMod m : mod) {
 			switch (m) {
-				case MOD_HIDDEN:
-					isH = true;
-					break forcycle;
-				default:
-					break;
+    case MOD_HIDDEN:
+    	isH = true;
+    	break forcycle;
+    default:
+    	break;
 			}
 		}
 
 		if (hit100 == 0 && hit100k == 0 && hit50 == 0 && misses == 0) {
 			if (isH) {
-				return "XH";
+    return "XH";
 			}
 			return "X";
 		}
 		if ((hit300) / (float) notes > 0.9f && misses == 0
-				&& hit50 / (float) notes < 0.01f) {
+    && hit50 / (float) notes < 0.01f) {
 			if (isH) {
-				return "SH";
+    return "SH";
 			}
 			return "S";
 		}
 		if ((hit300) / (float) notes > 0.8f && misses == 0
-				|| (hit300) / (float) notes > 0.9f) {
+    || (hit300) / (float) notes > 0.9f) {
 			return "A";
 		}
 		if ((hit300) / (float) notes > 0.7f && misses == 0
-				|| (hit300) / (float) notes > 0.8f) {
+    || (hit300) / (float) notes > 0.8f) {
 			return "B";
 		}
 		if ((hit300) / (float) notes > 0.6f) {

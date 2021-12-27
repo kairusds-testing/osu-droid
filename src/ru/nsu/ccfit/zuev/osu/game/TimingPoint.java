@@ -30,20 +30,20 @@ public class TimingPoint {
 
 		if (data.length > 2) {
 			if ("4".equals(data[2])) {
-				signature = 4;
+    signature = 4;
 			}
 			if ("3".equals(data[2])) {
-				signature = 3;
+    signature = 3;
 			}
 		}
 
 		if (data.length > 3) {
 			if (data[3].equals("1")) {
-				hitSound = Constants.SAMPLE_PREFIX[1];
+    hitSound = Constants.SAMPLE_PREFIX[1];
 			} else if (data[3].equals("3")) {
-				hitSound = Constants.SAMPLE_PREFIX[3];
+    hitSound = Constants.SAMPLE_PREFIX[3];
 			} else {
-				hitSound = Constants.SAMPLE_PREFIX[2];
+    hitSound = Constants.SAMPLE_PREFIX[2];
 			}
 		} else {
 			hitSound = getDefaultSound();

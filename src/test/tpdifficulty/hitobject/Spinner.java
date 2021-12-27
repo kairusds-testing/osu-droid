@@ -17,9 +17,9 @@ public class Spinner extends HitObject {
 	@Override
 	public String toString() {
 		return "Spinner{" +
-				super.toString() +
-				", Combo=" + getCombo(0, 0) +
-				"}";
+    super.toString() +
+    ", Combo=" + getCombo(0, 0) +
+    "}";
 	}
 
 	@Override

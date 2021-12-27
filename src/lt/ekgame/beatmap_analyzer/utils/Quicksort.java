@@ -41,12 +41,12 @@ public class Quicksort {
 		int i = lo, j = hi;
 		while (true) {
 			while (list.get(i).compareTo(x) < 0)
-				i++;
+    i++;
 			j = j - 1;
 			while (x.compareTo(list.get(j)) < 0)
-				j = j - 1;
+    j = j - 1;
 			if (!(i < j))
-				return i;
+    return i;
 			exchange(list, i, j);
 			i++;
 		}
@@ -56,21 +56,21 @@ public class Quicksort {
 
 		if (list.get(mid).compareTo(list.get(lo)) < 0) {
 			if (list.get(hi).compareTo(list.get(mid)) < 0)
-				return list.get(mid);
+    return list.get(mid);
 			else {
-				if (list.get(hi).compareTo(list.get(lo)) < 0)
-					return list.get(hi);
-				else
-					return list.get(lo);
+    if (list.get(hi).compareTo(list.get(lo)) < 0)
+    	return list.get(hi);
+    else
+    	return list.get(lo);
 			}
 		} else {
 			if (list.get(hi).compareTo(list.get(mid)) < 0) {
-				if (list.get(hi).compareTo(list.get(lo)) < 0)
-					return list.get(lo);
-				else
-					return list.get(hi);
+    if (list.get(hi).compareTo(list.get(lo)) < 0)
+    	return list.get(lo);
+    else
+    	return list.get(hi);
 			} else
-				return list.get(mid);
+    return list.get(mid);
 		}
 	}
 
@@ -84,8 +84,8 @@ public class Quicksort {
 			j = i;
 			t = list.get(i);
 			while (j != lo && t.compareTo(list.get(j - 1)) < 0) {
-				list.set(j, list.get(j - 1));
-				j--;
+    list.set(j, list.get(j - 1));
+    j--;
 			}
 			list.set(j, t);
 		}

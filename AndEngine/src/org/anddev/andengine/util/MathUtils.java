@@ -156,10 +156,10 @@ public class MathUtils implements MathConstants {
 			final float cosRotationInRad = (float) Math.cos(rotationRad);
 
 			for(int i = pVertices.length - 2; i >= 0; i -= 2) {
-				final float pX = pVertices[i];
-				final float pY = pVertices[i + 1];
-				pVertices[i] = pRotationCenterX + (cosRotationInRad * (pX - pRotationCenterX) - sinRotationRad * (pY - pRotationCenterY));
-				pVertices[i + 1] = pRotationCenterY + (sinRotationRad * (pX - pRotationCenterX) + cosRotationInRad * (pY - pRotationCenterY));
+    final float pX = pVertices[i];
+    final float pY = pVertices[i + 1];
+    pVertices[i] = pRotationCenterX + (cosRotationInRad * (pX - pRotationCenterX) - sinRotationRad * (pY - pRotationCenterY));
+    pVertices[i + 1] = pRotationCenterY + (sinRotationRad * (pX - pRotationCenterX) + cosRotationInRad * (pY - pRotationCenterY));
 			}
 		}
 		return pVertices;
@@ -168,8 +168,8 @@ public class MathUtils implements MathConstants {
 	public static float[] scaleAroundCenter(final float[] pVertices, final float pScaleX, final float pScaleY, final float pScaleCenterX, final float pScaleCenterY) {
 		if(pScaleX != 1 || pScaleY != 1) {
 			for(int i = pVertices.length - 2; i >= 0; i -= 2) {
-				pVertices[i] = pScaleCenterX + (pVertices[i] - pScaleCenterX) * pScaleX;
-				pVertices[i + 1] = pScaleCenterY + (pVertices[i + 1] - pScaleCenterY) * pScaleY;
+    pVertices[i] = pScaleCenterX + (pVertices[i] - pScaleCenterX) * pScaleX;
+    pVertices[i + 1] = pScaleCenterY + (pVertices[i + 1] - pScaleCenterY) * pScaleY;
 			}
 		}
 

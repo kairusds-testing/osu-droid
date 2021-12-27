@@ -15,9 +15,9 @@ public class SongsLibrary {
 		File[] songsList = FileUtils.listFiles(songs, ".osu");
 		for (File set : songsList) {
 			if (set.isDirectory()) {
-				for (String osu : set.list()) {
-					osu2set.put(osu, set.getName() + "/" + osu);
-				}
+    for (String osu : set.list()) {
+    	osu2set.put(osu, set.getName() + "/" + osu);
+    }
 			}
 		}
 	}

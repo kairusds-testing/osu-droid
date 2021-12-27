@@ -44,33 +44,33 @@ public enum Direction {
 	public static Direction fromDelta(final int pDeltaX, final int pDeltaY) {
 		switch(pDeltaX) {
 			case -1:
-				switch(pDeltaY) {
-					case -1:
-						return UP_LEFT;
-					case 0:
-						return LEFT;
-					case 1:
-						return DOWN_LEFT;
-				}
-				break;
+    switch(pDeltaY) {
+    	case -1:
+    		return UP_LEFT;
+    	case 0:
+    		return LEFT;
+    	case 1:
+    		return DOWN_LEFT;
+    }
+    break;
 			case 0:
-				switch(pDeltaY) {
-					case -1:
-						return UP;
-					case 1:
-						return DOWN;
-				}
-				break;
+    switch(pDeltaY) {
+    	case -1:
+    		return UP;
+    	case 1:
+    		return DOWN;
+    }
+    break;
 			case 1:
-				switch(pDeltaY) {
-					case -1:
-						return UP_RIGHT;
-					case 0:
-						return RIGHT;
-					case 1:
-						return DOWN_RIGHT;
-				}
-				break;
+    switch(pDeltaY) {
+    	case -1:
+    		return UP_RIGHT;
+    	case 0:
+    		return RIGHT;
+    	case 1:
+    		return DOWN_RIGHT;
+    }
+    break;
 		}
 		throw new IllegalArgumentException("Unexpected deltaX: '" + pDeltaX + "' deltaY: '" + pDeltaY + "'.");
 	}
@@ -98,21 +98,21 @@ public enum Direction {
 	public Direction rotateLeft() {
 		switch(this) {
 			case UP:
-				return LEFT;
+    return LEFT;
 			case UP_RIGHT:
-				return UP_LEFT;
+    return UP_LEFT;
 			case RIGHT:
-				return UP;
+    return UP;
 			case DOWN_RIGHT:
-				return UP_RIGHT;
+    return UP_RIGHT;
 			case DOWN:
-				return UP;
+    return UP;
 			case DOWN_LEFT:
-				return DOWN_RIGHT;
+    return DOWN_RIGHT;
 			case LEFT:
-				return DOWN;
+    return DOWN;
 			case UP_LEFT:
-				return DOWN_LEFT;
+    return DOWN_LEFT;
 		}
 		throw new IllegalArgumentException();
 	}
@@ -120,21 +120,21 @@ public enum Direction {
 	public Direction rotateRight() {
 		switch(this) {
 			case UP:
-				return RIGHT;
+    return RIGHT;
 			case UP_RIGHT:
-				return DOWN_RIGHT;
+    return DOWN_RIGHT;
 			case RIGHT:
-				return DOWN;
+    return DOWN;
 			case DOWN_RIGHT:
-				return DOWN_LEFT;
+    return DOWN_LEFT;
 			case DOWN:
-				return LEFT;
+    return LEFT;
 			case DOWN_LEFT:
-				return UP_LEFT;
+    return UP_LEFT;
 			case LEFT:
-				return UP;
+    return UP;
 			case UP_LEFT:
-				return UP_RIGHT;
+    return UP_RIGHT;
 		}
 		throw new IllegalArgumentException();
 	}
@@ -142,21 +142,21 @@ public enum Direction {
 	public Direction opposite() {
 		switch(this) {
 			case UP:
-				return DOWN;
+    return DOWN;
 			case UP_RIGHT:
-				return DOWN_LEFT;
+    return DOWN_LEFT;
 			case RIGHT:
-				return LEFT;
+    return LEFT;
 			case DOWN_RIGHT:
-				return UP_LEFT;
+    return UP_LEFT;
 			case DOWN:
-				return UP;
+    return UP;
 			case DOWN_LEFT:
-				return UP_RIGHT;
+    return UP_RIGHT;
 			case LEFT:
-				return RIGHT;
+    return RIGHT;
 			case UP_LEFT:
-				return DOWN_RIGHT;
+    return DOWN_RIGHT;
 		}
 		throw new IllegalArgumentException();
 	}

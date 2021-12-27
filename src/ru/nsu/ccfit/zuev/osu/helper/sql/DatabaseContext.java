@@ -42,27 +42,27 @@ public class DatabaseContext extends ContextWrapper {
 		final File olddb = context.getDatabasePath(name);
 		if (result.exists() == false && olddb.exists() == true) {
 			try {
-				FileUtils.copyFile(olddb, result);
+    FileUtils.copyFile(olddb, result);
 			} catch (IOException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 		}
 		final String olddbfile = Config.getCorePath() + File.separator + "databases" + File.separator + name;
 		final File olddb2 = new File(olddbfile);
 		if (result.exists() == false && olddb2.exists() == true) {
 			try {
-				FileUtils.copyFile(olddb2, result);
+    FileUtils.copyFile(olddb2, result);
 			} catch (IOException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 		}
 		final String olddbfile2 = Config.getCorePath() + File.separator + "databases" + File.separator + "osudroid.db";
 		final File olddb3 = new File(olddbfile2);
 		if (result.exists() == false && olddb3.exists() == true) {
 			try {
-				FileUtils.copyFile(olddb3, result);
+    FileUtils.copyFile(olddb3, result);
 			} catch (IOException e) {
-				Debug.e(e);
+    Debug.e(e);
 			}
 		}
 		return result;

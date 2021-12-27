@@ -80,9 +80,9 @@ public class BufferObjectManager {
 		}
 		if(BufferObjectManager.mBufferObjectsManaged.contains(pBufferObject)) {
 			if(BufferObjectManager.mBufferObjectsLoaded.contains(pBufferObject)) {
-				BufferObjectManager.mBufferObjectsToBeUnloaded.add(pBufferObject);
+    BufferObjectManager.mBufferObjectsToBeUnloaded.add(pBufferObject);
 			} else if(BufferObjectManager.mBufferObjectsToBeLoaded.remove(pBufferObject)) {
-				BufferObjectManager.mBufferObjectsManaged.remove(pBufferObject);
+    BufferObjectManager.mBufferObjectsManaged.remove(pBufferObject);
 			}
 		}
 	}
@@ -121,12 +121,12 @@ public class BufferObjectManager {
 
 		if(bufferObjectToBeLoadedCount > 0) {
 			for(int i = bufferObjectToBeLoadedCount - 1; i >= 0; i--) {
-				final BufferObject bufferObjectToBeLoaded = bufferObjectsToBeLoaded.get(i);
-				if(!bufferObjectToBeLoaded.isLoadedToHardware()) {
-					bufferObjectToBeLoaded.loadToHardware(pGL11);
-					bufferObjectToBeLoaded.setHardwareBufferNeedsUpdate();
-				}
-				bufferObjectsLoaded.add(bufferObjectToBeLoaded);
+    final BufferObject bufferObjectToBeLoaded = bufferObjectsToBeLoaded.get(i);
+    if(!bufferObjectToBeLoaded.isLoadedToHardware()) {
+    	bufferObjectToBeLoaded.loadToHardware(pGL11);
+    	bufferObjectToBeLoaded.setHardwareBufferNeedsUpdate();
+    }
+    bufferObjectsLoaded.add(bufferObjectToBeLoaded);
 			}
 
 			bufferObjectsToBeLoaded.clear();
@@ -137,12 +137,12 @@ public class BufferObjectManager {
 
 		if(bufferObjectsToBeUnloadedCount > 0){
 			for(int i = bufferObjectsToBeUnloadedCount - 1; i >= 0; i--){
-				final BufferObject bufferObjectToBeUnloaded = bufferObjectsToBeUnloaded.remove(i);
-				if(bufferObjectToBeUnloaded.isLoadedToHardware()){
-					bufferObjectToBeUnloaded.unloadFromHardware(pGL11);
-				}
-				bufferObjectsLoaded.remove(bufferObjectToBeUnloaded);
-				bufferObjectsManaged.remove(bufferObjectToBeUnloaded);
+    final BufferObject bufferObjectToBeUnloaded = bufferObjectsToBeUnloaded.remove(i);
+    if(bufferObjectToBeUnloaded.isLoadedToHardware()){
+    	bufferObjectToBeUnloaded.unloadFromHardware(pGL11);
+    }
+    bufferObjectsLoaded.remove(bufferObjectToBeUnloaded);
+    bufferObjectsManaged.remove(bufferObjectToBeUnloaded);
 			}
 		}
 	}

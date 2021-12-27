@@ -36,26 +36,26 @@ public class SliderBody3D extends AbstractSliderBody {
 		float alpha = endLength / path.getMeasurer().maxLength();
 
 		/*bodyMask.setVertices(
-				(new Draw3DLinePath(sub, bodyWidth, zEnd - zOff, zBody - zOff))
-						.getTriangles()
-						.getVertex());*/
+    (new Draw3DLinePath(sub, bodyWidth, zEnd - zOff, zBody - zOff))
+    		.getTriangles()
+    		.getVertex());*/
 
 		body.setVertices(
-				(new Draw3DLinePath(sub, bodyWidth, 1, 1))
-						.getTriangles()
-						.getVertex());
+    (new Draw3DLinePath(sub, bodyWidth, 1, 1))
+    		.getTriangles()
+    		.getVertex());
 
 		body.setAlpha(0.7f * alpha);
 
 		/*borderMask.setVertices(
-				(new Draw3DLinePath(sub, borderWidth, zEnd - zOff, zStart - zOff))
-						.getTriangles()
-						.getVertex());*/
+    (new Draw3DLinePath(sub, borderWidth, zEnd - zOff, zStart - zOff))
+    		.getTriangles()
+    		.getVertex());*/
 
 		border.setVertices(
-				(new Draw3DLinePath(sub, borderWidth, -1, -1))
-						.getTriangles()
-						.getVertex());
+    (new Draw3DLinePath(sub, borderWidth, -1, -1))
+    		.getTriangles()
+    		.getVertex());
 
 		border.setAlpha(alpha);
 	}
@@ -107,37 +107,37 @@ public class SliderBody3D extends AbstractSliderBody {
 		float zBody = -bodyWidth / borderWidth + zOff;
 
 		/*bodyMask = new Triangle3DPack(0, 0,
-				emptyOnStart ?
-						new float[0] :
-						(new Draw3DLinePath(path, bodyWidth, zEnd - zOff, zBody - zOff))
-								.getTriangles()
-								.getVertex());
+    emptyOnStart ?
+    		new float[0] :
+    		(new Draw3DLinePath(path, bodyWidth, zEnd - zOff, zBody - zOff))
+        .getTriangles()
+        .getVertex());
 		bodyMask.setClearDepthOnStart(true);*/
 
 		body = new Triangle3DPack(0, 0,
-				emptyOnStart ?
-						new float[0] :
-						(new Draw3DLinePath(path, bodyWidth, zEnd, zBody))
-								.getTriangles()
-								.getVertex()
+    emptyOnStart ?
+    		new float[0] :
+    		(new Draw3DLinePath(path, bodyWidth, zEnd, zBody))
+        .getTriangles()
+        .getVertex()
 		);
 
 		body.setClearDepthOnStart(true);
 
 		/*borderMask = new Triangle3DPack(0, 0,
-				emptyOnStart ?
-						new float[0] :
-						(new Draw3DLinePath(path, borderWidth, zEnd - zOff, zStart - zOff))
-								.getTriangles()
-								.getVertex()
+    emptyOnStart ?
+    		new float[0] :
+    		(new Draw3DLinePath(path, borderWidth, zEnd - zOff, zStart - zOff))
+        .getTriangles()
+        .getVertex()
 		);*/
 
 		border = new Triangle3DPack(0, 0,
-				emptyOnStart ?
-						new float[0] :
-						(new Draw3DLinePath(path, borderWidth, zEnd, zStart))
-								.getTriangles()
-								.getVertex()
+    emptyOnStart ?
+    		new float[0] :
+    		(new Draw3DLinePath(path, borderWidth, zEnd, zStart))
+        .getTriangles()
+        .getVertex()
 		);
 
 		//bodyMask.setAlpha(0);

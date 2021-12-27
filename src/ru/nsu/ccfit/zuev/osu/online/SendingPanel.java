@@ -27,7 +27,7 @@ public class SendingPanel extends Rectangle {
 	public SendingPanel(long rank, long score, float accuracy) {
 		super(0, Utils.toRes(-300), Utils.toRes(800), Utils.toRes(300));
 		TextureRegion btnTex = ResourceManager.getInstance().
-				getTexture("ranking_button");
+    getTexture("ranking_button");
 
 		this.rank = rank;
 		this.score = score;
@@ -39,48 +39,48 @@ public class SendingPanel extends Rectangle {
 
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
-										 float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (canBeDismissed) {
-					SendingPanel.this.registerEntityModifier(new MoveYModifier(0.5f, 0,
-							Utils.toRes(-350)));
-					canBeDismissed = false;
-					return true;
-				}
-				return false;
+        		 float pTouchAreaLocalX, float pTouchAreaLocalY) {
+    if (canBeDismissed) {
+    	SendingPanel.this.registerEntityModifier(new MoveYModifier(0.5f, 0,
+    			Utils.toRes(-350)));
+    	canBeDismissed = false;
+    	return true;
+    }
+    return false;
 			}
 		};
 		attachChild(button);
 
 		buttonText = new ChangeableText(Utils.toRes(340), Utils.toRes(305),
-				ResourceManager.getInstance().getFont("font"),
-				"Sending...", HorizontalAlign.CENTER, 10);
+    ResourceManager.getInstance().getFont("font"),
+    "Sending...", HorizontalAlign.CENTER, 10);
 		attachChild(buttonText);
 
 		Text topScoreText = new Text(0, 0,
-				ResourceManager.getInstance().getFont("CaptionFonrt"), "Overall Ranking");
+    ResourceManager.getInstance().getFont("CaptionFonrt"), "Overall Ranking");
 		topScoreText.setPosition(Utils.toRes(400) - topScoreText.getWidth() / 2, Utils.toRes(60));
 		attachChild(topScoreText);
 
 		Text tableCaption = new Text(Utils.toRes(60), Utils.toRes(120),
-				ResourceManager.getInstance().getFont("font"),
-				"Map rank	 Overall	  Accuracy	   Ranked score");
+    ResourceManager.getInstance().getFont("font"),
+    "Map rank	 Overall	  Accuracy	   Ranked score");
 		attachChild(tableCaption);
 
 		mapRect = new Rectangle(Utils.toRes(50), Utils.toRes(160),
-				Utils.toRes(140), Utils.toRes(80));
+    Utils.toRes(140), Utils.toRes(80));
 		mapRect.setColor(1, 1, 0, 0.8f);
 		attachChild(mapRect);
 
 		rankRect = new Rectangle(Utils.toRes(195), Utils.toRes(160),
-				Utils.toRes(150), Utils.toRes(80));
+    Utils.toRes(150), Utils.toRes(80));
 		attachChild(rankRect);
 
 		accRect = new Rectangle(Utils.toRes(350), Utils.toRes(160),
-				Utils.toRes(150), Utils.toRes(80));
+    Utils.toRes(150), Utils.toRes(80));
 		attachChild(accRect);
 
 		scoreRect = new Rectangle(Utils.toRes(505), Utils.toRes(160),
-				Utils.toRes(250), Utils.toRes(80));
+    Utils.toRes(250), Utils.toRes(80));
 		attachChild(scoreRect);
 
 		Font font = ResourceManager.getInstance().getFont("font");
@@ -103,7 +103,7 @@ public class SendingPanel extends Rectangle {
 
 	private void placeText(Rectangle rect, ChangeableText text) {
 		text.setPosition(rect.getX() + rect.getWidth() / 2 - text.getWidth() / 2,
-				rect.getY() + rect.getHeight() / 2 - text.getHeight() / 2);
+    rect.getY() + rect.getHeight() / 2 - text.getHeight() / 2);
 	}
 
 	private void setRectColor(Rectangle rect, float difference) {

@@ -23,13 +23,13 @@ public class MenuItemBackground extends Sprite {
 
 	public MenuItemBackground() {
 		super(0, 0, ResourceManager.getInstance().getTexture(
-				"menu-button-background"));
+    "menu-button-background"));
 
 		setAlpha(0.8f);
 		title = new ChangeableText(Utils.toRes(32), Utils.toRes(25),
-				ResourceManager.getInstance().getFont("font"), "", 255);
+    ResourceManager.getInstance().getFont("font"), "", 255);
 		author = new ChangeableText(0, 0, ResourceManager.getInstance()
-				.getFont("font"), "", 100);
+    .getFont("font"), "", 100);
 		author.setPosition(Utils.toRes(150), Utils.toRes(60));
 
 		defColor.apply(this);
@@ -58,7 +58,7 @@ public class MenuItemBackground extends Sprite {
 
 	@Override
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-								 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+         final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 		if (!isVisible()) {
 			return false;
 		}
@@ -66,7 +66,7 @@ public class MenuItemBackground extends Sprite {
 			moved = false;
 			onTouchColor.apply(this);
 			if (item != null) {
-				item.stopScroll(getY() + pTouchAreaLocalY);
+    item.stopScroll(getY() + pTouchAreaLocalY);
 			}
 			dx = pTouchAreaLocalX;
 			dy = pTouchAreaLocalY;
@@ -75,13 +75,13 @@ public class MenuItemBackground extends Sprite {
 			ResourceManager.getInstance().getSound("menuclick").play();
 			defColor.apply(this);
 			if (item != null) {
-				item.select(true, true);
+    item.select(true, true);
 			}
 			return true;
 		} else if (pSceneTouchEvent.isActionOutside()
-				|| pSceneTouchEvent.isActionMove()
-				&& (MathUtils.distance(dx, dy, pTouchAreaLocalX,
-				pTouchAreaLocalY) > 50)) {
+    || pSceneTouchEvent.isActionMove()
+    && (MathUtils.distance(dx, dy, pTouchAreaLocalX,
+    pTouchAreaLocalY) > 50)) {
 			defColor.apply(this);
 			moved = true;
 			return false;

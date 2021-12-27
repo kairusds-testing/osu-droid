@@ -24,15 +24,15 @@ public class SpriteCache {
 
 		public void save(T t) {
 			if (stack.size() < maxCacheCount) {
-				stack.push(t);
+    stack.push(t);
 			}
 		}
 
 		public T get() {
 			if (stack.isEmpty()) {
-				return constructor.create();
+    return constructor.create();
 			} else {
-				return stack.pop();
+    return stack.pop();
 			}
 		}
 

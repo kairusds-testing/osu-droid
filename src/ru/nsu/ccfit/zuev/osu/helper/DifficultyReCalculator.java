@@ -45,8 +45,8 @@ public class DifficultyReCalculator {
 		} else {
 			Debug.e("startGame: cannot open file");
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error_open,
-							track.getFilename()), true);
+    	StringTable.format(R.string.message_error_open,
+    			track.getFilename()), true);
 			return false;
 		}
 
@@ -70,21 +70,21 @@ public class DifficultyReCalculator {
 			String[] rawData = tempString.split("[,]");
 			// Handle malformed timing point
 			if (rawData.length < 2) {
-				return false;
+    return false;
 			}
 			float bpm = parser.tryParseFloat(rawData[1], Float.NaN);
 			if (Float.isNaN(bpm)) {
-				return false;
+    return false;
 			}
 
 			// Uninherited: bpm > 0
 			if (bpm > 0) {
-				float offset = parser.tryParseFloat(rawData[0], Float.NaN);
-				if (Float.isNaN(offset)) {
-					return false;
-				}
-				currentTimingPoint = new TimingPoint(bpm, offset, 1f);
-				break;
+    float offset = parser.tryParseFloat(rawData[0], Float.NaN);
+    if (Float.isNaN(offset)) {
+    	return false;
+    }
+    currentTimingPoint = new TimingPoint(bpm, offset, 1f);
+    break;
 			}
 		}
 
@@ -96,25 +96,25 @@ public class DifficultyReCalculator {
 			String[] rawData = tempString.split("[,]");
 			// Handle malformed timing point
 			if (rawData.length < 2) {
-				return false;
+    return false;
 			}
 			float offset = parser.tryParseFloat(rawData[0], Float.NaN);
 			float bpm = parser.tryParseFloat(rawData[1], Float.NaN);
 			if (Float.isNaN(offset) || Float.isNaN(bpm)) {
-				return false;
+    return false;
 			}
 			float speed = 1.0f;
 			boolean inherited = bpm < 0;
 
 			if (inherited) {
-				speed = -100.0f / bpm;
-				bpm = currentTimingPoint.getBpm();
+    speed = -100.0f / bpm;
+    bpm = currentTimingPoint.getBpm();
 			} else {
-				bpm = 60000.0f / bpm;
+    bpm = 60000.0f / bpm;
 			}
 			TimingPoint timing = new TimingPoint(bpm, offset, speed);
 			if (!inherited) {
-				currentTimingPoint = timing;
+    currentTimingPoint = timing;
 			}
 			timingPoints.add(timing);
 		}
@@ -139,89 +139,89 @@ public class DifficultyReCalculator {
 			// Ignoring v10 features
 			int dataSize = hitObjectData.length;
 			while (dataSize > 0 && hitObjectData[dataSize - 1].matches("([0-9][:][0-9][|]?)+")) {
-				dataSize--;
+    dataSize--;
 			}
 			if (dataSize < hitObjectData.length) {
-				rawData = new String[dataSize];
-				for (int i = 0; i < rawData.length; i++) {
-					rawData[i] = hitObjectData[i];
-				}
+    rawData = new String[dataSize];
+    for (int i = 0; i < rawData.length; i++) {
+    	rawData[i] = hitObjectData[i];
+    }
 			} else {
-				rawData = hitObjectData;
+    rawData = hitObjectData;
 			}
 
 			// Handle malformed hitobject
 			if (rawData.length < 4) {
-				return false;
+    return false;
 			}
 
 			int time = parser.tryParseInt(rawData[2], -1);
 			if (time <= -1) {
-				return false;
+    return false;
 			}
 			while (tpIndex < timingPoints.size() - 1 && timingPoints.get(tpIndex + 1).getOffset() <= time) {
-				tpIndex++;
+    tpIndex++;
 			}
 			currentTimingPoint = timingPoints.get(tpIndex);
 			HitObjectType hitObjectType = HitObjectType.valueOf(parser.tryParseInt(rawData[3], -1) % 16);
 			PointF pos = new PointF(
-				parser.tryParseFloat(rawData[0], Float.NaN),
-				parser.tryParseFloat(rawData[1], Float.NaN)
+    parser.tryParseFloat(rawData[0], Float.NaN),
+    parser.tryParseFloat(rawData[1], Float.NaN)
 			);
 			if (Float.isNaN(pos.x) || Float.isNaN(pos.y)) {
-				return false;
+    return false;
 			}
 			HitObject object = null;
 			if (hitObjectType == null) {
-				System.out.println(tempString);
-				return false;
+    System.out.println(tempString);
+    return false;
 			}
 
 			if (hitObjectType == HitObjectType.Normal || hitObjectType == HitObjectType.NormalNewCombo) {
-				// HitCircle
-				object = new HitCircle(time, pos, currentTimingPoint);
+    // HitCircle
+    object = new HitCircle(time, pos, currentTimingPoint);
 			} else if (hitObjectType == HitObjectType.Spinner) {
-				// Spinner
-				int endTime = parser.tryParseInt(rawData[5], -1);
-				if (endTime <= -1) {
-					return false;
-				}
-				object = new Spinner(time, endTime, pos, currentTimingPoint);
+    // Spinner
+    int endTime = parser.tryParseInt(rawData[5], -1);
+    if (endTime <= -1) {
+    	return false;
+    }
+    object = new Spinner(time, endTime, pos, currentTimingPoint);
 			} else if (hitObjectType == HitObjectType.Slider || hitObjectType == HitObjectType.SliderNewCombo) {
-				// Slider
-				// Handle malformed slider
-				boolean isValidSlider = rawData.length >= 8;
-				if (!isValidSlider) {
-					return false;
-				}
+    // Slider
+    // Handle malformed slider
+    boolean isValidSlider = rawData.length >= 8;
+    if (!isValidSlider) {
+    	return false;
+    }
 
-				String[] curvePointsData = rawData[5].split("[|]");
-				SliderType sliderType = SliderType.parse(curvePointsData[0].charAt(0));
-				ArrayList<PointF> curvePoints = new ArrayList<>();
-				for (int i = 1; i < curvePointsData.length; i++) {
-					String[] curvePointData = curvePointsData[i].split("[:]");
-					PointF curvePointPosition = new PointF(
-						parser.tryParseFloat(curvePointData[0], Float.NaN),
-						parser.tryParseFloat(curvePointData[1], Float.NaN)
-					);
-					if (Float.isNaN(curvePointPosition.x) || Float.isNaN(curvePointPosition.y)) {
-						isValidSlider = false;
-						break;
-					}
-					curvePoints.add(curvePointPosition);
-				}
-				if (!isValidSlider) {
-					return false;
-				}
+    String[] curvePointsData = rawData[5].split("[|]");
+    SliderType sliderType = SliderType.parse(curvePointsData[0].charAt(0));
+    ArrayList<PointF> curvePoints = new ArrayList<>();
+    for (int i = 1; i < curvePointsData.length; i++) {
+    	String[] curvePointData = curvePointsData[i].split("[:]");
+    	PointF curvePointPosition = new PointF(
+    		parser.tryParseFloat(curvePointData[0], Float.NaN),
+    		parser.tryParseFloat(curvePointData[1], Float.NaN)
+    	);
+    	if (Float.isNaN(curvePointPosition.x) || Float.isNaN(curvePointPosition.y)) {
+    		isValidSlider = false;
+    		break;
+    	}
+    	curvePoints.add(curvePointPosition);
+    }
+    if (!isValidSlider) {
+    	return false;
+    }
 
-				int repeat = parser.tryParseInt(rawData[6], -1);
-				float rawLength = parser.tryParseFloat(rawData[7], Float.NaN);
-				if (repeat <= -1 || Float.isNaN(rawLength)) {
-					return false;
-				}
+    int repeat = parser.tryParseInt(rawData[6], -1);
+    float rawLength = parser.tryParseFloat(rawData[7], Float.NaN);
+    if (repeat <= -1 || Float.isNaN(rawLength)) {
+    	return false;
+    }
 
-				int endTime = time + (int) (rawLength * (600 / timingPoints.get(0).getBpm()) / sliderSpeed) * repeat;
-				object = new Slider(time, endTime, pos, currentTimingPoint, sliderType, repeat, curvePoints, rawLength);
+    int endTime = time + (int) (rawLength * (600 / timingPoints.get(0).getBpm()) / sliderSpeed) * repeat;
+    object = new Slider(time, endTime, pos, currentTimingPoint, sliderType, repeat, curvePoints, rawLength);
 			}
 			this.hitObjects.add(object);
 		}
@@ -245,13 +245,13 @@ public class DifficultyReCalculator {
 			tpDifficulty.CalculateAll(hitObjects, cs, speed);
 			double star = tpDifficulty.getStarRating();
 			if (!timingPoints.isEmpty()){
-				timingPoints.clear();
+    timingPoints.clear();
 			}
 			if (!hitObjects.isEmpty()){
-				hitObjects.clear();
+    hitObjects.clear();
 			}
 			if (GlobalManager.getInstance().getSongMenu().getSelectedTrack() != track){
-				return 0f;
+    return 0f;
 			}
 			return GameHelper.Round(star, 2);
 		} catch (Exception e) {
@@ -278,8 +278,8 @@ public class DifficultyReCalculator {
 
 	//copy from koohii.java
 	private void pp(AiModtpDifficulty tpDifficulty, TrackInfo track,
-						StatisticV2 stat,
-						float accuracy) {
+    		StatisticV2 stat,
+    		float accuracy) {
 		/* global values --------------------------------------- */
 		EnumSet<GameMod> mods = stat.getMod();
 		int max_combo = stat.getMaxCombo();
@@ -337,10 +337,10 @@ public class DifficultyReCalculator {
 		if (mods.contains(GameMod.MOD_FLASHLIGHT)) {
 			double fl_bonus = 1.0 + 0.35 * Math.min(1.0, nobjects / 200.0);
 			if (nobjects > 200) {
-				fl_bonus += 0.3 * Math.min(1.0, (nobjects - 200) / 300.0);
+    fl_bonus += 0.3 * Math.min(1.0, (nobjects - 200) / 300.0);
 			}
 			if (nobjects > 500) {
-				fl_bonus += (nobjects - 500) / 1200.0;
+    fl_bonus += (nobjects - 500) / 1200.0;
 			}
 			aim *= fl_bonus;
 		}
@@ -444,8 +444,8 @@ public class DifficultyReCalculator {
 		float speed = stat.getSpeed();
 		if (mod.contains(GameMod.MOD_REALLYEASY)) {
 			if (mod.contains(GameMod.MOD_EASY)){
-				ar *= 2f;
-				ar -= 0.5f;
+    ar *= 2f;
+    ar -= 0.5f;
 			}
 			ar -= 0.5f;
 			ar -= speed - 1.0f;
@@ -526,57 +526,57 @@ public class DifficultyReCalculator {
 		int firstObjectTime = 0;
 		for (HitObject object : hitObjects){
 			if (object.getType() == HitObjectType.Spinner){
-				continue;
+    continue;
 			}
 			if (prev != null){
-				int delta_time = object.getStartTime() - prev.getStartTime();
-				int distance = (int)Math.sqrt(Math.pow(object.getPos().x - prev.getPos().x, 2) + Math.pow(object.getPos().y - prev.getPos().y, 2));
-				if ((delta_time >= dt1 && distance <= ds2) || (delta_time >= dt4 * 4)){
-					single++;
-				}
-				else if(delta_time >= dt2 && distance >= ds1 && distance <= ds2){
-					fast_single++;
-				}
-				else if((delta_time <= dt1 && distance <= ds1) || (delta_time <= dt2 && distance <= ds2)){
-					stream++;
-				}
-				else if(distance >= ds2){
-					jump++;
-				}
-				else{
-					single++;
-				}
-				//多押
-				if (first && delta_time == 0){
-					first = false;
-					multi += 2;
-				}
-				else if (delta_time == 0){
-					multi++;
-				}
-				else if (delta_time != 0){
-					first = true;
-				}
-				//切指
-				if (delta_time < last_delta_time * 1.2f && delta_time > last_delta_time * 0.8f){
-				}
-				else if ((delta_time < dt3 || last_delta_time < dt3) && last_delta_time != 0 && delta_time < dt4 && last_delta_time < dt4){
-					switch_fingering += 2;
-				}
-				//最长连打
-				if (delta_time > dt3 || last_delta_time > dt3){
-					if (combo != 0 && stream_longest < combo + 2){
-						stream_longest = combo + 2;
-					}
-					combo = 0;
-				}
-				else{
-					combo++;
-				}
-				last_delta_time = delta_time; 
+    int delta_time = object.getStartTime() - prev.getStartTime();
+    int distance = (int)Math.sqrt(Math.pow(object.getPos().x - prev.getPos().x, 2) + Math.pow(object.getPos().y - prev.getPos().y, 2));
+    if ((delta_time >= dt1 && distance <= ds2) || (delta_time >= dt4 * 4)){
+    	single++;
+    }
+    else if(delta_time >= dt2 && distance >= ds1 && distance <= ds2){
+    	fast_single++;
+    }
+    else if((delta_time <= dt1 && distance <= ds1) || (delta_time <= dt2 && distance <= ds2)){
+    	stream++;
+    }
+    else if(distance >= ds2){
+    	jump++;
+    }
+    else{
+    	single++;
+    }
+    //多押
+    if (first && delta_time == 0){
+    	first = false;
+    	multi += 2;
+    }
+    else if (delta_time == 0){
+    	multi++;
+    }
+    else if (delta_time != 0){
+    	first = true;
+    }
+    //切指
+    if (delta_time < last_delta_time * 1.2f && delta_time > last_delta_time * 0.8f){
+    }
+    else if ((delta_time < dt3 || last_delta_time < dt3) && last_delta_time != 0 && delta_time < dt4 && last_delta_time < dt4){
+    	switch_fingering += 2;
+    }
+    //最长连打
+    if (delta_time > dt3 || last_delta_time > dt3){
+    	if (combo != 0 && stream_longest < combo + 2){
+    		stream_longest = combo + 2;
+    	}
+    	combo = 0;
+    }
+    else{
+    	combo++;
+    }
+    last_delta_time = delta_time;
 			}
 			else {
-				firstObjectTime = object.getStartTime();
+    firstObjectTime = object.getStartTime();
 			}
 			prev = object;
 		}

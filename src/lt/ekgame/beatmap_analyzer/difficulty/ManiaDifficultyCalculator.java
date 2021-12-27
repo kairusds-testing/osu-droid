@@ -34,7 +34,7 @@ public class ManiaDifficultyCalculator implements DifficultyCalculator {
 	}
 
 	private List<DifficultyObject> generateDifficultyObjects(List<ManiaObject> hitObjects, double timeRate,
-															 int collumns) {
+            			 int collumns) {
 
 		List<DifficultyObject> difficultyObjects = new ArrayList<DifficultyObject>(hitObjects.size());
 		for (int i = 0; i < hitObjects.size(); i++) {
@@ -58,7 +58,7 @@ public class ManiaDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : difficultyObjects) {
 			if (previous != null)
-				current.calculateStrains(previous, timeRate, collumns);
+    current.calculateStrains(previous, timeRate, collumns);
 			previous = current;
 		}
 
@@ -74,16 +74,16 @@ public class ManiaDifficultyCalculator implements DifficultyCalculator {
 		DifficultyObject previous = null;
 		for (DifficultyObject current : difficultyObjects) {
 			while (current.object.getStartTime() > intervalEnd) {
-				highestStrains.add(maxStrain);
-				if (previous != null) {
-					double individualDecay = Math.pow(INDIVIDUAL_DECAY_BASE,
-							(intervalEnd - previous.object.getStartTime()) / 1000.0);
-					double overallDecay = Math.pow(OVERALL_DECAY_BASE,
-							(intervalEnd - previous.object.getStartTime()) / 1000.0);
-					maxStrain = previous.individualStrains[previous.collumn] * individualDecay
-							+ previous.strain * overallDecay;
-				}
-				intervalEnd += realStrainStep;
+    highestStrains.add(maxStrain);
+    if (previous != null) {
+    	double individualDecay = Math.pow(INDIVIDUAL_DECAY_BASE,
+    			(intervalEnd - previous.object.getStartTime()) / 1000.0);
+    	double overallDecay = Math.pow(OVERALL_DECAY_BASE,
+    			(intervalEnd - previous.object.getStartTime()) / 1000.0);
+    	maxStrain = previous.individualStrains[previous.collumn] * individualDecay
+    			+ previous.strain * overallDecay;
+    }
+    intervalEnd += realStrainStep;
 			}
 			maxStrain = Math.max(maxStrain, current.individualStrains[current.collumn] + current.strain);
 			previous = current;
@@ -95,7 +95,7 @@ public class ManiaDifficultyCalculator implements DifficultyCalculator {
 		Collections.sort(strains, new Comparator<Double>() {
 			@Override
 			public int compare(Double a, Double b) {
-				return b.compareTo(a);
+    return b.compareTo(a);
 			}
 		});//b.compareTo(a));
 		double difficulty = 0, weight = 1;
@@ -134,16 +134,16 @@ public class ManiaDifficultyCalculator implements DifficultyCalculator {
 			double holdAddition = 0;
 
 			for (int i = 0; i < collumns; i++) {
-				heldUntil[i] = previous.heldUntil[i];
+    heldUntil[i] = previous.heldUntil[i];
 
-				if (object.getStartTime() < heldUntil[i] && object.getEndTime() > heldUntil[i]
-						&& object.getEndTime() != heldUntil[i])
-					holdAddition = 1;
+    if (object.getStartTime() < heldUntil[i] && object.getEndTime() > heldUntil[i]
+    		&& object.getEndTime() != heldUntil[i])
+    	holdAddition = 1;
 
-				if (heldUntil[i] > object.getEndTime())
-					holdFactor = 1.25;
+    if (heldUntil[i] > object.getEndTime())
+    	holdFactor = 1.25;
 
-				individualStrains[i] = previous.individualStrains[i] * individualDecay;
+    individualStrains[i] = previous.individualStrains[i] * individualDecay;
 			}
 
 			heldUntil[collumn] = object.getEndTime();

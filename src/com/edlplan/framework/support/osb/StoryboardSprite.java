@@ -50,24 +50,24 @@ public class StoryboardSprite extends SupportSprite {
 		String tmps;
 		for (OsuStoryboardLayer layer : storyboard.layers) {
 			if (layer != null) {
-				for (IStoryboardElement element : layer.elements) {
-					if (element instanceof StoryboardAnimationSprite) {
-						StoryboardAnimationSprite as = (StoryboardAnimationSprite) element;
-						for (int i = 0; i < as.frameCount; i++) {
-							if ((tmp = textures.get(tmps = as.buildPath(i))) == null) {
-								textures.put(tmps, 1);
-								continue;
-							}
-							textures.put(tmps, tmp + 1);
-						}
-					} else if (element instanceof com.edlplan.edlosbsupport.elements.StoryboardSprite) {
-						if ((tmp = textures.get(tmps = ((com.edlplan.edlosbsupport.elements.StoryboardSprite) element).spriteFilename)) == null) {
-							textures.put(tmps, 1);
-							continue;
-						}
-						textures.put(tmps, tmp + 1);
-					}
-				}
+    for (IStoryboardElement element : layer.elements) {
+    	if (element instanceof StoryboardAnimationSprite) {
+    		StoryboardAnimationSprite as = (StoryboardAnimationSprite) element;
+    		for (int i = 0; i < as.frameCount; i++) {
+    			if ((tmp = textures.get(tmps = as.buildPath(i))) == null) {
+        textures.put(tmps, 1);
+        continue;
+    			}
+    			textures.put(tmps, tmp + 1);
+    		}
+    	} else if (element instanceof com.edlplan.edlosbsupport.elements.StoryboardSprite) {
+    		if ((tmp = textures.get(tmps = ((com.edlplan.edlosbsupport.elements.StoryboardSprite) element).spriteFilename)) == null) {
+    			textures.put(tmps, 1);
+    			continue;
+    		}
+    		textures.put(tmps, tmp + 1);
+    	}
+    }
 			}
 		}
 		return textures;
@@ -92,7 +92,7 @@ public class StoryboardSprite extends SupportSprite {
 		if (Math.abs(this.time - time) > 10) {
 			this.time = time;
 			if (osbPlayer != null) {
-				osbPlayer.update(time);
+    osbPlayer.update(time);
 			}
 		}
 	}
@@ -114,15 +114,15 @@ public class StoryboardSprite extends SupportSprite {
 		canvas.save();
 		float scale = Math.max(640 / canvas.getWidth(), 480 / canvas.getHeight());
 		Vec2 startOffset = new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2)
-				.minus(640 * 0.5f / scale, 480 * 0.5f / scale);
+    .minus(640 * 0.5f / scale, 480 * 0.5f / scale);
 
 		canvas.translate(startOffset.x, startOffset.y).expendAxis(scale);
 
 		if (context.engines != null) {
 			for (LayerRenderEngine engine : context.engines) {
-				if (engine != null && engine.getLayer() == com.edlplan.edlosbsupport.elements.StoryboardSprite.Layer.Overlay) {
-					engine.draw(canvas);
-				}
+    if (engine != null && engine.getLayer() == com.edlplan.edlosbsupport.elements.StoryboardSprite.Layer.Overlay) {
+    	engine.draw(canvas);
+    }
 			}
 		}
 
@@ -140,21 +140,21 @@ public class StoryboardSprite extends SupportSprite {
 
 		if (replaceBackground) {
 			if (backgroundQuad != null) {
-				backgroundQuad.size.set(canvas.getWidth(), canvas.getHeight());
-				TextureQuadBatch.getDefaultBatch().add(backgroundQuad);
-				BatchEngine.flush();
+    backgroundQuad.size.set(canvas.getWidth(), canvas.getHeight());
+    TextureQuadBatch.getDefaultBatch().add(backgroundQuad);
+    BatchEngine.flush();
 			}
 		} else {
 			if (backgroundQuad == null) {
-				backgroundQuad = new TextureQuad();
+    backgroundQuad = new TextureQuad();
 			}
 			backgroundQuad.anchor = Anchor.Center;
 			backgroundQuad.setTextureAndSize(context.texturePool.get(storyboard.backgroundFile));
 			backgroundQuad.position.set(canvas.getWidth() / 2, canvas.getHeight() / 2);
 			backgroundQuad.enableScale().scale.set(
-					Math.min(
-							canvas.getWidth() / backgroundQuad.size.x,
-							canvas.getHeight() / backgroundQuad.size.y));
+    	Math.min(
+    			canvas.getWidth() / backgroundQuad.size.x,
+    			canvas.getHeight() / backgroundQuad.size.y));
 			TextureQuadBatch.getDefaultBatch().add(backgroundQuad);
 		}
 
@@ -162,15 +162,15 @@ public class StoryboardSprite extends SupportSprite {
 		canvas.save();
 		float scale = Math.max(640 / canvas.getWidth(), 480 / canvas.getHeight());
 		Vec2 startOffset = new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2)
-				.minus(640 * 0.5f / scale, 480 * 0.5f / scale);
+    .minus(640 * 0.5f / scale, 480 * 0.5f / scale);
 
 		canvas.translate(startOffset.x, startOffset.y).expendAxis(scale);
 
 		if (context.engines != null) {
 			for (LayerRenderEngine engine : context.engines) {
-				if (engine != null && engine.getLayer() != com.edlplan.edlosbsupport.elements.StoryboardSprite.Layer.Overlay) {
-					engine.draw(canvas);
-				}
+    if (engine != null && engine.getLayer() != com.edlplan.edlosbsupport.elements.StoryboardSprite.Layer.Overlay) {
+    	engine.draw(canvas);
+    }
 			}
 		}
 
@@ -202,14 +202,14 @@ public class StoryboardSprite extends SupportSprite {
 		}
 
 		OsbFileParser parser = new OsbFileParser(
-				file,
-				null);
+    file,
+    null);
 
 		Tracker.createTmpNode("ParseOsb").wrap(() -> {
 			try {
-				parser.parse();
+    parser.parse();
 			} catch (Exception e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 		}).then(System.out::println);
 
@@ -220,9 +220,9 @@ public class StoryboardSprite extends SupportSprite {
 		OsbFileParser parser = new OsbFileParser(new File(osuFile), null);
 		Tracker.createTmpNode("ParseOsu").wrap(() -> {
 			try {
-				parser.parse();
+    parser.parse();
 			} catch (Exception e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 		}).then(System.out::println);
 
@@ -231,13 +231,13 @@ public class StoryboardSprite extends SupportSprite {
 		if (storyboard == null) {
 			boolean empty = true;
 			for (OsuStoryboardLayer layer : osustoryboard.layers) {
-				if (layer != null) {
-					empty = false;
-					break;
-				}
+    if (layer != null) {
+    	empty = false;
+    	break;
+    }
 			}
 			if (empty) {
-				return;
+    return;
 			}
 			storyboard = osustoryboard;
 		} else {
@@ -258,9 +258,9 @@ public class StoryboardSprite extends SupportSprite {
 
 		osbPlayer = new OsbPlayer(s -> {
 			if (s.getClass() == com.edlplan.edlosbsupport.elements.StoryboardSprite.class) {
-				return new EGFStoryboardSprite(context);
+    return new EGFStoryboardSprite(context);
 			} else {
-				return new EGFStoryboardAnimationSprite(context);
+    return new EGFStoryboardAnimationSprite(context);
 			}
 		});
 
@@ -304,29 +304,29 @@ public class StoryboardSprite extends SupportSprite {
 			//Set<String> all = new HashSet<>();// = storyboard.getAllNeededTextures();
 			HashMap<String, Integer> counted = countTextureUsedTimes(storyboard);
 			if ((!replaceBackground) && storyboard.backgroundFile != null) {
-				counted.put(
-						storyboard.backgroundFile,
-						counted.get(storyboard.backgroundFile) == null ?
-								1 : (counted.get(storyboard.backgroundFile) + 1));
+    counted.put(
+    		storyboard.backgroundFile,
+    		counted.get(storyboard.backgroundFile) == null ?
+        1 : (counted.get(storyboard.backgroundFile) + 1));
 			}
 
 			SmartIterator<String> allToPack = SmartIterator.wrap(counted.keySet().iterator())
-					.applyFilter(s -> counted.get(s) >= 15);
+    	.applyFilter(s -> counted.get(s) >= 15);
 			pool.packAll(allToPack, null);
 
 			allToPack = SmartIterator.wrap(counted.keySet().iterator())
-					.applyFilter(s -> counted.get(s) < 15);
+    	.applyFilter(s -> counted.get(s) < 15);
 			while (allToPack.hasNext()) {
-				pool.add(allToPack.next());
+    pool.add(allToPack.next());
 			}
 		}).then(System.out::println);
 
 
 		osbPlayer = new OsbPlayer(s -> {
 			if (s.getClass() == com.edlplan.edlosbsupport.elements.StoryboardSprite.class) {
-				return new EGFStoryboardSprite(context);
+    return new EGFStoryboardSprite(context);
 			} else {
-				return new EGFStoryboardAnimationSprite(context);
+    return new EGFStoryboardAnimationSprite(context);
 			}
 		});
 

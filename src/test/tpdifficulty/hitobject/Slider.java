@@ -15,7 +15,7 @@ public class Slider extends HitObject {
 	private float rawLength;
 
 	public Slider(int startTime, int endTime, PointF pos, TimingPoint timingPoint, SliderType sliderType,
-				  int repeat, ArrayList<PointF> curvePoints, float rawLength) {
+      int repeat, ArrayList<PointF> curvePoints, float rawLength) {
 		super(startTime, endTime, HitObjectType.Slider, pos, timingPoint);
 		this.sliderType = sliderType;
 		this.repeat = repeat;
@@ -54,21 +54,21 @@ public class Slider extends HitObject {
 
 	public String toString() {
 		return "Slider{" +
-				super.toString() +
-				"sliderType=" + sliderType +
-				", repeat=" + repeat +
-				", curvePoints=" + curvePoints +
-				'}';
+    super.toString() +
+    "sliderType=" + sliderType +
+    ", repeat=" + repeat +
+    ", curvePoints=" + curvePoints +
+    '}';
 	}
 
 	public String toString(float sliderTick, float sliderSpeed) {
 		return "Slider{" +
-				super.toString() +
-				"sliderType=" + sliderType +
-				", repeat=" + repeat +
-				", curvePoints=" + curvePoints +
-				", Combo=" + getCombo(sliderTick, sliderSpeed) +
-				'}';
+    super.toString() +
+    "sliderType=" + sliderType +
+    ", repeat=" + repeat +
+    ", curvePoints=" + curvePoints +
+    ", Combo=" + getCombo(sliderTick, sliderSpeed) +
+    '}';
 	}
 
 	@Override

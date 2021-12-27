@@ -81,9 +81,9 @@ public abstract class TextureAtlas<T extends ITextureAtlasSource> extends Textur
 		for(int i = textureSources.size() - 1; i >= 0; i--) {
 			final T textureSource = textureSources.get(i);
 			if(textureSource == pTextureAtlasSource && textureSource.getTexturePositionX() == pTexturePositionX && textureSource.getTexturePositionY() == pTexturePositionY) {
-				textureSources.remove(i);
-				this.mUpdateOnHardwareNeeded = true;
-				return;
+    textureSources.remove(i);
+    this.mUpdateOnHardwareNeeded = true;
+    return;
 			}
 		}
 	}

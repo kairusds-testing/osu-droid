@@ -69,14 +69,14 @@ public class SettingsMenu extends SettingsFragment {
 		skinPath.reloadSkinList();
 		skinPath.setOnPreferenceChangeListener((preference, newValue) -> {
 			if(GlobalManager.getInstance().getSkinNow() != newValue.toString()) {
-				// SpritePool.getInstance().purge();
-				GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
-				SkinManager.getInstance().clearSkin();
-				ResourceManager.getInstance().loadSkin(newValue.toString());
-				GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
-				mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-				Snackbar.make(mActivity.findViewById(android.R.id.content),
-					StringTable.get(R.string.message_loaded_skin), 1500).show();
+    // SpritePool.getInstance().purge();
+    GlobalManager.getInstance().setSkinNow(Config.getSkinPath());
+    SkinManager.getInstance().clearSkin();
+    ResourceManager.getInstance().loadSkin(newValue.toString());
+    GlobalManager.getInstance().getEngine().getTextureManager().reloadTextures();
+    mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+    Snackbar.make(mActivity.findViewById(android.R.id.content),
+    	StringTable.get(R.string.message_loaded_skin), 1500).show();
 			}
 			return true;
 		});
@@ -124,18 +124,18 @@ public class SettingsMenu extends SettingsFragment {
 		final EditTextPreference skinToppref = (EditTextPreference) findPreference("skinTopPath");
 		skinToppref.setOnPreferenceChangeListener((preference, newValue) -> {
 			if (newValue.toString().trim().length() == 0) {
-				skinToppref.setText(Config.getCorePath() + "Skin/");
-				Config.loadConfig(mActivity);
-				skinPath.reloadSkinList();
-				return false;
+    skinToppref.setText(Config.getCorePath() + "Skin/");
+    Config.loadConfig(mActivity);
+    skinPath.reloadSkinList();
+    return false;
 			}
 
 			File file = new File(newValue.toString());
 			if (!file.exists()) {
-				if (!file.mkdirs()) {
-					ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
-					return false;
-				}
+    if (!file.mkdirs()) {
+    	ToastLogger.showText(StringTable.get(R.string.message_error_dir_not_found), true);
+    	return false;
+    }
 			}
 
 			skinToppref.setText(newValue.toString());
@@ -152,7 +152,7 @@ public class SettingsMenu extends SettingsFragment {
 		final Preference clearProps = findPreference("clear_properties");
 		clearProps.setOnPreferenceClickListener(preference -> {
 			PropertiesLibrary.getInstance()
-					.clear(mActivity);
+    	.clear(mActivity);
 			return true;
 		});
 		final Preference register = findPreference("registerAcc");
@@ -172,12 +172,12 @@ public class SettingsMenu extends SettingsFragment {
 	public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
 		if(preferenceScreen.getKey() != null) {
 			if(!isOnNestedScreen) {
-				isOnNestedScreen = true;
-				animateBackButton(R.drawable.back_black);
+    isOnNestedScreen = true;
+    animateBackButton(R.drawable.back_black);
 			}
 			setTitle(preferenceScreen.getTitle().toString());
 			for(int v : new int[]{android.R.id.list_container, R.id.title}) {
-				animateView(v, R.anim.slide_in_right);
+    animateView(v, R.anim.slide_in_right);
 			}
 		}
 	}
@@ -186,8 +186,8 @@ public class SettingsMenu extends SettingsFragment {
 		Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.rotate_360);
 		animation.setAnimationListener(new Animation.AnimationListener() {
 			public void onAnimationEnd(Animation animation) {
-				ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-				backButton.setImageDrawable(mActivity.getResources().getDrawable(newDrawable));
+    ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+    backButton.setImageDrawable(mActivity.getResources().getDrawable(newDrawable));
 			}
 			public void onAnimationRepeat(Animation animation) {}
 			public void onAnimationStart(Animation animation) {}
@@ -244,11 +244,11 @@ public class SettingsMenu extends SettingsFragment {
 		body.setTranslationX(400);
 		body.animate().cancel();
 		body.animate()
-				.translationX(0)
-				.alpha(1)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setDuration(150)
-				.start();
+    .translationX(0)
+    .alpha(1)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setDuration(150)
+    .start();
 		playBackgroundHideInAnim(150);
 	}
 
@@ -256,19 +256,19 @@ public class SettingsMenu extends SettingsFragment {
 		View body = findViewById(R.id.body);
 		body.animate().cancel();
 		body.animate()
-				.translationXBy(400)
-				.alpha(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationXBy(400)
+    .alpha(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 

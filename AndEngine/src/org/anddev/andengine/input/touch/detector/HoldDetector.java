@@ -67,7 +67,7 @@ public class HoldDetector extends BaseDetector implements IUpdateHandler {
 		this.mTimerHandler = new TimerHandler(pTimeBetweenUpdates, true, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
-				HoldDetector.this.fireListener();
+    HoldDetector.this.fireListener();
 			}
 		});
 	}
@@ -119,42 +119,42 @@ public class HoldDetector extends BaseDetector implements IUpdateHandler {
 
 		switch(pSceneTouchEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				this.mDownTimeMilliseconds = motionEvent.getDownTime();
-				this.mDownX = motionEvent.getX();
-				this.mDownY = motionEvent.getY();
-				this.mMaximumDistanceExceeded = false;
-				return true;
+    this.mDownTimeMilliseconds = motionEvent.getDownTime();
+    this.mDownX = motionEvent.getX();
+    this.mDownY = motionEvent.getY();
+    this.mMaximumDistanceExceeded = false;
+    return true;
 			case MotionEvent.ACTION_MOVE:
 			{
-				final long currentTimeMilliseconds = motionEvent.getEventTime();
+    final long currentTimeMilliseconds = motionEvent.getEventTime();
 
-				final float triggerHoldMaximumDistance = this.mTriggerHoldMaximumDistance;
-				this.mMaximumDistanceExceeded = this.mMaximumDistanceExceeded || Math.abs(this.mDownX - motionEvent.getX()) > triggerHoldMaximumDistance  || Math.abs(this.mDownY - motionEvent.getY()) > triggerHoldMaximumDistance;
-				if(this.mTriggerOnHold || !this.mMaximumDistanceExceeded) {
-					final long holdTimeMilliseconds = currentTimeMilliseconds - this.mDownTimeMilliseconds;
-					if(holdTimeMilliseconds >= this.mTriggerHoldMinimumMilliseconds) {
-						this.mTriggerOnHold = true;
-					}
-				}
-				return true;
+    final float triggerHoldMaximumDistance = this.mTriggerHoldMaximumDistance;
+    this.mMaximumDistanceExceeded = this.mMaximumDistanceExceeded || Math.abs(this.mDownX - motionEvent.getX()) > triggerHoldMaximumDistance  || Math.abs(this.mDownY - motionEvent.getY()) > triggerHoldMaximumDistance;
+    if(this.mTriggerOnHold || !this.mMaximumDistanceExceeded) {
+    	final long holdTimeMilliseconds = currentTimeMilliseconds - this.mDownTimeMilliseconds;
+    	if(holdTimeMilliseconds >= this.mTriggerHoldMinimumMilliseconds) {
+    		this.mTriggerOnHold = true;
+    	}
+    }
+    return true;
 			}
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
 			{
-				final long upTimeMilliseconds = motionEvent.getEventTime();
+    final long upTimeMilliseconds = motionEvent.getEventTime();
 
-				final float triggerHoldMaximumDistance = this.mTriggerHoldMaximumDistance;
-				this.mMaximumDistanceExceeded = this.mMaximumDistanceExceeded || Math.abs(this.mDownX - motionEvent.getX()) > triggerHoldMaximumDistance  || Math.abs(this.mDownY - motionEvent.getY()) > triggerHoldMaximumDistance;
-				if(this.mTriggerOnHold || !this.mMaximumDistanceExceeded) {
-					final long holdTimeMilliseconds = upTimeMilliseconds - this.mDownTimeMilliseconds;
-					if(holdTimeMilliseconds >= this.mTriggerHoldMinimumMilliseconds) {
-						this.mTriggerOnHoldFinished = true;
-					}
-				}
-				return true;
+    final float triggerHoldMaximumDistance = this.mTriggerHoldMaximumDistance;
+    this.mMaximumDistanceExceeded = this.mMaximumDistanceExceeded || Math.abs(this.mDownX - motionEvent.getX()) > triggerHoldMaximumDistance  || Math.abs(this.mDownY - motionEvent.getY()) > triggerHoldMaximumDistance;
+    if(this.mTriggerOnHold || !this.mMaximumDistanceExceeded) {
+    	final long holdTimeMilliseconds = upTimeMilliseconds - this.mDownTimeMilliseconds;
+    	if(holdTimeMilliseconds >= this.mTriggerHoldMinimumMilliseconds) {
+    		this.mTriggerOnHoldFinished = true;
+    	}
+    }
+    return true;
 			}
 			default:
-				return false;
+    return false;
 		}
 	}
 

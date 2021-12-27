@@ -53,19 +53,19 @@ public class SplashScene implements IUpdateHandler {
 		if (bgtex != null) {
 			float height = bgtex.getHeight();
 			height *= Config.getRES_WIDTH()
-					/ (float) bgtex.getWidth();
+    	/ (float) bgtex.getWidth();
 			final Sprite menuBg = new Sprite(
-					0,
-					(Config.getRES_HEIGHT() - height) / 2,
-					Config.getRES_WIDTH(),
-					height, bgtex);
+    	0,
+    	(Config.getRES_HEIGHT() - height) / 2,
+    	Config.getRES_WIDTH(),
+    	height, bgtex);
 			scene.setBackground(new SpriteBackground(menuBg));
 		} else {
 			scene.setBackground(new ColorBackground(70 / 255f, 129 / 255f,
-					252 / 255f));
+    	252 / 255f));
 		}
 		logo.registerEntityModifier(new LoopEntityModifier(
-				new RotationByModifier(4.0f, 360)));
+    new RotationByModifier(4.0f, 360)));
 
 		bgRect = new Rectangle(0, 0, Utils.toRes(800), Utils.toRes(50));
 		bgRect.setPosition((Config.getRES_WIDTH() - bgRect.getWidth()) / 2, Config.getRES_HEIGHT() - 90);
@@ -73,7 +73,7 @@ public class SplashScene implements IUpdateHandler {
 		scene.attachChild(bgRect);
 
 		progressRect = new Rectangle(bgRect.getX(), bgRect.getY(), 0,
-				bgRect.getHeight());
+    bgRect.getHeight());
 		progressRect.setColor(0, 0.8f, 0);
 		scene.attachChild(progressRect);
 

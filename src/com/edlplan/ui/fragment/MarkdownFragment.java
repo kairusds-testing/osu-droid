@@ -70,10 +70,10 @@ public class MarkdownFragment extends BaseFragment {
 		body.setTranslationY(500);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
-				.start();
+    .translationY(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
+    .start();
 		playBackgroundHideInAnim(200);
 	}
 
@@ -81,18 +81,18 @@ public class MarkdownFragment extends BaseFragment {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationY(500)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (runnable != null) {
-							runnable.run();
-						}
-					}
-				})
-				.start();
+    .translationY(500)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (runnable != null) {
+    			runnable.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 }

@@ -69,22 +69,22 @@ public class BetaUtils implements Constants {
 			.setMessage(pMessageResourceID);
 
 			alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-				@Override
-				public void onClick(final DialogInterface pDialog, final int pWhich) {
-					if(pOkIntent != null) {
-						pActivity.startActivity(pOkIntent);
-					}
-					pActivity.finish();
-				}
+    @Override
+    public void onClick(final DialogInterface pDialog, final int pWhich) {
+    	if(pOkIntent != null) {
+    		pActivity.startActivity(pOkIntent);
+    	}
+    	pActivity.finish();
+    }
 			});
 			alertDialogBuilder.setNegativeButton(android.R.string.cancel, new OnClickListener() {
-				@Override
-				public void onClick(final DialogInterface pDialog, final int pWhich) {
-					if(pCancelIntent != null) {
-						pActivity.startActivity(pCancelIntent);
-					}
-					pActivity.finish();
-				}
+    @Override
+    public void onClick(final DialogInterface pDialog, final int pWhich) {
+    	if(pCancelIntent != null) {
+    		pActivity.startActivity(pCancelIntent);
+    	}
+    	pActivity.finish();
+    }
 			})
 			.create().show();
 			return true;

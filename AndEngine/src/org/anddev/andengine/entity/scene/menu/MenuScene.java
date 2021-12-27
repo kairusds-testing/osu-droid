@@ -119,24 +119,24 @@ public class MenuScene extends CameraScene implements IOnAreaTouchListener, IOnS
 		switch(pSceneTouchEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
-				if(this.mSelectedMenuItem != null && this.mSelectedMenuItem != menuItem) {
-					this.mSelectedMenuItem.onUnselected();
-				}
-				this.mSelectedMenuItem = menuItem;
-				this.mSelectedMenuItem.onSelected();
-				break;
+    if(this.mSelectedMenuItem != null && this.mSelectedMenuItem != menuItem) {
+    	this.mSelectedMenuItem.onUnselected();
+    }
+    this.mSelectedMenuItem = menuItem;
+    this.mSelectedMenuItem.onSelected();
+    break;
 			case MotionEvent.ACTION_UP:
-				if(this.mOnMenuItemClickListener != null) {
-					final boolean handled = this.mOnMenuItemClickListener.onMenuItemClicked(this, menuItem, pTouchAreaLocalX, pTouchAreaLocalY);
-					menuItem.onUnselected();
-					this.mSelectedMenuItem = null;
-					return handled;
-				}
-				break;
+    if(this.mOnMenuItemClickListener != null) {
+    	final boolean handled = this.mOnMenuItemClickListener.onMenuItemClicked(this, menuItem, pTouchAreaLocalX, pTouchAreaLocalY);
+    	menuItem.onUnselected();
+    	this.mSelectedMenuItem = null;
+    	return handled;
+    }
+    break;
 			case MotionEvent.ACTION_CANCEL:
-				menuItem.onUnselected();
-				this.mSelectedMenuItem = null;
-				break;
+    menuItem.onUnselected();
+    this.mSelectedMenuItem = null;
+    break;
 		}
 		return true;
 	}

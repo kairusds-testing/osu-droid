@@ -116,32 +116,32 @@ public class ColorPickerDialog
 
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-					String s = mHexVal.getText().toString();
-					if (s.length() > 5 || s.length() < 10) {
-						try {
-							int c = ColorPickerPreference.convertToColorInt(s.toString());
-							mColorPicker.setColor(c, true);
-							mHexVal.setTextColor(mHexDefaultTextColor);
-						} catch (IllegalArgumentException e) {
-							mHexVal.setTextColor(Color.RED);
-						}
-					} else {
-						mHexVal.setTextColor(Color.RED);
-					}
-					return true;
-				}
-				return false;
+    if (actionId == EditorInfo.IME_ACTION_DONE) {
+    	InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    	String s = mHexVal.getText().toString();
+    	if (s.length() > 5 || s.length() < 10) {
+    		try {
+    			int c = ColorPickerPreference.convertToColorInt(s.toString());
+    			mColorPicker.setColor(c, true);
+    			mHexVal.setTextColor(mHexDefaultTextColor);
+    		} catch (IllegalArgumentException e) {
+    			mHexVal.setTextColor(Color.RED);
+    		}
+    	} else {
+    		mHexVal.setTextColor(Color.RED);
+    	}
+    	return true;
+    }
+    return false;
 			}
 		});
 
 		((LinearLayout) mOldColor.getParent()).setPadding(
-				Math.round(mColorPicker.getDrawingOffset()),
-				0,
-				Math.round(mColorPicker.getDrawingOffset()),
-				0
+    Math.round(mColorPicker.getDrawingOffset()),
+    0,
+    Math.round(mColorPicker.getDrawingOffset()),
+    0
 		);
 
 		mOldColor.setOnClickListener(this);
@@ -228,7 +228,7 @@ public class ColorPickerDialog
 	public void onClick(View v) {
 		if (v.getId() == R.id.new_color_panel) {
 			if (mListener != null) {
-				mListener.onColorChanged(mNewColor.getColor());
+    mListener.onColorChanged(mNewColor.getColor());
 			}
 		}
 		dismiss();

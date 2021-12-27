@@ -151,15 +151,15 @@ public class ParticleSystem extends Entity {
 
 			/* Apply all particleModifiers */
 			for(int j = particleModifierCountMinusOne; j >= 0; j--) {
-				particleModifiers.get(j).onUpdateParticle(particle);
+    particleModifiers.get(j).onUpdateParticle(particle);
 			}
 
 			particle.onUpdate(pSecondsElapsed);
 			if(particle.mDead){
-				this.mParticlesAlive--;
-				final int particlesAlive = this.mParticlesAlive;
-				particles[i] = particles[particlesAlive];
-				particles[particlesAlive] = particle;
+    this.mParticlesAlive--;
+    final int particlesAlive = this.mParticlesAlive;
+    particles[i] = particles[particlesAlive];
+    particles[particlesAlive] = particle;
 			}
 		}
 	}
@@ -216,31 +216,31 @@ public class ParticleSystem extends Entity {
 			final float y = this.POSITION_OFFSET[VERTEX_INDEX_Y];
 
 			if(particle != null) {
-				particle.reset();
-				particle.setPosition(x, y);
+    particle.reset();
+    particle.setPosition(x, y);
 			} else {
-				if(particlesAlive == 0) {
-					/* This is the very first particle. */
-					particle = new Particle(x, y, this.mTextureRegion);
-					this.mSharedParticleVertexBuffer = particle.getVertexBuffer();
-				} else {
-					particle = new Particle(x, y, this.mTextureRegion, this.mSharedParticleVertexBuffer);
-				}
-				particles[particlesAlive] = particle;
+    if(particlesAlive == 0) {
+    	/* This is the very first particle. */
+    	particle = new Particle(x, y, this.mTextureRegion);
+    	this.mSharedParticleVertexBuffer = particle.getVertexBuffer();
+    } else {
+    	particle = new Particle(x, y, this.mTextureRegion, this.mSharedParticleVertexBuffer);
+    }
+    particles[particlesAlive] = particle;
 			}
 			particle.setBlendFunction(this.mSourceBlendFunction, this.mDestinationBlendFunction);
 
 			/* Apply particle initializers. */
 			{
-				final ArrayList<IParticleInitializer> particleInitializers = this.mParticleInitializers;
-				for(int i = this.mParticleInitializerCount - 1; i >= 0; i--) {
-					particleInitializers.get(i).onInitializeParticle(particle);
-				}
+    final ArrayList<IParticleInitializer> particleInitializers = this.mParticleInitializers;
+    for(int i = this.mParticleInitializerCount - 1; i >= 0; i--) {
+    	particleInitializers.get(i).onInitializeParticle(particle);
+    }
 
-				final ArrayList<IParticleModifier> particleModifiers = this.mParticleModifiers;
-				for(int i = this.mParticleModifierCount - 1; i >= 0; i--) {
-					particleModifiers.get(i).onInitializeParticle(particle);
-				}
+    final ArrayList<IParticleModifier> particleModifiers = this.mParticleModifiers;
+    for(int i = this.mParticleModifierCount - 1; i >= 0; i--) {
+    	particleModifiers.get(i).onInitializeParticle(particle);
+    }
 			}
 
 			this.mParticlesAlive++;

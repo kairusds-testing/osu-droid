@@ -16,12 +16,12 @@ public class SongProgressBar extends GameObject {
 	private float passedTime;
 
 	public SongProgressBar(final GameObjectListener listener,
-						   final Scene scene, final float time, final float startTime, final PointF pos) {
+    		   final Scene scene, final float time, final float startTime, final PointF pos) {
 		this(listener, scene, time, startTime, pos, Utils.toRes(300), Utils.toRes(7));
 	}
 
 	public SongProgressBar(final GameObjectListener listener,
-						   final Scene scene, final float time, final float startTime, final PointF pos, float width, float height) {
+    		   final Scene scene, final float time, final float startTime, final PointF pos, float width, float height) {
 		this.time = time;
 		this.startTime = startTime;
 		if (listener != null)
@@ -32,7 +32,7 @@ public class SongProgressBar extends GameObject {
 		scene.attachChild(bgRect);
 
 		progressRect = new Rectangle(bgRect.getX(), bgRect.getY(), 0,
-				bgRect.getHeight());
+    bgRect.getHeight());
 		progressRect.setColor(153f / 255f, 204f / 255f, 51f / 255f);
 		scene.attachChild(progressRect);
 	}
@@ -43,12 +43,12 @@ public class SongProgressBar extends GameObject {
 		if (passedTime >= startTime) {
 			passedTime = Math.min(time, passedTime + dt);
 			progressRect.setWidth(bgRect.getWidth() * (passedTime - startTime)
-					/ (time - startTime));
+    	/ (time - startTime));
 		} else {
 			passedTime = Math.min(startTime, passedTime + dt);
 			progressRect.setWidth(bgRect.getWidth() * passedTime / startTime);
 			if (passedTime >= startTime) {
-				progressRect.setColor(1, 1, 150f / 255f);
+    progressRect.setColor(1, 1, 150f / 255f);
 			}
 		}
 	}

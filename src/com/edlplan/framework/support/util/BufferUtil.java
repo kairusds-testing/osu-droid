@@ -32,7 +32,7 @@ public class BufferUtil {
 
 		public FloatBuffer load(float[] ary) {
 			if (buffer == null || buffer.capacity() < ary.length) {
-				buffer = createFloatBuffer(ary.length * 3 / 2 + 20);
+    buffer = createFloatBuffer(ary.length * 3 / 2 + 20);
 			}
 			buffer.position(0).limit(ary.length);
 			buffer.put(ary);
@@ -52,7 +52,7 @@ public class BufferUtil {
 
 		public ShortBuffer load(short[] ary) {
 			if (buffer == null || buffer.capacity() < ary.length) {
-				buffer = createShortBuffer(ary.length * 3 / 2 + 20);
+    buffer = createShortBuffer(ary.length * 3 / 2 + 20);
 			}
 			buffer.position(0).limit(ary.length);
 			buffer.put(ary);

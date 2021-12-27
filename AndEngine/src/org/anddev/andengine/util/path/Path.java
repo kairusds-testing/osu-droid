@@ -93,7 +93,7 @@ public class Path {
 		for(int i = steps.size() - 1; i >= 0; i--) {
 			final Step step = steps.get(i);
 			if(step.getTileColumn() == pTileColumn && step.getTileRow() == pTileRow) {
-				return true;
+    return true;
 			}
 		}
 		return false;
@@ -164,20 +164,20 @@ public class Path {
 		@Override
 		public boolean equals(final Object pOther) {
 			if(this == pOther) {
-				return true;
+    return true;
 			}
 			if(pOther == null) {
-				return false;
+    return false;
 			}
 			if(this.getClass() != pOther.getClass()) {
-				return false;
+    return false;
 			}
 			final Step other = (Step) pOther;
 			if(this.mTileColumn != other.mTileColumn) {
-				return false;
+    return false;
 			}
 			if(this.mTileRow != other.mTileRow) {
-				return false;
+    return false;
 			}
 			return true;
 		}

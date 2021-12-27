@@ -32,8 +32,8 @@ public class ConfirmDialogFragment extends BaseFragment {
 	protected void onLoadView() {
 		findViewById(R.id.okButton).setOnClickListener(v -> {
 			if (onResult != null) {
-				onResult.onAccept(true);
-				dismiss();
+    onResult.onAccept(true);
+    dismiss();
 			}
 		});
 		if (text != 0) {
@@ -65,10 +65,10 @@ public class ConfirmDialogFragment extends BaseFragment {
 		body.setTranslationY(100);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.start();
+    .translationY(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .start();
 		playBackgroundHideInAnim(200);
 	}
 
@@ -76,18 +76,18 @@ public class ConfirmDialogFragment extends BaseFragment {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationY(100)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (runnable != null) {
-							runnable.run();
-						}
-					}
-				})
-				.start();
+    .translationY(100)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (runnable != null) {
+    			runnable.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 

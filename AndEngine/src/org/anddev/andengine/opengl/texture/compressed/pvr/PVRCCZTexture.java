@@ -119,7 +119,7 @@ public abstract class PVRCCZTexture extends PVRTexture {
 
 			/* Check magic bytes. */
 			if(!ArrayUtils.equals(pData, 0, CCZHeader.MAGIC_IDENTIFIER, 0, CCZHeader.MAGIC_IDENTIFIER.length)) {
-				throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
+    throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
 			}
 
 			// TODO Check the version?
@@ -194,14 +194,14 @@ public abstract class PVRCCZTexture extends PVRTexture {
 
 		public InputStream wrap(final InputStream pInputStream) throws IOException {
 			switch(this) {
-				case GZIP:
-					return new GZIPInputStream(pInputStream);
-				case ZLIB:
-					return new InflaterInputStream(pInputStream, new Inflater());
-				case NONE:
-				case BZIP2:
-				default:
-					throw new IllegalArgumentException("Unexpected " + CCZCompressionFormat.class.getSimpleName() + ": '" + this + "'.");
+    case GZIP:
+    	return new GZIPInputStream(pInputStream);
+    case ZLIB:
+    	return new InflaterInputStream(pInputStream, new Inflater());
+    case NONE:
+    case BZIP2:
+    default:
+    	throw new IllegalArgumentException("Unexpected " + CCZCompressionFormat.class.getSimpleName() + ": '" + this + "'.");
 			}
 		}
 
@@ -209,10 +209,10 @@ public abstract class PVRCCZTexture extends PVRTexture {
 			final CCZCompressionFormat[] cczCompressionFormats = CCZCompressionFormat.values();
 			final int cczCompressionFormatCount = cczCompressionFormats.length;
 			for(int i = 0; i < cczCompressionFormatCount; i++) {
-				final CCZCompressionFormat cczCompressionFormat = cczCompressionFormats[i];
-				if(cczCompressionFormat.mID == pID) {
-					return cczCompressionFormat;
-				}
+    final CCZCompressionFormat cczCompressionFormat = cczCompressionFormats[i];
+    if(cczCompressionFormat.mID == pID) {
+    	return cczCompressionFormat;
+    }
 			}
 			throw new IllegalArgumentException("Unexpected " + CCZCompressionFormat.class.getSimpleName() + "-ID: '" + pID + "'.");
 		}

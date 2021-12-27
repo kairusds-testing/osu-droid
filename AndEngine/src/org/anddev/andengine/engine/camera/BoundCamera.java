@@ -110,21 +110,21 @@ public class BoundCamera extends Camera {
 			final boolean maxXBoundExceeded = maxXBoundExceededAmount > 0;
 
 			if(minXBoundExceeded) {
-				if(maxXBoundExceeded) {
-					/* Min and max X exceeded. */
-					return currentCenterX - maxXBoundExceededAmount + minXBoundExceededAmount;
-				} else {
-					/* Only min X exceeded. */
-					return currentCenterX + minXBoundExceededAmount;
-				}
+    if(maxXBoundExceeded) {
+    	/* Min and max X exceeded. */
+    	return currentCenterX - maxXBoundExceededAmount + minXBoundExceededAmount;
+    } else {
+    	/* Only min X exceeded. */
+    	return currentCenterX + minXBoundExceededAmount;
+    }
 			} else {
-				if(maxXBoundExceeded) {
-					/* Only max X exceeded. */
-					return currentCenterX - maxXBoundExceededAmount;
-				} else {
-					/* Nothing exceeded. */
-					return currentCenterX;
-				}
+    if(maxXBoundExceeded) {
+    	/* Only max X exceeded. */
+    	return currentCenterX - maxXBoundExceededAmount;
+    } else {
+    	/* Nothing exceeded. */
+    	return currentCenterX;
+    }
 			}
 		}
 	}
@@ -142,21 +142,21 @@ public class BoundCamera extends Camera {
 			final boolean maxYBoundExceeded = maxYBoundExceededAmount > 0;
 
 			if(minYBoundExceeded) {
-				if(maxYBoundExceeded) {
-					/* Min and max Y exceeded. */
-					return currentCenterY - maxYBoundExceededAmount + minYBoundExceededAmount;
-				} else {
-					/* Only min Y exceeded. */
-					return currentCenterY + minYBoundExceededAmount;
-				}
+    if(maxYBoundExceeded) {
+    	/* Min and max Y exceeded. */
+    	return currentCenterY - maxYBoundExceededAmount + minYBoundExceededAmount;
+    } else {
+    	/* Only min Y exceeded. */
+    	return currentCenterY + minYBoundExceededAmount;
+    }
 			} else {
-				if(maxYBoundExceeded) {
-					/* Only max Y exceeded. */
-					return currentCenterY - maxYBoundExceededAmount;
-				} else {
-					/* Nothing exceeded. */
-					return currentCenterY;
-				}
+    if(maxYBoundExceeded) {
+    	/* Only max Y exceeded. */
+    	return currentCenterY - maxYBoundExceededAmount;
+    } else {
+    	/* Nothing exceeded. */
+    	return currentCenterY;
+    }
 			}
 		}
 	}

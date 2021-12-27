@@ -20,8 +20,8 @@ public class TaikoBeatmap extends Beatmap {
 	private List<TaikoObject> hitObjects;
 
 	public TaikoBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-						BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
-						List<TaikoObject> hitObjects) {
+    		BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
+    		List<TaikoObject> hitObjects) {
 		super(generals, editorState, metadata, difficulties, breaks, timingPoints);
 		this.hitObjects = hitObjects;
 		finalizeObjects(hitObjects);

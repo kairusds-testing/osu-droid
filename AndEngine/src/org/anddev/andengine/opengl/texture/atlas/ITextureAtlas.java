@@ -60,17 +60,17 @@ public interface ITextureAtlas<T extends ITextureAtlasSource> extends ITexture {
 		public static class DebugTextureAtlasStateListener<T extends ITextureAtlasSource> implements ITextureAtlasStateListener<T> {
 			@Override
 			public void onLoadedToHardware(final ITexture pTexture) {
-				Debug.d("Texture loaded: " + pTexture.toString());
+    Debug.d("Texture loaded: " + pTexture.toString());
 			}
 
 			@Override
 			public void onTextureAtlasSourceLoadExeption(final ITextureAtlas<T> pTextureAtlas, final T pTextureAtlasSource, final Throwable pThrowable) {
-				Debug.e("Exception loading TextureAtlasSource. TextureAtlas: " + pTextureAtlas.toString() + " TextureAtlasSource: " + pTextureAtlasSource.toString(), pThrowable);
+    Debug.e("Exception loading TextureAtlasSource. TextureAtlas: " + pTextureAtlas.toString() + " TextureAtlasSource: " + pTextureAtlasSource.toString(), pThrowable);
 			}
 
 			@Override
 			public void onUnloadedFromHardware(final ITexture pTexture) {
-				Debug.d("Texture unloaded: " + pTexture.toString());
+    Debug.d("Texture unloaded: " + pTexture.toString());
 			}
 		}
 	}

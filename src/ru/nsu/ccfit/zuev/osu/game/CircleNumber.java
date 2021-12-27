@@ -23,13 +23,13 @@ public class CircleNumber extends GameObject {
 		digits = new Sprite[snum.length()];
 		for (int i = 0; i < snum.length(); i++) {
 			final TextureRegion tex = ResourceManager.getInstance().getTexture(
-					"default-" + snum.charAt(i));
+    	"default-" + snum.charAt(i));
 			digits[i] = new Sprite(0, 0, tex);
 		}
 	}
 
 	public void init(final Scene scene, final PointF pos, float scale,
-					 final IEntityModifier... entityModifiers) {
+    	 final IEntityModifier... entityModifiers) {
 		scale *= SkinJson.get().getComboTextScale();
 		final String snum = String.valueOf(Math.abs(num));
 
@@ -39,11 +39,11 @@ public class CircleNumber extends GameObject {
 			final TextureRegion tex = digits[i].getTextureRegion();
 			hitpos.set(twidth + pos.x, pos.y - tex.getHeight() / 2);
 			twidth += (snum.charAt(i) == '1' && snum.length() > 1) ? scale
-					* tex.getWidth() / 1.5f : scale * tex.getWidth();
+    	* tex.getWidth() / 1.5f : scale * tex.getWidth();
 			digits[i].setPosition(hitpos.x, hitpos.y);
 
 			digits[i].registerEntityModifier(new ParallelEntityModifier(
-					entityModifiers));
+    	entityModifiers));
 			digits[i].setScale(scale);
 			scene.attachChild(digits[i], 0);
 		}
@@ -64,17 +64,17 @@ public class CircleNumber extends GameObject {
 			SyncTaskManager.getInstance().run(new Runnable() {
 
 
-				public void run() {
-					for (final Sprite sp : digits) {
-						sp.clearEntityModifiers();
-						sp.detachSelf();
-					}
-				}
+    public void run() {
+    	for (final Sprite sp : digits) {
+    		sp.clearEntityModifiers();
+    		sp.detachSelf();
+    	}
+    }
 			});
 		} else {
 			for (final Sprite sp : digits) {
-				sp.clearEntityModifiers();
-				sp.detachSelf();
+    sp.clearEntityModifiers();
+    sp.detachSelf();
 			}
 		} // if (sync)
 	}

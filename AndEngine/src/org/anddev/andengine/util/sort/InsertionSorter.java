@@ -38,11 +38,11 @@ public class InsertionSorter<T> extends Sorter<T> {
 			final T current = pArray[i];
 			T prev = pArray[i - 1];
 			if(pComparator.compare(current, prev) < 0) {
-				int j = i;
-				do {
-					pArray[j--] = prev;
-				} while(j > pStart && pComparator.compare(current, prev = pArray[j - 1]) < 0);
-				pArray[j] = current;
+    int j = i;
+    do {
+    	pArray[j--] = prev;
+    } while(j > pStart && pComparator.compare(current, prev = pArray[j - 1]) < 0);
+    pArray[j] = current;
 			}
 		}
 		return;
@@ -54,11 +54,11 @@ public class InsertionSorter<T> extends Sorter<T> {
 			final T current = pList.get(i);
 			T prev = pList.get(i - 1);
 			if(pComparator.compare(current, prev) < 0) {
-				int j = i;
-				do {
-					pList.set(j--, prev);
-				} while(j > pStart && pComparator.compare(current, prev = pList.get(j - 1)) < 0);
-				pList.set(j, current);
+    int j = i;
+    do {
+    	pList.set(j--, prev);
+    } while(j > pStart && pComparator.compare(current, prev = pList.get(j - 1)) < 0);
+    pList.set(j, current);
 			}
 		}
 		return;

@@ -208,47 +208,47 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		bgSprite = null;
 		if (storyboardSprite != null) {
 			if (storyboardSprite.isStoryboardAvailable()) {
-				storyboardSprite.setBrightness(Config.getBackgroundBrightness());
-				return;
+    storyboardSprite.setBrightness(Config.getBackgroundBrightness());
+    return;
 			}
 		}
 		for (final String s : beatmapData.getData("Events")) {
 			final String[] pars = s.split("\\s*,\\s*");
 			if (pars.length >= 3 && pars[0].equals("0") && pars[1].equals("0")) {
-				// String filename = pars[2].substring(1, pars[2].length() - 1);
+    // String filename = pars[2].substring(1, pars[2].length() - 1);
 
-				if (Config.getBackgroundQuality() == 0) {
-					scene.setBackground(new ColorBackground(0, 0, 0));
-					continue;
-				}
+    if (Config.getBackgroundQuality() == 0) {
+    	scene.setBackground(new ColorBackground(0, 0, 0));
+    	continue;
+    }
 
-				bgset = true;
-				final TextureRegion tex = Config.isSafeBeatmapBg() ?
-					ResourceManager.getInstance().getTexture("menu-background") :
-					ResourceManager.getInstance().getTextureIfLoaded("::background");
-				if (tex == null) {
-					continue;
-				}
-				float brightness = Config.getBackgroundBrightness();
-				float height = tex.getHeight() * Config.getBackgroundQuality();
-				height *= Config.getRES_WIDTH()
-						/ (float) (tex.getWidth() * Config
-						.getBackgroundQuality());
-				bgSprite = new Sprite(0,
-						(Config.getRES_HEIGHT() - height) / 2,
-						Config.getRES_WIDTH(), height, tex);
-				bgSprite.setColor(brightness, brightness, brightness);
-				scene.setBackground(new SpriteBackground(bgSprite));
+    bgset = true;
+    final TextureRegion tex = Config.isSafeBeatmapBg() ?
+    	ResourceManager.getInstance().getTexture("menu-background") :
+    	ResourceManager.getInstance().getTextureIfLoaded("::background");
+    if (tex == null) {
+    	continue;
+    }
+    float brightness = Config.getBackgroundBrightness();
+    float height = tex.getHeight() * Config.getBackgroundQuality();
+    height *= Config.getRES_WIDTH()
+    		/ (float) (tex.getWidth() * Config
+    		.getBackgroundQuality());
+    bgSprite = new Sprite(0,
+    		(Config.getRES_HEIGHT() - height) / 2,
+    		Config.getRES_WIDTH(), height, tex);
+    bgSprite.setColor(brightness, brightness, brightness);
+    scene.setBackground(new SpriteBackground(bgSprite));
 			} else if (pars.length >= 3 && pars[0].equals("2")) {
 
 			} else if (bgset == false && pars.length == 5
-					&& pars[0].equals("3") && pars[1].equals("100")) {
-				bgset = true;
-				final float bright = Config.getBackgroundBrightness();
-				scene.setBackground(new ColorBackground(
-						Integer.parseInt(pars[2]) * bright / 255f,
-						Integer.parseInt(pars[3]) * bright / 255f,
-						Integer.parseInt(pars[4]) * bright / 255f));
+    	&& pars[0].equals("3") && pars[1].equals("100")) {
+    bgset = true;
+    final float bright = Config.getBackgroundBrightness();
+    scene.setBackground(new ColorBackground(
+    		Integer.parseInt(pars[2]) * bright / 255f,
+    		Integer.parseInt(pars[3]) * bright / 255f,
+    		Integer.parseInt(pars[4]) * bright / 255f));
 			}
 		}
 	}
@@ -257,11 +257,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		InGameSettingMenu.getInstance().dismiss();
 		if (rFile != null && rFile.startsWith("https://")) {
 			this.replayFile = Config.getCachePath() + "/" +
-					MD5Calcuator.getStringMD5(rFile) + ".odr";
+    	MD5Calcuator.getStringMD5(rFile) + ".odr";
 			Debug.i("ReplayFile = " + replayFile);
 			if (!OnlineFileOperator.downloadFile(rFile, this.replayFile)) {
-				ToastLogger.showTextId(R.string.replay_cantdownload, true);
-				return false;
+    ToastLogger.showTextId(R.string.replay_cantdownload, true);
+    return false;
 			}
 		} else
 			this.replayFile = rFile;
@@ -272,8 +272,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		} else {
 			Debug.e("startGame: cannot open file");
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error_open,
-							track.getFilename()), true);
+    	StringTable.format(R.string.message_error_open,
+    			track.getFilename()), true);
 			return false;
 		}
 		parser = null;
@@ -294,10 +294,10 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		if (beatmapData.getData("General", "Mode").equals("0") == false) {
 			if (beatmapData.getData("General", "Mode").equals("") == false) {
-				ToastLogger.showText(StringTable.format(
-						R.string.message_error_mapmode,
-						beatmapData.getData("General", "Mode")), true);
-				return false;
+    ToastLogger.showText(StringTable.format(
+    		R.string.message_error_mapmode,
+    		beatmapData.getData("General", "Mode")), true);
+    return false;
 			}
 		}
 
@@ -307,9 +307,9 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			if ((pars.length >= 3) && pars[0].equals("0") && pars[1].equals("0")) {
 
 			} else if (pars.length >= 3 && pars[0].equals("2")) {
-				breakPeriods.add(new BreakPeriod(
-						Float.parseFloat(pars[1]) / 1000f, Float
-						.parseFloat(pars[2]) / 1000f));
+    breakPeriods.add(new BreakPeriod(
+    		Float.parseFloat(pars[1]) / 1000f, Float
+    		.parseFloat(pars[2]) / 1000f));
 			}
 		}
 
@@ -317,22 +317,22 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		String beatmapName = track.getFilename();
 		beatmapName = beatmapName.substring(0, beatmapName.lastIndexOf('/'));
 		final BeatmapProperties props = PropertiesLibrary.getInstance()
-				.getProperties(beatmapName);
+    .getProperties(beatmapName);
 		if (props != null) {
 			totalOffset += props.getOffset();
 		}
 
 		try {
 			final File musicFile = new File(beatmapData.getFolder(),
-					beatmapData.getData("General", "AudioFilename"));
+    	beatmapData.getData("General", "AudioFilename"));
 
 			if (musicFile.exists() == false) {
-				throw new FileNotFoundException(musicFile.getPath());
+    throw new FileNotFoundException(musicFile.getPath());
 			}
 
 			/*
 			if (musicFile.getName().endsWith(".ogg")) {
-				totalOffset += Config.getOggOffset();
+    totalOffset += Config.getOggOffset();
 			} */
 
 			//music = new BassAudioPlayer(musicFile.getPath());
@@ -354,16 +354,16 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		//TextureRegion appcircleTex = ResourceManager.getInstance().getTexture("approachcircle");
 
 		scale = (float) ((Config.getRES_HEIGHT() / 480.0f)
-				* (54.42 - Float.parseFloat(beatmapData.getData("Difficulty", "CircleSize")) * 4.48)
-				* 2 / GameObjectSize.BASE_OBJECT_SIZE)
-				+ 0.5f * Config.getScaleMultiplier();
+    * (54.42 - Float.parseFloat(beatmapData.getData("Difficulty", "CircleSize")) * 4.48)
+    * 2 / GameObjectSize.BASE_OBJECT_SIZE)
+    + 0.5f * Config.getScaleMultiplier();
 
 /*		scale = (10 - Float.parseFloat(beatmapData.getData("Difficulty",
-				"CircleSize")))
-				* 0.125f
-				+ 0.625f
-				+ 0.125f
-				* Config.getScaleMultiplier();*/
+    "CircleSize")))
+    * 0.125f
+    + 0.625f
+    + 0.125f
+    * Config.getScaleMultiplier();*/
 
 		String rawRate = beatmapData.getData("Difficulty", "ApproachRate");
 		if (rawRate.equals("")) {
@@ -372,12 +372,12 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		float rawApproachRate = Float.parseFloat(rawRate);
 		approachRate = (float) GameHelper.ar2ms(rawApproachRate) / 1000f;
 		final String rawSliderSpeed = beatmapData.getData("Difficulty",
-				"SliderMultiplier");
+    "SliderMultiplier");
 
 		overallDifficulty = Float.parseFloat(beatmapData.getData("Difficulty",
-				"OverallDifficulty"));
+    "OverallDifficulty"));
 		drain = Float.parseFloat(beatmapData.getData("Difficulty",
-				"HPDrainRate"));
+    "HPDrainRate"));
 		rawDifficulty = overallDifficulty;
 		rawDrain = drain;
 
@@ -455,8 +455,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			overallDifficulty *= 0.5f;
 			float ar = (float)GameHelper.ms2ar(approachRate * 1000f);
 			if (ModMenu.getInstance().getMod().contains(GameMod.MOD_EASY)) {
-				ar *= 2;
-				ar -= 0.5f;
+    ar *= 2;
+    ar -= 0.5f;
 			}
 			ar -= (timeMultiplier - 1.0f) + 0.5f;
 			approachRate = (float)(GameHelper.ar2ms(ar) / 1000f);
@@ -476,7 +476,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		GameHelper.setAuto(ModMenu.getInstance().getMod().contains(GameMod.MOD_AUTO));
 
 		final String stackLatiency = beatmapData.getData("General",
-				"StackLeniency");
+    "StackLeniency");
 		if (stackLatiency.equals("") == false) {
 			GameHelper.setStackLatient(Float.parseFloat(stackLatiency));
 		} else {
@@ -487,7 +487,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		}
 		GameHelper.setSpeed(Float.parseFloat(rawSliderSpeed) * 100);
 		GameHelper.setTickRate(Float.parseFloat(beatmapData.getData(
-				"Difficulty", "SliderTickRate")));
+    "Difficulty", "SliderTickRate")));
 		GameHelper.setScale(scale);
 		GameHelper.setDifficulty(overallDifficulty);
 		GameHelper.setDrain(drain);
@@ -510,13 +510,13 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		GameHelper.setSliderColor(SkinManager.getInstance().getSliderColor());
 		final String slidercolor = beatmapData.getData("Colours",
-				"SliderBorder");
+    "SliderBorder");
 		if (slidercolor.equals("") == false) {
 			final String[] sliderColors = slidercolor.split("[,]");
 			GameHelper.setSliderColor(new RGBColor(Integer
-					.parseInt(sliderColors[0]) / 255.0f, Integer
-					.parseInt(sliderColors[1]) / 255.0f, Integer
-					.parseInt(sliderColors[2]) / 255.0f));
+    	.parseInt(sliderColors[0]) / 255.0f, Integer
+    	.parseInt(sliderColors[1]) / 255.0f, Integer
+    	.parseInt(sliderColors[2]) / 255.0f));
 		}
 
 		if (SkinJson.get().isForceOverrideSliderBorderColor()) {
@@ -529,8 +529,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		while (ccolor.equals("") == false) {
 			final String[] colors = ccolor.replace(" ", "").split("[,]");
 			combos.add(new RGBColor(Integer.parseInt(colors[0]) / 255.0f,
-					Integer.parseInt(colors[1]) / 255.0f, Integer
-					.parseInt(colors[2]) / 255.0f));
+    	Integer.parseInt(colors[1]) / 255.0f, Integer
+    	.parseInt(colors[2]) / 255.0f));
 
 			ccolor = beatmapData.getData("Colours", "Combo" + comboNum++);
 		}
@@ -561,10 +561,10 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		currentTimingPoint = null;
 		for (final String s : beatmapData.getData("TimingPoints")) {
 			final TimingPoint tp = new TimingPoint(s.split("[,]"),
-					currentTimingPoint);
+    	currentTimingPoint);
 			timingPoints.add(tp);
 			if (tp.wasInderited() == false || currentTimingPoint == null) {
-				currentTimingPoint = tp;
+    currentTimingPoint = tp;
 			}
 		}
 		GameHelper.controlPoints = new ControlPoints();
@@ -603,10 +603,10 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (replayFile != null) {
 			replaying = replay.load(replayFile);
 			if (!replaying) {
-				ToastLogger.showTextId(R.string.replay_invalid, true);
-				return false;
+    ToastLogger.showTextId(R.string.replay_invalid, true);
+    return false;
 			} else
-				replay.countMarks(overallDifficulty);
+    replay.countMarks(overallDifficulty);
 		//} else if (!OnlineManager.getInstance().isStayOnline()) {
 		//	replay = null;
 		} else if (ModMenu.getInstance().getMod().contains(GameMod.MOD_AUTO)) {
@@ -614,8 +614,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		}
 		/*
 		else if (ModMenu.getInstance().getMod().contains(GameMod.MOD_AUTO) ||
-				ModMenu.getInstance().getMod().contains(GameMod.MOD_RELAX) ||
-				ModMenu.getInstance().getMod().contains(GameMod.MOD_AUTOPILOT)) {
+    ModMenu.getInstance().getMod().contains(GameMod.MOD_RELAX) ||
+    ModMenu.getInstance().getMod().contains(GameMod.MOD_AUTOPILOT)) {
 			replay = null;
 		}
 		 */
@@ -672,10 +672,10 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		scene = new Scene();
 		if (Config.isEnableStoryboard()) {
 			if (storyboardSprite == null) {
-				storyboardSprite = new StoryboardSprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
-				storyboardOverlayProxy = new ProxySprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
-				storyboardSprite.setOverlayDrawProxy(storyboardOverlayProxy);
-				scene.attachChild(storyboardSprite);
+    storyboardSprite = new StoryboardSprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
+    storyboardOverlayProxy = new ProxySprite(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
+    storyboardSprite.setOverlayDrawProxy(storyboardOverlayProxy);
+    scene.attachChild(storyboardSprite);
 			}
 			storyboardSprite.detachSelf();
 			scene.attachChild(storyboardSprite);
@@ -705,20 +705,20 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		new AsyncTaskLoader().execute(new OsuAsyncCallback() {
 
 			public void run() {
-				loadComplete = loadGame(track != null ? track : lastTrack, rfile);
+    loadComplete = loadGame(track != null ? track : lastTrack, rfile);
 			}
 
 			public void onComplete() {
-				if (loadComplete == true) {
-					prepareScene();
-				} else {
-					ModMenu.getInstance().setMod(Replay.oldMod);
-					ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
-					ModMenu.getInstance().setForceAR(Replay.oldForceAR);
-					ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
-					ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
-					quit();
-				}
+    if (loadComplete == true) {
+    	prepareScene();
+    } else {
+    	ModMenu.getInstance().setMod(Replay.oldMod);
+    	ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
+    	ModMenu.getInstance().setForceAR(Replay.oldForceAR);
+    	ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
+    	ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
+    	quit();
+    }
 			}
 		});
 		ResourceManager.getInstance().getSound("failsound").stop();
@@ -731,18 +731,18 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			SmoothCamera camera = (SmoothCamera) (GlobalManager.getInstance().getCamera());
 			camera.setZoomFactorDirect(Config.getPlayfieldSize());
 			if (Config.isShrinkPlayfieldDownwards()) {
-				camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2 * Config.getPlayfieldSize());
+    camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2 * Config.getPlayfieldSize());
 			}
 		}
 		setBackground();
 
 		if (Config.isShowFPS()) {
 			final Font font = ResourceManager.getInstance().getFont(
-					"smallFont");
+    	"smallFont");
 			final ChangeableText fpsText = new ChangeableText(Utils.toRes(790),
-					Utils.toRes(520), font, "00.00 FPS");
+    	Utils.toRes(520), font, "00.00 FPS");
 			final ChangeableText accText = new ChangeableText(Utils.toRes(720),
-					Utils.toRes(480), font, "Avg offset: 0ms	 ");
+    	Utils.toRes(480), font, "Avg offset: 0ms	 ");
 			fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
 			accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());
 			fgScene.attachChild(fpsText);
@@ -750,37 +750,37 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 			ChangeableText memText = null;
 			if (BuildConfig.DEBUG) {
-				memText = new ChangeableText(Utils.toRes(780),
-						Utils.toRes(520), font, "M: 100/100");
-				fgScene.attachChild(memText);
+    memText = new ChangeableText(Utils.toRes(780),
+    		Utils.toRes(520), font, "M: 100/100");
+    fgScene.attachChild(memText);
 			}
 
 			final ChangeableText fmemText = memText;
 			fgScene.registerUpdateHandler(new FPSCounter() {
-				int elapsedInt = 0;
+    int elapsedInt = 0;
 
-				@Override
-				public void onUpdate(final float pSecondsElapsed) {
-					super.onUpdate(pSecondsElapsed);
-					elapsedInt++;
-					fpsText.setText(Math.round(this.getFPS()) + " FPS");
-					if (offsetRegs != 0 && elapsedInt > 200) {
-						accText.setText("Avg offset: "
-								+ (int) (avgOffset * 1000f / offsetRegs)
-								+ "ms");
-						elapsedInt = 0;
-					}
-					fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
-					accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
+    	super.onUpdate(pSecondsElapsed);
+    	elapsedInt++;
+    	fpsText.setText(Math.round(this.getFPS()) + " FPS");
+    	if (offsetRegs != 0 && elapsedInt > 200) {
+    		accText.setText("Avg offset: "
+        + (int) (avgOffset * 1000f / offsetRegs)
+        + "ms");
+    		elapsedInt = 0;
+    	}
+    	fpsText.setPosition(Config.getRES_WIDTH() - fpsText.getWidth() - 5, Config.getRES_HEIGHT() - fpsText.getHeight() - 10);
+    	accText.setPosition(Config.getRES_WIDTH() - accText.getWidth() - 5, fpsText.getY() - accText.getHeight());
 
-					if (fmemText != null) {
-						fmemText.setText("M: "
-								+ (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024
-								+ "/" + Runtime.getRuntime().totalMemory() / 1024 / 1024);
-						fmemText.setPosition(Config.getRES_WIDTH() - fmemText.getWidth() - 5, accText.getY() - fmemText.getHeight());
-					}
+    	if (fmemText != null) {
+    		fmemText.setText("M: "
+        + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024
+        + "/" + Runtime.getRuntime().totalMemory() / 1024 / 1024);
+    		fmemText.setPosition(Config.getRES_WIDTH() - fmemText.getWidth() - 5, accText.getY() - fmemText.getHeight());
+    	}
 
-				}
+    }
 			});
 		}
 
@@ -788,7 +788,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		stat.setMod(ModMenu.getInstance().getMod());
 		float multiplier = 1 + rawDifficulty / 10f + rawDrain / 10f;
 		multiplier += (Float.parseFloat(beatmapData.getData("Difficulty",
-				"CircleSize")) - 3) / 4f;
+    "CircleSize")) - 3) / 4f;
 
 		stat.setDiffModifier(multiplier);
 		stat.setMaxObjectsCount(lastTrack.getTotalHitObjectCount());
@@ -810,7 +810,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		GameHelper.setSuddenDeath(stat.getMod().contains(GameMod.MOD_SUDDENDEATH));
 		GameHelper.setPerfect(stat.getMod().contains(GameMod.MOD_PERFECT));
 		difficultyHelper = stat.getMod().contains(GameMod.MOD_PRECISE) ?
-				DifficultyHelper.HighDifficulty : DifficultyHelper.StdDifficulty;
+    DifficultyHelper.HighDifficulty : DifficultyHelper.StdDifficulty;
 		GameHelper.setDifficultyHelper(difficultyHelper);
 
 		for (int i = 0; i < CursorCount; i++) {
@@ -841,7 +841,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		metronome = null;
 		if ((Config.getMetronomeSwitch() == 1 && GameHelper.isNightCore())
-				|| Config.getMetronomeSwitch() == 2) {
+    || Config.getMetronomeSwitch() == 2) {
 			metronome = new Metronome();
 		}
 
@@ -856,8 +856,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if ((replaying || Config.isShowCursor()) && !GameHelper.isAuto() && !GameHelper.isAutopilotMod()) {
 			cursorSprites = new CursorEntity[CursorCount];
 			for (int i = 0; i < CursorCount; i++) {
-				cursorSprites[i] = new CursorEntity();
-				cursorSprites[i].attachToScene(fgScene);
+    cursorSprites[i] = new CursorEntity();
+    cursorSprites[i].attachToScene(fgScene);
 			}
 		} else {
 			cursorSprites = null;
@@ -872,18 +872,18 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (Config.isCorovans() && countdownPar.equals("") == false) {
 			float cdSpeed = 0;
 			if (countdownPar.equals("1")) {
-				cdSpeed = 1;
+    cdSpeed = 1;
 			} else if (countdownPar.equals("2")) {
-				cdSpeed = 2;
+    cdSpeed = 2;
 			} else if (countdownPar.equals("3")) {
-				cdSpeed = 0.5f;
+    cdSpeed = 0.5f;
 			}
 			skipTime -= cdSpeed * Countdown.COUNTDOWN_LENGTH;
 			if (cdSpeed != 0
-					&& objects.peek().getTime() - secPassed >= cdSpeed
-					* Countdown.COUNTDOWN_LENGTH) {
-				addPassiveObject(new Countdown(this, bgScene, cdSpeed, 0,
-						objects.peek().getTime() - secPassed));
+    	&& objects.peek().getTime() - secPassed >= cdSpeed
+    	* Countdown.COUNTDOWN_LENGTH) {
+    addPassiveObject(new Countdown(this, bgScene, cdSpeed, 0,
+    		objects.peek().getTime() - secPassed));
 			}
 		}
 
@@ -893,350 +893,350 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		if(!Config.isHideInGameUI()) { 
 			progressBar = new SongProgressBar(this, bgScene, lastObjectTme, objects
-					.getFirst().getTime(), new PointF(0, Config.getRES_HEIGHT() - 7), Config.getRES_WIDTH(), 7);
+    	.getFirst().getTime(), new PointF(0, Config.getRES_HEIGHT() - 7), Config.getRES_WIDTH(), 7);
 			progressBar.setProgressRectColor(new RGBAColor(153f / 255f, 204f / 255f, 51f / 255f, 0.4f));
 		}
 
 		if (Config.getErrorMeter() == 1
-				|| (Config.getErrorMeter() == 2 && replaying)) {
+    || (Config.getErrorMeter() == 2 && replaying)) {
 			hitErrorMeter = new HitErrorMeter(
-					bgScene,
-					new PointF(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() - 20),
-					overallDifficulty,
-					12,
-					difficultyHelper);
+    	bgScene,
+    	new PointF(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() - 20),
+    	overallDifficulty,
+    	12,
+    	difficultyHelper);
 		}
 
 		skipBtn = null;
 		if (skipTime > 1) {
 			final TextureRegion tex;
 			if (ResourceManager.getInstance().isTextureLoaded("play-skip-0")) {
-				List<String> loadedSkipTextures = new ArrayList<>();
-				for (int i = 0; i < 60; i++) {
-					if (ResourceManager.getInstance().isTextureLoaded("play-skip-" + i))
-						loadedSkipTextures.add("play-skip-" + i);
-				}
-				tex = ResourceManager.getInstance().getTexture("play-skip-0");
-				skipBtn = new AnimSprite(Config.getRES_WIDTH() - tex.getWidth(),
-						Config.getRES_HEIGHT() - tex.getHeight(), loadedSkipTextures.size(),
-						loadedSkipTextures.toArray(new String[loadedSkipTextures.size()]));
+    List<String> loadedSkipTextures = new ArrayList<>();
+    for (int i = 0; i < 60; i++) {
+    	if (ResourceManager.getInstance().isTextureLoaded("play-skip-" + i))
+    		loadedSkipTextures.add("play-skip-" + i);
+    }
+    tex = ResourceManager.getInstance().getTexture("play-skip-0");
+    skipBtn = new AnimSprite(Config.getRES_WIDTH() - tex.getWidth(),
+    		Config.getRES_HEIGHT() - tex.getHeight(), loadedSkipTextures.size(),
+    		loadedSkipTextures.toArray(new String[loadedSkipTextures.size()]));
 			} else {
-				tex = ResourceManager.getInstance().getTexture("play-skip");
-				skipBtn = new Sprite(Config.getRES_WIDTH() - tex.getWidth(),
-						Config.getRES_HEIGHT() - tex.getHeight(), tex);
+    tex = ResourceManager.getInstance().getTexture("play-skip");
+    skipBtn = new Sprite(Config.getRES_WIDTH() - tex.getWidth(),
+    		Config.getRES_HEIGHT() - tex.getHeight(), tex);
 			}
 			skipBtn.setAlpha(0.7f);
 			fgScene.attachChild(skipBtn);
 			/*if (SkinManager.getFrames("play-skip") <= 1) {
-				tex = ResourceManager.getInstance().getTexture("play-skip");
-				skipBtn = new Sprite(Config.getRES_WIDTH() - tex.getWidth(),
-						Config.getRES_HEIGHT() - tex.getHeight(), tex);
-				fgScene.attachChild(skipBtn);
+    tex = ResourceManager.getInstance().getTexture("play-skip");
+    skipBtn = new Sprite(Config.getRES_WIDTH() - tex.getWidth(),
+    		Config.getRES_HEIGHT() - tex.getHeight(), tex);
+    fgScene.attachChild(skipBtn);
 			} else {
-				if (SkinManager.getFrames("play-skip") == 1) {
-					final int frames = SkinManager.getFrames("play-skip");
-					tex = ResourceManager.getInstance().getTexture(
-							"play-skip-0");
-					skipBtn = new AnimSprite(Config.getRES_WIDTH()
-							- tex.getWidth(), Config.getRES_HEIGHT()
-							- tex.getHeight(), "play-skip-", frames, frames);
-					fgScene.attachChild(skipBtn);
-				}
+    if (SkinManager.getFrames("play-skip") == 1) {
+    	final int frames = SkinManager.getFrames("play-skip");
+    	tex = ResourceManager.getInstance().getTexture(
+    			"play-skip-0");
+    	skipBtn = new AnimSprite(Config.getRES_WIDTH()
+    			- tex.getWidth(), Config.getRES_HEIGHT()
+    			- tex.getHeight(), "play-skip-", frames, frames);
+    	fgScene.attachChild(skipBtn);
+    }
 			}*/
 		}
 		GameHelper.setGlobalTime(0);
 
 		float effectOffset = 155 - 25;
 		breakAnimator = new BreakAnimator(this, fgScene, stat, beatmapData
-					.getData("General", "LetterboxInBreaks").equals("1"), bgSprite);
+    	.getData("General", "LetterboxInBreaks").equals("1"), bgSprite);
 		if(!Config.isHideInGameUI()){
 			scorebar = new ScoreBar(this, fgScene, stat);
 			addPassiveObject(scorebar);
 			final TextureRegion scoreDigitTex = ResourceManager.getInstance()
-					.getTexture("score-0");
+    	.getTexture("score-0");
 			accText = new GameScoreText(Config.getRES_WIDTH()
-					- scoreDigitTex.getWidth() * 4.75f, 50,
-					"000.00%", 0.6f);
+    	- scoreDigitTex.getWidth() * 4.75f, 50,
+    	"000.00%", 0.6f);
 			comboText = new GameScoreText(Utils.toRes(2), Config.getRES_HEIGHT()
-					- Utils.toRes(95), "0000x", 1.5f);
+    	- Utils.toRes(95), "0000x", 1.5f);
 			comboText.changeText(new StringBuilder("0****"));
 			scoreText = new GameScoreText(Config.getRES_WIDTH()
-					- scoreDigitTex.getWidth() * 7.25f, 0, "0000000000", 0.9f);
+    	- scoreDigitTex.getWidth() * 7.25f, 0, "0000000000", 0.9f);
 			comboText.attachToScene(fgScene);
 			accText.attachToScene(fgScene);
 			scoreText.attachToScene(fgScene);
 			if (Config.isComplexAnimations()) {
-				scoreShadow = new GameScoreTextShadow(0, Config.getRES_HEIGHT()
-						- Utils.toRes(90), "0000x", 1.5f);
-				scoreShadow.attachToScene(bgScene);
-				passiveObjects.add(scoreShadow);
+    scoreShadow = new GameScoreTextShadow(0, Config.getRES_HEIGHT()
+    		- Utils.toRes(90), "0000x", 1.5f);
+    scoreShadow.attachToScene(bgScene);
+    passiveObjects.add(scoreShadow);
 			}
 			if (stat.getMod().contains(GameMod.MOD_AUTO)) {
-				final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-						Utils.toRes(100), ResourceManager.getInstance().getTexture(
-						"selection-mod-autoplay"));
-				bgScene.attachChild(autoIcon);
-				effectOffset += 25;
+    final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+    		Utils.toRes(100), ResourceManager.getInstance().getTexture(
+    		"selection-mod-autoplay"));
+    bgScene.attachChild(autoIcon);
+    effectOffset += 25;
 			} else if (stat.getMod().contains(GameMod.MOD_RELAX)) {
-				final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-						Utils.toRes(98), ResourceManager.getInstance().getTexture(
-						"selection-mod-relax"));
-				bgScene.attachChild(autoIcon);
-				effectOffset += 25;
+    final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+    		Utils.toRes(98), ResourceManager.getInstance().getTexture(
+    		"selection-mod-relax"));
+    bgScene.attachChild(autoIcon);
+    effectOffset += 25;
 			} else if (stat.getMod().contains(GameMod.MOD_AUTOPILOT)) {
-				final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
-						Utils.toRes(98), ResourceManager.getInstance().getTexture(
-						"selection-mod-relax2"));
-				bgScene.attachChild(autoIcon);
-				effectOffset += 25;
+    final Sprite autoIcon = new Sprite(Utils.toRes(Config.getRES_WIDTH() - 140),
+    		Utils.toRes(98), ResourceManager.getInstance().getTexture(
+    		"selection-mod-relax2"));
+    bgScene.attachChild(autoIcon);
+    effectOffset += 25;
 			}
 	
 			if (Config.isComboburst()) {
-				comboBurst = new ComboBurst(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
-				comboBurst.attachAll(bgScene);
+    comboBurst = new ComboBurst(Config.getRES_WIDTH(), Config.getRES_HEIGHT());
+    comboBurst.attachAll(bgScene);
 			}
 		}
 
 		float timeOffset = 0;
 		if (stat.getMod().contains(GameMod.MOD_SCOREV2)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-scorev2");
+    	"selection-mod-scorev2");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2), new ParallelEntityModifier(
-							ModifierFactory.newFadeOutModifier(0.5f),
-							ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2), new ParallelEntityModifier(
+    			ModifierFactory.newFadeOutModifier(0.5f),
+    			ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_EASY)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-easy");
+    	"selection-mod-easy");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2), new ParallelEntityModifier(
-							ModifierFactory.newFadeOutModifier(0.5f),
-							ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2), new ParallelEntityModifier(
+    			ModifierFactory.newFadeOutModifier(0.5f),
+    			ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		} else if (stat.getMod().contains(GameMod.MOD_HARDROCK)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-hardrock");
+    	"selection-mod-hardrock");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2), new ParallelEntityModifier(
-							ModifierFactory.newFadeOutModifier(0.5f),
-							ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2), new ParallelEntityModifier(
+    			ModifierFactory.newFadeOutModifier(0.5f),
+    			ModifierFactory.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_NOFAIL)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-nofail");
+    	"selection-mod-nofail");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_HIDDEN)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-hidden");
+    	"selection-mod-hidden");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 
 		if (stat.getMod().contains(GameMod.MOD_DOUBLETIME)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-doubletime");
+    	"selection-mod-doubletime");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_NIGHTCORE)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-nightcore");
+    	"selection-mod-nightcore");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_HALFTIME)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-halftime");
+    	"selection-mod-halftime");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_PRECISE)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-precise");
+    	"selection-mod-precise");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_SUDDENDEATH)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-suddendeath");
+    	"selection-mod-suddendeath");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		else if (stat.getMod().contains(GameMod.MOD_PERFECT)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-perfect");
+    	"selection-mod-perfect");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_FLASHLIGHT)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-flashlight");
+    	"selection-mod-flashlight");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_SMALLCIRCLE)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-smallcircle");
+    	"selection-mod-smallcircle");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 		if (stat.getMod().contains(GameMod.MOD_REALLYEASY)) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"selection-mod-reallyeasy");
+    	"selection-mod-reallyeasy");
 			effect.init(
-					fgScene,
-					new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
-							.toRes(130)),
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
-							.newDelayModifier(2 - timeOffset),
-							new ParallelEntityModifier(ModifierFactory
-									.newFadeOutModifier(0.5f), ModifierFactory
-									.newScaleModifier(0.5f, 1, 1.5f))));
+    	fgScene,
+    	new PointF(Utils.toRes(Config.getRES_WIDTH() - effectOffset), Utils
+    			.toRes(130)),
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, 1.2f, 1), ModifierFactory
+    			.newDelayModifier(2 - timeOffset),
+    			new ParallelEntityModifier(ModifierFactory
+        	.newFadeOutModifier(0.5f), ModifierFactory
+        	.newScaleModifier(0.5f, 1, 1.5f))));
 			effectOffset += 25;
 			timeOffset += 0.25f;
 		}
 
 		kiai = false;
 		kiaiRect = new Rectangle(0, 0, Config.getRES_WIDTH(),
-				Config.getRES_HEIGHT());
+    Config.getRES_HEIGHT());
 		kiaiRect.setVisible(false);
 		kiaiRect.setColor(1, 1, 1);
 		bgScene.attachChild(kiaiRect, 0);
@@ -1249,9 +1249,9 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		boolean hasUnrankedMod = SmartIterator.wrap(stat.getMod().iterator())
 			.applyFilter(m -> m.unranked).hasNext();
 		if (hasUnrankedMod
-				|| Config.isRemoveSliderLock()
-				|| ModMenu.getInstance().isChangeSpeed()
-				|| ModMenu.getInstance().isEnableForceAR()) {
+    || Config.isRemoveSliderLock()
+    || ModMenu.getInstance().isChangeSpeed()
+    || ModMenu.getInstance().isEnableForceAR()) {
 			unranked.setVisible(true);
 		}
 
@@ -1265,7 +1265,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			playname = replaying ? GlobalManager.getInstance().getScoring().getReplayStat().getPlayerName() : "osu!";
 			replayText.setText("Watching " + playname + " play " + artist + " - " + title + " [" + version + "]");
 			replayText.registerEntityModifier(new LoopEntityModifier(new MoveXModifier(40,
-					Config.getRES_WIDTH() + 5, -replayText.getWidth() - 5)));
+    	Config.getRES_WIDTH() + 5, -replayText.getWidth() - 5)));
 			replayText.setVisible(!Config.isHideReplayMarquee());
 		}
 		if (Config.isShowScoreboard()) {
@@ -1322,20 +1322,20 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			//处理时间差过于庞大的情况
 			final float offset = totalOffset / 1000f;
 			final float realsecPassed = //Config.isSyncMusic() ?
-					GlobalManager.getInstance().getSongService().getPosition() / 1000.0f;// : realTime;
+    	GlobalManager.getInstance().getSongService().getPosition() / 1000.0f;// : realTime;
 			final float criticalError = Config.isSyncMusic() ? 0.1f : 0.5f;
 			final float normalError = Config.isSyncMusic() ? dt : 0.05f;
 
 			if (secPassed + offset - realsecPassed > criticalError) {
-				return;
+    return;
 			}
 
 			if (Math.abs(secPassed + offset - realsecPassed) > normalError) {
-				if (secPassed + offset > realsecPassed) {
-					dt /= 2f;
-				} else {
-					dt *= 2f;
-				}
+    if (secPassed + offset > realsecPassed) {
+    	dt /= 2f;
+    } else {
+    	dt *= 2f;
+    }
 			}
 			secPassed += dt;
 		}
@@ -1344,56 +1344,56 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			gtime = 0;
 		} else {
 			gtime = (secPassed - firstTimingPoint.getTime())
-					% (GameHelper.getKiaiTickLength());
+    	% (GameHelper.getKiaiTickLength());
 		}
 		GameHelper.setGlobalTime(gtime);
 
 		if (Config.isEnableStoryboard()) {
 			if (storyboardSprite != null) {
-				storyboardSprite.updateTime(secPassed * 1000);
+    storyboardSprite.updateTime(secPassed * 1000);
 			}
 		}
 
 		if (replaying) {
 			int cIndex;
 			for (int i = 0; i < replay.cursorIndex.length; i++) {
-				if (replay.cursorMoves.size() <= i){
-					break;
-				}
-				cIndex = replay.cursorIndex[i];
-				//Emulating moves
-				while (cIndex < replay.cursorMoves.get(i).size &&
-						replay.cursorMoves.get(i).time[cIndex] <= (secPassed + dt / 4) * 1000) {
-					final Replay.MoveArray move = replay.cursorMoves.get(i);
+    if (replay.cursorMoves.size() <= i){
+    	break;
+    }
+    cIndex = replay.cursorIndex[i];
+    //Emulating moves
+    while (cIndex < replay.cursorMoves.get(i).size &&
+    		replay.cursorMoves.get(i).time[cIndex] <= (secPassed + dt / 4) * 1000) {
+    	final Replay.MoveArray move = replay.cursorMoves.get(i);
 
-					if (move.id[cIndex] == Replay.ID_DOWN) {
-						cursors[i].mouseDown = true;
-						for (int j = 0; j < replay.cursorIndex.length; j++)
-							cursors[j].mouseOldDown = false;
-						cursors[i].mousePos.x = move.x[cIndex];
-						cursors[i].mousePos.y = move.y[cIndex];
-						replay.lastMoveIndex[i] = -1;
-					} else if (move.id[cIndex] == Replay.ID_MOVE) {
-						cursors[i].mousePos.x = move.x[cIndex];
-						cursors[i].mousePos.y = move.y[cIndex];
-						replay.lastMoveIndex[i] = cIndex;
-					} else {
-						cursors[i].mouseDown = false;
-					}
+    	if (move.id[cIndex] == Replay.ID_DOWN) {
+    		cursors[i].mouseDown = true;
+    		for (int j = 0; j < replay.cursorIndex.length; j++)
+    			cursors[j].mouseOldDown = false;
+    		cursors[i].mousePos.x = move.x[cIndex];
+    		cursors[i].mousePos.y = move.y[cIndex];
+    		replay.lastMoveIndex[i] = -1;
+    	} else if (move.id[cIndex] == Replay.ID_MOVE) {
+    		cursors[i].mousePos.x = move.x[cIndex];
+    		cursors[i].mousePos.y = move.y[cIndex];
+    		replay.lastMoveIndex[i] = cIndex;
+    	} else {
+    		cursors[i].mouseDown = false;
+    	}
 
-					replay.cursorIndex[i]++;
-					cIndex++;
-				}
-				//Interpolating cursor movements
-				if (cIndex < replay.cursorMoves.get(i).size &&
-						replay.cursorMoves.get(i).id[cIndex] == Replay.ID_MOVE &&
-						replay.lastMoveIndex[i] >= 0) {
-					final Replay.MoveArray move = replay.cursorMoves.get(i);
-					final int lIndex = replay.lastMoveIndex[i];
-					float t = (secPassed * 1000 - move.time[cIndex]) / (move.time[lIndex] - move.time[cIndex]);
-					cursors[i].mousePos.x = move.x[lIndex] * t + move.x[cIndex] * (1 - t);
-					cursors[i].mousePos.y = move.y[lIndex] * t + move.y[cIndex] * (1 - t);
-				}
+    	replay.cursorIndex[i]++;
+    	cIndex++;
+    }
+    //Interpolating cursor movements
+    if (cIndex < replay.cursorMoves.get(i).size &&
+    		replay.cursorMoves.get(i).id[cIndex] == Replay.ID_MOVE &&
+    		replay.lastMoveIndex[i] >= 0) {
+    	final Replay.MoveArray move = replay.cursorMoves.get(i);
+    	final int lIndex = replay.lastMoveIndex[i];
+    	float t = (secPassed * 1000 - move.time[cIndex]) / (move.time[lIndex] - move.time[cIndex]);
+    	cursors[i].mousePos.x = move.x[lIndex] * t + move.x[cIndex] * (1 - t);
+    	cursors[i].mousePos.y = move.y[lIndex] * t + move.y[cIndex] * (1 - t);
+    }
 			}
 		}
 
@@ -1401,61 +1401,61 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			autoCursor.update(dt);
 		} else if (cursorSprites != null) {
 			for (int i = 0; i < CursorCount; i++) {
-				cursorSprites[i].setPosition(cursors[i].mousePos.x, cursors[i].mousePos.y);
-				cursorSprites[i].update(dt);
-				if (cursors[i].mouseDown) {
-					cursorSprites[i].setShowing(true);
-					if (cursors[i].mousePressed) {
-						cursorSprites[i].click();
-					}
-				} else {
-					cursorSprites[i].setShowing(false);
-				}
+    cursorSprites[i].setPosition(cursors[i].mousePos.x, cursors[i].mousePos.y);
+    cursorSprites[i].update(dt);
+    if (cursors[i].mouseDown) {
+    	cursorSprites[i].setShowing(true);
+    	if (cursors[i].mousePressed) {
+    		cursorSprites[i].click();
+    	}
+    } else {
+    	cursorSprites[i].setShowing(false);
+    }
 			}
 		}
 
 		for (final Cursor c : cursors) {
 			if (c.mouseDown == true && c.mouseOldDown == false) {
-				c.mousePressed = true;
-				c.mouseOldDown = true;
+    c.mousePressed = true;
+    c.mouseOldDown = true;
 			} else {
-				c.mousePressed = false;
+    c.mousePressed = false;
 			}
 		}
 		if(GameHelper.isFlashLight()){
 			if (!GameHelper.isAuto() && !GameHelper.isAutopilotMod()) {
-				if (mainCursorId < 0){
-					int i = 0;
-					for (final Cursor c : cursors) {
-						if (c.mousePressed == true && isFirstObjectsNear(c.mousePos)) {
-							mainCursorId = i;
-							flashlightSprite.onMouseMove(c.mousePos.x, c.mousePos.y);
-							break;
-						}
-						++i;
-					}
-				} else if(cursors[mainCursorId].mouseDown == false){
-					mainCursorId = -1;
-				} else if(cursors[mainCursorId].mouseDown == true){
-					flashlightSprite.onMouseMove(
-							cursors[mainCursorId].mousePos.x, cursors[mainCursorId].mousePos.y
-					);
-				}
+    if (mainCursorId < 0){
+    	int i = 0;
+    	for (final Cursor c : cursors) {
+    		if (c.mousePressed == true && isFirstObjectsNear(c.mousePos)) {
+    			mainCursorId = i;
+    			flashlightSprite.onMouseMove(c.mousePos.x, c.mousePos.y);
+    			break;
+    		}
+    		++i;
+    	}
+    } else if(cursors[mainCursorId].mouseDown == false){
+    	mainCursorId = -1;
+    } else if(cursors[mainCursorId].mouseDown == true){
+    	flashlightSprite.onMouseMove(
+    			cursors[mainCursorId].mousePos.x, cursors[mainCursorId].mousePos.y
+    	);
+    }
 			}
 			flashlightSprite.onUpdate(stat.getCombo());
 		}
 
 		while (timingPoints.isEmpty() == false
-				&& timingPoints.peek().getTime() <= secPassed + approachRate) {
+    && timingPoints.peek().getTime() <= secPassed + approachRate) {
 			currentTimingPoint = timingPoints.poll();
 			activeTimingPoints.add(currentTimingPoint);
 		}
 		while (activeTimingPoints.isEmpty() == false
-				&& activeTimingPoints.peek().getTime() <= secPassed) {
+    && activeTimingPoints.peek().getTime() <= secPassed) {
 			soundTimingPoint = activeTimingPoints.poll();
 			if (!soundTimingPoint.inherited) {
-				GameHelper.setBeatLength(soundTimingPoint.getBeatLength());
-				GameHelper.setTimingOffset(soundTimingPoint.getTime());
+    GameHelper.setBeatLength(soundTimingPoint.getBeatLength());
+    GameHelper.setTimingOffset(soundTimingPoint.getTime());
 			}
 			GameHelper.setTimeSignature(soundTimingPoint.getSignature());
 			GameHelper.setKiai(soundTimingPoint.isKiai());
@@ -1463,49 +1463,49 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		if (!breakPeriods.isEmpty()) {
 			if (!breakAnimator.isBreak()
-					&& breakPeriods.peek().getStart() <= secPassed) {
-				gameStarted = false;
-				breakAnimator.init(breakPeriods.peek().getLength());
-				if(GameHelper.isFlashLight()){
-					flashlightSprite.onBreak(true);
-				}
-				if(scorebar != null) scorebar.setVisible(false);
-				breakPeriods.poll();
+    	&& breakPeriods.peek().getStart() <= secPassed) {
+    gameStarted = false;
+    breakAnimator.init(breakPeriods.peek().getLength());
+    if(GameHelper.isFlashLight()){
+    	flashlightSprite.onBreak(true);
+    }
+    if(scorebar != null) scorebar.setVisible(false);
+    breakPeriods.poll();
 			}
 		}
 		if (breakAnimator.isOver()) {
 			gameStarted = true;
 			if(scorebar != null) scorebar.setVisible(true);
 			if(GameHelper.isFlashLight()){
-				flashlightSprite.onBreak(false);
+    flashlightSprite.onBreak(false);
 			}
 		}
 
 		if (objects.isEmpty() && activeObjects.isEmpty()) {
 			if (GameHelper.isFlashLight()) {
-				flashlightSprite.onBreak(true);
+    flashlightSprite.onBreak(true);
 			}
 		}
 
 		if (gameStarted) {
 			float rate = 0.375f;
 			if (drain > 0 && distToNextObject > 0) {
-				rate = 1 + drain / (2f * distToNextObject);
+    rate = 1 + drain / (2f * distToNextObject);
 			}
 			stat.changeHp(-rate * 0.01f * dt);
 			if (stat.getHp() <= 0
-					&& stat.getMod().contains(GameMod.MOD_NOFAIL) == false
-					&& stat.getMod().contains(GameMod.MOD_RELAX) == false
-					&& stat.getMod().contains(GameMod.MOD_AUTOPILOT) == false
-					&& stat.getMod().contains(GameMod.MOD_AUTO) == false) {
-				if (stat.getMod().contains(GameMod.MOD_EASY) && failcount < 3) {
-					failcount++;
-					stat.changeHp(1f);
-				}
-				else {
-					gameover();
-				}
-				return;
+    	&& stat.getMod().contains(GameMod.MOD_NOFAIL) == false
+    	&& stat.getMod().contains(GameMod.MOD_RELAX) == false
+    	&& stat.getMod().contains(GameMod.MOD_AUTOPILOT) == false
+    	&& stat.getMod().contains(GameMod.MOD_AUTO) == false) {
+    if (stat.getMod().contains(GameMod.MOD_EASY) && failcount < 3) {
+    	failcount++;
+    	stat.changeHp(1f);
+    }
+    else {
+    	gameover();
+    }
+    return;
 			}
 		}
 
@@ -1519,22 +1519,22 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			comboBuilder.setLength(0);
 			comboBuilder.append(stat.getCombo());
 			while (comboBuilder.length() < 5) {
-				comboBuilder.append('*');
+    comboBuilder.append('*');
 			}
 			if (Config.isComplexAnimations()) {
-				scoreShadow.changeText(comboBuilder);
-				scoreShadow.registerEntityModifier(new DelayModifier(0.2f, new IEntityModifier.IEntityModifierListener() {
-					@Override
-					public void onModifierStarted(IModifier<IEntity> iModifier, IEntity iEntity) { 
-					}
-					@Override
-					public void onModifierFinished(IModifier<IEntity> iModifier, IEntity iEntity) {
-						//当CB数字阴影缩小完成的时候 更改CB数字
-						comboText.changeText(comboBuilder);
-					}
-				}));
+    scoreShadow.changeText(comboBuilder);
+    scoreShadow.registerEntityModifier(new DelayModifier(0.2f, new IEntityModifier.IEntityModifierListener() {
+    	@Override
+    	public void onModifierStarted(IModifier<IEntity> iModifier, IEntity iEntity) { 
+    	}
+    	@Override
+    	public void onModifierFinished(IModifier<IEntity> iModifier, IEntity iEntity) {
+    		//当CB数字阴影缩小完成的时候 更改CB数字
+    		comboText.changeText(comboBuilder);
+    	}
+    }));
 			} else {
-				comboText.changeText(comboBuilder);
+    comboText.changeText(comboBuilder);
 			}
 
 			//连击数////////////////////////
@@ -1542,40 +1542,40 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			float rawAccuracy = stat.getAccuracy() * 100f;
 			strBuilder.append((int) rawAccuracy);
 			if ((int) rawAccuracy < 10) {
-				strBuilder.insert(0, '0');
+    strBuilder.insert(0, '0');
 			}
 			strBuilder.append('.');
 			rawAccuracy -= (int) rawAccuracy;
 			rawAccuracy *= 100;
 			if ((int) rawAccuracy < 10) {
-				strBuilder.append('0');
+    strBuilder.append('0');
 			}
 			strBuilder.append((int) rawAccuracy);
 			if (strBuilder.length() < 6) {
-				strBuilder.insert(0, '*');
+    strBuilder.insert(0, '*');
 			}
 			accText.changeText(strBuilder);
 			strBuilder.setLength(0);
 			strBuilder.append(stat.getAutoTotalScore());
 			while (strBuilder.length() < 8) {
-				strBuilder.insert(0, '0');
+    strBuilder.insert(0, '0');
 			}
 			int scoreTextOffset = 0;
 			while (strBuilder.length() < 10) {
-				strBuilder.insert(0, '*');
-				scoreTextOffset++;
+    strBuilder.insert(0, '*');
+    scoreTextOffset++;
 			}
 	
 			scoreText.setPosition(Config.getRES_WIDTH()
-					- ResourceManager.getInstance().getTexture("score-0").getWidth() * (9.25f - scoreTextOffset), 0);
+    	- ResourceManager.getInstance().getTexture("score-0").getWidth() * (9.25f - scoreTextOffset), 0);
 			scoreText.changeText(strBuilder);
 		}
 
 		if (comboBurst != null) {
 			if (stat.getCombo() == 0) {
-				comboBurst.breakCombo();
+    comboBurst.breakCombo();
 			} else {
-				comboBurst.checkAndShow(stat.getCombo());
+    comboBurst.checkAndShow(stat.getCombo());
 			}
 		}
 
@@ -1586,7 +1586,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (Config.isRemoveSliderLock()){
 			GameObject lastObject = getLastTobeclickObject();
 			if (lastObject != null) {
-				lastObjectHitTime = getLastTobeclickObject().getHitTime();
+    lastObjectHitTime = getLastTobeclickObject().getHitTime();
 			}
 		}
 
@@ -1608,13 +1608,13 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		for (int i = 0; i < clickCount - 1; i++){
 			if (Config.isRemoveSliderLock()){
-				GameObject lastObject = getLastTobeclickObject();
-				if (lastObject != null) {
-					lastObjectHitTime = getLastTobeclickObject().getHitTime();
-				}
+    GameObject lastObject = getLastTobeclickObject();
+    if (lastObject != null) {
+    	lastObjectHitTime = getLastTobeclickObject().getHitTime();
+    }
 			}
 			for (final GameObject obj : activeObjects) {
-				obj.tryHit(dt);
+    obj.tryHit(dt);
 			}
 		}
 
@@ -1628,18 +1628,18 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		}
 //		if (secPassed >= 0) {
 //			if (!mVideo.getIsPlaying()) {
-//				mVideo.play();
+//    mVideo.play();
 //			}
 //			if (mVideo.getAlpha() < 1.0f) {
-//				float alpha = mVideo.getAlpha();
-//				mVideo.setAlpha(Math.min(alpha + 0.03f, 1.0f));
+//    float alpha = mVideo.getAlpha();
+//    mVideo.setAlpha(Math.min(alpha + 0.03f, 1.0f));
 //			}
 //		}
 
 		boolean shouldBePunished = false;
 
 		while (objects.isEmpty() == false
-				&& secPassed + approachRate > objects.peek().getTime()) {
+    && secPassed + approachRate > objects.peek().getTime()) {
 			gameStarted = true;
 			final GameObjectData data = objects.poll();
 			final String[] params = data.getData();
@@ -1650,190 +1650,190 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 			final float time = data.getRawTime();
 			if (time > totalLength) {
-				shouldBePunished = true;
+    shouldBePunished = true;
 			}
 
 			// Stack notes
 			// If Config.isCalculateSliderPathInGameStart(), do this in stackNotes()
 			if (Config.isCalculateSliderPathInGameStart() == false &&
-				objects.isEmpty() == false && (objDefine & 1) > 0) {
-				if (objects.peek().getTime() - data.getTime() < 2f * GameHelper.getStackLatient()
-						&& Utils.squaredDistance(pos, objects.peek().getPos()) < scale) {
-					objects.peek().setPosOffset(
-							data.getPosOffset() + Utils.toRes(4) * scale);
-				}
+    objects.isEmpty() == false && (objDefine & 1) > 0) {
+    if (objects.peek().getTime() - data.getTime() < 2f * GameHelper.getStackLatient()
+    		&& Utils.squaredDistance(pos, objects.peek().getPos()) < scale) {
+    	objects.peek().setPosOffset(
+    			data.getPosOffset() + Utils.toRes(4) * scale);
+    }
 			}
 			// If this object is silder and isCalculateSliderPathInGameStart(), the pos is += in calculateAllSliderPaths()
 			if (Config.isCalculateSliderPathInGameStart() == false || (objDefine & 2) <= 0){
-				pos.x += data.getPosOffset();
-				pos.y += data.getPosOffset();
+    pos.x += data.getPosOffset();
+    pos.y += data.getPosOffset();
 			}
 			if (objects.isEmpty() == false) {
-				distToNextObject = objects.peek().getTime() - data.getTime();
-				if (soundTimingPoint != null
-						&& distToNextObject < soundTimingPoint.getBeatLength() / 2) {
-					distToNextObject = soundTimingPoint.getBeatLength() / 2;
-				}
+    distToNextObject = objects.peek().getTime() - data.getTime();
+    if (soundTimingPoint != null
+    		&& distToNextObject < soundTimingPoint.getBeatLength() / 2) {
+    	distToNextObject = soundTimingPoint.getBeatLength() / 2;
+    }
 			} else {
-				distToNextObject = 0;
+    distToNextObject = 0;
 			}
 			// Calculate combo color
 			int comboCode = objDefine;
 			if (comboCode == 12) {
-				currentComboNum = 0;
+    currentComboNum = 0;
 			} else if (comboNum == -1) {
-				comboNum = 1;
-				currentComboNum = 0;
+    comboNum = 1;
+    currentComboNum = 0;
 			} else if ((comboCode & 4) > 0) {
-				currentComboNum = 0;
-				if (comboCode / 15 > 0) {
-					comboCode /= 15;
-					for (int i = 0; true; i++) {
-						if (comboCode >> i == 1) {
-							comboNum = i;
-							break;
-						}
-					}
-				} else {
-					comboNum = (comboNum + 1) % combos.size();
-				}
+    currentComboNum = 0;
+    if (comboCode / 15 > 0) {
+    	comboCode /= 15;
+    	for (int i = 0; true; i++) {
+    		if (comboCode >> i == 1) {
+    			comboNum = i;
+    			break;
+    		}
+    	}
+    } else {
+    	comboNum = (comboNum + 1) % combos.size();
+    }
 			}
 
 			if ((objDefine & 1) > 0) {
-				final RGBColor col = getComboColor(comboNum);
-				final HitCircle circle = GameObjectPool.getInstance().getCircle();
-				String tempSound = null;
-				if (params.length > 5) {
-					tempSound = params[5];
-				}
+    final RGBColor col = getComboColor(comboNum);
+    final HitCircle circle = GameObjectPool.getInstance().getCircle();
+    String tempSound = null;
+    if (params.length > 5) {
+    	tempSound = params[5];
+    }
 
-				circle.init(this, mgScene, pos, data.getTime() - secPassed,
-						col.r(), col.g(), col.b(), scale, currentComboNum,
-						Integer.parseInt(params[4]), tempSound, isFirst);
-				circle.setEndsCombo(objects.isEmpty()
-						|| objects.peek().isNewCombo());
-				addObject(circle);
-				isFirst = false;
-				if (objects.isEmpty() == false
-						&& objects.peek().isNewCombo() == false) {
-					final FollowTrack track = GameObjectPool.getInstance()
-							.getTrack();
-					PointF end;
-					if (objects.peek().getTime() > data.getTime()) {
-						end = data.getEnd();
-					} else {
-						end = data.getPos();
-					}
-					track.init(this, bgScene, end, objects.peek().getPos(),
-							objects.peek().getTime() - secPassed, approachRate,
-							scale);
-				}
-				if (stat.getMod().contains(GameMod.MOD_AUTO)) {
-					circle.setAutoPlay();
-				}
-				circle.setHitTime(data.getTime());
+    circle.init(this, mgScene, pos, data.getTime() - secPassed,
+    		col.r(), col.g(), col.b(), scale, currentComboNum,
+    		Integer.parseInt(params[4]), tempSound, isFirst);
+    circle.setEndsCombo(objects.isEmpty()
+    		|| objects.peek().isNewCombo());
+    addObject(circle);
+    isFirst = false;
+    if (objects.isEmpty() == false
+    		&& objects.peek().isNewCombo() == false) {
+    	final FollowTrack track = GameObjectPool.getInstance()
+    			.getTrack();
+    	PointF end;
+    	if (objects.peek().getTime() > data.getTime()) {
+    		end = data.getEnd();
+    	} else {
+    		end = data.getPos();
+    	}
+    	track.init(this, bgScene, end, objects.peek().getPos(),
+    			objects.peek().getTime() - secPassed, approachRate,
+    			scale);
+    }
+    if (stat.getMod().contains(GameMod.MOD_AUTO)) {
+    	circle.setAutoPlay();
+    }
+    circle.setHitTime(data.getTime());
 
-				if (objects.isEmpty() == false) {
-					if (objects.peek().getTime() > data.getTime()) {
-						currentComboNum++;
-					}
-				}
+    if (objects.isEmpty() == false) {
+    	if (objects.peek().getTime() > data.getTime()) {
+    		currentComboNum++;
+    	}
+    }
 
-				circle.setId(++lastObjectId);
-				if (replaying) {
-					circle.setReplayData(replay.objectData[circle.getId()]);
-				}
+    circle.setId(++lastObjectId);
+    if (replaying) {
+    	circle.setReplayData(replay.objectData[circle.getId()]);
+    }
 
 			} else if ((objDefine & 8) > 0) {
-				final float endTime = Integer.parseInt(params[5]) / 1000.0f;
-				final float rps = 2 + 2 * overallDifficulty / 10f;
-				final Spinner spinner = GameObjectPool.getInstance().getSpinner();
-				String tempSound = null;
-				if (params.length > 6) {
-					tempSound = params[6];
-				}
-				spinner.init(this, bgScene, (data.getTime() - secPassed) / timeMultiplier,
-						(endTime - data.getTime()) / timeMultiplier, rps, Integer.parseInt(params[4]),
-						tempSound, stat);
-				spinner.setEndsCombo(objects.isEmpty()
-						|| objects.peek().isNewCombo());
-				addObject(spinner);
-				isFirst = false;
+    final float endTime = Integer.parseInt(params[5]) / 1000.0f;
+    final float rps = 2 + 2 * overallDifficulty / 10f;
+    final Spinner spinner = GameObjectPool.getInstance().getSpinner();
+    String tempSound = null;
+    if (params.length > 6) {
+    	tempSound = params[6];
+    }
+    spinner.init(this, bgScene, (data.getTime() - secPassed) / timeMultiplier,
+    		(endTime - data.getTime()) / timeMultiplier, rps, Integer.parseInt(params[4]),
+    		tempSound, stat);
+    spinner.setEndsCombo(objects.isEmpty()
+    		|| objects.peek().isNewCombo());
+    addObject(spinner);
+    isFirst = false;
 
-				if (stat.getMod().contains(GameMod.MOD_AUTO) ||
-						stat.getMod().contains(GameMod.MOD_AUTOPILOT)) {
-					spinner.setAutoPlay();
-				}
+    if (stat.getMod().contains(GameMod.MOD_AUTO) ||
+    		stat.getMod().contains(GameMod.MOD_AUTOPILOT)) {
+    	spinner.setAutoPlay();
+    }
 
-				spinner.setId(++lastObjectId);
-				if (replaying) {
-					spinner.setReplayData(replay.objectData[spinner.getId()]);
-				}
+    spinner.setId(++lastObjectId);
+    if (replaying) {
+    	spinner.setReplayData(replay.objectData[spinner.getId()]);
+    }
 
 			} else if ((objDefine & 2) > 0) {
-				final RGBColor col = getComboColor(comboNum);
-				final String soundspec = params.length > 8 ? params[8] : null;
-				final Slider slider = GameObjectPool.getInstance().getSlider();
-				String tempSound = null;
-				if (params.length > 9) {
-					tempSound = params[9];
-				}
-				if (Config.isCalculateSliderPathInGameStart()){
-					SliderPath sliderPath = getSliderPath(sliderIndex);
-					slider.init(this, mgScene, pos, data.getPosOffset(), data.getTime() - secPassed,
-						col.r(), col.g(), col.b(), scale, currentComboNum,
-						Integer.parseInt(params[4]),
-						Integer.parseInt(params[6]),
-						Float.parseFloat(params[7]), params[5],
-						currentTimingPoint, soundspec, tempSound, isFirst, Double.parseDouble(params[2]),
-						sliderPath);
-					sliderIndex++;
-				}
-				else{
-					slider.init(this, mgScene, pos, data.getPosOffset(), data.getTime() - secPassed,
-					col.r(), col.g(), col.b(), scale, currentComboNum,
-					Integer.parseInt(params[4]),
-					Integer.parseInt(params[6]),
-					Float.parseFloat(params[7]), params[5],
-					currentTimingPoint, soundspec, tempSound, isFirst, Double.parseDouble(params[2]));
-				}
-				slider.setEndsCombo(objects.isEmpty()
-						|| objects.peek().isNewCombo());
-				addObject(slider);
-				isFirst = false;
+    final RGBColor col = getComboColor(comboNum);
+    final String soundspec = params.length > 8 ? params[8] : null;
+    final Slider slider = GameObjectPool.getInstance().getSlider();
+    String tempSound = null;
+    if (params.length > 9) {
+    	tempSound = params[9];
+    }
+    if (Config.isCalculateSliderPathInGameStart()){
+    	SliderPath sliderPath = getSliderPath(sliderIndex);
+    	slider.init(this, mgScene, pos, data.getPosOffset(), data.getTime() - secPassed,
+    		col.r(), col.g(), col.b(), scale, currentComboNum,
+    		Integer.parseInt(params[4]),
+    		Integer.parseInt(params[6]),
+    		Float.parseFloat(params[7]), params[5],
+    		currentTimingPoint, soundspec, tempSound, isFirst, Double.parseDouble(params[2]),
+    		sliderPath);
+    	sliderIndex++;
+    }
+    else{
+    	slider.init(this, mgScene, pos, data.getPosOffset(), data.getTime() - secPassed,
+    	col.r(), col.g(), col.b(), scale, currentComboNum,
+    	Integer.parseInt(params[4]),
+    	Integer.parseInt(params[6]),
+    	Float.parseFloat(params[7]), params[5],
+    	currentTimingPoint, soundspec, tempSound, isFirst, Double.parseDouble(params[2]));
+    }
+    slider.setEndsCombo(objects.isEmpty()
+    		|| objects.peek().isNewCombo());
+    addObject(slider);
+    isFirst = false;
 
-				if (objects.isEmpty() == false
-						&& objects.peek().isNewCombo() == false) {
-					final FollowTrack track = GameObjectPool.getInstance()
-							.getTrack();
-					PointF end;
-					if (objects.peek().getTime() > data.getTime()) {
-						end = data.getEnd();
-					} else {
-						end = data.getPos();
-					}
-					track.init(this, bgScene, end, objects.peek().getPos(),
-							objects.peek().getTime() - secPassed, approachRate,
-							scale);
-				}
-				if (stat.getMod().contains(GameMod.MOD_AUTO)) {
-					slider.setAutoPlay();
-				}
-				slider.setHitTime(data.getTime());
+    if (objects.isEmpty() == false
+    		&& objects.peek().isNewCombo() == false) {
+    	final FollowTrack track = GameObjectPool.getInstance()
+    			.getTrack();
+    	PointF end;
+    	if (objects.peek().getTime() > data.getTime()) {
+    		end = data.getEnd();
+    	} else {
+    		end = data.getPos();
+    	}
+    	track.init(this, bgScene, end, objects.peek().getPos(),
+    			objects.peek().getTime() - secPassed, approachRate,
+    			scale);
+    }
+    if (stat.getMod().contains(GameMod.MOD_AUTO)) {
+    	slider.setAutoPlay();
+    }
+    slider.setHitTime(data.getTime());
 
 
-				if (objects.isEmpty() == false) {
-					if (objects.peek().getTime() > data.getTime()) {
-						currentComboNum++;
-					}
-				}
+    if (objects.isEmpty() == false) {
+    	if (objects.peek().getTime() > data.getTime()) {
+    		currentComboNum++;
+    	}
+    }
 
-				slider.setId(++lastObjectId);
-				if (replaying) {
-					slider.setReplayData(replay.objectData[slider.getId()]);
-					if (slider.getReplayData().tickSet == null)
-						slider.getReplayData().tickSet = new BitSet();
-				}
+    slider.setId(++lastObjectId);
+    if (replaying) {
+    	slider.setReplayData(replay.objectData[slider.getId()]);
+    	if (slider.getReplayData().tickSet == null)
+    		slider.getReplayData().tickSet = new BitSet();
+    }
 			}
 		}
 
@@ -1860,49 +1860,49 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			String replayFile = null;
 			stat.setTime(System.currentTimeMillis());
 			if (replay != null && replaying == false) {
-				String ctime = String.valueOf(System.currentTimeMillis());
-				replayFile = Config.getCorePath() + "Scores/"
-						+ MD5Calcuator.getStringMD5(lastTrack.getFilename() + ctime)
-						+ ctime.substring(0, Math.min(3, ctime.length())) + ".odr";
-				replay.setStat(stat);
-				replay.save(replayFile);
+    String ctime = String.valueOf(System.currentTimeMillis());
+    replayFile = Config.getCorePath() + "Scores/"
+    		+ MD5Calcuator.getStringMD5(lastTrack.getFilename() + ctime)
+    		+ ctime.substring(0, Math.min(3, ctime.length())) + ".odr";
+    replay.setStat(stat);
+    replay.save(replayFile);
 			}
 			if (GlobalManager.getInstance().getCamera() instanceof SmoothCamera) {
-				SmoothCamera camera = (SmoothCamera) (GlobalManager.getInstance().getCamera());
-				camera.setZoomFactorDirect(1f);
-				if (Config.isShrinkPlayfieldDownwards()) {
-					camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2);
-				}
+    SmoothCamera camera = (SmoothCamera) (GlobalManager.getInstance().getCamera());
+    camera.setZoomFactorDirect(1f);
+    if (Config.isShrinkPlayfieldDownwards()) {
+    	camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2);
+    }
 			}
 			if (scoringScene != null) {
-				if (replaying) {
-					ModMenu.getInstance().setMod(Replay.oldMod);
-					ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
-					ModMenu.getInstance().setForceAR(Replay.oldForceAR);
-					ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
-					ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
-				}
+    if (replaying) {
+    	ModMenu.getInstance().setMod(Replay.oldMod);
+    	ModMenu.getInstance().setChangeSpeed(Replay.oldChangeSpeed);
+    	ModMenu.getInstance().setForceAR(Replay.oldForceAR);
+    	ModMenu.getInstance().setEnableForceAR(Replay.oldEnableForceAR);
+    	ModMenu.getInstance().setFLfollowDelay(Replay.oldFLFollowDelay);
+    }
 
-				if (replaying)
-					scoringScene.load(scoringScene.getReplayStat(), null, GlobalManager.getInstance().getSongService(), replayFile, null, lastTrack);
-				else {
-					if (stat.getMod().contains(GameMod.MOD_AUTO)) {
-						stat.setPlayerName("osu!");
-					}
+    if (replaying)
+    	scoringScene.load(scoringScene.getReplayStat(), null, GlobalManager.getInstance().getSongService(), replayFile, null, lastTrack);
+    else {
+    	if (stat.getMod().contains(GameMod.MOD_AUTO)) {
+    		stat.setPlayerName("osu!");
+    	}
 
-					EdExtensionHelper.onEndGame(lastTrack, stat);
-					if (storyboardSprite != null) {
-						storyboardSprite.releaseStoryboard();
-						storyboardSprite = null;
-						storyboardOverlayProxy.setDrawProxy(null);
-					}
+    	EdExtensionHelper.onEndGame(lastTrack, stat);
+    	if (storyboardSprite != null) {
+    		storyboardSprite.releaseStoryboard();
+    		storyboardSprite = null;
+    		storyboardOverlayProxy.setDrawProxy(null);
+    	}
 
-					scoringScene.load(stat, lastTrack, GlobalManager.getInstance().getSongService(), replayFile, trackMD5, null);
-				}
-				GlobalManager.getInstance().getSongService().setVolume(0.2f);
-				engine.setScene(scoringScene.getScene());
+    	scoringScene.load(stat, lastTrack, GlobalManager.getInstance().getSongService(), replayFile, trackMD5, null);
+    }
+    GlobalManager.getInstance().getSongService().setVolume(0.2f);
+    engine.setScene(scoringScene.getScene());
 			} else {
-				engine.setScene(oldScene);
+    engine.setScene(oldScene);
 			}
 
 		} else if (objects.isEmpty() && activeObjects.isEmpty()) {
@@ -1916,47 +1916,47 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			skipBtn = null;
 		} else if (skipBtn != null) {
 			for (final Cursor c : cursors) {
-				if (c.mouseDown == true
-						&& Utils.distance(
-						c.mousePos,
-						new PointF(Config.getRES_WIDTH(), Config
-								.getRES_HEIGHT())) < 250) {
+    if (c.mouseDown == true
+    		&& Utils.distance(
+    		c.mousePos,
+    		new PointF(Config.getRES_WIDTH(), Config
+        .getRES_HEIGHT())) < 250) {
 
-					/*if (music.getStatus() != Status.PLAYING) {
-						music.play();
-						music.setVolume(Config.getBgmVolume());
-						totalLength = music.getLength();
-						musicStarted = true;
-					}*/
-					if (GlobalManager.getInstance().getSongService().getStatus() != Status.PLAYING) {
-						GlobalManager.getInstance().getSongService().play();
-						GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
-						totalLength = GlobalManager.getInstance().getSongService().getLength();
-						musicStarted = true;
-					}
-					ResourceManager.getInstance().getSound("menuhit").play();
-					final float difference = skipTime - 0.5f - secPassed;
-					for (final GameObject obj : passiveObjects) {
-						obj.update(difference);
-					}
-					//music.seekTo((int) Math.ceil((skipTime - 0.5f) * 1000));
-					GlobalManager.getInstance().getSongService().seekTo((int) Math.ceil((skipTime - 0.5f) * 1000));
-					secPassed = skipTime - 0.5f;
-					skipBtn.detachSelf();
-					skipBtn = null;
-					return;
-				}
+    	/*if (music.getStatus() != Status.PLAYING) {
+    		music.play();
+    		music.setVolume(Config.getBgmVolume());
+    		totalLength = music.getLength();
+    		musicStarted = true;
+    	}*/
+    	if (GlobalManager.getInstance().getSongService().getStatus() != Status.PLAYING) {
+    		GlobalManager.getInstance().getSongService().play();
+    		GlobalManager.getInstance().getSongService().setVolume(Config.getBgmVolume());
+    		totalLength = GlobalManager.getInstance().getSongService().getLength();
+    		musicStarted = true;
+    	}
+    	ResourceManager.getInstance().getSound("menuhit").play();
+    	final float difference = skipTime - 0.5f - secPassed;
+    	for (final GameObject obj : passiveObjects) {
+    		obj.update(difference);
+    	}
+    	//music.seekTo((int) Math.ceil((skipTime - 0.5f) * 1000));
+    	GlobalManager.getInstance().getSongService().seekTo((int) Math.ceil((skipTime - 0.5f) * 1000));
+    	secPassed = skipTime - 0.5f;
+    	skipBtn.detachSelf();
+    	skipBtn = null;
+    	return;
+    }
 			}
 		}
 
 /*		if (GameHelper.isKiai() && Config.isComplexAnimations() && Config.getBackgroundBrightness() != 0) {
 			final float kiaiModifier = Math
-					.max(0,
-							1 - GameHelper.getGlobalTime() /
-									GameHelper.getKiaiTickLength()) * 0.15f;
+    	.max(0,
+    			1 - GameHelper.getGlobalTime() /
+        	GameHelper.getKiaiTickLength()) * 0.15f;
 			final float a = Math.min(1, kiaiModifier);
 			if (kiai == false) {
-				kiaiRect.setVisible(true);
+    kiaiRect.setVisible(true);
 			}
 			kiai = true;
 			kiaiRect.setAlpha(a);
@@ -2021,7 +2021,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			SmoothCamera camera = (SmoothCamera) (GlobalManager.getInstance().getCamera());
 			camera.setZoomFactorDirect(1f);
 			if (Config.isShrinkPlayfieldDownwards()) {
-				camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2);
+    camera.setCenterDirect(Config.getRES_WIDTH() / 2, Config.getRES_HEIGHT() / 2);
 			}
 		}
 		scene = new Scene();
@@ -2037,15 +2037,15 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		boolean writeReplay = objectId != -1 && replay != null && !replaying;
 		if (score == 0) {
 			if (stat.getCombo() > 30) {
-				ResourceManager.getInstance().getCustomSound("combobreak", 1)
-						.play();
+    ResourceManager.getInstance().getCustomSound("combobreak", 1)
+    		.play();
 			}
 			comboWasMissed = true;
 			stat.registerHit(0, false, false);
 			if (writeReplay) replay.addObjectScore(objectId, Replay.RESULT_0);
 			if(GameHelper.isPerfect()){
-				gameover();
-				restartGame();
+    gameover();
+    restartGame();
 			}
 			if(GameHelper.isSuddenDeath())stat.changeHp(-1.0f);
 			return "hit0";
@@ -2058,36 +2058,36 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			scoreName = "hit50";
 			comboWas100 = true;
 			if(GameHelper.isPerfect()){
-				gameover();
-				restartGame();
+    gameover();
+    restartGame();
 			}
 		} else if (score == 100) {
 			comboWas100 = true;
 			if (writeReplay) replay.addObjectScore(objectId, Replay.RESULT_100);
 			if (endCombo && comboWasMissed == false) {
-				stat.registerHit(100, true, false);
-				scoreName = "hit100k";
+    stat.registerHit(100, true, false);
+    scoreName = "hit100k";
 			} else {
-				stat.registerHit(100, false, false);
-				scoreName = "hit100";
+    stat.registerHit(100, false, false);
+    scoreName = "hit100";
 			}
 			if(GameHelper.isPerfect()){
-				gameover();
-				restartGame();
+    gameover();
+    restartGame();
 			}
 		} else if (score == 300) {
 			if (writeReplay) replay.addObjectScore(objectId, Replay.RESULT_300);
 			if (endCombo && comboWasMissed == false) {
-				if (comboWas100 == false) {
-					stat.registerHit(300, true, true);
-					scoreName = "hit300g";
-				} else {
-					stat.registerHit(300, true, false);
-					scoreName = "hit300k";
-				}
+    if (comboWas100 == false) {
+    	stat.registerHit(300, true, true);
+    	scoreName = "hit300g";
+    } else {
+    	stat.registerHit(300, true, false);
+    	scoreName = "hit300k";
+    }
 			} else {
-				stat.registerHit(300, false, false);
-				scoreName = "hit300";
+    stat.registerHit(300, false, false);
+    scoreName = "hit300";
 			}
 		}
 
@@ -2101,7 +2101,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 
 	public void onCircleHit(int id, final float acc, final PointF pos,
-							final boolean endCombo, byte forcedScore, RGBColor color) {
+    			final boolean endCombo, byte forcedScore, RGBColor color) {
 		if (GameHelper.isAuto()) {
 			autoCursor.click();
 		}
@@ -2117,8 +2117,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		   if (nearestCursorId >= 0) {
 			   mainCursorId = nearestCursorId;
 			   flashlightSprite.onMouseMove(
-					cursors[mainCursorId].mousePos.x,
-					cursors[mainCursorId].mousePos.y
+    	cursors[mainCursorId].mousePos.x,
+    	cursors[mainCursorId].mousePos.y
 			   );
 			}
 		}
@@ -2132,11 +2132,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		String scoreName = "hit300";
 		if (forcedScore == Replay.RESULT_300 ||
-				forcedScore == 0 && accuracy <= difficultyHelper.hitWindowFor300(overallDifficulty)) {
+    forcedScore == 0 && accuracy <= difficultyHelper.hitWindowFor300(overallDifficulty)) {
 			//(75 + 25 * (5 - overallDifficulty) / 5) / 1000)
 			scoreName = registerHit(id, 300, endCombo);
 		} else if (forcedScore == Replay.RESULT_100 ||
-				forcedScore == 0 && accuracy <= difficultyHelper.hitWindowFor100(overallDifficulty)) {
+    forcedScore == 0 && accuracy <= difficultyHelper.hitWindowFor100(overallDifficulty)) {
 			//(150 + 50 * (5 - overallDifficulty) / 5) / 1000)
 			scoreName = registerHit(id, 100, endCombo);
 		} else {
@@ -2154,7 +2154,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 	}
 
 	public void onSliderHit(int id, final int score, final PointF start,
-							final PointF end, final boolean endCombo, RGBColor color, int type) {
+    			final PointF end, final boolean endCombo, RGBColor color, int type) {
 		if (score == 0) {
 			createHitEffect(start, "hit0", color);
 			createHitEffect(end, "hit0", color);
@@ -2164,8 +2164,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 
 		if (score == -1) {
 			if (stat.getCombo() > 30) {
-				ResourceManager.getInstance().getCustomSound("combobreak", 1)
-						.play();
+    ResourceManager.getInstance().getCustomSound("combobreak", 1)
+    		.play();
 			}
 			if(GameHelper.isSuddenDeath()) stat.changeHp(-1.0f);
 			stat.registerHit(0, true, false);
@@ -2175,38 +2175,38 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		String scoreName = "hit0";
 		switch (score) {
 			case 300:
-				scoreName = registerHit(id, 300, endCombo);
-				break;
+    scoreName = registerHit(id, 300, endCombo);
+    break;
 			case 100:
-				scoreName = registerHit(id, 100, endCombo);
-				stat.setPerfect(false);
-				break;
+    scoreName = registerHit(id, 100, endCombo);
+    stat.setPerfect(false);
+    break;
 			case 50:
-				scoreName = registerHit(id, 50, endCombo);
-				stat.setPerfect(false);
-				break;
+    scoreName = registerHit(id, 50, endCombo);
+    stat.setPerfect(false);
+    break;
 			case 30:
-				scoreName = "sliderpoint30";
-				stat.registerHit(30, false, false);
-				break;
+    scoreName = "sliderpoint30";
+    stat.registerHit(30, false, false);
+    break;
 			case 10:
-				scoreName = "sliderpoint10";
-				stat.registerHit(10, false, false);
-				break;
+    scoreName = "sliderpoint10";
+    stat.registerHit(10, false, false);
+    break;
 		}
 
 		if (score > 10) {
 			switch (type) {
-				case GameObjectListener.SLIDER_START:
-					createBurstEffectSliderStart(end, color);
-					break;
-				case GameObjectListener.SLIDER_END:
-					createBurstEffectSliderEnd(end, color);
-					break;
-				case GameObjectListener.SLIDER_REPEAT:
-					break;
-				default:
-					createBurstEffect(end, color);
+    case GameObjectListener.SLIDER_START:
+    	createBurstEffectSliderStart(end, color);
+    	break;
+    case GameObjectListener.SLIDER_END:
+    	createBurstEffectSliderEnd(end, color);
+    	break;
+    case GameObjectListener.SLIDER_REPEAT:
+    	break;
+    default:
+    	createBurstEffect(end, color);
 			}
 		}
 		createHitEffect(end, scoreName, color);
@@ -2222,32 +2222,32 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (replay != null && !replaying) {
 			short acc = (short) (totalScore * 4);
 			switch (score) {
-				case 300:
-					acc += 3;
-					break;
-				case 100:
-					acc += 2;
-					break;
-				case 50:
-					acc += 1;
-					break;
+    case 300:
+    	acc += 3;
+    	break;
+    case 100:
+    	acc += 2;
+    	break;
+    case 50:
+    	acc += 1;
+    	break;
 			}
 			replay.addObjectResult(id, acc, null);
 		}
 
 		final PointF pos = new PointF(Config.getRES_WIDTH() / 2,
-				Config.getRES_HEIGHT() / 2);
+    Config.getRES_HEIGHT() / 2);
 		if (score == 0) {
 			final GameEffect effect = GameObjectPool.getInstance().getEffect(
-					"hit0");
+    	"hit0");
 			effect.init(
-					scene,
-					pos,
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newFadeInModifier(0.15f), ModifierFactory
-							.newDelayModifier(0.35f), ModifierFactory
-							.newFadeOutModifier(0.25f)));
+    	scene,
+    	pos,
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newFadeInModifier(0.15f), ModifierFactory
+    			.newDelayModifier(0.35f), ModifierFactory
+    			.newFadeOutModifier(0.25f)));
 			registerHit(id, 0, endCombo);
 			return;
 		}
@@ -2255,39 +2255,39 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		String scoreName = "hit0";
 		switch (score) {
 			case 300:
-				scoreName = registerHit(id, 300, endCombo);
-				break;
+    scoreName = registerHit(id, 300, endCombo);
+    break;
 			case 100:
-				scoreName = registerHit(id, 100, endCombo);
-				break;
+    scoreName = registerHit(id, 100, endCombo);
+    break;
 			case 50:
-				scoreName = registerHit(id, 50, endCombo);
-				break;
+    scoreName = registerHit(id, 50, endCombo);
+    break;
 		}
 
 		if (ResourceManager.getInstance().getTexture("lighting") != null) {
 			final GameEffect light = GameObjectPool.getInstance().getEffect(
-					"lighting");
+    	"lighting");
 			light.init(
-					mgScene,
-					pos,
-					scale,
-					new FadeOutModifier(0.7f),
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, scale, 1.5f * scale),
-							ModifierFactory.newScaleModifier(0.45f,
-									scale * 1.5f, 2f * scale)));
+    	mgScene,
+    	pos,
+    	scale,
+    	new FadeOutModifier(0.7f),
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, scale, 1.5f * scale),
+    			ModifierFactory.newScaleModifier(0.45f,
+        	scale * 1.5f, 2f * scale)));
 		}
 
 		GameEffect effect = GameObjectPool.getInstance().getEffect(scoreName);
 		effect.init(
-				mgScene,
-				pos,
-				scale,
-				new SequenceEntityModifier(ModifierFactory.newScaleModifier(
-						0.15f, 1.0f * scale, 1.2f * scale), ModifierFactory
-						.newScaleModifier(0.05f, 1.2f * scale, 1.0f * scale),
-						ModifierFactory.newAlphaModifier(1f, 1, 0)));
+    mgScene,
+    pos,
+    scale,
+    new SequenceEntityModifier(ModifierFactory.newScaleModifier(
+    		0.15f, 1.0f * scale, 1.2f * scale), ModifierFactory
+    		.newScaleModifier(0.05f, 1.2f * scale, 1.0f * scale),
+    		ModifierFactory.newAlphaModifier(1f, 1, 0)));
 
 		pos.y /= 2f;
 		effect = GameObjectPool.getInstance().getEffect("spinner-osu");
@@ -2313,7 +2313,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			snd = ResourceManager.getInstance().getSound(fullName);
 		} else {
 			snd = ResourceManager.getInstance().getCustomSound(fullName,
-					soundTimingPoint.getCustomSound());
+    	soundTimingPoint.getCustomSound());
 		}
 		if(snd == null) {
 			return;
@@ -2326,7 +2326,7 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			return;
 		}
 		if (name.equals("hitwhistle")
-				|| name.equals("hitclap")) {
+    || name.equals("hitclap")) {
 			snd.play(soundTimingPoint.getVolume() * 0.85f);
 			return;
 		}
@@ -2355,8 +2355,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		}
 		if (Config.isRemoveSliderLock()){
 			if(activeObjects.isEmpty()
-				|| Math.abs(object.getHitTime() - lastObjectHitTime) > 0.001f) {
-				return false;
+    || Math.abs(object.getHitTime() - lastObjectHitTime) > 0.001f) {
+    return false;
 			}
 		}
 		else if (activeObjects.isEmpty()
@@ -2386,9 +2386,9 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 	}
 
 	public boolean onSceneTouchEvent(final Scene pScene,
-									 final TouchEvent pSceneTouchEvent) {
+        	 final TouchEvent pSceneTouchEvent) {
 		if (pSceneTouchEvent.getPointerID() < 0
-				|| pSceneTouchEvent.getPointerID() >= CursorCount) {
+    || pSceneTouchEvent.getPointerID() >= CursorCount) {
 			Debug.e("Invalid pointerID: " + pSceneTouchEvent.getPointerID());
 			return false;
 		}
@@ -2402,12 +2402,12 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			cursors[i].mouseDown = true;
 			cursors[i].mouseDownOffsetMS = (pSceneTouchEvent.getMotionEvent().getEventTime() - previousFrameTime) * timeMultiplier;
 			for (int j = 0; j < cursors.length; j++)
-				cursors[j].mouseOldDown = false;
+    cursors[j].mouseOldDown = false;
 			PointF gamePoint = Utils.realToTrackCoords(new PointF(pTouchX, pTouchY));
 			cursors[i].mousePos.x = pTouchX;
 			cursors[i].mousePos.y = pTouchY;
 			if (replay != null) {
-				replay.addPress(secPassed, gamePoint, i);
+    replay.addPress(secPassed, gamePoint, i);
 			}
 			cursorIIsDown[i] = true;
 		} else if (pSceneTouchEvent.isActionMove()) {
@@ -2415,12 +2415,12 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			cursors[i].mousePos.x = pTouchX;
 			cursors[i].mousePos.y = pTouchY;
 			if (replay != null) {
-				replay.addMove(secPassed, gamePoint, i);
+    replay.addMove(secPassed, gamePoint, i);
 			}
 		} else if (pSceneTouchEvent.isActionUp()) {
 			cursors[i].mouseDown = false;
 			if (replay != null) {
-				replay.addUp(secPassed, i);
+    replay.addUp(secPassed, i);
 			}
 		} else {
 			return false;
@@ -2486,8 +2486,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		scene.getChildScene().back();
 		paused = false;
 		if (stat.getHp() <= 0 && stat.getMod().contains(GameMod.MOD_NOFAIL) == false
-				&& stat.getMod().contains(GameMod.MOD_RELAX) == false
-				&& stat.getMod().contains(GameMod.MOD_AUTOPILOT) == false) {
+    && stat.getMod().contains(GameMod.MOD_RELAX) == false
+    && stat.getMod().contains(GameMod.MOD_AUTOPILOT) == false) {
 			quit();
 			return;
 		}
@@ -2526,71 +2526,71 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		final GameEffect effect = GameObjectPool.getInstance().getEffect(name);
 		if (name.equals("hit0")) {
 			if(GameHelper.isSuddenDeath()){
-				effect.init(
-					mgScene,
-					pos,
-					scale * 3,
-					new SequenceEntityModifier(ModifierFactory
-							.newFadeInModifier(0.15f), ModifierFactory
-							.newDelayModifier(0.35f), ModifierFactory
-							.newFadeOutModifier(0.25f)));
-				return;
+    effect.init(
+    	mgScene,
+    	pos,
+    	scale * 3,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newFadeInModifier(0.15f), ModifierFactory
+    			.newDelayModifier(0.35f), ModifierFactory
+    			.newFadeOutModifier(0.25f)));
+    return;
 			}
 			effect.init(
-					mgScene,
-					pos,
-					scale,
-					new SequenceEntityModifier(ModifierFactory
-							.newFadeInModifier(0.15f), ModifierFactory
-							.newDelayModifier(0.35f), ModifierFactory
-							.newFadeOutModifier(0.25f)));
+    	mgScene,
+    	pos,
+    	scale,
+    	new SequenceEntityModifier(ModifierFactory
+    			.newFadeInModifier(0.15f), ModifierFactory
+    			.newDelayModifier(0.35f), ModifierFactory
+    			.newFadeOutModifier(0.25f)));
 			return;
 		}
 
 		if (Config.isComplexAnimations()
-				&& name.equals("sliderpoint10") == false
-				&& name.equals("sliderpoint30") == false
-				&& ResourceManager.getInstance().getTexture("lighting") != null
-				&& Config.isHitLighting()) {
+    && name.equals("sliderpoint10") == false
+    && name.equals("sliderpoint30") == false
+    && ResourceManager.getInstance().getTexture("lighting") != null
+    && Config.isHitLighting()) {
 			final GameEffect light = GameObjectPool.getInstance().getEffect("lighting");
 			light.setColor(color);
 			light.init(
-					bgScene,
-					pos,
-					scale,
-					ModifierFactory.newFadeOutModifier(1f),
-					new SequenceEntityModifier(ModifierFactory
-							.newScaleModifier(0.25f, scale, 1.5f * scale),
-							ModifierFactory.newScaleModifier(0.45f,
-									scale * 1.5f, 1.9f * scale),
-							ModifierFactory.newScaleModifier(0.3f, scale * 1.9f, scale * 2f)
-					));
+    	bgScene,
+    	pos,
+    	scale,
+    	ModifierFactory.newFadeOutModifier(1f),
+    	new SequenceEntityModifier(ModifierFactory
+    			.newScaleModifier(0.25f, scale, 1.5f * scale),
+    			ModifierFactory.newScaleModifier(0.45f,
+        	scale * 1.5f, 1.9f * scale),
+    			ModifierFactory.newScaleModifier(0.3f, scale * 1.9f, scale * 2f)
+    	));
 			light.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_DST_ALPHA);
 		}
 
 		effect.init(
-				mgScene,
-				pos,
-				scale,
-				new SequenceEntityModifier(ModifierFactory.newScaleModifier(
-						0.15f, 1.0f * scale, 1.2f * scale), ModifierFactory
-						.newScaleModifier(0.05f, 1.2f * scale, 1.0f * scale),
-						ModifierFactory.newAlphaModifier(0.5f, 1, 0)));
+    mgScene,
+    pos,
+    scale,
+    new SequenceEntityModifier(ModifierFactory.newScaleModifier(
+    		0.15f, 1.0f * scale, 1.2f * scale), ModifierFactory
+    		.newScaleModifier(0.05f, 1.2f * scale, 1.0f * scale),
+    		ModifierFactory.newAlphaModifier(0.5f, 1, 0)));
 	}
 
 	private void createBurstEffect(final PointF pos, final RGBColor color) {
 		if (!Config.isComplexAnimations() || !Config.isBurstEffects()) return;
 		final GameEffect burst1 = GameObjectPool.getInstance().getEffect("hitcircle");
 		burst1.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 		burst1.setColor(color);
 
 		final GameEffect burst2 = GameObjectPool.getInstance().getEffect("hitcircleoverlay");
 		burst2.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 
 	}
@@ -2599,15 +2599,15 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (!Config.isComplexAnimations() || !Config.isBurstEffects()) return;
 		final GameEffect burst1 = GameObjectPool.getInstance().getEffect("sliderstartcircle");
 		burst1.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 		burst1.setColor(color);
 
 		final GameEffect burst2 = GameObjectPool.getInstance().getEffect("sliderstartcircleoverlay");
 		burst2.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 
 	}
@@ -2616,15 +2616,15 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (!Config.isComplexAnimations() || !Config.isBurstEffects()) return;
 		final GameEffect burst1 = GameObjectPool.getInstance().getEffect("sliderendcircle");
 		burst1.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 		burst1.setColor(color);
 
 		final GameEffect burst2 = GameObjectPool.getInstance().getEffect("sliderendcircleoverlay");
 		burst2.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 
 	}
@@ -2634,8 +2634,8 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		final GameEffect burst1 = GameObjectPool.getInstance().getEffect("reversearrow");
 		burst1.hit.setRotation(ang);
 		burst1.init(mgScene, pos, scale,
-				ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
-				ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
+    ModifierFactory.newScaleModifier(0.25f, scale, 1.5f * scale),
+    ModifierFactory.newAlphaModifier(0.25f, 0.8f, 0)
 		);
 
 	}
@@ -2691,13 +2691,13 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		int id = -1, i = 0;
 		for (Cursor c : cursors) {
 			if(c.mouseDown == true || c.mousePressed == true || c.mouseOldDown == true){
-				dx = c.mousePos.x - pX;
-				dy = c.mousePos.y - pY;
-				cursorDistance = dx * dx + dy * dy;
-				if(cursorDistance < distance){
-					id = i;
-					distance = cursorDistance;
-				}
+    dx = c.mousePos.x - pX;
+    dy = c.mousePos.y - pY;
+    cursorDistance = dx * dx + dy * dy;
+    if(cursorDistance < distance){
+    	id = i;
+    	distance = cursorDistance;
+    }
 			}
 			++i;
 		}
@@ -2725,11 +2725,11 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 			final String[] params = data.getData();
 			final int objDefine = Integer.parseInt(params[3]);
 			if (objects.isEmpty() == false && (objDefine & 1) > 0 && i + 1 < objects.size()) {
-				if (objects.get(i + 1).getTime() - data.getTime() < 2f * GameHelper.getStackLatient()
-						&& Utils.squaredDistance(pos, objects.get(i + 1).getPos()) < scale) {
-					objects.get(i + 1).setPosOffset(
-							data.getPosOffset() + Utils.toRes(4) * scale);
-				}
+    if (objects.get(i + 1).getTime() - data.getTime() < 2f * GameHelper.getStackLatient()
+    		&& Utils.squaredDistance(pos, objects.get(i + 1).getPos()) < scale) {
+    	objects.get(i + 1).setPosOffset(
+    			data.getPosOffset() + Utils.toRes(4) * scale);
+    }
 			}
 			i++;
 		}
@@ -2741,35 +2741,35 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		}
 		else {
 			if (lastTrack.getSliderCount() <= 0){
-				return;
+    return;
 			}
 			sliderPaths = new SliderPath[lastTrack.getSliderCount()];
 			for (SliderPath path : sliderPaths){
-				path = null;
+    path = null;
 			}
 			int i = 0;
 			sliderIndex = 0;
 			for (GameObjectData data : objects){
-				final String[] params = data.getData();
-				final int objDefine = Integer.parseInt(params[3]);
-				//is slider
-				if ((objDefine & 2) > 0) {
-					final PointF pos = data.getPos();
-					final float length = Float.parseFloat(params[7]);
-					final float offset = data.getPosOffset();
-					pos.x += data.getPosOffset();
-					pos.y += data.getPosOffset();
-					if (length < 0){
-						sliderPaths[sliderIndex] = GameHelper.calculatePath(Utils.realToTrackCoords(pos),
-						params[5].split("[|]"), 0, offset);
-					}
-					else{
-						sliderPaths[sliderIndex] = GameHelper.calculatePath(Utils.realToTrackCoords(pos),
-						params[5].split("[|]"), length, offset);
-					}
-					sliderIndex++;
-				}
-				i++;
+    final String[] params = data.getData();
+    final int objDefine = Integer.parseInt(params[3]);
+    //is slider
+    if ((objDefine & 2) > 0) {
+    	final PointF pos = data.getPos();
+    	final float length = Float.parseFloat(params[7]);
+    	final float offset = data.getPosOffset();
+    	pos.x += data.getPosOffset();
+    	pos.y += data.getPosOffset();
+    	if (length < 0){
+    		sliderPaths[sliderIndex] = GameHelper.calculatePath(Utils.realToTrackCoords(pos),
+    		params[5].split("[|]"), 0, offset);
+    	}
+    	else{
+    		sliderPaths[sliderIndex] = GameHelper.calculatePath(Utils.realToTrackCoords(pos),
+    		params[5].split("[|]"), length, offset);
+    	}
+    	sliderIndex++;
+    }
+    i++;
 			}
 			sliderIndex = 0;
 		}
@@ -2793,19 +2793,19 @@ public class GameScene implements IUpdateHandler, GameObjectListener,
 		if (replay != null && replaying == false) {
 			//write misses to replay
 			for (GameObject obj : activeObjects) {
-				stat.registerHit(0, false, false);
-				replay.addObjectScore(obj.getId(), Replay.RESULT_0);
+    stat.registerHit(0, false, false);
+    replay.addObjectScore(obj.getId(), Replay.RESULT_0);
 			}
 			while (objects.isEmpty() == false){
-				objects.poll();
-				stat.registerHit(0, false, false);
-				replay.addObjectScore(++lastObjectId, Replay.RESULT_0);
+    objects.poll();
+    stat.registerHit(0, false, false);
+    replay.addObjectScore(++lastObjectId, Replay.RESULT_0);
 			}
 			//save replay
 			String ctime = String.valueOf(System.currentTimeMillis());
 			replayFile = Config.getCorePath() + "Scores/"
-					+ MD5Calcuator.getStringMD5(lastTrack.getFilename() + ctime)
-					+ ctime.substring(0, Math.min(3, ctime.length())) + ".odr";
+    	+ MD5Calcuator.getStringMD5(lastTrack.getFilename() + ctime)
+    	+ ctime.substring(0, Math.min(3, ctime.length())) + ".odr";
 			replay.setStat(stat);
 			replay.save(replayFile);
 			ScoreLibrary.getInstance().addScore(lastTrack.getFilename(), stat, replayFile);

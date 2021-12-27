@@ -48,15 +48,15 @@ public class SkinPathPreference extends ListPreference {
 			entryValues[0] = skinMain.getPath();
 			
 			if(skins.size() > 0) {
-				int index = 1;
-				for(Map.Entry<String, String> skin : skins.entrySet()) {
-					entries[index] = skin.getKey();
-					entryValues[index] = skin.getValue();
-					index++;
-				}
+    int index = 1;
+    for(Map.Entry<String, String> skin : skins.entrySet()) {
+    	entries[index] = skin.getKey();
+    	entryValues[index] = skin.getValue();
+    	index++;
+    }
 
-				Arrays.sort(entries, 1, entries.length);
-				Arrays.sort(entryValues, 1, entryValues.length);
+    Arrays.sort(entries, 1, entries.length);
+    Arrays.sort(entryValues, 1, entryValues.length);
 			}
 
 			setEntries(entries);

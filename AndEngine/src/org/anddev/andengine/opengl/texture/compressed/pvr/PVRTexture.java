@@ -147,7 +147,7 @@ public abstract class PVRTexture extends Texture {
 			final int currentPixelDataSize = width * height * bytesPerPixel;
 
 			if (mipmapLevel > 0 && (width != height || MathUtils.nextPowerOfTwo(width) != width)) {
-				Debug.w(String.format("Mipmap level '%u' is not squared. Width: '%u', height: '%u'. Texture won't render correctly.", mipmapLevel, width, height));
+    Debug.w(String.format("Mipmap level '%u' is not squared. Width: '%u', height: '%u'. Texture won't render correctly.", mipmapLevel, width, height));
 			}
 
 			pvrDataBuffer.position(PVRTextureHeader.SIZE + currentPixelDataOffset);
@@ -218,7 +218,7 @@ public abstract class PVRTexture extends Texture {
 
 			/* Check magic bytes. */
 			if(!ArrayUtils.equals(pData, 11 * DataConstants.BYTES_PER_INT, PVRTextureHeader.MAGIC_IDENTIFIER, 0, PVRTextureHeader.MAGIC_IDENTIFIER.length)) {
-				throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
+    throw new IllegalArgumentException("Invalid " + this.getClass().getSimpleName() + "!");
 			}
 
 			this.mPVRTextureFormat = PVRTextureFormat.fromID(this.getFlags() & PVRTextureHeader.FORMAT_FLAG_MASK);
@@ -345,24 +345,24 @@ public abstract class PVRTexture extends Texture {
 			final PVRTextureFormat[] pvrTextureFormats = PVRTextureFormat.values();
 			final int pvrTextureFormatCount = pvrTextureFormats.length;
 			for(int i = 0; i < pvrTextureFormatCount; i++) {
-				final PVRTextureFormat pvrTextureFormat = pvrTextureFormats[i];
-				if(pvrTextureFormat.mID == pID) {
-					return pvrTextureFormat;
-				}
+    final PVRTextureFormat pvrTextureFormat = pvrTextureFormats[i];
+    if(pvrTextureFormat.mID == pID) {
+    	return pvrTextureFormat;
+    }
 			}
 			throw new IllegalArgumentException("Unexpected " + PVRTextureFormat.class.getSimpleName() + "-ID: '" + pID + "'.");
 		}
 
 		public static PVRTextureFormat fromPixelFormat(final PixelFormat pPixelFormat) throws IllegalArgumentException {
 			switch(pPixelFormat) {
-				case RGBA_8888:
-					return PVRTextureFormat.RGBA_8888;
-				case RGBA_4444:
-					return PVRTextureFormat.RGBA_4444;
-				case RGB_565:
-					return PVRTextureFormat.RGB_565;
-				default:
-					throw new IllegalArgumentException("Unsupported " + PixelFormat.class.getName() + ": '" + pPixelFormat + "'.");
+    case RGBA_8888:
+    	return PVRTextureFormat.RGBA_8888;
+    case RGBA_4444:
+    	return PVRTextureFormat.RGBA_4444;
+    case RGB_565:
+    	return PVRTextureFormat.RGB_565;
+    default:
+    	throw new IllegalArgumentException("Unsupported " + PixelFormat.class.getName() + ": '" + pPixelFormat + "'.");
 			}
 		}
 

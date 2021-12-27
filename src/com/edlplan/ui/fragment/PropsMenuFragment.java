@@ -62,7 +62,7 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				pos = start;
+    pos = start;
 			}
 
 			@Override
@@ -73,28 +73,28 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 			@Override
 			public void afterTextChanged(Editable s) {
 
-				try {
-					o = Integer.parseInt(s.toString());
-					needRest = false;
-					if (Math.abs(o) > 250) {
-						o = 250 * (o > 0 ? 1 : -1);
-						needRest = true;
-					}
-					if (needRest) {
-						offset.removeTextChangedListener(this);
-						offset.setText(o + "");
-						offset.setSelection(pos);
-						offset.addTextChangedListener(this);
-					}
-					props.setOffset(o);
-					saveProp();
-				} catch (NumberFormatException e) {
-					if (s.length() == 0) {
-						props.setOffset(0);
-						saveProp();
-					}
-					return;
-				}
+    try {
+    	o = Integer.parseInt(s.toString());
+    	needRest = false;
+    	if (Math.abs(o) > 250) {
+    		o = 250 * (o > 0 ? 1 : -1);
+    		needRest = true;
+    	}
+    	if (needRest) {
+    		offset.removeTextChangedListener(this);
+    		offset.setText(o + "");
+    		offset.setSelection(pos);
+    		offset.addTextChangedListener(this);
+    	}
+    	props.setOffset(o);
+    	saveProp();
+    } catch (NumberFormatException e) {
+    	if (s.length() == 0) {
+    		props.setOffset(0);
+    		saveProp();
+    	}
+    	return;
+    }
 			}
 		});
 
@@ -107,12 +107,12 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 		findViewById(R.id.deleteBeatmap).setOnClickListener(v -> {
 			ConfirmDialogFragment confirm = new ConfirmDialogFragment();
 			confirm.showForResult(isAccepted -> {
-				if (isAccepted) {
-					if (menu != null) {
-						menu.scene.postRunnable(item::delete);
-					}
-					dismiss();
-				}
+    if (isAccepted) {
+    	if (menu != null) {
+    		menu.scene.postRunnable(item::delete);
+    	}
+    	dismiss();
+    }
 			});
 		});
 
@@ -125,11 +125,11 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 		body.setTranslationY(200);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.alpha(1)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setDuration(150)
-				.start();
+    .translationY(0)
+    .alpha(1)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setDuration(150)
+    .start();
 		playBackgroundHideInAnim(150);
 	}
 
@@ -137,19 +137,19 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 		View body = findViewById(R.id.fullLayout);
 		body.animate().cancel();
 		body.animate()
-				.translationY(200)
-				.alpha(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationY(200)
+    .alpha(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 
@@ -179,7 +179,7 @@ public class PropsMenuFragment extends BaseFragment implements IPropsMenu {
 
 	public void saveProp() {
 		PropertiesLibrary.getInstance().setProperties(
-				item.getBeatmap().getPath(), props);
+    item.getBeatmap().getPath(), props);
 		item.setFavorite(props.favorite);
 		PropertiesLibrary.getInstance().save();
 	}

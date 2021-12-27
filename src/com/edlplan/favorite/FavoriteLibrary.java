@@ -61,25 +61,25 @@ public class FavoriteLibrary {
 			JSONObject favorite;
 			String jsonTxt = readFull(json);
 			if (jsonTxt.isEmpty()) {
-				favorite = new JSONObject();
+    favorite = new JSONObject();
 			} else {
-				try {
-					favorite = new JSONObject(jsonTxt);
-				} catch (JSONException e) {
-					e.printStackTrace();
-					favorite = new JSONObject();
-				}
+    try {
+    	favorite = new JSONObject(jsonTxt);
+    } catch (JSONException e) {
+    	e.printStackTrace();
+    	favorite = new JSONObject();
+    }
 			}
 			Iterator<String> iterator = favorite.keys();
 			while (iterator.hasNext()) {
-				String floder = iterator.next();
-				JSONArray array = favorite.optJSONArray(floder);
-				if (!favorites.containsKey(floder)) {
-					favorites.put(floder, new HashSet<>());
-				}
-				for (int i = 0; i < array.length(); i++) {
-					favorites.get(floder).add(array.optString(i));
-				}
+    String floder = iterator.next();
+    JSONArray array = favorite.optJSONArray(floder);
+    if (!favorites.containsKey(floder)) {
+    	favorites.put(floder, new HashSet<>());
+    }
+    for (int i = 0; i < array.length(); i++) {
+    	favorites.get(floder).add(array.optString(i));
+    }
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,8 +119,8 @@ public class FavoriteLibrary {
 	public void remove(String folder, String path) {
 		if (favorites.containsKey(folder)) {
 			if (favorites.get(folder).contains(path)) {
-				favorites.get(folder).remove(path);
-				save();
+    favorites.get(folder).remove(path);
+    save();
 			}
 		}
 	}
@@ -136,11 +136,11 @@ public class FavoriteLibrary {
 		try {
 			JSONObject object = new JSONObject();
 			for (Map.Entry<String, HashSet<String>> entry : favorites.entrySet()) {
-				JSONArray array = new JSONArray();
-				for (String path : entry.getValue()) {
-					array.put(path);
-				}
-				object.put(entry.getKey(), array);
+    JSONArray array = new JSONArray();
+    for (String path : entry.getValue()) {
+    	array.put(path);
+    }
+    object.put(entry.getKey(), array);
 			}
 			cover(object.toString(2), json);
 		} catch (IOException e) {

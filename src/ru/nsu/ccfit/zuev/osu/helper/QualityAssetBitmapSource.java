@@ -29,13 +29,13 @@ public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
 	// ===========================================================
 
 	public QualityAssetBitmapSource(final Context pContext,
-									final String pAssetPath) {
+        	final String pAssetPath) {
 		this(pContext, pAssetPath, 0, 0);
 	}
 
 	public QualityAssetBitmapSource(final Context pContext,
-									final String pAssetPath, final int pTexturePositionX,
-									final int pTexturePositionY) {
+        	final String pAssetPath, final int pTexturePositionX,
+        	final int pTexturePositionY) {
 		super(pTexturePositionX, pTexturePositionY);
 		this.mContext = pContext;
 		this.mAssetPath = pAssetPath;
@@ -43,7 +43,7 @@ public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
 		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
 		decodeOptions.inJustDecodeBounds = true;
 		decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-				.getTextureQuality();
+    .getTextureQuality();
 
 		InputStream in = null;
 		try {
@@ -60,8 +60,8 @@ public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
 	}
 
 	QualityAssetBitmapSource(final Context pContext, final String pAssetPath,
-							 final int pTexturePositionX, final int pTexturePositionY,
-							 final int pWidth, final int pHeight) {
+    			 final int pTexturePositionX, final int pTexturePositionY,
+    			 final int pWidth, final int pHeight) {
 		super(pTexturePositionX, pTexturePositionY);
 		this.mContext = pContext;
 		this.mAssetPath = pAssetPath;
@@ -72,8 +72,8 @@ public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
 
 	public QualityAssetBitmapSource deepCopy() {
 		return new QualityAssetBitmapSource(this.mContext, this.mAssetPath,
-				this.mTexturePositionX, this.mTexturePositionY, this.mWidth,
-				this.mHeight);
+    this.mTexturePositionX, this.mTexturePositionY, this.mWidth,
+    this.mHeight);
 	}
 
 	// ===========================================================
@@ -111,14 +111,14 @@ public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
 			final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
 			decodeOptions.inPreferredConfig = pBitmapConfig;
 			decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-					.getTextureQuality();
+    	.getTextureQuality();
 
 			in = this.mContext.getAssets().open(this.mAssetPath);
 			return BitmapFactory.decodeStream(in, null, decodeOptions);
 		} catch (final IOException e) {
 			Debug.e("Failed loading Bitmap in "
-					+ this.getClass().getSimpleName() + ". AssetPath: "
-					+ this.mAssetPath, e);
+    	+ this.getClass().getSimpleName() + ". AssetPath: "
+    	+ this.mAssetPath, e);
 			return null;
 		} finally {
 			StreamUtils.close(in);

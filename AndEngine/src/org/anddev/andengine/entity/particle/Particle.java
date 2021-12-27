@@ -80,7 +80,7 @@ public class Particle extends Sprite {
 			super.onManagedUpdate(pSecondsElapsed);
 			final float deathTime = this.mDeathTime;
 			if(deathTime != -1 && this.mLifeTime > deathTime) {
-				this.setDead(true);
+    this.setDead(true);
 			}
 		}
 	}

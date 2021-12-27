@@ -76,12 +76,12 @@ public interface ITexture {
 		public static class DebugTextureStateListener<T extends ITextureAtlasSource> implements ITextureStateListener {
 			@Override
 			public void onLoadedToHardware(final ITexture pTexture) {
-				Debug.d("Texture loaded: " + pTexture.toString());
+    Debug.d("Texture loaded: " + pTexture.toString());
 			}
 
 			@Override
 			public void onUnloadedFromHardware(final ITexture pTexture) {
-				Debug.d("Texture unloaded: " + pTexture.toString());
+    Debug.d("Texture unloaded: " + pTexture.toString());
 			}
 		}
 	}

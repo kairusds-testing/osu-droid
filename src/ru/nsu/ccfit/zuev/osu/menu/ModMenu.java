@@ -70,7 +70,7 @@ public class ModMenu implements IModSwitcher {
 		setSongMenu(songMenu);
 		setSelectedTrack(selectedTrack);
 		songMenu.scene.setChildScene(getScene(),
-				false, true, true);
+    false, true, true);
 		InGameSettingMenu.getInstance().show();
 	}
 
@@ -106,13 +106,13 @@ public class ModMenu implements IModSwitcher {
 		scene = new Scene();
 		scene.setBackgroundEnabled(false);
 		final Rectangle bg = new Rectangle(0, 0, Config.getRES_WIDTH(),
-				Config.getRES_HEIGHT());
+    Config.getRES_HEIGHT());
 		bg.setColor(0, 0, 0, 0.7f);
 		scene.attachChild(bg);
 
 		multiplierText = new ChangeableText(0, Utils.toRes(50),
-				ResourceManager.getInstance().getFont("CaptionFont"),
-				StringTable.format(R.string.menu_mod_multiplier, 1f));
+    ResourceManager.getInstance().getFont("CaptionFont"),
+    StringTable.format(R.string.menu_mod_multiplier, 1f));
 		multiplierText.setScale(1.2f);
 		scene.attachChild(multiplierText);
 
@@ -147,21 +147,21 @@ public class ModMenu implements IModSwitcher {
 
 
 		final TextButton resetText = new TextButton(ResourceManager
-				.getInstance().getFont("CaptionFont"),
-				StringTable.get(R.string.menu_mod_reset)) {
+    .getInstance().getFont("CaptionFont"),
+    StringTable.get(R.string.menu_mod_reset)) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					mod.clear();
-					changeMultiplierText();
-					for (ModButton btn : modButtons.values()) {
-						btn.setModEnabled(false);
-					}
-					return true;
-				}
-				return false;
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionUp()) {
+    	mod.clear();
+    	changeMultiplierText();
+    	for (ModButton btn : modButtons.values()) {
+    		btn.setModEnabled(false);
+    	}
+    	return true;
+    }
+    return false;
 			}
 		};
 		scene.attachChild(resetText);
@@ -169,31 +169,31 @@ public class ModMenu implements IModSwitcher {
 		resetText.setScale(1.2f);
 
 		final TextButton back = new TextButton(ResourceManager
-				.getInstance().getFont("CaptionFont"),
-				StringTable.get(R.string.menu_mod_back)) {
+    .getInstance().getFont("CaptionFont"),
+    StringTable.get(R.string.menu_mod_back)) {
 
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
-										 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					(new Thread() {
-						public void run() {
-							if (GlobalManager.getInstance().getSongMenu().getSelectedTrack() != null){
-								DifficultyReCalculator rec = new DifficultyReCalculator();
-								float newstar = rec.recalculateStar(
-										GlobalManager.getInstance().getSongMenu().getSelectedTrack(),
-										rec.getCS(GlobalManager.getInstance().getSongMenu().getSelectedTrack()),
-										getSpeed());
-								if (newstar != 0f) {
-									GlobalManager.getInstance().getSongMenu().setStarsDisplay(newstar);
-								}
-							}
-						}
-					}).start();
-					hide();
-					return true;
-				}
-				return false;
+        		 final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    if (pSceneTouchEvent.isActionUp()) {
+    	(new Thread() {
+    		public void run() {
+    			if (GlobalManager.getInstance().getSongMenu().getSelectedTrack() != null){
+        DifficultyReCalculator rec = new DifficultyReCalculator();
+        float newstar = rec.recalculateStar(
+        		GlobalManager.getInstance().getSongMenu().getSelectedTrack(),
+        		rec.getCS(GlobalManager.getInstance().getSongMenu().getSelectedTrack()),
+        		getSpeed());
+        if (newstar != 0f) {
+        	GlobalManager.getInstance().getSongMenu().setStarsDisplay(newstar);
+        }
+    			}
+    		}
+    	}).start();
+    	hide();
+    	return true;
+    }
+    return false;
 			}
 		};
 		back.setScale(1.2f);
@@ -237,10 +237,10 @@ public class ModMenu implements IModSwitcher {
 		}
 
 		multiplierText.setText(StringTable.format(R.string.menu_mod_multiplier,
-				mult));
+    mult));
 		multiplierText.setPosition(
-				Config.getRES_WIDTH() / 2f - multiplierText.getWidth() / 2,
-				multiplierText.getY());
+    Config.getRES_WIDTH() / 2f - multiplierText.getWidth() / 2,
+    multiplierText.getY());
 		if (mult == 1) {
 			multiplierText.setColor(1, 1, 1);
 		} else if (mult < 1) {
@@ -253,8 +253,8 @@ public class ModMenu implements IModSwitcher {
 	public void handleModFlags(GameMod flag, GameMod modToCheck, GameMod[] modsToRemove) {
 		if (flag.equals(modToCheck)) {
 			for (GameMod modToRemove: modsToRemove) {
-				mod.remove(modToRemove);
-				modsRemoved = true;
+    mod.remove(modToRemove);
+    modsRemoved = true;
 			}
 		}
 	}
@@ -281,9 +281,9 @@ public class ModMenu implements IModSwitcher {
 			handleModFlags(flag, GameMod.MOD_NOFAIL, new GameMod[]{GameMod.MOD_PERFECT, GameMod.MOD_SUDDENDEATH, GameMod.MOD_AUTOPILOT, GameMod.MOD_RELAX});
 
 			if (modsRemoved) {
-				for (GameMod gameMod : modButtons.keySet()) {
-					modButtons.get(gameMod).setModEnabled(mod.contains(gameMod));
-				}
+    for (GameMod gameMod : modButtons.keySet()) {
+    	modButtons.get(gameMod).setModEnabled(mod.contains(gameMod));
+    }
 			}
 		}
 

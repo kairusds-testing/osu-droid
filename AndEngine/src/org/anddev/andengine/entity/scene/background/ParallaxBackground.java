@@ -118,22 +118,22 @@ public class ParallaxBackground extends ColorBackground {
 		public void onDraw(final GL10 pGL, final float pParallaxValue, final Camera pCamera) {
 			pGL.glPushMatrix();
 			{
-				final float cameraWidth = pCamera.getWidth();
-				final float shapeWidthScaled = this.mShape.getWidthScaled();
-				float baseOffset = (pParallaxValue * this.mParallaxFactor) % shapeWidthScaled;
+    final float cameraWidth = pCamera.getWidth();
+    final float shapeWidthScaled = this.mShape.getWidthScaled();
+    float baseOffset = (pParallaxValue * this.mParallaxFactor) % shapeWidthScaled;
 
-				while(baseOffset > 0) {
-					baseOffset -= shapeWidthScaled;
-				}
-				pGL.glTranslatef(baseOffset, 0, 0);
+    while(baseOffset > 0) {
+    	baseOffset -= shapeWidthScaled;
+    }
+    pGL.glTranslatef(baseOffset, 0, 0);
 
-				float currentMaxX = baseOffset;
+    float currentMaxX = baseOffset;
 
-				do {
-					this.mShape.onDraw(pGL, pCamera);
-					pGL.glTranslatef(shapeWidthScaled, 0, 0);
-					currentMaxX += shapeWidthScaled;
-				} while(currentMaxX < cameraWidth);
+    do {
+    	this.mShape.onDraw(pGL, pCamera);
+    	pGL.glTranslatef(shapeWidthScaled, 0, 0);
+    	currentMaxX += shapeWidthScaled;
+    } while(currentMaxX < cameraWidth);
 			}
 			pGL.glPopMatrix();
 		}

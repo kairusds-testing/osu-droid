@@ -51,8 +51,8 @@ public class SupportSliderPath {
 		float len = 0;
 		for (int i = 1; i < points.size(); i++) {
 			len += Vec2.length(
-					points.get(i - 1).x - points.get(i).x,
-					points.get(i - 1).y - points.get(i).y
+    	points.get(i - 1).x - points.get(i).x,
+    	points.get(i - 1).y - points.get(i).y
 			);
 			pp.length.add(len);
 		}

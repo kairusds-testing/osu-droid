@@ -22,9 +22,9 @@ public abstract class LayeredGameActivity extends BaseGameActivity {
 	protected synchronized void onSetContentView() {
 		this.mLayout = new FrameLayout(this);
 		this.mLayout.setLayoutParams(new FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.MATCH_PARENT,
-				FrameLayout.LayoutParams.MATCH_PARENT,
-				Gravity.CENTER));
+    FrameLayout.LayoutParams.MATCH_PARENT,
+    FrameLayout.LayoutParams.MATCH_PARENT,
+    Gravity.CENTER));
 
 		this.mRenderSurfaceView = new RenderSurfaceView(this);
 		this.mRenderSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
@@ -39,8 +39,8 @@ public abstract class LayeredGameActivity extends BaseGameActivity {
 		this.mSurfaceHolder.addCallback(new SurfaceHolder.Callback() {
 			@Override
 			public void surfaceCreated(SurfaceHolder holder) {
-				mSurfaceHolderReady = true;
-				Debug.i("SurfaceHolder is ready.");
+    mSurfaceHolderReady = true;
+    Debug.i("SurfaceHolder is ready.");
 			}
 
 			@Override

@@ -101,7 +101,7 @@ public class Config {
 	public static void loadConfig(final Context context) {
 		Config.context = context;
 		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(context);
+    .getDefaultSharedPreferences(context);
 		String s;
 		// graphics
 		s = prefs.getString("background", "2");
@@ -140,12 +140,12 @@ public class Config {
 			cursorSize = prefs.getInt("cursorSize", 50) / 100f;
 		}catch(RuntimeException e) { // migrate to integers to prevent crash
 			prefs.edit()
-				.putInt("offset", Integer.parseInt(prefs.getString("offset", "0")))
-				.putInt("bgbrightness", Integer.parseInt(prefs.getString("bgbrightness", "25")))
-				.putInt("soundvolume", Integer.parseInt(prefs.getString("soundvolume", "100")))
-				.putInt("bgmvolume", Integer.parseInt(prefs.getString("bgmvolume", "100")))
-				.putInt("cursorSize", Integer.parseInt(prefs.getString("cursorSize", "50")))
-				.commit();
+    .putInt("offset", Integer.parseInt(prefs.getString("offset", "0")))
+    .putInt("bgbrightness", Integer.parseInt(prefs.getString("bgbrightness", "25")))
+    .putInt("soundvolume", Integer.parseInt(prefs.getString("soundvolume", "100")))
+    .putInt("bgmvolume", Integer.parseInt(prefs.getString("bgmvolume", "100")))
+    .putInt("cursorSize", Integer.parseInt(prefs.getString("cursorSize", "50")))
+    .commit();
 			Config.loadConfig(context);
 		}
 		
@@ -255,7 +255,7 @@ public class Config {
 
 	public static void loadOnlineConfig(final Context context) {
 		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(context);
+    .getDefaultSharedPreferences(context);
 
 		onlineUsername = prefs.getString("onlineUsername", "");
 		onlinePassword = prefs.getString("onlinePassword", null);

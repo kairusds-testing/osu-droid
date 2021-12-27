@@ -28,15 +28,15 @@ public class BeatmapEditorState {
 		if (config.hasProperty("Bookmarks")) {
 			String[] line = config.getString("Bookmarks").split(",");
 			for (int i = 0; i < line.length; i++) {
-				if (!line[i].isEmpty()) {
-					bookmarks.add(Integer.parseInt(line[i].trim()));
-				}
+    if (!line[i].isEmpty()) {
+    	bookmarks.add(Integer.parseInt(line[i].trim()));
+    }
 			}
 			/*
 			bookmarks = Arrays.asList(config.getString("Bookmarks").split(","))
-				.stream().filter(o->!o.isEmpty())
-				.map(o->Integer.parseInt(o.trim()))
-				.collect(Collectors.toList());*/
+    .stream().filter(o->!o.isEmpty())
+    .map(o->Integer.parseInt(o.trim()))
+    .collect(Collectors.toList());*/
 		}
 	}
 

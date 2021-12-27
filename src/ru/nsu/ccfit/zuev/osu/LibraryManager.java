@@ -55,15 +55,15 @@ public class LibraryManager {
 		final File replayDir = new File(Config.getScorePath());
 		if (replayDir.exists() == false) {
 			if (replayDir.mkdir() == false) {
-				ToastLogger.showText(StringTable.format(
-						R.string.message_error_createdir, replayDir.getPath()), true);
-				return false;
+    ToastLogger.showText(StringTable.format(
+    		R.string.message_error_createdir, replayDir.getPath()), true);
+    return false;
 			}
 			final File nomedia = new File(replayDir.getParentFile(), ".nomedia");
 			try {
-				nomedia.createNewFile();
+    nomedia.createNewFile();
 			} catch (final IOException e) {
-				Debug.e("LibraryManager: " + e.getMessage(), e);
+    Debug.e("LibraryManager: " + e.getMessage(), e);
 			}
 		}
 
@@ -75,46 +75,46 @@ public class LibraryManager {
 		}
 		try {
 			if (!lib.exists()) {
-				lib.createNewFile();
+    lib.createNewFile();
 			}
 			final ObjectInputStream istream = new ObjectInputStream(
-					new FileInputStream(lib));
+    	new FileInputStream(lib));
 			Object obj = istream.readObject();
 			//Log.i("ed-d", "load cache step 1");
 			if (obj instanceof String) {
-				if (((String) obj).equals(VERSION) == false) {
-					istream.close();
-					return false;
-				}
+    if (((String) obj).equals(VERSION) == false) {
+    	istream.close();
+    	return false;
+    }
 			} else {
-				istream.close();
-				return false;
+    istream.close();
+    return false;
 			}
 			//Log.i("ed-d", "load cache step 2");
 			obj = istream.readObject();
 			if (obj instanceof Integer) {
-				fileCount = (Integer) obj;
+    fileCount = (Integer) obj;
 			} else {
-				istream.close();
-				return false;
+    istream.close();
+    return false;
 			}
 			//Log.i("ed-d", "load cache step 3");
 			obj = istream.readObject();
 			if (obj instanceof ArrayList<?>) {
-				//Log.i("ed-d", "load cache step 4");
-				library = (ArrayList<BeatmapInfo>) obj;
-				istream.close();
-				ToastLogger.addToLog("Library loaded");
-				//Log.i("ed-d", "load cache step 5");
-				//for (BeatmapInfo info : library) {
-				//	Log.i("ed-d", "cache : " + info.getPath());
-				//}
-				if (forceUpdate) {
-					//Log.i("ed-d", "load cache step 6");
-					checkLibrary(activity);
-					//Log.i("ed-d", "load cache step 7");
-				}
-				return true;
+    //Log.i("ed-d", "load cache step 4");
+    library = (ArrayList<BeatmapInfo>) obj;
+    istream.close();
+    ToastLogger.addToLog("Library loaded");
+    //Log.i("ed-d", "load cache step 5");
+    //for (BeatmapInfo info : library) {
+    //	Log.i("ed-d", "cache : " + info.getPath());
+    //}
+    if (forceUpdate) {
+    	//Log.i("ed-d", "load cache step 6");
+    	checkLibrary(activity);
+    	//Log.i("ed-d", "load cache step 7");
+    }
+    return true;
 			}
 			istream.close();
 			//Log.i("ed-d", "load cache");
@@ -139,7 +139,7 @@ public class LibraryManager {
 			return;
 		}
 		ToastLogger
-				.showText(StringTable.get(R.string.message_lib_update), true);
+    .showText(StringTable.get(R.string.message_lib_update), true);
 		final int fileCount = files.length;
 		int fileCached = 0;
 		LinkedList<String> cachedFiles = new LinkedList<String>();
@@ -152,7 +152,7 @@ public class LibraryManager {
 		final LinkedList<BeatmapInfo> uncached = new LinkedList<BeatmapInfo>();
 		for (final BeatmapInfo i : library) {
 			if (!cachedFiles.contains(i.getPath())) {
-				uncached.add(i);
+    uncached.add(i);
 			}
 		}
 		for (final BeatmapInfo i : uncached) {
@@ -172,15 +172,15 @@ public class LibraryManager {
 		// Creating Osu directory if it doesn't exist
 		if (!dir.exists()) {
 			if (!dir.mkdirs()) {
-				ToastLogger.showText(StringTable.format(
-						R.string.message_error_createdir, dir.getPath()), true);
-				return;
+    ToastLogger.showText(StringTable.format(
+    		R.string.message_error_createdir, dir.getPath()), true);
+    return;
 			}
 			final File nomedia = new File(dir.getParentFile(), ".nomedia");
 			try {
-				nomedia.createNewFile();
+    nomedia.createNewFile();
 			} catch (final IOException e) {
-				Debug.e("LibraryManager: " + e.getMessage(), e);
+    Debug.e("LibraryManager: " + e.getMessage(), e);
 			}
 			return;
 		}
@@ -196,7 +196,7 @@ public class LibraryManager {
 			ToastLogger.setPercentage(fileCached * 100f / fileCount);
 			fileCached++;
 			if (!file.isDirectory()) {
-				continue;
+    continue;
 			}
 
 			GlobalManager.getInstance().setInfo("Loading " + file.getName() + "...");
@@ -204,17 +204,17 @@ public class LibraryManager {
 			info.setPath(file.getPath());
 			scanFolder(info);
 			if (info.getCount() < 1) {
-				continue;
+    continue;
 			}
 			info.setCreator(info.getTrack(0).getCreator());
 			if (info.getTitle().equals("")) {
-				info.setTitle("unknown");
+    info.setTitle("unknown");
 			}
 			if (info.getArtist().equals("")) {
-				info.setArtist("unknown");
+    info.setArtist("unknown");
 			}
 			if (info.getCreator().equals("")) {
-				info.setCreator("unknown");
+    info.setCreator("unknown");
 			}
 			library.add(info);
 			totalMaps += info.getCount();
@@ -225,8 +225,8 @@ public class LibraryManager {
 
 		savetoCache(activity);
 		ToastLogger.showText(
-				StringTable.format(R.string.message_lib_complete, totalMaps),
-				true);
+    StringTable.format(R.string.message_lib_complete, totalMaps),
+    true);
 	}
 
 	/* 
@@ -279,9 +279,9 @@ public class LibraryManager {
 		}
 		for (final File f : files) {
 			if (f.isDirectory()) {
-				deleteDir(f);
+    deleteDir(f);
 			} else if (f.delete()) {
-				Debug.i(f.getPath() + " deleted");
+    Debug.i(f.getPath() + " deleted");
 			}
 		}
 		if (dir.delete()) {
@@ -304,23 +304,23 @@ public class LibraryManager {
 		final File lib = getLibraryCacheFile();
 		try {
 			if (!lib.exists()) {
-				lib.createNewFile();
+    lib.createNewFile();
 			}
 			final ObjectOutputStream ostream = new ObjectOutputStream(
-					new FileOutputStream(lib));
+    	new FileOutputStream(lib));
 			ostream.writeObject(VERSION);
 			ostream.writeObject(fileCount);
 			ostream.writeObject(library);
 			ostream.close();
 		} catch (final FileNotFoundException e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("LibraryManager: " + e.getMessage(), e);
 		} catch (final IOException e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("LibraryManager: " + e.getMessage(), e);
 		}
 		shuffleLibrary();
@@ -332,7 +332,7 @@ public class LibraryManager {
 		if (lib.exists()) {
 			lib.delete();
 			ToastLogger.showText(StringTable.get(R.string.message_lib_cleared),
-					false);
+    	false);
 		}
 		currentIndex = 0;
 	}
@@ -346,12 +346,12 @@ public class LibraryManager {
 		info.setPath(file.getPath());
 		for (final BeatmapInfo i : library) {
 			if (i.getPath().substring(i.getPath().lastIndexOf('/'))
-					.equals(info.getPath().substring(info.getPath().lastIndexOf('/')))) {
-				//Log.i("ed-d", "found " + i.getPath());
-				if (cachedFiles != null) {
-					cachedFiles.add(i.getPath());
-				}
-				return;
+    	.equals(info.getPath().substring(info.getPath().lastIndexOf('/')))) {
+    //Log.i("ed-d", "found " + i.getPath());
+    if (cachedFiles != null) {
+    	cachedFiles.add(i.getPath());
+    }
+    return;
 			}
 		}
 		//Log.i("ed-d", "not found " + info.getPath());
@@ -389,25 +389,25 @@ public class LibraryManager {
 		for (final File file : filelist) {
 			final OSUParser parser = new OSUParser(file);
 			if (!parser.openFile()) {
-				continue;
+    continue;
 			}
 
 			final TrackInfo track = new TrackInfo(info);
 			track.setFilename(file.getPath());
 			track.setCreator("unknown");
 			if (!parser.readMetaData(track, info)) {
-				continue;
+    continue;
 			}
 			if (track.getBackground() != null) {
-				track.setBackground(info.getPath() + "/"
-						+ track.getBackground());
+    track.setBackground(info.getPath() + "/"
+    		+ track.getBackground());
 			}
 			info.addTrack(track);
 		}
 
 		Collections.sort(info.getTracks(), new Comparator<TrackInfo>() {
 			public int compare(final TrackInfo object1, final TrackInfo object2) {
-				return Float.valueOf(object1.getDifficulty()).compareTo(object2.getDifficulty());
+    return Float.valueOf(object1.getDifficulty()).compareTo(object2.getDifficulty());
 			}
 		});
 	}
@@ -458,9 +458,9 @@ public class LibraryManager {
 	public int findBeatmap(BeatmapInfo info) {
 		if (library != null && library.size() > 0) {
 			for (int i = 0; i < library.size(); i++) {
-				if (library.get(i).equals(info)) {
-					return currentIndex = i;
-				}
+    if (library.get(i).equals(info)) {
+    	return currentIndex = i;
+    }
 			}
 		}
 		return currentIndex = 0;
@@ -469,9 +469,9 @@ public class LibraryManager {
 	public int findBeatmapById(int mapSetId) {
 		if (library != null && library.size() > 0) {
 			for (int i = 0; i < library.size(); i++) {
-				if (library.get(i).getTrack(0).getBeatmapSetID() == mapSetId) {
-					return currentIndex = i;
-				}
+    if (library.get(i).getTrack(0).getBeatmapSetID() == mapSetId) {
+    	return currentIndex = i;
+    }
 			}
 		}
 		return currentIndex = 0;
@@ -488,17 +488,17 @@ public class LibraryManager {
 	public TrackInfo findTrackByFileNameAndMD5(String fileName, String md5) {
 		if (library != null && library.size() > 0) {
 			for (int i = 0; i < library.size(); i++) {
-				BeatmapInfo info = library.get(i);
-				for (int j = 0; j < info.getCount(); j++) {
-					TrackInfo track = info.getTrack(j);
-					File trackFile = new File(track.getFilename());
-					if (fileName.equals(trackFile.getName())) {
-						String trackMD5 = FileUtils.getMD5Checksum(trackFile);
-						if (md5.equals(trackMD5)) {
-							return track;
-						}
-					}
-				}
+    BeatmapInfo info = library.get(i);
+    for (int j = 0; j < info.getCount(); j++) {
+    	TrackInfo track = info.getTrack(j);
+    	File trackFile = new File(track.getFilename());
+    	if (fileName.equals(trackFile.getName())) {
+    		String trackMD5 = FileUtils.getMD5Checksum(trackFile);
+    		if (md5.equals(trackMD5)) {
+    			return track;
+    		}
+    	}
+    }
 			}
 		}
 		return null;

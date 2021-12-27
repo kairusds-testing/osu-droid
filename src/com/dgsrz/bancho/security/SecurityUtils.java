@@ -59,11 +59,11 @@ public final class SecurityUtils {
 			int highest = 0;
 			secretBuffer = new byte[COMPRESSED.length];
 			for (int i = 0; i < COMPRESSED.length; i++) {
-				int index = i % 7;
-				highest = (index == 0) ? 0 : highest;
-				int lowest = COMPRESSED[i] & BIT_MASK[index];
-				secretBuffer[i] = (byte) ((lowest << index) | highest);
-				highest = (COMPRESSED[i] & (0xff ^ BIT_MASK[index])) >> (7 - index);
+    int index = i % 7;
+    highest = (index == 0) ? 0 : highest;
+    int lowest = COMPRESSED[i] & BIT_MASK[index];
+    secretBuffer[i] = (byte) ((lowest << index) | highest);
+    highest = (COMPRESSED[i] & (0xff ^ BIT_MASK[index])) >> (7 - index);
 			}
 		}
 		return secretBuffer;
@@ -83,26 +83,26 @@ public final class SecurityUtils {
 
 		try {
 			if (pkgMgr == null) {
-				return;
+    return;
 			}
 
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-				info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES);
-				SigningInfo signInfo = info.signingInfo;
+    info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+    SigningInfo signInfo = info.signingInfo;
 
-				if(signInfo.hasMultipleSigners()) {
-					signatures = signInfo.getApkContentsSigners();
-					appSignature = getHashCode(signatures[0].toByteArray());
-				}else {
-					signatures = signInfo.getSigningCertificateHistory();
-					appSignature = getHashCode(signatures[0].toByteArray());
-				}
+    if(signInfo.hasMultipleSigners()) {
+    	signatures = signInfo.getApkContentsSigners();
+    	appSignature = getHashCode(signatures[0].toByteArray());
+    }else {
+    	signatures = signInfo.getSigningCertificateHistory();
+    	appSignature = getHashCode(signatures[0].toByteArray());
+    }
 			}else {
-				info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
-				if(info != null && info.signatures != null && info.signatures.length > 0) {
-					Signature sign = info.signatures[0];
-					appSignature = getHashCode(sign.toByteArray());
-				}
+    info = pkgMgr.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+    if(info != null && info.signatures != null && info.signatures.length > 0) {
+    	Signature sign = info.signatures[0];
+    	appSignature = getHashCode(sign.toByteArray());
+    }
 			}
 		} catch (PackageManager.NameNotFoundException e) {
 			return;

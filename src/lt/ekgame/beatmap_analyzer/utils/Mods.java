@@ -20,7 +20,7 @@ public class Mods {
 	public Mods(List<Mod> mods) {
 		for (Mod mod : mods)
 			if (!this.mods.contains(mod))
-				this.mods.add(mod);
+    this.mods.add(mod);
 		calculateFlags();
 	}
 
@@ -32,7 +32,7 @@ public class Mods {
 		List<Mod> result = new ArrayList<>();
 		for (Mod mod : Mod.values())
 			if ((flags & mod.getBit()) > 0)
-				result.add(mod);
+    result.add(mod);
 		return new Mods(result);
 	}
 
@@ -42,11 +42,11 @@ public class Mods {
 		for (int i = 0; i < length; i += 2) {
 			String modString = mods.substring(i, Math.min(length, i + 2));
 			if (modString.length() != 2)
-				continue;
+    continue;
 
 			Mod mod = Mod.parse(modString);
 			if (mod != null)
-				result.add(mod);
+    result.add(mod);
 		}
 		return new Mods(result);
 	}

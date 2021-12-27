@@ -34,9 +34,9 @@ public class BaseCollisionChecker {
 
 	public static boolean checkAxisAlignedRectangleCollision(final float pLeftA, final float pTopA, final float pRightA, final float pBottomA, final float pLeftB, final float pTopB, final float pRightB, final float pBottomB) {
 		return  pLeftA < pRightB &&
-				pLeftB < pRightA &&
-				pTopA < pBottomB &&
-				pTopB < pBottomA;
+    pLeftB < pRightA &&
+    pTopA < pBottomB &&
+    pTopB < pBottomA;
 	}
 
 	/**
@@ -91,19 +91,19 @@ public class BaseCollisionChecker {
 			// endpoint used as the origin for the projection.
 			ccw = pPX * pX2 + pPY * pY2;
 			if (ccw > 0.0f) {
-				// Reverse the projection to be relative to the original X2,Y2
-				// X2 and Y2 are simply negated.
-				// PX and PY need to have (X2 - X1) or (Y2 - Y1) subtracted
-				// from them (based on the original values)
-				// Since we really want to get a positive answer when the
-				// point is "beyond (X2,Y2)", then we want to calculate
-				// the inverse anyway - thus we leave X2 & Y2 negated.
-				pPX -= pX2;
-				pPY -= pY2;
-				ccw = pPX * pX2 + pPY * pY2;
-				if (ccw < 0.0f) {
-					ccw = 0.0f;
-				}
+    // Reverse the projection to be relative to the original X2,Y2
+    // X2 and Y2 are simply negated.
+    // PX and PY need to have (X2 - X1) or (Y2 - Y1) subtracted
+    // from them (based on the original values)
+    // Since we really want to get a positive answer when the
+    // point is "beyond (X2,Y2)", then we want to calculate
+    // the inverse anyway - thus we leave X2 & Y2 negated.
+    pPX -= pX2;
+    pPY -= pY2;
+    ccw = pPX * pX2 + pPY * pY2;
+    if (ccw < 0.0f) {
+    	ccw = 0.0f;
+    }
 			}
 		}
 		return (ccw < 0.0f) ? -1 : ((ccw > 0.0f) ? 1 : 0);

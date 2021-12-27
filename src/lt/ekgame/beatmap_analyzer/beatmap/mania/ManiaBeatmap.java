@@ -19,8 +19,8 @@ public class ManiaBeatmap extends Beatmap {
 	private List<ManiaObject> hitObjects;
 
 	public ManiaBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-						BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
-						List<ManiaObject> hitObjects) {
+    		BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
+    		List<ManiaObject> hitObjects) {
 		super(generals, editorState, metadata, difficulties, breaks, timingPoints);
 		this.hitObjects = hitObjects;
 

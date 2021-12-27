@@ -58,27 +58,27 @@ public class Spinner extends GameObject {
 		this.pos = new PointF(Constants.MAP_WIDTH / 2,Constants.MAP_HEIGHT / 2);
 		center = Utils.trackToRealCoords(pos);
 		background = SpritePool.getInstance().getCenteredSprite(
-				"spinner-background", center);
+    "spinner-background", center);
 		final float scaleX = Config.getRES_WIDTH() / background.getWidth();
 		background.setScale(scaleX);
 
 		circle = SpritePool.getInstance().getCenteredSprite("spinner-circle",
-				center);
+    center);
 		mregion = ResourceManager.getInstance().getTexture("spinner-metre")
-				.deepCopy();
+    .deepCopy();
 		metre = new Sprite(center.x - Config.getRES_WIDTH() / 2,
-				Config.getRES_HEIGHT(), mregion);
+    Config.getRES_HEIGHT(), mregion);
 		metre.setWidth(Config.getRES_WIDTH());
 		metre.setHeight(background.getHeightScaled());
 		approachCircle = SpritePool.getInstance().getCenteredSprite(
-				"spinner-approachcircle", center);
+    "spinner-approachcircle", center);
 		spinText = new CentredSprite(center.x, center.y * 1.5f, ResourceManager
-				.getInstance().getTexture("spinner-spin"));
+    .getInstance().getTexture("spinner-spin"));
 	}
 
 	public void init(final GameObjectListener listener, final Scene scene,
-					 final float pretime, final float time, final float rps,
-					 final int sound, final String tempSound, final StatisticV2 stat) {
+    	 final float pretime, final float time, final float rps,
+    	 final int sound, final String tempSound, final StatisticV2 stat) {
 		clearText = null;
 		fullrotations = 0;
 		rotations = 0;
@@ -105,8 +105,8 @@ public class Spinner extends GameObject {
 		}
 
 		final IEntityModifier appearMoifier = new SequenceEntityModifier(
-				new DelayModifier(pretime * 0.75f), new FadeInModifier(
-				pretime * 0.25f));
+    new DelayModifier(pretime * 0.75f), new FadeInModifier(
+    pretime * 0.25f));
 
 		background.setAlpha(0);
 		background.registerEntityModifier(appearMoifier.deepCopy());
@@ -124,41 +124,41 @@ public class Spinner extends GameObject {
 			approachCircle.setVisible(false);
 		}
 		approachCircle.registerEntityModifier(new SequenceEntityModifier(
-				new IEntityModifierListener() {
+    new IEntityModifierListener() {
 
-					public void onModifierStarted(
-							final IModifier<IEntity> pModifier,
-							final IEntity pItem) {
-						// TODO Auto-generated method stub
+    	public void onModifierStarted(
+    			final IModifier<IEntity> pModifier,
+    			final IEntity pItem) {
+    		// TODO Auto-generated method stub
 
-					}
+    	}
 
-					public void onModifierFinished(
-							final IModifier<IEntity> pModifier,
-							final IEntity pItem) {
-						SyncTaskManager.getInstance().run(new Runnable() {
+    	public void onModifierFinished(
+    			final IModifier<IEntity> pModifier,
+    			final IEntity pItem) {
+    		SyncTaskManager.getInstance().run(new Runnable() {
 
 
-							public void run() {
-								removeFromScene();
-							}
-						});
-					}
-				},
-				new SequenceEntityModifier(
-						new DelayModifier(pretime),
-						new ParallelEntityModifier(
-								new AlphaModifier(time, 0.75f, 1),
-								new ScaleModifier(time, 2.0f, 0)
-						)
-				)
+    			public void run() {
+        removeFromScene();
+    			}
+    		});
+    	}
+    },
+    new SequenceEntityModifier(
+    		new DelayModifier(pretime),
+    		new ParallelEntityModifier(
+        new AlphaModifier(time, 0.75f, 1),
+        new ScaleModifier(time, 2.0f, 0)
+    		)
+    )
 		));
 
 		spinText.setAlpha(0);
 		spinText.registerEntityModifier(new SequenceEntityModifier(
-				new DelayModifier(pretime * 0.75f), new FadeInModifier(
-				pretime * 0.25f), new DelayModifier(pretime / 2),
-				new FadeOutModifier(pretime * 0.25f)));
+    new DelayModifier(pretime * 0.75f), new FadeInModifier(
+    pretime * 0.25f), new DelayModifier(pretime / 2),
+    new FadeOutModifier(pretime * 0.25f)));
 
 		scene.attachChild(spinText, 0);
 		scene.attachChild(approachCircle, 0);
@@ -196,14 +196,14 @@ public class Spinner extends GameObject {
 
 			//if (rotations count < the rotations in replay), let rotations count = the rotations in replay
 			while (fullrotations + this.score < replayData.accuracy / 4 + 1){
-				fullrotations++;
-				listener.onSpinnerHit(id, 1000, false, 0);
+    fullrotations++;
+    listener.onSpinnerHit(id, 1000, false, 0);
 			}
 			if (fullrotations >= needRotations)
-				clear = true;
+    clear = true;
 		}
 		float percentfill = (Math.abs(rotations) + fullrotations)
-				/ needRotations;
+    / needRotations;
 		if(needRotations <= 0.1f){
 			clear = true;
 			percentfill = 1;
@@ -219,18 +219,18 @@ public class Spinner extends GameObject {
 		}
 		if (replayData != null) {
 			switch (replayData.accuracy % 4) {
-				case 0:
-					score = 0;
-					break;
-				case 1:
-					score = 50;
-					break;
-				case 2:
-					score = 100;
-					break;
-				case 3:
-					score = 300;
-					break;
+    case 0:
+    	score = 0;
+    	break;
+    case 1:
+    	score = 50;
+    	break;
+    case 2:
+    	score = 100;
+    	break;
+    case 3:
+    	score = 300;
+    	break;
 			}
 		}
 		listener.onSpinnerHit(id, score, endsCombo, this.score + fullrotations - 1);
@@ -249,9 +249,9 @@ public class Spinner extends GameObject {
 		int firstIndex = -1;
 		for (int i = 0; i < listener.getCursorsCount(); i++) {
 			if (listener.isMouseDown(i)) {
-				firstIndex = i;
-				mdown = true;
-				break;
+    firstIndex = i;
+    mdown = true;
+    break;
 			}
 		}
 		if (mdown == false && !autoPlay) {
@@ -259,12 +259,12 @@ public class Spinner extends GameObject {
 		}
 
 		final PointF mouse = autoPlay ? center : listener
-				.getMousePos(firstIndex);
+    .getMousePos(firstIndex);
 		final PointF v = new PointF(mouse.x - center.x, mouse.y - center.y);
 		for (int i = 0; i < listener.getCursorsCount(); i++) {
 			if (oldMouse == null || listener.isMousePressed(this, i)) {
-				oldMouse = v;
-				return;
+    oldMouse = v;
+    return;
 			}
 		}
 		circle.setRotation(MathUtils.radToDeg(Utils.direction(v)));
@@ -284,51 +284,51 @@ public class Spinner extends GameObject {
 		}
 		rotations += dfill / 4f;
 		float percentfill = (Math.abs(rotations) + fullrotations)
-				/ needRotations;
+    / needRotations;
 
 		if (percentfill > 1 || clear) {
 			percentfill = 1;
 			if (clear == false) {
-				clearText = SpritePool.getInstance().getCenteredSprite(
-						"spinner-clear", new PointF(center.x, center.y * 0.5f));
-				clearText.registerEntityModifier(new ParallelEntityModifier(
-						new FadeInModifier(0.25f), new ScaleModifier(0.25f,
-						1.5f, 1)));
-				scene.attachChild(clearText);
-				clear = true;
+    clearText = SpritePool.getInstance().getCenteredSprite(
+    		"spinner-clear", new PointF(center.x, center.y * 0.5f));
+    clearText.registerEntityModifier(new ParallelEntityModifier(
+    		new FadeInModifier(0.25f), new ScaleModifier(0.25f,
+    		1.5f, 1)));
+    scene.attachChild(clearText);
+    clear = true;
 			} else if (Math.abs(rotations) > 1) {
-				if (bonusScore != null) {
-					bonusScore.detachFromScene(scene);
-				}
-				rotations -= 1 * Math.signum(rotations);
-				bonusScore = new ScoreNumber(center.x, center.y + 100,
-						String.valueOf(score * 1000), 1.1f, true);
-				listener.onSpinnerHit(id, 1000, false, 0);
-				score++;
-				bonusScore.attachToScene(scene);
-				ResourceManager.getInstance().getSound("spinnerbonus").play();
-				float rate = 0.375f;
-				if (GameHelper.getDrain() > 0) {
-					rate = 1 + (GameHelper.getDrain() / 4f);
-				}
-				stat.changeHp(rate * 0.01f * totalTime / needRotations);
+    if (bonusScore != null) {
+    	bonusScore.detachFromScene(scene);
+    }
+    rotations -= 1 * Math.signum(rotations);
+    bonusScore = new ScoreNumber(center.x, center.y + 100,
+    		String.valueOf(score * 1000), 1.1f, true);
+    listener.onSpinnerHit(id, 1000, false, 0);
+    score++;
+    bonusScore.attachToScene(scene);
+    ResourceManager.getInstance().getSound("spinnerbonus").play();
+    float rate = 0.375f;
+    if (GameHelper.getDrain() > 0) {
+    	rate = 1 + (GameHelper.getDrain() / 4f);
+    }
+    stat.changeHp(rate * 0.01f * totalTime / needRotations);
 			}
 		} else if (Math.abs(rotations) > 1) {
 			rotations -= 1 * Math.signum(rotations);
 			if (replayData == null || replayData.accuracy / 4 > fullrotations) {
-				fullrotations++;
-				stat.registerSpinnerHit();
-				float rate = 0.375f;
-				if (GameHelper.getDrain() > 0) {
-					rate = 1 + (GameHelper.getDrain() / 2f);
-				}
-				stat.changeHp(rate * 0.01f * totalTime / needRotations);
+    fullrotations++;
+    stat.registerSpinnerHit();
+    float rate = 0.375f;
+    if (GameHelper.getDrain() > 0) {
+    	rate = 1 + (GameHelper.getDrain() / 2f);
+    }
+    stat.changeHp(rate * 0.01f * totalTime / needRotations);
 			}
 		}
 		metre.setPosition(metre.getX(),
-				metreY + metre.getHeight() * (1 - Math.abs(percentfill)));
+    metreY + metre.getHeight() * (1 - Math.abs(percentfill)));
 		mregion.setTexturePosition(0,
-				(int) (metre.getBaseHeight() * (1 - Math.abs(percentfill))));
+    (int) (metre.getBaseHeight() * (1 - Math.abs(percentfill))));
 		oldMouse = v;
 	}
 	

@@ -21,8 +21,8 @@ public class ManiaParser extends HitObjectParser<ManiaObject> {
 	public ManiaObject parse(String line) {
 		String[] args = line.split(",");
 		Vec2 position = new Vec2(
-				Integer.parseInt(args[0].trim()),
-				Integer.parseInt(args[1].trim())
+    Integer.parseInt(args[0].trim()),
+    Integer.parseInt(args[1].trim())
 		);
 		int time = Integer.parseInt(args[2].trim());
 		int type = Integer.parseInt(args[3].trim());
@@ -39,8 +39,8 @@ public class ManiaParser extends HitObjectParser<ManiaObject> {
 
 	@Override
 	public Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-								BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
-								List<String> rawObjects) {
+        BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
+        List<String> rawObjects) {
 		List<ManiaObject> hitObjects = parse(rawObjects);
 		return new ManiaBeatmap(generals, editorState, metadata, difficulties, breaks, timingPoints, hitObjects);
 	}

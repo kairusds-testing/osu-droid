@@ -240,13 +240,13 @@ public class ColorPickerView extends View {
 
 		if (mValShader == null) {
 			mValShader = new LinearGradient(rect.left, rect.top, rect.left, rect.bottom,
-					0xffffffff, 0xff000000, TileMode.CLAMP);
+    	0xffffffff, 0xff000000, TileMode.CLAMP);
 		}
 
 		int rgb = Color.HSVToColor(new float[]{mHue, 1f, 1f});
 
 		mSatShader = new LinearGradient(rect.left, rect.top, rect.right, rect.top,
-				0xffffffff, rgb, TileMode.CLAMP);
+    0xffffffff, rgb, TileMode.CLAMP);
 		ComposeShader mShader = new ComposeShader(mValShader, mSatShader, PorterDuff.Mode.MULTIPLY);
 		mSatValPaint.setShader(mShader);
 
@@ -269,10 +269,10 @@ public class ColorPickerView extends View {
 		if (BORDER_WIDTH_PX > 0) {
 			mBorderPaint.setColor(mBorderColor);
 			canvas.drawRect(rect.left - BORDER_WIDTH_PX,
-					rect.top - BORDER_WIDTH_PX,
-					rect.right + BORDER_WIDTH_PX,
-					rect.bottom + BORDER_WIDTH_PX,
-					mBorderPaint);
+    	rect.top - BORDER_WIDTH_PX,
+    	rect.right + BORDER_WIDTH_PX,
+    	rect.bottom + BORDER_WIDTH_PX,
+    	mBorderPaint);
 		}
 
 		if (mHueShader == null) {
@@ -306,10 +306,10 @@ public class ColorPickerView extends View {
 		if (BORDER_WIDTH_PX > 0) {
 			mBorderPaint.setColor(mBorderColor);
 			canvas.drawRect(rect.left - BORDER_WIDTH_PX,
-					rect.top - BORDER_WIDTH_PX,
-					rect.right + BORDER_WIDTH_PX,
-					rect.bottom + BORDER_WIDTH_PX,
-					mBorderPaint);
+    	rect.top - BORDER_WIDTH_PX,
+    	rect.right + BORDER_WIDTH_PX,
+    	rect.bottom + BORDER_WIDTH_PX,
+    	mBorderPaint);
 		}
 
 
@@ -320,7 +320,7 @@ public class ColorPickerView extends View {
 		int acolor = Color.HSVToColor(0, hsv);
 
 		mAlphaShader = new LinearGradient(rect.left, rect.top, rect.right, rect.top,
-				color, acolor, TileMode.CLAMP);
+    color, acolor, TileMode.CLAMP);
 
 
 		mAlphaPaint.setShader(mAlphaShader);
@@ -466,69 +466,69 @@ public class ColorPickerView extends View {
 
 			switch (mLastTouchedPanel) {
 
-				case PANEL_SAT_VAL:
+    case PANEL_SAT_VAL:
 
-					float sat, val;
+    	float sat, val;
 
-					sat = mSat + x / 50f;
-					val = mVal - y / 50f;
+    	sat = mSat + x / 50f;
+    	val = mVal - y / 50f;
 
-					if (sat < 0f) {
-						sat = 0f;
-					} else if (sat > 1f) {
-						sat = 1f;
-					}
+    	if (sat < 0f) {
+    		sat = 0f;
+    	} else if (sat > 1f) {
+    		sat = 1f;
+    	}
 
-					if (val < 0f) {
-						val = 0f;
-					} else if (val > 1f) {
-						val = 1f;
-					}
+    	if (val < 0f) {
+    		val = 0f;
+    	} else if (val > 1f) {
+    		val = 1f;
+    	}
 
-					mSat = sat;
-					mVal = val;
+    	mSat = sat;
+    	mVal = val;
 
-					update = true;
+    	update = true;
 
-					break;
+    	break;
 
-				case PANEL_HUE:
+    case PANEL_HUE:
 
-					float hue = mHue - y * 10f;
+    	float hue = mHue - y * 10f;
 
-					if (hue < 0f) {
-						hue = 0f;
-					} else if (hue > 360f) {
-						hue = 360f;
-					}
+    	if (hue < 0f) {
+    		hue = 0f;
+    	} else if (hue > 360f) {
+    		hue = 360f;
+    	}
 
-					mHue = hue;
+    	mHue = hue;
 
-					update = true;
+    	update = true;
 
-					break;
+    	break;
 
-				case PANEL_ALPHA:
+    case PANEL_ALPHA:
 
-					if (!mShowAlphaPanel || mAlphaRect == null) {
-						update = false;
-					} else {
+    	if (!mShowAlphaPanel || mAlphaRect == null) {
+    		update = false;
+    	} else {
 
-						int alpha = (int) (mAlpha - x * 10);
+    		int alpha = (int) (mAlpha - x * 10);
 
-						if (alpha < 0) {
-							alpha = 0;
-						} else if (alpha > 0xff) {
-							alpha = 0xff;
-						}
+    		if (alpha < 0) {
+    			alpha = 0;
+    		} else if (alpha > 0xff) {
+    			alpha = 0xff;
+    		}
 
-						mAlpha = alpha;
+    		mAlpha = alpha;
 
 
-						update = true;
-					}
+    		update = true;
+    	}
 
-					break;
+    	break;
 			}
 
 
@@ -538,7 +538,7 @@ public class ColorPickerView extends View {
 		if (update) {
 
 			if (mListener != null) {
-				mListener.onColorChanged(Color.HSVToColor(mAlpha, new float[]{mHue, mSat, mVal}));
+    mListener.onColorChanged(Color.HSVToColor(mAlpha, new float[]{mHue, mSat, mVal}));
 			}
 
 			invalidate();
@@ -558,32 +558,32 @@ public class ColorPickerView extends View {
 
 			case MotionEvent.ACTION_DOWN:
 
-				mStartTouchPoint = new Point((int) event.getX(), (int) event.getY());
+    mStartTouchPoint = new Point((int) event.getX(), (int) event.getY());
 
-				update = moveTrackersIfNeeded(event);
+    update = moveTrackersIfNeeded(event);
 
-				break;
+    break;
 
 			case MotionEvent.ACTION_MOVE:
 
-				update = moveTrackersIfNeeded(event);
+    update = moveTrackersIfNeeded(event);
 
-				break;
+    break;
 
 			case MotionEvent.ACTION_UP:
 
-				mStartTouchPoint = null;
+    mStartTouchPoint = null;
 
-				update = moveTrackersIfNeeded(event);
+    update = moveTrackersIfNeeded(event);
 
-				break;
+    break;
 
 		}
 
 		if (update) {
 
 			if (mListener != null) {
-				mListener.onColorChanged(Color.HSVToColor(mAlpha, new float[]{mHue, mSat, mVal}));
+    mListener.onColorChanged(Color.HSVToColor(mAlpha, new float[]{mHue, mSat, mVal}));
 			}
 
 			invalidate();
@@ -654,20 +654,20 @@ public class ColorPickerView extends View {
 
 			//If calculated height (based on the width) is more than the allowed height.
 			if (height > heightAllowed || getTag().equals("landscape")) {
-				height = heightAllowed;
-				width = (int) (height + PANEL_SPACING + HUE_PANEL_WIDTH);
+    height = heightAllowed;
+    width = (int) (height + PANEL_SPACING + HUE_PANEL_WIDTH);
 			} else {
-				width = widthAllowed;
+    width = widthAllowed;
 			}
 		} else {
 
 			width = (int) (heightAllowed - ALPHA_PANEL_HEIGHT + HUE_PANEL_WIDTH);
 
 			if (width > widthAllowed) {
-				width = widthAllowed;
-				height = (int) (widthAllowed - HUE_PANEL_WIDTH + ALPHA_PANEL_HEIGHT);
+    width = widthAllowed;
+    height = (int) (widthAllowed - HUE_PANEL_WIDTH + ALPHA_PANEL_HEIGHT);
 			} else {
-				height = heightAllowed;
+    height = heightAllowed;
 			}
 
 		}
@@ -774,10 +774,10 @@ public class ColorPickerView extends View {
 
 		mAlphaPattern = new AlphaPatternDrawable((int) (5 * mDensity));
 		mAlphaPattern.setBounds(
-				Math.round(mAlphaRect.left),
-				Math.round(mAlphaRect.top),
-				Math.round(mAlphaRect.right),
-				Math.round(mAlphaRect.bottom)
+    Math.round(mAlphaRect.left),
+    Math.round(mAlphaRect.top),
+    Math.round(mAlphaRect.right),
+    Math.round(mAlphaRect.bottom)
 		);
 
 	}
@@ -833,7 +833,7 @@ public class ColorPickerView extends View {
 	 *
 	 * @param color	The color that should be selected.
 	 * @param callback If you want to get a callback to
-	 *				 your OnColorChangedListener.
+	 *     your OnColorChangedListener.
 	 */
 	public void setColor(int color, boolean callback) {
 

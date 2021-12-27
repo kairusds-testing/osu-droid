@@ -64,29 +64,29 @@ public class PinchZoomDetector extends BaseDetector {
 
 		switch(action) {
 			case MotionEvent.ACTION_POINTER_DOWN:
-				if(!this.mPinchZooming)  {
-					this.mInitialDistance = PinchZoomDetector.calculatePointerDistance(motionEvent);
-					if(this.mInitialDistance > TRIGGER_PINCHZOOM_MINIMUM_DISTANCE_DEFAULT) {
-						this.mPinchZooming = true;
-						this.mPinchZoomDetectorListener.onPinchZoomStarted(this, pSceneTouchEvent);
-					}
-				}
-				break;
+    if(!this.mPinchZooming)  {
+    	this.mInitialDistance = PinchZoomDetector.calculatePointerDistance(motionEvent);
+    	if(this.mInitialDistance > TRIGGER_PINCHZOOM_MINIMUM_DISTANCE_DEFAULT) {
+    		this.mPinchZooming = true;
+    		this.mPinchZoomDetectorListener.onPinchZoomStarted(this, pSceneTouchEvent);
+    	}
+    }
+    break;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_POINTER_UP:
-				if(this.mPinchZooming) {
-					this.mPinchZooming = false;
-					this.mPinchZoomDetectorListener.onPinchZoomFinished(this, pSceneTouchEvent, this.getZoomFactor());
-				}
-				break;
+    if(this.mPinchZooming) {
+    	this.mPinchZooming = false;
+    	this.mPinchZoomDetectorListener.onPinchZoomFinished(this, pSceneTouchEvent, this.getZoomFactor());
+    }
+    break;
 			case MotionEvent.ACTION_MOVE:
-				if(this.mPinchZooming) {
-					this.mCurrentDistance = PinchZoomDetector.calculatePointerDistance(motionEvent);
-					if(this.mCurrentDistance > TRIGGER_PINCHZOOM_MINIMUM_DISTANCE_DEFAULT) {
-						this.mPinchZoomDetectorListener.onPinchZoom(this, pSceneTouchEvent, this.getZoomFactor());
-					}
-				}
-				break;
+    if(this.mPinchZooming) {
+    	this.mCurrentDistance = PinchZoomDetector.calculatePointerDistance(motionEvent);
+    	if(this.mCurrentDistance > TRIGGER_PINCHZOOM_MINIMUM_DISTANCE_DEFAULT) {
+    		this.mPinchZoomDetectorListener.onPinchZoom(this, pSceneTouchEvent, this.getZoomFactor());
+    	}
+    }
+    break;
 		}
 		return true;
 	}

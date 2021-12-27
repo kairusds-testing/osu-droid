@@ -58,30 +58,30 @@ public class OsbParser {
 			Matcher matcher;
 			String line;
 			while ((line = source.readUtf8Line()) != null) {
-				pattern = Pattern.compile("\\[(\\w+)]");
-				matcher = pattern.matcher(line.trim());
+    pattern = Pattern.compile("\\[(\\w+)]");
+    matcher = pattern.matcher(line.trim());
 
-				if (matcher.find()) {
-					String title = matcher.group(1);
-					if (title.equals("Events")) {
-						parseObjects(source);
-					} else if (title.equals("Variables")) {
-						parseVariables(source);
-					}
-				}
+    if (matcher.find()) {
+    	String title = matcher.group(1);
+    	if (title.equals("Events")) {
+    		parseObjects(source);
+    	} else if (title.equals("Variables")) {
+    		parseVariables(source);
+    	}
+    }
 			}
 			source.close();
 		}
 		Collections.sort(hitSounds, new Comparator<HitSound>() {
 			@Override
 			public int compare(HitSound lhs, HitSound rhs) {
-				return (int) (lhs.time - rhs.time);
+    return (int) (lhs.time - rhs.time);
 			}
 		});
 		Collections.sort(sprites, new Comparator<OsuSprite>() {
 			@Override
 			public int compare(OsuSprite lhs, OsuSprite rhs) {
-				return (int) (lhs.spriteStartTime - rhs.spriteStartTime);
+    return (int) (lhs.spriteStartTime - rhs.spriteStartTime);
 			}
 		});
 	}
@@ -90,67 +90,67 @@ public class OsbParser {
 		line = source.readUtf8Line();
 		while (line != null) {
 			if (line.equals("")) {
-				break;
+    break;
 			}
 
 			if (line.startsWith("Sprite")) {
-				for (String s : variablesMap.keySet()) {
-					if (line.contains(s)) {
-						line = line.replace(s, variablesMap.get(s));
-					}
-				}
-				info = line.split(",");
-				int layer = 0;
-				if (info[1].equals("Background")) {
-					layer = 0;
-				} else if (info[1].equals("Fail")) {
-					layer = 1;
-				} else if (info[1].equals("Pass")) {
-					layer = 2;
-				} else if (info[1].equals("Foreground")) {
-					layer = 3;
-				}
-				OsuSprite.Origin origin = OsuSprite.Origin.valueOf(info[2]);
-				String filePath = info[3];
-				filePath = filePath.replaceAll("\"", "");
-				float x = Float.parseFloat(info[4]);
-				float y = Float.parseFloat(info[5]);
-				ArrayList<OsuEvent> events = parseEvents(source);
-				OsuSprite sprite = new OsuSprite(x, y, layer, origin, filePath, events, ZIndex++);
-				sprite.setDebugLine(line);
-				sprites.add(sprite);
+    for (String s : variablesMap.keySet()) {
+    	if (line.contains(s)) {
+    		line = line.replace(s, variablesMap.get(s));
+    	}
+    }
+    info = line.split(",");
+    int layer = 0;
+    if (info[1].equals("Background")) {
+    	layer = 0;
+    } else if (info[1].equals("Fail")) {
+    	layer = 1;
+    } else if (info[1].equals("Pass")) {
+    	layer = 2;
+    } else if (info[1].equals("Foreground")) {
+    	layer = 3;
+    }
+    OsuSprite.Origin origin = OsuSprite.Origin.valueOf(info[2]);
+    String filePath = info[3];
+    filePath = filePath.replaceAll("\"", "");
+    float x = Float.parseFloat(info[4]);
+    float y = Float.parseFloat(info[5]);
+    ArrayList<OsuEvent> events = parseEvents(source);
+    OsuSprite sprite = new OsuSprite(x, y, layer, origin, filePath, events, ZIndex++);
+    sprite.setDebugLine(line);
+    sprites.add(sprite);
 			} else if (line.startsWith("Animation")) {
-				for (String s : variablesMap.keySet()) {
-					if (line.contains(s)) {
-						line = line.replace(s, variablesMap.get(s));
-					}
-				}
-				info = line.split(",");
-				int layer = 0;
-				if (info[1].equals("Background")) {
-					layer = 0;
-				} else if (info[1].equals("Fail")) {
-					layer = 1;
-				} else if (info[1].equals("Pass")) {
-					layer = 2;
-				} else if (info[1].equals("Foreground")) {
-					layer = 3;
-				}
-				OsuSprite.Origin origin = OsuSprite.Origin.valueOf(info[2]);
-				String filePath = info[3];
-				filePath = filePath.replaceAll("\"", "");
-				float x = Float.parseFloat(info[4]);
-				float y = Float.parseFloat(info[5]);
-				int count = Integer.parseInt(info[6]);
-				int delay = Integer.parseInt(info[7]);
-				String loopType = "LoopForever";
-				if (info.length == 9) {
-					loopType = info[8];
-				}
-				ArrayList<OsuEvent> events = parseEvents(source);
-				sprites.add(new OsuSprite(x, y, layer, origin, filePath, events, ZIndex++, count, delay, loopType));
+    for (String s : variablesMap.keySet()) {
+    	if (line.contains(s)) {
+    		line = line.replace(s, variablesMap.get(s));
+    	}
+    }
+    info = line.split(",");
+    int layer = 0;
+    if (info[1].equals("Background")) {
+    	layer = 0;
+    } else if (info[1].equals("Fail")) {
+    	layer = 1;
+    } else if (info[1].equals("Pass")) {
+    	layer = 2;
+    } else if (info[1].equals("Foreground")) {
+    	layer = 3;
+    }
+    OsuSprite.Origin origin = OsuSprite.Origin.valueOf(info[2]);
+    String filePath = info[3];
+    filePath = filePath.replaceAll("\"", "");
+    float x = Float.parseFloat(info[4]);
+    float y = Float.parseFloat(info[5]);
+    int count = Integer.parseInt(info[6]);
+    int delay = Integer.parseInt(info[7]);
+    String loopType = "LoopForever";
+    if (info.length == 9) {
+    	loopType = info[8];
+    }
+    ArrayList<OsuEvent> events = parseEvents(source);
+    sprites.add(new OsuSprite(x, y, layer, origin, filePath, events, ZIndex++, count, delay, loopType));
 			} else {
-				line = source.readUtf8Line();
+    line = source.readUtf8Line();
 			}
 
 		}
@@ -166,110 +166,110 @@ public class OsbParser {
 			line = line.trim();
 			if (line.length() == 0) break;
 			for (String s : variablesMap.keySet()) {
-				if (line.contains(s)) {
-					line = line.replace(s, variablesMap.get(s));
-				}
+    if (line.contains(s)) {
+    	line = line.replace(s, variablesMap.get(s));
+    }
 			}
 			OsuEvent currentOsuEvent = new OsuEvent();
 			info = line.split(",");
 			Command command = Command.valueOf(info[0]);
 			currentOsuEvent.command = command;
 			if (command == Command.L) {
-				currentOsuEvent.startTime = Long.parseLong(info[1]);
-				currentOsuEvent.loopCount = Integer.parseInt(info[2]);
-				currentOsuEvent.subEvents = parseSubEvents(source);
-				if (currentOsuEvent.subEvents.size() > 0) {//real start time
-					currentOsuEvent.startTime = currentOsuEvent.subEvents.get(0).startTime + currentOsuEvent.startTime;
-				}
+    currentOsuEvent.startTime = Long.parseLong(info[1]);
+    currentOsuEvent.loopCount = Integer.parseInt(info[2]);
+    currentOsuEvent.subEvents = parseSubEvents(source);
+    if (currentOsuEvent.subEvents.size() > 0) {//real start time
+    	currentOsuEvent.startTime = currentOsuEvent.subEvents.get(0).startTime + currentOsuEvent.startTime;
+    }
 			} else if (command == Command.T) {
-				if (info.length > 2) {
-					currentOsuEvent.startTime = Long.parseLong(info[2]);
-					currentOsuEvent.endTime = Long.parseLong(info[3]);
-				} else {
-					currentOsuEvent.startTime = 0;
-					currentOsuEvent.endTime = 999999999;
-				}
-				currentOsuEvent.triggerType = info[1];
-				int soundType = -1;
-				if (currentOsuEvent.triggerType.equals("HitSoundWhistle")) {
-					soundType = 2;
-				} else if (currentOsuEvent.triggerType.equals("HitSoundFinish")) {
-					soundType = 4;
-				} else if (currentOsuEvent.triggerType.equals("HitSoundClap")) {
-					soundType = 8;
-				}
-				currentOsuEvent.subEvents = parseSubEvents(source);
-				for (HitSound hitSound : hitSounds) {//real start time
-					if (hitSound.time >= currentOsuEvent.startTime && (hitSound.soundType & soundType) == soundType) {
-						currentOsuEvent.startTime = hitSound.time;
-						break;
-					}
-				}
+    if (info.length > 2) {
+    	currentOsuEvent.startTime = Long.parseLong(info[2]);
+    	currentOsuEvent.endTime = Long.parseLong(info[3]);
+    } else {
+    	currentOsuEvent.startTime = 0;
+    	currentOsuEvent.endTime = 999999999;
+    }
+    currentOsuEvent.triggerType = info[1];
+    int soundType = -1;
+    if (currentOsuEvent.triggerType.equals("HitSoundWhistle")) {
+    	soundType = 2;
+    } else if (currentOsuEvent.triggerType.equals("HitSoundFinish")) {
+    	soundType = 4;
+    } else if (currentOsuEvent.triggerType.equals("HitSoundClap")) {
+    	soundType = 8;
+    }
+    currentOsuEvent.subEvents = parseSubEvents(source);
+    for (HitSound hitSound : hitSounds) {//real start time
+    	if (hitSound.time >= currentOsuEvent.startTime && (hitSound.soundType & soundType) == soundType) {
+    		currentOsuEvent.startTime = hitSound.time;
+    		break;
+    	}
+    }
 			} else {
-				currentOsuEvent.ease = Integer.parseInt(info[1]);
-				currentOsuEvent.startTime = Long.parseLong(info[2]);
-				currentOsuEvent.endTime = info[3].equals("") ? currentOsuEvent.startTime + 1 : Long.parseLong(info[3]);
-				float[] params = null;
-				switch (command) {
-					case F:
-					case MX:
-					case MY:
-					case S:
-					case R:
-						params = new float[2];
-						params[0] = Float.parseFloat(info[4]);
-						if (info.length == 5) {
-							params[1] = Float.parseFloat(info[4]);
-						} else {//TODO more than two params
-							params[1] = Float.parseFloat(info[5]);
-						}
-						break;
+    currentOsuEvent.ease = Integer.parseInt(info[1]);
+    currentOsuEvent.startTime = Long.parseLong(info[2]);
+    currentOsuEvent.endTime = info[3].equals("") ? currentOsuEvent.startTime + 1 : Long.parseLong(info[3]);
+    float[] params = null;
+    switch (command) {
+    	case F:
+    	case MX:
+    	case MY:
+    	case S:
+    	case R:
+    		params = new float[2];
+    		params[0] = Float.parseFloat(info[4]);
+    		if (info.length == 5) {
+    			params[1] = Float.parseFloat(info[4]);
+    		} else {//TODO more than two params
+    			params[1] = Float.parseFloat(info[5]);
+    		}
+    		break;
 
-					case M:
-					case V:
-						params = new float[4];
-						params[0] = Float.parseFloat(info[4]);
-						params[1] = Float.parseFloat(info[5]);
-						if (info.length == 6) {
-							params[2] = Float.parseFloat(info[4]);
-							params[3] = Float.parseFloat(info[5]);
-						} else {
-							params[2] = Float.parseFloat(info[6]);
-							params[3] = Float.parseFloat(info[7]);
-						}
-						break;
-					case C:
-						params = new float[6];
-						params[0] = Float.parseFloat(info[4]);
-						params[1] = Float.parseFloat(info[5]);
-						params[2] = Float.parseFloat(info[6]);
-						if (info.length == 7) {
-							params[3] = Float.parseFloat(info[4]);
-							params[4] = Float.parseFloat(info[5]);
-							params[5] = Float.parseFloat(info[6]);
-						} else {
-							params[3] = Float.parseFloat(info[7]);
-							params[4] = Float.parseFloat(info[8]);
-							params[5] = Float.parseFloat(info[9]);
-						}
-						break;
-					case P:
-						currentOsuEvent.P = info[4];
-						break;
-				}
-				currentOsuEvent.params = params;
-				line = source.readUtf8Line();
-				if (line.startsWith("_")) {
-					line = line.replaceAll("_", " ");
-				}
-				for (String s : variablesMap.keySet()) {
-					if (line.contains(s)) {
-						line = line.replace(s, variablesMap.get(s));
-					}
-				}
+    	case M:
+    	case V:
+    		params = new float[4];
+    		params[0] = Float.parseFloat(info[4]);
+    		params[1] = Float.parseFloat(info[5]);
+    		if (info.length == 6) {
+    			params[2] = Float.parseFloat(info[4]);
+    			params[3] = Float.parseFloat(info[5]);
+    		} else {
+    			params[2] = Float.parseFloat(info[6]);
+    			params[3] = Float.parseFloat(info[7]);
+    		}
+    		break;
+    	case C:
+    		params = new float[6];
+    		params[0] = Float.parseFloat(info[4]);
+    		params[1] = Float.parseFloat(info[5]);
+    		params[2] = Float.parseFloat(info[6]);
+    		if (info.length == 7) {
+    			params[3] = Float.parseFloat(info[4]);
+    			params[4] = Float.parseFloat(info[5]);
+    			params[5] = Float.parseFloat(info[6]);
+    		} else {
+    			params[3] = Float.parseFloat(info[7]);
+    			params[4] = Float.parseFloat(info[8]);
+    			params[5] = Float.parseFloat(info[9]);
+    		}
+    		break;
+    	case P:
+    		currentOsuEvent.P = info[4];
+    		break;
+    }
+    currentOsuEvent.params = params;
+    line = source.readUtf8Line();
+    if (line.startsWith("_")) {
+    	line = line.replaceAll("_", " ");
+    }
+    for (String s : variablesMap.keySet()) {
+    	if (line.contains(s)) {
+    		line = line.replace(s, variablesMap.get(s));
+    	}
+    }
 			}
 			if (currentOsuEvent.triggerType == null || (!currentOsuEvent.triggerType.equals("Passing") && !currentOsuEvent.triggerType.equals("Failing"))) {
-				eventList.add(currentOsuEvent);
+    eventList.add(currentOsuEvent);
 			}
 		}
 		return eventList;
@@ -280,9 +280,9 @@ public class OsbParser {
 		while ((line = source.readUtf8Line()) != null && (line.startsWith("  ") || line.startsWith("__"))) {
 			line = line.replaceAll("_", " ").trim();
 			for (String s : variablesMap.keySet()) {
-				if (line.contains(s)) {
-					line = line.replace(s, variablesMap.get(s));
-				}
+    if (line.contains(s)) {
+    	line = line.replace(s, variablesMap.get(s));
+    }
 			}
 			OsuEvent subEvent = new OsuEvent();
 			info = line.split(",");
@@ -293,55 +293,55 @@ public class OsbParser {
 			subEvent.endTime = info[3].equals("") ? subEvent.startTime + 1 : Long.parseLong(info[3]);
 			float[] params = null;
 			switch (subCommand) {
-				case F:
-				case MX:
-				case MY:
-				case S:
-				case R:
-					params = new float[2];
-					params[0] = Float.parseFloat(info[4]);
-					if (info.length == 5) {
-						params[1] = Float.parseFloat(info[4]);
-					} else {//TODO more than two params
-						params[1] = Float.parseFloat(info[5]);
-					}
-					break;
+    case F:
+    case MX:
+    case MY:
+    case S:
+    case R:
+    	params = new float[2];
+    	params[0] = Float.parseFloat(info[4]);
+    	if (info.length == 5) {
+    		params[1] = Float.parseFloat(info[4]);
+    	} else {//TODO more than two params
+    		params[1] = Float.parseFloat(info[5]);
+    	}
+    	break;
 
-				case M:
-				case V:
-					params = new float[4];
-					params[0] = Float.parseFloat(info[4]);
-					params[1] = Float.parseFloat(info[5]);
-					if (info.length == 6) {
-						params[2] = Float.parseFloat(info[4]);
-						params[3] = Float.parseFloat(info[5]);
-					} else {
-						params[2] = Float.parseFloat(info[6]);
-						params[3] = Float.parseFloat(info[7]);
-					}
-					break;
-				case C:
-					params = new float[6];
-					params[0] = Float.parseFloat(info[4]);
-					params[1] = Float.parseFloat(info[5]);
-					params[2] = Float.parseFloat(info[6]);
-					if (info.length == 7) {
-						params[3] = Float.parseFloat(info[4]);
-						params[4] = Float.parseFloat(info[5]);
-						params[5] = Float.parseFloat(info[6]);
-					} else {
-						params[3] = Float.parseFloat(info[7]);
-						params[4] = Float.parseFloat(info[8]);
-						params[5] = Float.parseFloat(info[9]);
-					}
-					break;
-				case P:
-					subEvent.P = info[4];
-					break;
-				case T:
-				case L:
-					parseSubEvents(source);
-					break;
+    case M:
+    case V:
+    	params = new float[4];
+    	params[0] = Float.parseFloat(info[4]);
+    	params[1] = Float.parseFloat(info[5]);
+    	if (info.length == 6) {
+    		params[2] = Float.parseFloat(info[4]);
+    		params[3] = Float.parseFloat(info[5]);
+    	} else {
+    		params[2] = Float.parseFloat(info[6]);
+    		params[3] = Float.parseFloat(info[7]);
+    	}
+    	break;
+    case C:
+    	params = new float[6];
+    	params[0] = Float.parseFloat(info[4]);
+    	params[1] = Float.parseFloat(info[5]);
+    	params[2] = Float.parseFloat(info[6]);
+    	if (info.length == 7) {
+    		params[3] = Float.parseFloat(info[4]);
+    		params[4] = Float.parseFloat(info[5]);
+    		params[5] = Float.parseFloat(info[6]);
+    	} else {
+    		params[3] = Float.parseFloat(info[7]);
+    		params[4] = Float.parseFloat(info[8]);
+    		params[5] = Float.parseFloat(info[9]);
+    	}
+    	break;
+    case P:
+    	subEvent.P = info[4];
+    	break;
+    case T:
+    case L:
+    	parseSubEvents(source);
+    	break;
 			}
 			subEvent.params = params;
 			subOsuEventList.add(subEvent);
@@ -370,18 +370,18 @@ public class OsbParser {
 			matcher = pattern.matcher(line.trim());
 
 			if (matcher.find()) {
-				String title = matcher.group(1);
-				if (title.equals("General")) {
-					parseGeneral(source);
-				} else if (title.equals("Difficulty")) {
-					parseDifficulty(source);
-				} else if (title.equals("Events")) {
-					parseEvent(source);
-				} else if (title.equals("TimingPoints")) {
-					parseTimingPoints(source);
-				} else if (title.equals("HitObjects")) {
-					parseHitObject(source);
-				}
+    String title = matcher.group(1);
+    if (title.equals("General")) {
+    	parseGeneral(source);
+    } else if (title.equals("Difficulty")) {
+    	parseDifficulty(source);
+    } else if (title.equals("Events")) {
+    	parseEvent(source);
+    } else if (title.equals("TimingPoints")) {
+    	parseTimingPoints(source);
+    } else if (title.equals("HitObjects")) {
+    	parseHitObject(source);
+    }
 			}
 		}
 		source.close();
@@ -397,8 +397,8 @@ public class OsbParser {
 			String value = values[1].trim();
 
 			if (key.equals("AudioFilename")) {
-				StoryBoardTestActivity.activity.mAudioFileName = value;
-				break;
+    StoryBoardTestActivity.activity.mAudioFileName = value;
+    break;
 			}
 		}
 	}
@@ -411,14 +411,14 @@ public class OsbParser {
 			if (line.equals("")) return;
 
 			if (line.contains(",")) {
-				info = line.split(",");
-				Pattern pattern = Pattern.compile("[^\"]+\\.(jpg|png)", Pattern.CASE_INSENSITIVE);
-				Matcher matcher = pattern.matcher(line);
-				if (info[0].equals("0") && matcher.find()) {
-					StoryBoardTestActivity.activity.mBackground = matcher.group(0);
-					parseObjects(source);
-					break;
-				}
+    info = line.split(",");
+    Pattern pattern = Pattern.compile("[^\"]+\\.(jpg|png)", Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(line);
+    if (info[0].equals("0") && matcher.find()) {
+    	StoryBoardTestActivity.activity.mBackground = matcher.group(0);
+    	parseObjects(source);
+    	break;
+    }
 			}
 		}
 	}
@@ -442,7 +442,7 @@ public class OsbParser {
 			if (line.equals("")) return;
 			String[] values = line.split(":");
 			if (values[0].equals("SliderMultiplier")) {
-				sliderMultiplier = Float.parseFloat(values[1]);
+    sliderMultiplier = Float.parseFloat(values[1]);
 			}
 		}
 	}
@@ -458,9 +458,9 @@ public class OsbParser {
 			timingPoint.startTime = (long) Float.parseFloat(values[0]);
 			timingPoint.lengthPerBeat = Float.parseFloat(values[1]);
 			if (timingPoint.lengthPerBeat < 0) {
-				timingPoint.lengthPerBeat = lastLengthPerBeat;
+    timingPoint.lengthPerBeat = lastLengthPerBeat;
 			} else {
-				lastLengthPerBeat = timingPoint.lengthPerBeat;
+    lastLengthPerBeat = timingPoint.lengthPerBeat;
 			}
 			timingPoints.add(timingPoint);
 		}
@@ -474,44 +474,44 @@ public class OsbParser {
 			String[] values = line.split(",");
 			int objectType = Integer.parseInt(values[3]);
 			if ((objectType & 1) == 1) {//circle
-				HitSound hitSound = new HitSound();
-				hitSound.time = Long.parseLong(values[2]);
-				hitSound.soundType = Integer.parseInt(values[4]);
-				hitSounds.add(hitSound);
+    HitSound hitSound = new HitSound();
+    hitSound.time = Long.parseLong(values[2]);
+    hitSound.soundType = Integer.parseInt(values[4]);
+    hitSounds.add(hitSound);
 			} else if ((objectType & 2) == 2) {//slider
-				long startTime = Long.parseLong(values[2]);
-				int count = Integer.parseInt(values[6]) + 1;
-				float sliderLength = Float.parseFloat(values[7]);
-				String[] soundTypes = null;
-				if (values.length > 8) {
-					soundTypes = values[8].split("\\|");
-				}
-				TimingPoint currentPoint = timingPoints.get(0);
-				for (TimingPoint timingPoint : timingPoints) {
-					if (startTime > timingPoint.startTime) {
-						currentPoint = timingPoint;
-						break;
-					}
-				}
-				float sliderLengthTime = currentPoint.lengthPerBeat * (sliderMultiplier / sliderLength) / 100;
-				for (int i = 0; i < count; i++) {
-					HitSound hitSound = new HitSound();
-					if (values.length > 8) {
-						assert soundTypes != null;
-						hitSound.soundType = Integer.parseInt(soundTypes[i]);
-					} else {
-						hitSound.soundType = Integer.parseInt(values[4]);
-					}
+    long startTime = Long.parseLong(values[2]);
+    int count = Integer.parseInt(values[6]) + 1;
+    float sliderLength = Float.parseFloat(values[7]);
+    String[] soundTypes = null;
+    if (values.length > 8) {
+    	soundTypes = values[8].split("\\|");
+    }
+    TimingPoint currentPoint = timingPoints.get(0);
+    for (TimingPoint timingPoint : timingPoints) {
+    	if (startTime > timingPoint.startTime) {
+    		currentPoint = timingPoint;
+    		break;
+    	}
+    }
+    float sliderLengthTime = currentPoint.lengthPerBeat * (sliderMultiplier / sliderLength) / 100;
+    for (int i = 0; i < count; i++) {
+    	HitSound hitSound = new HitSound();
+    	if (values.length > 8) {
+    		assert soundTypes != null;
+    		hitSound.soundType = Integer.parseInt(soundTypes[i]);
+    	} else {
+    		hitSound.soundType = Integer.parseInt(values[4]);
+    	}
 
-					hitSound.time = (long) (startTime + sliderLengthTime * i);
-					if (hitSound.soundType > 0)
-						hitSounds.add(hitSound);
-				}
+    	hitSound.time = (long) (startTime + sliderLengthTime * i);
+    	if (hitSound.soundType > 0)
+    		hitSounds.add(hitSound);
+    }
 			} else if ((objectType & 8) == 8) {//spinner
-				HitSound hitSound = new HitSound();
-				hitSound.time = Long.parseLong(values[5]);
-				hitSound.soundType = Integer.parseInt(values[4]);
-				hitSounds.add(hitSound);
+    HitSound hitSound = new HitSound();
+    hitSound.time = Long.parseLong(values[5]);
+    hitSound.soundType = Integer.parseInt(values[4]);
+    hitSounds.add(hitSound);
 			}
 		}
 	}

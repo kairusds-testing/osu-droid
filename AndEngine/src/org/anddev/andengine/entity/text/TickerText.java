@@ -75,13 +75,13 @@ public class TickerText extends Text {
 		super.onManagedUpdate(pSecondsElapsed);
 		if(this.mReverse){
 			if(this.mCharactersVisible < this.mCharactersMaximum){
-				this.mSecondsElapsed = Math.max(0, this.mSecondsElapsed - pSecondsElapsed);
-				this.mCharactersVisible = (int)(this.mSecondsElapsed * this.mCharactersPerSecond);
+    this.mSecondsElapsed = Math.max(0, this.mSecondsElapsed - pSecondsElapsed);
+    this.mCharactersVisible = (int)(this.mSecondsElapsed * this.mCharactersPerSecond);
 			}
 		} else {
 			if(this.mCharactersVisible < this.mCharactersMaximum){
-				this.mSecondsElapsed = Math.min(this.mDuration, this.mSecondsElapsed + pSecondsElapsed);
-				this.mCharactersVisible = (int)(this.mSecondsElapsed * this.mCharactersPerSecond);
+    this.mSecondsElapsed = Math.min(this.mDuration, this.mSecondsElapsed + pSecondsElapsed);
+    this.mCharactersVisible = (int)(this.mSecondsElapsed * this.mCharactersPerSecond);
 			}
 		}
 	}

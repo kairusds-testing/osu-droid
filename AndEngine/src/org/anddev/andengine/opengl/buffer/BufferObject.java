@@ -106,7 +106,7 @@ public abstract class BufferObject {
 		if(this.mHardwareBufferNeedsUpdate) {
 			this.mHardwareBufferNeedsUpdate = false;
 			synchronized(this) {
-				GLHelper.bufferData(pGL11, this.mFloatBuffer.mByteBuffer, this.mDrawType);
+    GLHelper.bufferData(pGL11, this.mFloatBuffer.mByteBuffer, this.mDrawType);
 			}
 		}
 	}

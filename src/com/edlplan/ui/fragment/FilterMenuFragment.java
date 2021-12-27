@@ -65,11 +65,11 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 		body.setTranslationX(400);
 		body.animate().cancel();
 		body.animate()
-				.translationX(0)
-				.alpha(1)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setDuration(150)
-				.start();
+    .translationX(0)
+    .alpha(1)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setDuration(150)
+    .start();
 		playBackgroundHideInAnim(150);
 	}
 
@@ -77,25 +77,25 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationXBy(400)
-				.alpha(0)
-				.setDuration(200)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationXBy(400)
+    .alpha(0)
+    .setDuration(200)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 
 	private void updateFavChecked() {
 		favoritesOnly.setText(favoritesOnly.isChecked() ?
-				R.string.menu_search_favsenabled : R.string.menu_search_favsdisabled);
+    R.string.menu_search_favsenabled : R.string.menu_search_favsdisabled);
 	}
 
 	private void updateOrderButton() {
@@ -103,26 +103,26 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 		@StringRes int s;
 		switch (order) {
 			case Title:
-				s = R.string.menu_search_sort_title;
-				break;
+    s = R.string.menu_search_sort_title;
+    break;
 			case Artist:
-				s = R.string.menu_search_sort_artist;
-				break;
+    s = R.string.menu_search_sort_artist;
+    break;
 			case Date:
-				s = R.string.menu_search_sort_date;
-				break;
+    s = R.string.menu_search_sort_date;
+    break;
 			case Bpm:
-				s = R.string.menu_search_sort_bpm;
-				break;
+    s = R.string.menu_search_sort_bpm;
+    break;
 			case Stars:
-				s = R.string.menu_search_sort_stars;
-				break;
+    s = R.string.menu_search_sort_stars;
+    break;
 			case Length:
-				s = R.string.menu_search_sort_length;
-				break;
+    s = R.string.menu_search_sort_length;
+    break;
 			default:
-				s = R.string.menu_search_sort_creator;
-				break;
+    s = R.string.menu_search_sort_creator;
+    break;
 		}
 		orderButton.setText(s);
 	}
@@ -149,7 +149,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 	@Override
 	public SongMenu.SortOrder getOrder() {
 		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(configContext);
+    .getDefaultSharedPreferences(configContext);
 		final int sortOrder = prefs.getInt("sortorder", 0);
 		return SongMenu.SortOrder.values()[sortOrder % SongMenu.SortOrder.values().length];
 	}
@@ -157,10 +157,10 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 	@SuppressLint("ApplySharedPref")
 	private void saveOrder(SongMenu.SortOrder order) {
 		PreferenceManager
-				.getDefaultSharedPreferences(configContext)
-				.edit()
-				.putInt("sortorder", order.ordinal())
-				.commit();
+    .getDefaultSharedPreferences(configContext)
+    .edit()
+    .putInt("sortorder", order.ordinal())
+    .commit();
 	}
 
 	private void nextOrder() {
@@ -177,8 +177,8 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 	@Override
 	public String getFavoriteFolder() {
 		return favoriteFolder == null ?
-				null : StringTable.get(R.string.favorite_default).equals(favoriteFolder.getText().toString()) ?
-				null : favoriteFolder.getText().toString();
+    null : StringTable.get(R.string.favorite_default).equals(favoriteFolder.getText().toString()) ?
+    null : favoriteFolder.getText().toString();
 	}
 
 	@Override
@@ -212,12 +212,12 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 		updater = new Updater() {
 			@Override
 			public Runnable createEventRunnable() {
-				return () -> parent.loadFilter(FilterMenuFragment.this);
+    return () -> parent.loadFilter(FilterMenuFragment.this);
 			}
 
 			@Override
 			public void postEvent(Runnable r) {
-				parent.getScene().postRunnable(r);
+    parent.getScene().postRunnable(r);
 			}
 		};
 		show();
@@ -229,8 +229,8 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 		if (menu != null) {
 			final SongMenu menu = this.menu;
 			menu.getScene().postRunnable(() -> {
-				//menu.getScene().clearChildScene();
-				menu.loadFilter(this);
+    //menu.getScene().clearChildScene();
+    menu.loadFilter(this);
 			});
 			this.menu = null;
 		}
@@ -267,48 +267,48 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 			//openMapInfo = findViewById(R.id.openMapInfo);
 
 			favoritesOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
-				updateFavChecked();
-				updateUpdater();
-				savedFavOnly = isChecked;
+    updateFavChecked();
+    updateUpdater();
+    savedFavOnly = isChecked;
 			});
 			orderButton.setOnClickListener(v -> {
-				nextOrder();
-				updateOrderButton();
-				updateUpdater();
+    nextOrder();
+    updateOrderButton();
+    updateUpdater();
 			});
 			findViewById(R.id.favFolderLayout).setOnClickListener(v -> {
-				FavoriteManagerFragment favoriteManagerFragment = new FavoriteManagerFragment();
-				favoriteManagerFragment.showToSelectFloder(t -> {
-					savedFolder = t;
-					favoriteFolder.setText(t == null ? StringTable.get(R.string.favorite_default) : t);
-					updateUpdater();
-				});
+    FavoriteManagerFragment favoriteManagerFragment = new FavoriteManagerFragment();
+    favoriteManagerFragment.showToSelectFloder(t -> {
+    	savedFolder = t;
+    	favoriteFolder.setText(t == null ? StringTable.get(R.string.favorite_default) : t);
+    	updateUpdater();
+    });
 			});
 			filter.setOnEditorActionListener((v, actionId, event) -> {
-				if (event == null) {
-					return false;
-				}
+    if (event == null) {
+    	return false;
+    }
 
-				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-					hideMenu();
-					return true;
-				}
-				return false;
+    if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+    	hideMenu();
+    	return true;
+    }
+    return false;
 			});
 			filter.addTextChangedListener(new TextWatcher() {
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				}
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
 
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-				}
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
 
-				@Override
-				public void afterTextChanged(Editable s) {
-					savedFilter = s.toString();
-					updateUpdater();
-				}
+    @Override
+    public void afterTextChanged(Editable s) {
+    	savedFilter = s.toString();
+    	updateUpdater();
+    }
 			});
 
 			//openMapInfo.setOnClickListener(v -> {
@@ -318,7 +318,7 @@ public class FilterMenuFragment extends BaseFragment implements IFilterMenu {
 			
 			favoritesOnly.setChecked(savedFavOnly);
 			if (savedFilter != null && savedFilter.length() > 0) {
-				filter.setText(savedFilter);
+    filter.setText(savedFilter);
 			}
 			updateOrderButton();
 			updateFavChecked();

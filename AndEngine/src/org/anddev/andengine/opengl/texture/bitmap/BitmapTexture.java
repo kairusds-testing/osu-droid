@@ -156,16 +156,16 @@ public abstract class BitmapTexture extends Texture {
 
 		public static BitmapTextureFormat fromPixelFormat(final PixelFormat pPixelFormat) {
 			switch(pPixelFormat) {
-				case RGBA_8888:
-					return RGBA_8888;
-				case RGBA_4444:
-					return RGBA_4444;
-				case RGB_565:
-					return RGB_565;
-				case A_8:
-					return A_8;
-				default:
-					throw new IllegalArgumentException("Unsupported " + PixelFormat.class.getName() + ": '" + pPixelFormat + "'.");
+    case RGBA_8888:
+    	return RGBA_8888;
+    case RGBA_4444:
+    	return RGBA_4444;
+    case RGB_565:
+    	return RGB_565;
+    case A_8:
+    	return A_8;
+    default:
+    	throw new IllegalArgumentException("Unsupported " + PixelFormat.class.getName() + ": '" + pPixelFormat + "'.");
 			}
 		}
 

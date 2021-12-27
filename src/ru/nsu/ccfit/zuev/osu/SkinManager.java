@@ -65,7 +65,7 @@ public class SkinManager {
 		for (final String s : stdframeCount.keySet()) {
 			final int fcount = ResourceManager.getInstance().getFrameCount(s);
 			if (fcount >= 0) {
-				stdframeCount.put(s, fcount);
+    stdframeCount.put(s, fcount);
 			}
 		}
 		frameCount.clear();
@@ -84,18 +84,18 @@ public class SkinManager {
 			".wav", ".mp3", ".ogg", ".png", ".jpg"});
 		for (final File f : folderFiles) {
 			if (!f.isFile()) {
-				continue;
+    continue;
 			}
 			if (Config.isUseCustomSounds()
-					&& (f.getName().toLowerCase().matches(".*[.]wav")
-					|| f.getName().toLowerCase().matches(".*[.]mp3")
-					|| f.getName().toLowerCase().matches(".*[.]ogg"))
-					&& f.length() >= 1024) {
-				ResourceManager.getInstance().loadCustomSound(f);
+    	&& (f.getName().toLowerCase().matches(".*[.]wav")
+    	|| f.getName().toLowerCase().matches(".*[.]mp3")
+    	|| f.getName().toLowerCase().matches(".*[.]ogg"))
+    	&& f.length() >= 1024) {
+    ResourceManager.getInstance().loadCustomSound(f);
 			} else if (Config.isUseCustomSkins()
-					&& (f.getName().toLowerCase().matches(".*[.]png")
-					|| f.getName().toLowerCase().matches(".*[.]jpg"))) {
-				ResourceManager.getInstance().loadCustomTexture(f);
+    	&& (f.getName().toLowerCase().matches(".*[.]png")
+    	|| f.getName().toLowerCase().matches(".*[.]jpg"))) {
+    ResourceManager.getInstance().loadCustomTexture(f);
 			}
 
 		}
@@ -105,7 +105,7 @@ public class SkinManager {
 		for (final String s : frameCount.keySet()) {
 			final int fcount = ResourceManager.getInstance().getFrameCount(s);
 			if (fcount >= 0) {
-				frameCount.put(s, fcount);
+    frameCount.put(s, fcount);
 			}
 		}
 	}
@@ -120,7 +120,7 @@ public class SkinManager {
 		frameCount.put("scorebar-colour", stdframeCount.get("scorebar-colour"));
 		frameCount.put("play-skip", stdframeCount.get("play-skip"));
 		frameCount.put("sliderfollowcircle",
-				stdframeCount.get("sliderfollowcircle"));
+    stdframeCount.get("sliderfollowcircle"));
 		ResourceManager.getInstance().clearCustomResources();
 	}
 }

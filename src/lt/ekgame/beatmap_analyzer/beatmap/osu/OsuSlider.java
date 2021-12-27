@@ -81,14 +81,14 @@ public class OsuSlider extends OsuObject {
 
 		public static SliderType fromChar(char c) {
 			switch (c) {
-				case 'L':
-					return LINEAR;
-				case 'P':
-					return ARC;
-				case 'B':
-					return BAZIER;
-				case 'C':
-					return CATMULL;
+    case 'L':
+    	return LINEAR;
+    case 'P':
+    	return ARC;
+    case 'B':
+    	return BAZIER;
+    case 'C':
+    	return CATMULL;
 			}
 			return INVALID;
 		}

@@ -17,9 +17,9 @@ public class FilePartConfig {
 			// I found one map file that has a stack trace in it (https://osu.ppy.sh/osu/326)
 			// That's why I need this check
 			if (seperator != -1) {
-				String key = line.substring(0, seperator).trim();
-				String value = line.substring(seperator + 1).trim();
-				values.put(key, value);
+    String key = line.substring(0, seperator).trim();
+    String value = line.substring(seperator + 1).trim();
+    values.put(key, value);
 			}
 		}
 	}

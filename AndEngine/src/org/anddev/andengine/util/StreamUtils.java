@@ -100,7 +100,7 @@ public class StreamUtils {
 			final byte[] buf = new byte[IO_BUFFER_SIZE];
 			int read;
 			while((read = pInputStream.read(buf)) != -1) {
-				pOutputStream.write(buf, 0, read);
+    pOutputStream.write(buf, 0, read);
 			}
 		} else {
 			final byte[] buf = new byte[IO_BUFFER_SIZE];
@@ -109,13 +109,13 @@ public class StreamUtils {
 			
 			int read;
 			while((read = pInputStream.read(buf, 0, bufferReadLimit)) != -1) {
-				if(pBytesLeftToRead > read) {
-					pOutputStream.write(buf, 0, read);
-					pBytesLeftToRead -= read;
-				} else {
-					pOutputStream.write(buf, 0, (int) pBytesLeftToRead);
-					break;
-				}
+    if(pBytesLeftToRead > read) {
+    	pOutputStream.write(buf, 0, read);
+    	pBytesLeftToRead -= read;
+    } else {
+    	pOutputStream.write(buf, 0, (int) pBytesLeftToRead);
+    	break;
+    }
 			}
 		}
 		pOutputStream.flush();
@@ -141,9 +141,9 @@ public class StreamUtils {
 	public static void close(final Closeable pCloseable) {
 		if(pCloseable != null) {
 			try {
-				pCloseable.close();
+    pCloseable.close();
 			} catch (final IOException e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 		}
 	}
@@ -156,11 +156,11 @@ public class StreamUtils {
 	public static void flushCloseStream(final OutputStream pOutputStream) {
 		if(pOutputStream != null) {
 			try {
-				pOutputStream.flush();
+    pOutputStream.flush();
 			} catch (final IOException e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			} finally {
-				StreamUtils.close(pOutputStream);
+    StreamUtils.close(pOutputStream);
 			}
 		}
 	}
@@ -173,11 +173,11 @@ public class StreamUtils {
 	public static void flushCloseWriter(final Writer pWriter) {
 		if(pWriter != null) {
 			try {
-				pWriter.flush();
+    pWriter.flush();
 			} catch (final IOException e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			} finally {
-				StreamUtils.close(pWriter);
+    StreamUtils.close(pWriter);
 			}
 		}
 	}

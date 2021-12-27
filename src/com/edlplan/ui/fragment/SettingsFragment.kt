@@ -34,10 +34,10 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
 			background.alpha = 0f
 			background.animate().cancel()
 			background.animate()
-					.alpha(1f)
-					.setDuration(duration.toLong())
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.start()
+    	.alpha(1f)
+    	.setDuration(duration.toLong())
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.start()
 		}
 	}
 
@@ -46,10 +46,10 @@ abstract class SettingsFragment : PreferenceFragmentCompat(), BackPressListener 
 		if (background != null) {
 			background.animate().cancel()
 			background.animate()
-					.alpha(0f)
-					.setDuration(duration.toLong())
-					.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-					.start()
+    	.alpha(0f)
+    	.setDuration(duration.toLong())
+    	.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    	.start()
 		}
 	}
 

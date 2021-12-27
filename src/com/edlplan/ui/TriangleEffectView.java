@@ -49,7 +49,7 @@ public class TriangleEffectView extends View {
 		TriangleDrawable triangle = new TriangleDrawable(preSpawnTriangles);
 		if (attrs != null) {
 			if (attrs.getAttributeBooleanValue(NAMESPACE, "freeze", false)) {
-				triangle.setFreeze(true);
+    triangle.setFreeze(true);
 			}
 			triangle.setEdgeClampRate(attrs.getAttributeFloatValue(NAMESPACE, "edgeClampRate", triangle.getEdgeClampRate()));
 		}

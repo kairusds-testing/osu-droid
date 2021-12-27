@@ -32,7 +32,7 @@ public class ToastLogger {
 
 		instance.activity.runOnUiThread(() -> 
 			Toast.makeText(instance.activity, message,
-				showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show());
+    showlong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show());
 	}
 
 	public static void showTextId(@StringRes final int resID, final boolean showlong) {

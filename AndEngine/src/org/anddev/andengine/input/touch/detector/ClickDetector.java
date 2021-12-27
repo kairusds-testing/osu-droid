@@ -60,19 +60,19 @@ public class ClickDetector extends BaseDetector {
 	public boolean onManagedTouchEvent(final TouchEvent pSceneTouchEvent) {
 		switch(pSceneTouchEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				this.mDownTimeMilliseconds = pSceneTouchEvent.getMotionEvent().getDownTime();
-				return true;
+    this.mDownTimeMilliseconds = pSceneTouchEvent.getMotionEvent().getDownTime();
+    return true;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
-				final long upTimeMilliseconds = pSceneTouchEvent.getMotionEvent().getEventTime();
+    final long upTimeMilliseconds = pSceneTouchEvent.getMotionEvent().getEventTime();
 
-				if(upTimeMilliseconds - this.mDownTimeMilliseconds <= this.mTriggerClickMaximumMilliseconds) {
-					this.mDownTimeMilliseconds = Long.MIN_VALUE;
-					this.mClickDetectorListener.onClick(this, pSceneTouchEvent);
-				}
-				return true;
+    if(upTimeMilliseconds - this.mDownTimeMilliseconds <= this.mTriggerClickMaximumMilliseconds) {
+    	this.mDownTimeMilliseconds = Long.MIN_VALUE;
+    	this.mClickDetectorListener.onClick(this, pSceneTouchEvent);
+    }
+    return true;
 			default:
-				return false;
+    return false;
 		}
 	}
 

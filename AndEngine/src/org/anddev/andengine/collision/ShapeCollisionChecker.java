@@ -40,7 +40,7 @@ public class ShapeCollisionChecker extends BaseCollisionChecker {
 		for(int a = pVerticesALength - 4; a >= 0; a -= 2) {
 			/* ... against all lines in B. */
 			if(ShapeCollisionChecker.checkCollisionSub(a, a + 2, pVerticesA, pVerticesB, pVerticesBLength)){
-				return true;
+    return true;
 			}
 		}
 		/* Also check the 'around the corner of the array' line of A against all lines in B. */
@@ -50,11 +50,11 @@ public class ShapeCollisionChecker extends BaseCollisionChecker {
 			/* At last check if one polygon 'contains' the other one by checking
 			 * if one vertex of the one vertices is contained by all of the other vertices. */
 			if(ShapeCollisionChecker.checkContains(pVerticesA, pVerticesALength, pVerticesB[Constants.VERTEX_INDEX_X], pVerticesB[Constants.VERTEX_INDEX_Y])) {
-				return true;
+    return true;
 			} else if(ShapeCollisionChecker.checkContains(pVerticesB, pVerticesBLength, pVerticesA[Constants.VERTEX_INDEX_X], pVerticesA[Constants.VERTEX_INDEX_Y])) {
-				return true;
+    return true;
 			} else {
-				return false;
+    return false;
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class ShapeCollisionChecker extends BaseCollisionChecker {
 
 		for(int b = pVerticesBLength - 4; b >= 0; b -= 2) {
 			if(LineCollisionChecker.checkLineCollision(vertexA1X, vertexA1Y, vertexA2X, vertexA2Y, pVerticesB[b + Constants.VERTEX_INDEX_X], pVerticesB[b + Constants.VERTEX_INDEX_Y], pVerticesB[b + 2 + Constants.VERTEX_INDEX_X], pVerticesB[b + 2 + Constants.VERTEX_INDEX_Y])){
-				return true;
+    return true;
 			}
 		}
 		/* Also check the 'around the corner of the array' line of B. */
@@ -87,9 +87,9 @@ public class ShapeCollisionChecker extends BaseCollisionChecker {
 		for(int i = pVerticesLength - 4; i >= 0; i -= 2) {
 			final int edgeResult = BaseCollisionChecker.relativeCCW(pVertices[i], pVertices[i + 1], pVertices[i + 2], pVertices[i + 3], pX, pY);
 			if(edgeResult == 0) {
-				return true;
+    return true;
 			} else {
-				edgeResultSum += edgeResult;
+    edgeResultSum += edgeResult;
 			}
 		}
 		/* Also check the 'around the corner of the array' line. */

@@ -54,29 +54,29 @@ public class WebViewFragment extends BaseFragment {
 		webview.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				if(loadingFragment == null) {
-					loadingFragment = new LoadingFragment();
-					loadingFragment.show();
-				}
+    if(loadingFragment == null) {
+    	loadingFragment = new LoadingFragment();
+    	loadingFragment.show();
+    }
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				if(loadingFragment != null) {
-					loadingFragment.dismiss();
-					loadingFragment = null;
-				}
+    if(loadingFragment != null) {
+    	loadingFragment.dismiss();
+    	loadingFragment = null;
+    }
 			}
 
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				return false;
+    return false;
 			}
 
 			@Override
 			@TargetApi(Build.VERSION_CODES.N)
 			public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
-				return false;
+    return false;
 			}
 		});
 		webview.loadUrl(url);
@@ -117,12 +117,12 @@ public class WebViewFragment extends BaseFragment {
 			.setDuration(200)
 			.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
 			.setListener(new BaseAnimationListener() {
-				@Override
-				public void onAnimationEnd(Animator animation) {
-					if (runnable != null) {
-						runnable.run();
-					}
-				}
+    @Override
+    public void onAnimationEnd(Animator animation) {
+    	if (runnable != null) {
+    		runnable.run();
+    	}
+    }
 			})
 			.start();
 		playBackgroundHideOutAnim(200);

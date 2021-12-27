@@ -83,13 +83,13 @@ public class GLTexture extends AbstractTexture {
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, t[0]);
 		GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, w, h, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+    GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+    GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 		GLTexture tex = new GLTexture();
 		tex.width = w;
 		tex.height = h;
@@ -111,13 +111,13 @@ public class GLTexture extends AbstractTexture {
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, t[0]);
 		GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_ALPHA, w, h, 0, GLES20.GL_ALPHA, GLES20.GL_UNSIGNED_BYTE, null);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+    GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+    GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 		GLTexture tex = new GLTexture();
 		tex.width = w;
 		tex.height = h;
@@ -194,16 +194,16 @@ public class GLTexture extends AbstractTexture {
 		/*
 		if(SCALE_22){
 			if(w!=bmp.getWidth()||h!=bmp.getHeight()){
-				Bitmap nb=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
-				Canvas c=new Canvas(nb);
-				c.clearColor(0x00000000);
-				Paint p=new Paint();
-				p.setAntiAlias(false);
-				c.drawBitmap(bmp,0,0,p);
-				tex=createNotChecked(nb,bmp.getWidth(),bmp.getHeight());
-				nb.recycle();
+    Bitmap nb=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
+    Canvas c=new Canvas(nb);
+    c.clearColor(0x00000000);
+    Paint p=new Paint();
+    p.setAntiAlias(false);
+    c.drawBitmap(bmp,0,0,p);
+    tex=createNotChecked(nb,bmp.getWidth(),bmp.getHeight());
+    nb.recycle();
 			}else{
-				tex=createNotChecked(bmp,bmp.getWidth(),bmp.getHeight());
+    tex=createNotChecked(bmp,bmp.getWidth(),bmp.getHeight());
 			}
 		}else{
 			tex=createNotChecked(bmp,bmp.getWidth(),bmp.getHeight());
@@ -216,13 +216,13 @@ public class GLTexture extends AbstractTexture {
 		GLES20.glGenTextures(1, t, 0);
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, t[0]);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+    GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+    GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
 		GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
-				GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+    GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
 		return t[0];
 	}
 
@@ -230,11 +230,11 @@ public class GLTexture extends AbstractTexture {
 		Bitmap bmp = Bitmap.createBitmap(128, 128, Bitmap.Config.ARGB_8888);
 		for (int x = 0; x < bmp.getWidth(); x++) {
 			for (int y = 0; y < bmp.getHeight(); y++) {
-				if ((x / 32 + y / 32) % 2 == 0) {
-					bmp.setPixel(x, y, Color.argb(255, 10, 5, 5));
-				} else {
-					bmp.setPixel(x, y, Color.argb(255, 110, 40, 50));
-				}
+    if ((x / 32 + y / 32) % 2 == 0) {
+    	bmp.setPixel(x, y, Color.argb(255, 10, 5, 5));
+    } else {
+    	bmp.setPixel(x, y, Color.argb(255, 110, 40, 50));
+    }
 			}
 		}
 		return create(bmp, true);

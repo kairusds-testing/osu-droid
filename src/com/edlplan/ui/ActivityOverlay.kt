@@ -28,7 +28,7 @@ object ActivityOverlay {
 		if (fragmentManager != null && displayingOverlay.size > 0) {
 			val overlay: Fragment? = displayingOverlay[displayingOverlay.size - 1]
 			if(overlay is BackPressListener) {
-				overlay.callDismissOnBackPress()
+    overlay.callDismissOnBackPress()
 			}
 			return true
 		}
@@ -39,8 +39,8 @@ object ActivityOverlay {
 	fun dismissOverlay(fragment: Fragment) {
 		if (fragmentManager != null) {
 			if (displayingOverlay.contains(fragment)) {
-				displayingOverlay.remove(fragment)
-				fragmentManager!!.beginTransaction().remove(fragment).commit()
+    displayingOverlay.remove(fragment)
+    fragmentManager!!.beginTransaction().remove(fragment).commit()
 			}
 		}
 	}
@@ -49,20 +49,20 @@ object ActivityOverlay {
 	fun addOverlay(fragment: Fragment, tag: String?) {
 		if (fragmentManager != null) {
 			if (fragment.isAdded()) {
-				return
+    return
 			}
 			if (displayingOverlay.contains(fragment) || fragmentManager!!.findFragmentByTag(tag) != null) {
-				displayingOverlay.remove(fragment)
-				fragmentManager!!.beginTransaction()
-						.remove(fragment)
-						.add(containerId, fragment, tag)
-						.commit()
-				return
+    displayingOverlay.remove(fragment)
+    fragmentManager!!.beginTransaction()
+    		.remove(fragment)
+    		.add(containerId, fragment, tag)
+    		.commit()
+    return
 			}
 			displayingOverlay.add(fragment)
 			fragmentManager!!.beginTransaction()
-					.add(containerId, fragment, tag)
-					.commit()
+    	.add(containerId, fragment, tag)
+    	.commit()
 		}
 	}
 

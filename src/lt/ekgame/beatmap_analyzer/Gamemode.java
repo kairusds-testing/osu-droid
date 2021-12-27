@@ -13,7 +13,7 @@ public enum Gamemode {
 	public static Gamemode fromInt(int value) {
 		for (Gamemode gamemode : Gamemode.values())
 			if (gamemode.numValue == value)
-				return gamemode;
+    return gamemode;
 		return UNKNOWN;
 	}
 }

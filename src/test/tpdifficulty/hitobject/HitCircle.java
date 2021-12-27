@@ -16,9 +16,9 @@ public class HitCircle extends HitObject {
 
 	public String toString() {
 		return "HitCircle{" +
-				super.toString() +
-				", Combo=" + getCombo(0, 0) +
-				"}";
+    super.toString() +
+    ", Combo=" + getCombo(0, 0) +
+    "}";
 	}
 
 	@Override

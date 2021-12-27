@@ -52,9 +52,9 @@ class LogWriter extends Writer {
 		for(int i = 0; i < count; i++) {
 			final char c = buf[offset + i];
 			if(c == '\n') {
-				this.flushBuilder();
+    this.flushBuilder();
 			} else {
-				this.mBuilder.append(c);
+    this.mBuilder.append(c);
 			}
 		}
 	}

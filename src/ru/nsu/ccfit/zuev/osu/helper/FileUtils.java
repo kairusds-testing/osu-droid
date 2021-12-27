@@ -71,19 +71,19 @@ public class FileUtils {
 		try {
 			ZipFile zip = new ZipFile(file);
 			if(!zip.isValidZipFile()) {
-				ToastLogger.showText(
-						StringTable.format(R.string.message_error, "Invalid file"),
-						false);
-				Debug.e("FileUtils.extractZip: " + file.getName() + " is invalid");
-				file.renameTo(new File(file.getParentFile(), file.getName() + ".badzip"));
-				LibraryManager.getInstance().deleteDir(folderFile);
-				return false;
+    ToastLogger.showText(
+    		StringTable.format(R.string.message_error, "Invalid file"),
+    		false);
+    Debug.e("FileUtils.extractZip: " + file.getName() + " is invalid");
+    file.renameTo(new File(file.getParentFile(), file.getName() + ".badzip"));
+    LibraryManager.getInstance().deleteDir(folderFile);
+    return false;
 			}
 
 			zip.extractAll(folderFile.getAbsolutePath());
 			if((Config.isDELETE_OSZ() && file.getName().toLowerCase().endsWith(".osz"))
-				|| file.getName().toLowerCase().endsWith(".osk")) {
-				file.delete();
+    || file.getName().toLowerCase().endsWith(".osk")) {
+    file.delete();
 			}
 		} catch (final ZipException e) {
 			Debug.e("FileUtils.extractZip: " + e.getMessage(), e);
@@ -99,18 +99,18 @@ public class FileUtils {
 		try {
 			MessageDigest digest = MessageDigest.getInstance(algorithm);
 			BufferedInputStream in = new BufferedInputStream(
-				new FileInputStream(file));
+    new FileInputStream(file));
 			byte[] byteArray = new byte[1024];
 			int bytesCount = 0; 
 
 			while((bytesCount = in.read(byteArray)) != -1) {
-				digest.update(byteArray, 0, bytesCount);
+    digest.update(byteArray, 0, bytesCount);
 			}
 			in.close();
 
 			byte[] bytes = digest.digest();
 			for(int i = 0; i < bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 			}
 		}catch(IOException e) {
 			Debug.e("getFileChecksum " + e.getMessage(), e);
@@ -122,17 +122,17 @@ public class FileUtils {
 
 	public static boolean canUseSD() {
 		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+    Environment.MEDIA_MOUNTED)) {
 			return true;
 		} else {
 			if (Environment.getExternalStorageState().equals(
-					Environment.MEDIA_MOUNTED_READ_ONLY)) {
-				ToastLogger.showText(
-						StringTable.get(R.string.message_error_sdcardread),
-						false);
+    	Environment.MEDIA_MOUNTED_READ_ONLY)) {
+    ToastLogger.showText(
+    		StringTable.get(R.string.message_error_sdcardread),
+    		false);
 			} else {
-				ToastLogger.showText(
-						StringTable.get(R.string.message_error_sdcard), false);
+    ToastLogger.showText(
+    		StringTable.get(R.string.message_error_sdcard), false);
 			}
 		}
 
@@ -159,17 +159,17 @@ public class FileUtils {
 	public static File[] listFiles(File directory, String[] endsWithExtensions) {
 		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
 			return listFiles(directory, file -> {
-				for(String extension : endsWithExtensions) {
-					if(file.getName().toLowerCase().endsWith(extension)) {
-						return true;
-					}
-				}
-				return false;
+    for(String extension : endsWithExtensions) {
+    	if(file.getName().toLowerCase().endsWith(extension)) {
+    		return true;
+    	}
+    }
+    return false;
 			});
 		}else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			return listFiles(directory, file -> {
-				String filename = file.getName().toLowerCase();
-				return Arrays.stream(endsWithExtensions).anyMatch(filename::endsWith);
+    String filename = file.getName().toLowerCase();
+    return Arrays.stream(endsWithExtensions).anyMatch(filename::endsWith);
 			});
 		}
 		return null;
@@ -182,17 +182,17 @@ public class FileUtils {
 		}else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			LinkedList<File> cachedFiles = new LinkedList<File>();
 			DirectoryStream.Filter<Path> directoryFilter = new DirectoryStream.Filter<Path>() {
-				@Override
-				public boolean accept(Path entry) {
-					return filter.accept(entry.toFile());
-				}
+    @Override
+    public boolean accept(Path entry) {
+    	return filter.accept(entry.toFile());
+    }
 			};
 			try(DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory.getAbsolutePath()), directoryFilter)) {
-				for(Path path : stream) {
-					cachedFiles.add(path.toFile());
-				}
+    for(Path path : stream) {
+    	cachedFiles.add(path.toFile());
+    }
 			}catch(Exception err) {
-				Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
+    Debug.e("FileUtils.listFiles: " + err.getMessage(), err);
 			}
 			filelist = cachedFiles.toArray(new File[cachedFiles.size()]);
 		}

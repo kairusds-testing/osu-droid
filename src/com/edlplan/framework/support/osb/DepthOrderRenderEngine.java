@@ -18,8 +18,8 @@ public class DepthOrderRenderEngine {
 	public void add(EGFStoryboardSprite sprite) {
 		for (LinkedNode<EGFStoryboardSprite> s = end.pre; s != first; s = s.pre) {
 			if (s.value.sprite.depth < sprite.sprite.depth) {
-				s.insertToNext(new LinkedNode<>(sprite));
-				return;
+    s.insertToNext(new LinkedNode<>(sprite));
+    return;
 			}
 		}
 		first.insertToNext(new LinkedNode<>(sprite));
@@ -28,8 +28,8 @@ public class DepthOrderRenderEngine {
 	public void remove(EGFStoryboardSprite sprite) {
 		for (LinkedNode<EGFStoryboardSprite> s = first.next; s != end; s = s.next) {
 			if (s.value == sprite) {
-				s.removeFromList();
-				break;
+    s.removeFromList();
+    break;
 			}
 		}
 	}
@@ -38,7 +38,7 @@ public class DepthOrderRenderEngine {
 		TextureQuadBatch batch = TextureQuadBatch.getDefaultBatch();
 		for (LinkedNode<EGFStoryboardSprite> s = first.next; s != end; s = s.next) {
 			if (s.value.textureQuad.alpha.value < 0.001) {
-				continue;
+    continue;
 			}
 			canvas.getBlendSetting().setBlendType(s.value.blendMode.value ? BlendType.Additive : BlendType.Normal);
 			batch.add(s.value.textureQuad);

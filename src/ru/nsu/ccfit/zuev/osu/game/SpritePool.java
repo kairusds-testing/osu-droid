@@ -57,11 +57,11 @@ public class SpritePool {
 		if (sprites.containsKey(name)) {
 			final LinkedList<Sprite> list = sprites.get(name);
 			while (list.isEmpty() == false && list.peek().hasParent() == true) {
-				list.poll();
+    list.poll();
 			}
 			if (list.isEmpty() == false) {
-				count--;
-				return list.poll();
+    count--;
+    return list.poll();
 			}
 		}
 
@@ -70,35 +70,35 @@ public class SpritePool {
 	}
 
 	synchronized public Sprite getCenteredSprite(final String name,
-												 final PointF pos) {
+             final PointF pos) {
 		if (sprites.containsKey(name)) {
 			final LinkedList<Sprite> list = sprites.get(name);
 			while (list.isEmpty() == false && list.peek().hasParent() == true) {
-				list.poll();
+    list.poll();
 			}
 			if (list.isEmpty() == false) {
-				count--;
-				final Sprite sp = list.poll();
-				sp.setPosition(pos.x - sp.getWidth() / 2,
-						pos.y - sp.getHeight() / 2);
-				return sp;
+    count--;
+    final Sprite sp = list.poll();
+    sp.setPosition(pos.x - sp.getWidth() / 2,
+    		pos.y - sp.getHeight() / 2);
+    return sp;
 			}
 		}
 
 		spritesCreated++;
 		return new CentredSprite(pos.x, pos.y, ResourceManager.getInstance()
-				.getTexture(name));
+    .getTexture(name));
 	}
 
 	synchronized public AnimSprite getAnimSprite(final String name, int count) {
 		if (animsprites.containsKey(name)) {
 			final LinkedList<AnimSprite> list = animsprites.get(name);
 			while (list.isEmpty() == false && list.peek().hasParent() == true) {
-				list.poll();
+    list.poll();
 			}
 			if (list.isEmpty() == false) {
-				count--;
-				return list.poll();
+    count--;
+    return list.poll();
 			}
 		}
 
@@ -107,7 +107,7 @@ public class SpritePool {
 	}
 
 	synchronized public void putAnimSprite(final String name,
-										   final AnimSprite sprite) {
+        		   final AnimSprite sprite) {
 		if (count > CAPACITY) {
 			return;
 		}

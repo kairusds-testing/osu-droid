@@ -86,9 +86,9 @@ public class SystemUtils {
 
 		try {
 			if(matchResult.groupCount() > 0) {
-				return Float.parseFloat(matchResult.group(1));
+    return Float.parseFloat(matchResult.group(1));
 			} else {
-				throw new SystemUtilsException();
+    throw new SystemUtilsException();
 			}
 		} catch (final NumberFormatException e) {
 			throw new SystemUtilsException(e);
@@ -104,9 +104,9 @@ public class SystemUtils {
 
 		try {
 			if(matchResult.groupCount() > 0) {
-				return Integer.parseInt(matchResult.group(1));
+    return Integer.parseInt(matchResult.group(1));
 			} else {
-				throw new SystemUtilsException();
+    throw new SystemUtilsException();
 			}
 		} catch (final NumberFormatException e) {
 			throw new SystemUtilsException(e);
@@ -122,9 +122,9 @@ public class SystemUtils {
 
 		try {
 			if(matchResult.groupCount() > 0) {
-				return Integer.parseInt(matchResult.group(1));
+    return Integer.parseInt(matchResult.group(1));
 			} else {
-				throw new SystemUtilsException();
+    throw new SystemUtilsException();
 			}
 		} catch (final NumberFormatException e) {
 			throw new SystemUtilsException(e);
@@ -181,9 +181,9 @@ public class SystemUtils {
 
 			final boolean matchFound = scanner.findWithinHorizon(pPattern, pHorizon) != null;
 			if(matchFound) {
-				return scanner.match();
+    return scanner.match();
 			} else {
-				throw new SystemUtilsException();
+    throw new SystemUtilsException();
 			}
 		} catch (final IOException e) {
 			throw new SystemUtilsException(e);

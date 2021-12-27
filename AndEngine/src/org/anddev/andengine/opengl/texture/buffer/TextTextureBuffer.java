@@ -54,30 +54,30 @@ public class TextTextureBuffer extends BufferObject {
 
 			final int lineLength = line.length();
 			for (int j = 0; j < lineLength; j++) {
-				final Letter letter = font.getLetter(line.charAt(j));
+    final Letter letter = font.getLetter(line.charAt(j));
 
-				final float letterTextureX = letter.mTextureX;
-				final float letterTextureY = letter.mTextureY;
-				final float letterTextureX2 = letterTextureX + letter.mTextureWidth;
-				final float letterTextureY2 = letterTextureY + letter.mTextureHeight;
+    final float letterTextureX = letter.mTextureX;
+    final float letterTextureY = letter.mTextureY;
+    final float letterTextureX2 = letterTextureX + letter.mTextureWidth;
+    final float letterTextureY2 = letterTextureY + letter.mTextureHeight;
 
-				textureFloatBuffer.put(letterTextureX);
-				textureFloatBuffer.put(letterTextureY);
+    textureFloatBuffer.put(letterTextureX);
+    textureFloatBuffer.put(letterTextureY);
 
-				textureFloatBuffer.put(letterTextureX);
-				textureFloatBuffer.put(letterTextureY2);
+    textureFloatBuffer.put(letterTextureX);
+    textureFloatBuffer.put(letterTextureY2);
 
-				textureFloatBuffer.put(letterTextureX2);
-				textureFloatBuffer.put(letterTextureY2);
+    textureFloatBuffer.put(letterTextureX2);
+    textureFloatBuffer.put(letterTextureY2);
 
-				textureFloatBuffer.put(letterTextureX2);
-				textureFloatBuffer.put(letterTextureY2);
+    textureFloatBuffer.put(letterTextureX2);
+    textureFloatBuffer.put(letterTextureY2);
 
-				textureFloatBuffer.put(letterTextureX2);
-				textureFloatBuffer.put(letterTextureY);
+    textureFloatBuffer.put(letterTextureX2);
+    textureFloatBuffer.put(letterTextureY);
 
-				textureFloatBuffer.put(letterTextureX);
-				textureFloatBuffer.put(letterTextureY);
+    textureFloatBuffer.put(letterTextureX);
+    textureFloatBuffer.put(letterTextureY);
 			}
 		}
 		textureFloatBuffer.position(0);

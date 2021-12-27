@@ -62,9 +62,9 @@ public class OSUParser {
 			Pattern pattern = Pattern.compile("osu file format v(\\d+)");
 			Matcher matcher = pattern.matcher(head);
 			if (!matcher.find()) {
-				source.close();
-				source = null;
-				return false;
+    source.close();
+    source = null;
+    return false;
 			}
 		} catch (IOException e) {
 			Debug.e("OSUParser.openFile: " + e.getMessage(), e);
@@ -80,13 +80,13 @@ public class OSUParser {
 		data = readData();
 
 		if (!data.getData("General", "Mode").equals("0")
-				&& !data.getData("General", "Mode").equals("")) {
+    && !data.getData("General", "Mode").equals("")) {
 			return false;
 		}
 
 		for (BeatmapSection section : BeatmapSection.values()) {
 			if (!loadMetadata(track, info, section)) {
-				return false;
+    return false;
 			}
 		}
 
@@ -151,88 +151,88 @@ public class OSUParser {
 
 		try {
 			while (true) {
-				String s = source.readUtf8Line();
+    String s = source.readUtf8Line();
 
-				// If s is null, it means we've reached the end of the file.
-				// End the loop and don't forget to add the last section,
-				// which would otherwise be ignored
-				if (s == null) {
-					if (currentSection != null) {
-						switch (currentSection) {
-							case "Events":
-							case "TimingPoints":
-							case "HitObjects":
-								data.addSection(currentSection, list);
-								break;
-							default:
-								data.addSection(currentSection, map);
-						}
-					}
-					source.close();
-					break;
-				}
+    // If s is null, it means we've reached the end of the file.
+    // End the loop and don't forget to add the last section,
+    // which would otherwise be ignored
+    if (s == null) {
+    	if (currentSection != null) {
+    		switch (currentSection) {
+    			case "Events":
+    			case "TimingPoints":
+    			case "HitObjects":
+        data.addSection(currentSection, list);
+        break;
+    			default:
+        data.addSection(currentSection, map);
+    		}
+    	}
+    	source.close();
+    	break;
+    }
 
-				// Handle space comments
-				if (s.startsWith(" ") || s.startsWith("_")) {
-					continue;
-				}
+    // Handle space comments
+    if (s.startsWith(" ") || s.startsWith("_")) {
+    	continue;
+    }
 
-				// Now that we've handled space comments, we can trim space
-				s = s.trim();
+    // Now that we've handled space comments, we can trim space
+    s = s.trim();
 
-				// Handle C++ style comments and empty lines
-				if (s.startsWith("//") || s.isEmpty()) {
-					continue;
-				}
+    // Handle C++ style comments and empty lines
+    if (s.startsWith("//") || s.isEmpty()) {
+    	continue;
+    }
 
-				// [SectionName]
-				if (s.startsWith("[")) {
-					// Record the current section before loading the new section.
-					// This is necessary so that we don't enter an empty data
-					// if we've just entered the first section (previousSection will
-					// be null)
-					previousSection = currentSection;
-					currentSection = s.substring(1, s.length() - 1);
+    // [SectionName]
+    if (s.startsWith("[")) {
+    	// Record the current section before loading the new section.
+    	// This is necessary so that we don't enter an empty data
+    	// if we've just entered the first section (previousSection will
+    	// be null)
+    	previousSection = currentSection;
+    	currentSection = s.substring(1, s.length() - 1);
 
-					if (previousSection == null) {
-						continue;
-					}
+    	if (previousSection == null) {
+    		continue;
+    	}
 
-					// Enter a deep copy of the original data holder so that
-					// we can use the original for the next section
-					switch (previousSection) {
-						case "Events":
-						case "TimingPoints":
-						case "HitObjects":
-							data.addSection(previousSection, new ArrayList<>(list));
-							list.clear();
-							break;
-						default:
-							data.addSection(previousSection, new HashMap<>(map));
-							map.clear();
-					}
-					continue;
-				}
+    	// Enter a deep copy of the original data holder so that
+    	// we can use the original for the next section
+    	switch (previousSection) {
+    		case "Events":
+    		case "TimingPoints":
+    		case "HitObjects":
+    			data.addSection(previousSection, new ArrayList<>(list));
+    			list.clear();
+    			break;
+    		default:
+    			data.addSection(previousSection, new HashMap<>(map));
+    			map.clear();
+    	}
+    	continue;
+    }
 
-				// If we're still not in a section yet, there is no need
-				// to start parsing data, just continue to the next line
-				if (currentSection == null) {
-					continue;
-				}
+    // If we're still not in a section yet, there is no need
+    // to start parsing data, just continue to the next line
+    if (currentSection == null) {
+    	continue;
+    }
 
-				// Collect and parse data depending on section
-				switch (currentSection) {
-					case "Events":
-					case "TimingPoints":
-					case "HitObjects":
-						list.add(s);
-						break;
-					default:
-						final String[] pair = s.split("\\s*:\\s*", 2);
-						if (pair.length > 1) {
-							map.put(pair[0], pair[1]);
-						}
-				}
+    // Collect and parse data depending on section
+    switch (currentSection) {
+    	case "Events":
+    	case "TimingPoints":
+    	case "HitObjects":
+    		list.add(s);
+    		break;
+    	default:
+    		final String[] pair = s.split("\\s*:\\s*", 2);
+    		if (pair.length > 1) {
+    			map.put(pair[0], pair[1]);
+    		}
+    }
 			}
 		} catch (IOException e) {
 			Debug.e("OSUParser.readData: " + e.getMessage(), e);
@@ -257,19 +257,19 @@ public class OSUParser {
 	private boolean loadMetadata(final TrackInfo track, final BeatmapInfo info, final BeatmapSection section) {
 		switch (section) {
 			case GENERAL:
-				return loadGeneralSection(info);
+    return loadGeneralSection(info);
 			case METADATA:
-				return loadMetadataSection(track, info);
+    return loadMetadataSection(track, info);
 			case DIFFICULTY:
-				return loadDifficultySection(track);
+    return loadDifficultySection(track);
 			case EVENTS:
-				return loadEventsSection(track);
+    return loadEventsSection(track);
 			case TIMINGPOINTS:
-				return loadTimingPointsSection(track);
+    return loadTimingPointsSection(track);
 			case HITOBJECTS:
-				return loadHitObjectsSection(track);
+    return loadHitObjectsSection(track);
 			default:
-				return true;
+    return true;
 		}
 	}
 
@@ -280,7 +280,7 @@ public class OSUParser {
 		if (info.getTitleUnicode() == null) {
 			String titleUnicode = data.getData("Metadata", "TitleUnicode");
 			if (titleUnicode != null && titleUnicode.length() > 0) {
-				info.setTitleUnicode(titleUnicode);
+    info.setTitleUnicode(titleUnicode);
 			}
 		}
 		if (info.getArtist() == null) {
@@ -289,7 +289,7 @@ public class OSUParser {
 		if (info.getArtistUnicode() == null) {
 			String artistUnicode = data.getData("Metadata", "ArtistUnicode");
 			if (artistUnicode != null && artistUnicode.length() > 0) {
-				info.setArtistUnicode(artistUnicode);
+    info.setArtistUnicode(artistUnicode);
 			}
 		}
 		if (info.getSource() == null) {
@@ -301,19 +301,19 @@ public class OSUParser {
 
 		if (info.getMusic() == null) {
 			final File musicFile = new File(info.getPath(), data.getData(
-					"General", "AudioFilename"));
+    	"General", "AudioFilename"));
 			if (!musicFile.exists()) {
-				ToastLogger.showText(StringTable.format(R.string.osu_parser_music_not_found,
-						file.getName().substring(0, file.getName().length() - 4)), true);
-				return false;
+    ToastLogger.showText(StringTable.format(R.string.osu_parser_music_not_found,
+    		file.getName().substring(0, file.getName().length() - 4)), true);
+    return false;
 			}
 			info.setMusic(musicFile.getPath());
 			final String prevTime = data.getData("General", "PreviewTime");
 			try {
-				info.setPreviewTime(Integer.parseInt(prevTime));
+    info.setPreviewTime(Integer.parseInt(prevTime));
 			} catch (final NumberFormatException e) {
-				Debug.e("Cannot parse preview time");
-				info.setPreviewTime(-1);
+    Debug.e("Cannot parse preview time");
+    info.setPreviewTime(-1);
 			}
 		}
 
@@ -349,8 +349,8 @@ public class OSUParser {
 		for (final String s : data.getData("Events")) {
 			final String[] pars = s.split("\\s*,\\s*");
 			if (pars.length >= 3 && s.startsWith("0,0")) {
-				track.setBackground(pars[2].substring(1, pars[2].length() - 1));
-				break;
+    track.setBackground(pars[2].substring(1, pars[2].length() - 1));
+    break;
 			}
 		}
 
@@ -365,27 +365,27 @@ public class OSUParser {
 			String[] rawData = tempString.split("[,]");
 			// Handle malformed timing point
 			if (rawData.length < 2) {
-				return false;
+    return false;
 			}
 			float bpm = tryParseFloat(rawData[1], Float.NaN);
 			if (Float.isNaN(bpm)) {
-				return false;
+    return false;
 			}
 
 			// Uninherited: bpm > 0
 			if (bpm > 0) {
-				float offset = tryParseFloat(rawData[0], Float.NaN);
-				if (Float.isNaN(offset)) {
-					return false;
-				}
-				currentTimingPoint = new TimingPoint(bpm, offset, 1f);
-				break;
+    float offset = tryParseFloat(rawData[0], Float.NaN);
+    if (Float.isNaN(offset)) {
+    	return false;
+    }
+    currentTimingPoint = new TimingPoint(bpm, offset, 1f);
+    break;
 			}
 		}
 
 		if (currentTimingPoint == null) {
 			ToastLogger.showText(StringTable.format(R.string.osu_parser_timing_error,
-					file.getName().substring(0, file.getName().length() - 4)), true);
+    	file.getName().substring(0, file.getName().length() - 4)), true);
 			return false;
 		}
 
@@ -393,35 +393,35 @@ public class OSUParser {
 			String[] rawData = tempString.split("[,]");
 			// Handle malformed timing point
 			if (rawData.length < 2) {
-				return false;
+    return false;
 			}
 			float offset = tryParseFloat(rawData[0], Float.NaN);
 			float bpm = tryParseFloat(rawData[1], Float.NaN);
 			if (Float.isNaN(offset) || Float.isNaN(bpm)) {
-				return false;
+    return false;
 			}
 			float speed = 1.0f;
 			boolean inherited = bpm < 0;
 
 			if (inherited) {
-				speed = -100.0f / bpm;
-				bpm = currentTimingPoint.getBpm();
+    speed = -100.0f / bpm;
+    bpm = currentTimingPoint.getBpm();
 			} else {
-				bpm = 60000.0f / bpm;
+    bpm = 60000.0f / bpm;
 			}
 			TimingPoint timing = new TimingPoint(bpm, offset, speed);
 			if (!inherited) {
-				currentTimingPoint = timing;
+    currentTimingPoint = timing;
 			}
 			try {
-				bpm = GameHelper.Round(bpm, 2);
+    bpm = GameHelper.Round(bpm, 2);
 			} catch (NumberFormatException e) {
-				if (BuildConfig.DEBUG) {
-					e.printStackTrace();
-				}
-				Log.e("Beatmap Error", "" + track.getMode());
-				ToastLogger.showText(StringTable.get(R.string.osu_parser_error) + " " + track.getMode(), true);
-				return false;
+    if (BuildConfig.DEBUG) {
+    	e.printStackTrace();
+    }
+    Log.e("Beatmap Error", "" + track.getMode());
+    ToastLogger.showText(StringTable.get(R.string.osu_parser_error) + " " + track.getMode(), true);
+    return false;
 			}
 			track.setBpmMin(track.getBpmMin() != Float.MAX_VALUE ? Math.min(track.getBpmMin(), bpm) : bpm);
 			track.setBpmMax(track.getBpmMax() != 0 ? Math.max(track.getBpmMax(), bpm) : bpm);
@@ -450,93 +450,93 @@ public class OSUParser {
 			// Ignoring v10 features
 			int dataSize = hitObjectData.length;
 			while (dataSize > 0 && hitObjectData[dataSize - 1].matches("([0-9][:][0-9][|]?)+")) {
-				dataSize--;
+    dataSize--;
 			}
 			if (dataSize < hitObjectData.length) {
-				rawData = new String[dataSize];
-				for (int i = 0; i < rawData.length; i++) {
-					rawData[i] = hitObjectData[i];
-				}
+    rawData = new String[dataSize];
+    for (int i = 0; i < rawData.length; i++) {
+    	rawData[i] = hitObjectData[i];
+    }
 			} else {
-				rawData = hitObjectData;
+    rawData = hitObjectData;
 			}
 
 			// Handle malformed hitobject
 			if (rawData.length < 4) {
-				return false;
+    return false;
 			}
 
 			int time = tryParseInt(rawData[2], -1);
 			if (time <= -1) {
-				return false;
+    return false;
 			}
 			while (tpIndex < timingPoints.size() - 1 && timingPoints.get(tpIndex + 1).getOffset() <= time) {
-				tpIndex++;
+    tpIndex++;
 			}
 			currentTimingPoint = timingPoints.get(tpIndex);
 			HitObjectType hitObjectType = HitObjectType.valueOf(tryParseInt(rawData[3], -1) % 16);
 			PointF pos = new PointF(
-				tryParseFloat(rawData[0], Float.NaN),
-				tryParseFloat(rawData[1], Float.NaN)
+    tryParseFloat(rawData[0], Float.NaN),
+    tryParseFloat(rawData[1], Float.NaN)
 			);
 			if (Float.isNaN(pos.x) || Float.isNaN(pos.y)) {
-				return false;
+    return false;
 			}
 			HitObject object = null;
 			if (hitObjectType == null) {
-				System.out.println(tempString);
-				return false;
+    System.out.println(tempString);
+    return false;
 			}
 
 			if (hitObjectType == HitObjectType.Normal || hitObjectType == HitObjectType.NormalNewCombo) {
-				// HitCircle
-				object = new HitCircle(time, pos, currentTimingPoint);
-				track.setHitCircleCount(track.getHitCircleCount() + 1);
+    // HitCircle
+    object = new HitCircle(time, pos, currentTimingPoint);
+    track.setHitCircleCount(track.getHitCircleCount() + 1);
 			} else if (hitObjectType == HitObjectType.Spinner) {
-				// Spinner
-				int endTime = tryParseInt(rawData[5], -1);
-				if (endTime <= -1) {
-					return false;
-				}
-				object = new Spinner(time, endTime, pos, currentTimingPoint);
-				track.setSpinnerCount(track.getSpinnerCount() + 1);
+    // Spinner
+    int endTime = tryParseInt(rawData[5], -1);
+    if (endTime <= -1) {
+    	return false;
+    }
+    object = new Spinner(time, endTime, pos, currentTimingPoint);
+    track.setSpinnerCount(track.getSpinnerCount() + 1);
 			} else if (hitObjectType == HitObjectType.Slider || hitObjectType == HitObjectType.SliderNewCombo) {
-				// Slider
-				// Handle malformed slider
-				boolean isValidSlider = rawData.length >= 8;
-				if (!isValidSlider) {
-					return false;
-				}
+    // Slider
+    // Handle malformed slider
+    boolean isValidSlider = rawData.length >= 8;
+    if (!isValidSlider) {
+    	return false;
+    }
 
-				String[] curvePointsData = rawData[5].split("[|]");
-				SliderType sliderType = SliderType.parse(curvePointsData[0].charAt(0));
-				ArrayList<PointF> curvePoints = new ArrayList<>();
-				for (int i = 1; i < curvePointsData.length; i++) {
-					String[] curvePointData = curvePointsData[i].split("[:]");
-					PointF curvePointPosition = new PointF(
-						tryParseFloat(curvePointData[0], Float.NaN),
-						tryParseFloat(curvePointData[1], Float.NaN)
-					);
+    String[] curvePointsData = rawData[5].split("[|]");
+    SliderType sliderType = SliderType.parse(curvePointsData[0].charAt(0));
+    ArrayList<PointF> curvePoints = new ArrayList<>();
+    for (int i = 1; i < curvePointsData.length; i++) {
+    	String[] curvePointData = curvePointsData[i].split("[:]");
+    	PointF curvePointPosition = new PointF(
+    		tryParseFloat(curvePointData[0], Float.NaN),
+    		tryParseFloat(curvePointData[1], Float.NaN)
+    	);
 
-					if (Float.isNaN(curvePointPosition.x) || Float.isNaN(curvePointPosition.y)) {
-						isValidSlider = false;
-						break;
-					}
-					curvePoints.add(curvePointPosition);
-				}
-				if (!isValidSlider) {
-					return false;
-				}
+    	if (Float.isNaN(curvePointPosition.x) || Float.isNaN(curvePointPosition.y)) {
+    		isValidSlider = false;
+    		break;
+    	}
+    	curvePoints.add(curvePointPosition);
+    }
+    if (!isValidSlider) {
+    	return false;
+    }
 
-				int repeat = tryParseInt(rawData[6], -1);
-				float rawLength = tryParseFloat(rawData[7], Float.NaN);
-				if (repeat <= -1 || Float.isNaN(rawLength)) {
-					continue;
-				}
+    int repeat = tryParseInt(rawData[6], -1);
+    float rawLength = tryParseFloat(rawData[7], Float.NaN);
+    if (repeat <= -1 || Float.isNaN(rawLength)) {
+    	continue;
+    }
 
-				int endTime = time + (int) (rawLength * (600 / timingPoints.get(0).getBpm()) / sliderSpeed) * repeat;
-				object = new Slider(time, endTime, pos, currentTimingPoint, sliderType, repeat, curvePoints, rawLength);
-				track.setSliderCount(track.getSliderCount() + 1);
+    int endTime = time + (int) (rawLength * (600 / timingPoints.get(0).getBpm()) / sliderSpeed) * repeat;
+    object = new Slider(time, endTime, pos, currentTimingPoint, sliderType, repeat, curvePoints, rawLength);
+    track.setSliderCount(track.getSliderCount() + 1);
 			}
 			this.hitObjects.add(object);
 		}

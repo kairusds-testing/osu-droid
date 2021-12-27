@@ -70,7 +70,7 @@ public class GameObjectPool {
 
 	public GameEffect getEffect(final String texname) {
 		if (effects.containsKey(texname)
-				&& effects.get(texname).isEmpty() == false) {
+    && effects.get(texname).isEmpty() == false) {
 			return effects.get(texname).poll();
 		}
 

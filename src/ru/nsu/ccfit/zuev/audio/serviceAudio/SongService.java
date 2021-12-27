@@ -69,7 +69,7 @@ public class SongService extends Service {
 		if (checkFileExist(filePath)) {
 			if (audioFunc == null) return false;
 			if (isLoop) {
-				audioFunc.setLoop(isLoop);
+    audioFunc.setLoop(isLoop);
 			}
 			return audioFunc.preLoad(filePath, mode);
 		}
@@ -87,7 +87,7 @@ public class SongService extends Service {
 	public boolean preLoad(String filePath, float speed, boolean enableNC) {
 		if (checkFileExist(filePath)) {
 			if (audioFunc == null) return false;
-				audioFunc.setLoop(false);
+    audioFunc.setLoop(false);
 			return audioFunc.preLoad(filePath, speed, enableNC);
 		}
 		return false;
@@ -241,14 +241,14 @@ public class SongService extends Service {
 		if (notification == null) return;
 		switch (getStatus()) {
 			case PLAYING:
-				notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_pause);
-				break;
+    notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_pause);
+    break;
 			case PAUSED:
-				notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_play);
-				break;
+    notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_play);
+    break;
 			case STOPPED:
-				notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_stop);
-				break;
+    notifyView_Small.setImageViewResource(R.id.notify_small_play, R.drawable.notify_stop);
+    break;
 		}
 		showNotifyPanel();
 	}
@@ -265,10 +265,10 @@ public class SongService extends Service {
 		if(Config.isSafeBeatmapBg()) {
 			File bg;
 			if ((bg = new File(Config.getSkinPath() + "menu-background.png")).exists()
-					|| (bg = new File(Config.getSkinPath() + "menu-background.jpg")).exists()) {
-				notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(bg.getAbsolutePath(), options));
+    	|| (bg = new File(Config.getSkinPath() + "menu-background.jpg")).exists()) {
+    notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(bg.getAbsolutePath(), options));
 			}else {
-				notifyView_Small.setImageViewResource(R.id.notify_small_icon, R.drawable.osut);
+    notifyView_Small.setImageViewResource(R.id.notify_small_icon, R.drawable.osut);
 			}
 		}else {
 			notifyView_Small.setImageViewBitmap(R.id.notify_small_icon, BitmapFactory.decodeFile(backgroundPath, options));  
@@ -331,50 +331,50 @@ public class SongService extends Service {
 		onNotifyButtonClick = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				if (isRunningForeground()) return;
-				if (lastHit == 0) {
-					lastHit = System.currentTimeMillis();
-				} else {
-					if (System.currentTimeMillis() - lastHit <= 1000) {
-						return;
-					}
-				}
-				lastHit = System.currentTimeMillis();
-				if (intent.getAction().equals("Notify_play")) {
-					if (getStatus() == Status.PLAYING) pause();
-					else {
-						play();
-					}
-				} else if (intent.getAction().equals("Notify_next")) {
-					if (isRunningForeground()) return;
+    if (isRunningForeground()) return;
+    if (lastHit == 0) {
+    	lastHit = System.currentTimeMillis();
+    } else {
+    	if (System.currentTimeMillis() - lastHit <= 1000) {
+    		return;
+    	}
+    }
+    lastHit = System.currentTimeMillis();
+    if (intent.getAction().equals("Notify_play")) {
+    	if (getStatus() == Status.PLAYING) pause();
+    	else {
+    		play();
+    	}
+    } else if (intent.getAction().equals("Notify_next")) {
+    	if (isRunningForeground()) return;
 
-					stop();
-					BeatmapInfo tempBeatmap = LibraryManager.getInstance().getNextBeatmap();
-					preLoad(tempBeatmap.getMusic());
-					updateCoverImage(tempBeatmap.getTrack(0).getBackground());
+    	stop();
+    	BeatmapInfo tempBeatmap = LibraryManager.getInstance().getNextBeatmap();
+    	preLoad(tempBeatmap.getMusic());
+    	updateCoverImage(tempBeatmap.getTrack(0).getBackground());
 
-					if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
-						updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
-					}else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
-						updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
-					}
+    	if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
+    		updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
+    	}else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
+    		updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
+    	}
 
-					play();
-				} else {
-					if (isRunningForeground()) return;
-					stop();
-					BeatmapInfo tempBeatmap = LibraryManager.getInstance().getPrevBeatmap();
-					preLoad(tempBeatmap.getMusic());
-					updateCoverImage(tempBeatmap.getTrack(0).getBackground());
+    	play();
+    } else {
+    	if (isRunningForeground()) return;
+    	stop();
+    	BeatmapInfo tempBeatmap = LibraryManager.getInstance().getPrevBeatmap();
+    	preLoad(tempBeatmap.getMusic());
+    	updateCoverImage(tempBeatmap.getTrack(0).getBackground());
 
-					if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
-						updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
-					}else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
-						updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
-					}
+    	if (tempBeatmap.getArtistUnicode() != null && tempBeatmap.getTitleUnicode() != null && !Config.isForceRomanized()) {
+    		updateTitleText(tempBeatmap.getTitleUnicode(), tempBeatmap.getArtistUnicode());
+    	}else if (tempBeatmap.getArtist() != null && tempBeatmap.getTitle() != null && Config.isForceRomanized()) {
+    		updateTitleText(tempBeatmap.getTitle(), tempBeatmap.getArtist());
+    	}
 
-					play();
-				}
+    	play();
+    }
 			}
 		};
 

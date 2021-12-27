@@ -63,18 +63,18 @@ public class GameHelper {
 		binomTable = new double[binomTableN][binomTableN];
 		for (int n = 0; n < binomTableN; n++) {
 			for (int k = 0; k < binomTableN; k++) {
-				if (n == 0) {
-					binomTable[n][k] = 0;
-					continue;
-				}
-				if (k == 0) {
-					binomTable[n][k] = 1;
-					continue;
-				}
-				binomTable[n][k] = 1;
-				for (int i = 1; i <= k; i++) {
-					binomTable[n][k] *= (n - k + i) / (double) i;
-				}
+    if (n == 0) {
+    	binomTable[n][k] = 0;
+    	continue;
+    }
+    if (k == 0) {
+    	binomTable[n][k] = 1;
+    	continue;
+    }
+    binomTable[n][k] = 1;
+    for (int i = 1; i <= k; i++) {
+    	binomTable[n][k] *= (n - k + i) / (double) i;
+    }
 			}
 		}
 	}
@@ -128,7 +128,7 @@ public class GameHelper {
 		for (int i = 0; i <= n; i++) {
 			// Bi(t) = C(n,i) * t^i * (1-t)^(n-i)
 			final double bi = binomial(n, i) * Math.pow(t, i)
-					* Math.pow(1 - t, n - i);
+    	* Math.pow(1 - t, n - i);
 			b.x += points.get(i).x * bi;
 			b.y += points.get(i).y * bi;
 		}
@@ -177,11 +177,11 @@ public class GameHelper {
 		step2 *= step2;
 		while (index < result.size() - 1) {
 			while (Utils.squaredDistance(result.get(index).x,
-					result.get(index).y, result.get(index + 1).x,
-					result.get(index + 1).y) > step2) {
-				final float t = (ts.get(index) + ts.get(index + 1)) / 2f;
-				result.add(index + 1, getBezier(t, rawPoints));
-				ts.add(index + 1, t);
+    	result.get(index).y, result.get(index + 1).x,
+    	result.get(index + 1).y) > step2) {
+    final float t = (ts.get(index) + ts.get(index + 1)) / 2f;
+    result.add(index + 1, getBezier(t, rawPoints));
+    ts.add(index + 1, t);
 			}
 			index++;
 		}
@@ -190,7 +190,7 @@ public class GameHelper {
 	}
 
 	public static SliderPath calculatePath(final PointF pos,
-										   final String[] data, final float maxLength, final float offset) {
+        		   final String[] data, final float maxLength, final float offset) {
 		final ArrayList<ArrayList<PointF>> points = new ArrayList<ArrayList<PointF>>();
 		points.add(new ArrayList<PointF>());
 		int lastIndex = 0;
@@ -200,8 +200,8 @@ public class GameHelper {
 
 		for (final String s : data) {
 			if (s == data[0]) {
-				curveType = Spline.getCurveType(s.charAt(0));
-				continue;
+    curveType = Spline.getCurveType(s.charAt(0));
+    continue;
 			}
 			final String[] nums = s.split("[:]");
 			final PointF point = newPointF();
@@ -209,14 +209,14 @@ public class GameHelper {
 			point.x += offset;
 			point.y += offset;
 			final PointF ppoint = points.get(lastIndex).get(
-					points.get(lastIndex).size() - 1);
+    	points.get(lastIndex).size() - 1);
 			if (point.x == ppoint.x && point.y == ppoint.y
-					|| (Config.isAccurateSlider() == false && (data[0].equals("L") || data[0].equals("C")))) {
-				if (Config.isAccurateSlider() == false && (data[0].equals("L") || data[0].equals("C"))) {
-					points.get(lastIndex).add(point);
-				}
-				points.add(new ArrayList<PointF>());
-				lastIndex++;
+    	|| (Config.isAccurateSlider() == false && (data[0].equals("L") || data[0].equals("C")))) {
+    if (Config.isAccurateSlider() == false && (data[0].equals("L") || data[0].equals("C"))) {
+    	points.get(lastIndex).add(point);
+    }
+    points.add(new ArrayList<PointF>());
+    lastIndex++;
 			}
 			points.get(lastIndex).add(point);
 		}
@@ -229,43 +229,43 @@ public class GameHelper {
 		MainCycle:
 		for (final ArrayList<PointF> plist : points) {
 			if (Config.isAccurateSlider() == true) {
-				final Spline spline = Spline.getInstance();
-				spline.setControlPoints(plist);
-				spline.setType(curveType);
-				spline.Refresh();
-				section = spline.getPoints();
+    final Spline spline = Spline.getInstance();
+    spline.setControlPoints(plist);
+    spline.setType(curveType);
+    spline.Refresh();
+    section = spline.getPoints();
 			} else {
-				section = parseSection(plist);
+    section = parseSection(plist);
 			}
 			// Debug.i("section size=" + section.size());
 			boolean firstPut = false;
 			for (final PointF p : section) {
-				if (pind < 0
-						|| Math.abs(p.x - path.points.get(pind).x)
-						+ Math.abs(p.y - path.points.get(pind).y) > 1f) {
-					if (firstPut == false) {
-						firstPut = true;
-						path.boundIndexes.add(path.points.size());
-					}
-					if (path.points.isEmpty() == false) {
-						vec.set(p.x - path.points.get(path.points.size() - 1).x,
-								p.y - path.points.get(path.points.size() - 1).y);
-						trackLength += Utils.length(vec);
-						path.length.add(trackLength);
-					}
-					path.points.add(p);
-					pind++;
+    if (pind < 0
+    		|| Math.abs(p.x - path.points.get(pind).x)
+    		+ Math.abs(p.y - path.points.get(pind).y) > 1f) {
+    	if (firstPut == false) {
+    		firstPut = true;
+    		path.boundIndexes.add(path.points.size());
+    	}
+    	if (path.points.isEmpty() == false) {
+    		vec.set(p.x - path.points.get(path.points.size() - 1).x,
+        p.y - path.points.get(path.points.size() - 1).y);
+    		trackLength += Utils.length(vec);
+    		path.length.add(trackLength);
+    	}
+    	path.points.add(p);
+    	pind++;
 
-					if (trackLength >= maxLength) {
-						if (path.points.isEmpty() == false) {
-							path.boundIndexes.add(path.points.size() - 1);
-						}
-						break MainCycle;
-					}
-				}
+    	if (trackLength >= maxLength) {
+    		if (path.points.isEmpty() == false) {
+    			path.boundIndexes.add(path.points.size() - 1);
+    		}
+    		break MainCycle;
+    	}
+    }
 			}
 			if (path.points.isEmpty() == false) {
-				path.boundIndexes.add(path.points.size() - 1);
+    path.boundIndexes.add(path.points.size() - 1);
 			}
 		}
 
@@ -275,7 +275,7 @@ public class GameHelper {
 
 		if (path.points.size() == 1) {
 			path.points.add(new PointF(path.points.get(0).x,
-					path.points.get(0).y));
+    	path.points.get(0).y));
 			path.length.add(new Float(0));
 		}
 

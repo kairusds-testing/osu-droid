@@ -44,7 +44,7 @@ public class SkinJson {
 
 	private static RGBColor parseColor(JSONObject data, String name, RGBColor fallback) {
 		return data.optString(name, null) == null ?
-				fallback : RGBColor.hex2Rgb(data.optString(name));
+    fallback : RGBColor.hex2Rgb(data.optString(name));
 	}
 
 	public static String readFull(File file) throws IOException {
@@ -161,10 +161,10 @@ public class SkinJson {
 
 		sliderFollowComboColor = data.optBoolean("sliderFollowComboColor", true);
 		sliderBodyColor = data.optString("sliderBodyColor", null) == null ?
-				RGBColor.hex2Rgb("#FFFFFF") : RGBColor.hex2Rgb(data.optString("sliderBodyColor"));
+    RGBColor.hex2Rgb("#FFFFFF") : RGBColor.hex2Rgb(data.optString("sliderBodyColor"));
 
 		sliderBorderColor = data.optString("sliderBorderColor", null) == null ?
-				null : RGBColor.hex2Rgb(data.optString("sliderBorderColor"));
+    null : RGBColor.hex2Rgb(data.optString("sliderBorderColor"));
 
 		sliderHintEnable = data.optBoolean("sliderHintEnable", false);
 		sliderHintAlpha = (float) data.optDouble("sliderHintAlpha", 0.3f);
@@ -187,7 +187,7 @@ public class SkinJson {
 		if (names == null) return;
 		for (int i = 0; i < names.length(); i++) {
 			if (names.optString(i).equals("useNewLayout")) {
-				continue;
+    continue;
 			}
 			putLayout(names.optString(i), jsonObject.optJSONObject(names.optString(i)));
 		}
@@ -213,7 +213,7 @@ public class SkinJson {
 			comboColor.add(RGBColor.hex2Rgb("#FFFFFF"));
 		} else {
 			for (int i = 0; i < array.length(); i++) {
-				comboColor.add(RGBColor.hex2Rgb(array.optString(i, "#FFFFFF")));
+    comboColor.add(RGBColor.hex2Rgb(array.optString(i, "#FFFFFF")));
 			}
 		}
 	}
@@ -251,13 +251,13 @@ public class SkinJson {
 		public void baseApply(Sprite entity) {
 			entity.setPosition(xOffset, yOffset);
 			if (scale != -1) {
-				entity.setScale(scale);
+    entity.setScale(scale);
 			}
 			if (width != -1) {
-				entity.setWidth(width);
+    entity.setWidth(width);
 			}
 			if (height != -1) {
-				entity.setHeight(height);
+    entity.setHeight(height);
 			}
 		}
 

@@ -19,8 +19,8 @@ public class CatchBeatmap extends Beatmap {
 	private List<CatchObject> hitObjects;
 
 	public CatchBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState, BeatmapMetadata metadata,
-						BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
-						List<CatchObject> hitObjects) {
+    		BeatmapDifficulties difficulties, List<BreakPeriod> breaks, List<TimingPoint> timingPoints,
+    		List<CatchObject> hitObjects) {
 		super(generals, editorState, metadata, difficulties, breaks, timingPoints);
 		this.hitObjects = hitObjects;
 

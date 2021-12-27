@@ -65,7 +65,7 @@ public class FontManager {
 		final int fontCount = fonts.size();
 		if(fontCount > 0){
 			for(int i = fontCount - 1; i >= 0; i--){
-				fonts.get(i).update(pGL);
+    fonts.get(i).update(pGL);
 			}
 		}
 	}

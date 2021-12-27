@@ -39,11 +39,11 @@ public class TrianglePack extends Shape {
 
 	public TrianglePack(final float pX, final float pY, final float[] pVertices) {
 		this(pX, pY, pVertices, new PolygonVertexBuffer(pVertices.length,
-				GL11.GL_STATIC_DRAW, true));
+    GL11.GL_STATIC_DRAW, true));
 	}
 
 	public TrianglePack(final float pX, final float pY, final float[] pVertices,
-						final PolygonVertexBuffer pPolygonVertexBuffer) {
+    		final PolygonVertexBuffer pPolygonVertexBuffer) {
 		super(pX, pY);
 
 		this.mVertices = new FloatArraySlice();

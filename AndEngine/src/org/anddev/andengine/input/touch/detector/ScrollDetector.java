@@ -67,26 +67,26 @@ public class ScrollDetector extends BaseDetector {
 
 		switch(pSceneTouchEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				this.mLastX = touchX;
-				this.mLastY = touchY;
-				this.mTriggered = false;
-				return true;
+    this.mLastX = touchX;
+    this.mLastY = touchY;
+    this.mTriggered = false;
+    return true;
 			case MotionEvent.ACTION_MOVE:
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
-				final float distanceX = touchX - this.mLastX;
-				final float distanceY = touchY - this.mLastY;
+    final float distanceX = touchX - this.mLastX;
+    final float distanceY = touchY - this.mLastY;
 
-				final float triggerScrollMinimumDistance = this.mTriggerScrollMinimumDistance;
-				if(this.mTriggered || Math.abs(distanceX) > triggerScrollMinimumDistance || Math.abs(distanceY) > triggerScrollMinimumDistance) {
-					this.mScrollDetectorListener.onScroll(this, pSceneTouchEvent, distanceX, distanceY);
-					this.mLastX = touchX;
-					this.mLastY = touchY;
-					this.mTriggered = true;
-				}
-				return true;
+    final float triggerScrollMinimumDistance = this.mTriggerScrollMinimumDistance;
+    if(this.mTriggered || Math.abs(distanceX) > triggerScrollMinimumDistance || Math.abs(distanceY) > triggerScrollMinimumDistance) {
+    	this.mScrollDetectorListener.onScroll(this, pSceneTouchEvent, distanceX, distanceY);
+    	this.mLastX = touchX;
+    	this.mLastY = touchY;
+    	this.mTriggered = true;
+    }
+    return true;
 			default:
-				return false;
+    return false;
 		}
 	}
 

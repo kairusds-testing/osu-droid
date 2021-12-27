@@ -53,7 +53,7 @@ public class tpHitObject implements Comparable<tpHitObject> {
 		if (CircleRadius < CIRCLESIZE_BUFF_THRESHOLD)
 		{
 			ScalingFactor *= 1.0 +
-				Math.min(CIRCLESIZE_BUFF_THRESHOLD - CircleRadius, 5.0) / 50.0;
+    Math.min(CIRCLESIZE_BUFF_THRESHOLD - CircleRadius, 5.0) / 50.0;
 		}
 		NormalizedStartPosition = new PointF(BaseHitObject.getPos().x * ScalingFactor, BaseHitObject.getPos().y * ScalingFactor);
 		if (BaseHitObject.getType() == HitObjectType.Slider) {
@@ -64,10 +64,10 @@ public class tpHitObject implements Comparable<tpHitObject> {
 			float sliderLength = (float)Math.sqrt(Math.pow((NormalizedStartPosition.x - NormalizedEndPosition.x), 2) +
 			Math.pow((NormalizedStartPosition.y - NormalizedEndPosition.y), 2));
 			if(sliderLength > approxFollowCircleRadius){
-				LazySliderLengthFirst = sliderLength - approxFollowCircleRadius;
+    LazySliderLengthFirst = sliderLength - approxFollowCircleRadius;
 			}
 			if(sliderLength > approxFollowCircleRadius * 2){
-				LazySliderLengthSubsequent = sliderLength - approxFollowCircleRadius * 2;
+    LazySliderLengthSubsequent = sliderLength - approxFollowCircleRadius * 2;
 			}
 		} else {
 			NormalizedEndPosition = new PointF(BaseHitObject.getPos().x * ScalingFactor, BaseHitObject.getPos().y * ScalingFactor);
@@ -92,15 +92,15 @@ public class tpHitObject implements Comparable<tpHitObject> {
 	//			 double Weight;
 
 	//			 if (distance > SINGLE_SPACING_TRESHOLD) {
-	//				 Weight = 2.5;
+	//     Weight = 2.5;
 	//			 } else if (distance > STREAM_SPACING_TRESHOLD) {
-	//				 Weight = 1.6 + 0.9 * (distance - STREAM_SPACING_TRESHOLD) / (SINGLE_SPACING_TRESHOLD - STREAM_SPACING_TRESHOLD);
+	//     Weight = 1.6 + 0.9 * (distance - STREAM_SPACING_TRESHOLD) / (SINGLE_SPACING_TRESHOLD - STREAM_SPACING_TRESHOLD);
 	//			 } else if (distance > ALMOST_DIAMETER) {
-	//				 Weight = 1.2 + 0.4 * (distance - ALMOST_DIAMETER) / (STREAM_SPACING_TRESHOLD - ALMOST_DIAMETER);
+	//     Weight = 1.2 + 0.4 * (distance - ALMOST_DIAMETER) / (STREAM_SPACING_TRESHOLD - ALMOST_DIAMETER);
 	//			 } else if (distance > ALMOST_DIAMETER / 2) {
-	//				 Weight = 0.95 + 0.25 * (distance - (ALMOST_DIAMETER / 2)) / (ALMOST_DIAMETER / 2);
+	//     Weight = 0.95 + 0.25 * (distance - (ALMOST_DIAMETER / 2)) / (ALMOST_DIAMETER / 2);
 	//			 } else {
-	//				 Weight = 0.95;
+	//     Weight = 0.95;
 	//			 }
 
 	//			 return Weight;
@@ -134,36 +134,36 @@ public class tpHitObject implements Comparable<tpHitObject> {
 		} else if (BaseHitObject.getType() == HitObjectType.Slider) {
 			d_distance = Distance;
 			switch (Type) {
-				case Speed:
-					// For speed strain we treat the whole slider as a single spacing entity, since "Speed" is about how hard it is to click buttons fast.
-					// The spacing weight exists to differentiate between being able to easily alternate or having to single.
-					// Addition =
-					//		 SpacingWeight(PreviousHitObject.LazySliderLengthFirst +
-					//				 PreviousHitObject.LazySliderLengthSubsequent * PreviousHitObject.BaseHitObject.getRepeat() +
-					//				 Distance, Type) *
-					//				 SPACING_WEIGHT_SCALING[Type.value()];
-					Distance += PreviousHitObject.LazySliderLengthFirst +
-							PreviousHitObject.LazySliderLengthSubsequent * PreviousHitObject.BaseHitObject.getRepeat();
-					Addition = d_spacing_weight(Type, Distance, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
-					Addition *= SPACING_WEIGHT_SCALING[Type.value()];
-					break;
+    case Speed:
+    	// For speed strain we treat the whole slider as a single spacing entity, since "Speed" is about how hard it is to click buttons fast.
+    	// The spacing weight exists to differentiate between being able to easily alternate or having to single.
+    	// Addition =
+    	//		 SpacingWeight(PreviousHitObject.LazySliderLengthFirst +
+    	//     PreviousHitObject.LazySliderLengthSubsequent * PreviousHitObject.BaseHitObject.getRepeat() +
+    	//     Distance, Type) *
+    	//     SPACING_WEIGHT_SCALING[Type.value()];
+    	Distance += PreviousHitObject.LazySliderLengthFirst +
+    			PreviousHitObject.LazySliderLengthSubsequent * PreviousHitObject.BaseHitObject.getRepeat();
+    	Addition = d_spacing_weight(Type, Distance, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
+    	Addition *= SPACING_WEIGHT_SCALING[Type.value()];
+    	break;
 
-					
-				case Aim:
-					// For Aim strain we treat each slider segment and the jump after the end of the slider as separate jumps, since movement-wise there is no difference
-					// to multiple jumps.
-					// Addition =
-					//		 (
-					//				 SpacingWeight(PreviousHitObject.LazySliderLengthFirst, Type) +
-					//						 SpacingWeight(PreviousHitObject.LazySliderLengthSubsequent, Type) * PreviousHitObject.BaseHitObject.getRepeat() +
-					//						 SpacingWeight(Distance, Type)
-					//		 ) *
-					//				 SPACING_WEIGHT_SCALING[Type.value()];
-					Addition = d_spacing_weight(Type, Distance, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
-					Addition += d_spacing_weight(Type, PreviousHitObject.LazySliderLengthFirst, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
-					Addition += d_spacing_weight(Type, PreviousHitObject.LazySliderLengthSubsequent, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle) * PreviousHitObject.BaseHitObject.getRepeat();
-					Addition *= SPACING_WEIGHT_SCALING[Type.value()];
-					break;
+    	
+    case Aim:
+    	// For Aim strain we treat each slider segment and the jump after the end of the slider as separate jumps, since movement-wise there is no difference
+    	// to multiple jumps.
+    	// Addition =
+    	//		 (
+    	//     SpacingWeight(PreviousHitObject.LazySliderLengthFirst, Type) +
+    	//    		 SpacingWeight(PreviousHitObject.LazySliderLengthSubsequent, Type) * PreviousHitObject.BaseHitObject.getRepeat() +
+    	//    		 SpacingWeight(Distance, Type)
+    	//		 ) *
+    	//     SPACING_WEIGHT_SCALING[Type.value()];
+    	Addition = d_spacing_weight(Type, Distance, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
+    	Addition += d_spacing_weight(Type, PreviousHitObject.LazySliderLengthFirst, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle);
+    	Addition += d_spacing_weight(Type, PreviousHitObject.LazySliderLengthSubsequent, TimeElapsed, PreviousHitObject.d_distance, PreviousHitObject.delta_time, angle) * PreviousHitObject.BaseHitObject.getRepeat();
+    	Addition *= SPACING_WEIGHT_SCALING[Type.value()];
+    	break;
 			}
 
 		} else if (BaseHitObject.getType() == HitObjectType.Normal) {
@@ -184,7 +184,7 @@ public class tpHitObject implements Comparable<tpHitObject> {
 	public double DistanceTo(tpHitObject other) {
 		// Scale the distance by circle size.
 		return Math.sqrt(Math.pow((NormalizedStartPosition.x - other.NormalizedEndPosition.x), 2) +
-				Math.pow((NormalizedStartPosition.y - other.NormalizedEndPosition.y), 2));
+    Math.pow((NormalizedStartPosition.y - other.NormalizedEndPosition.y), 2));
 	}
 
 	public int compareTo(tpHitObject o1) {
@@ -193,7 +193,7 @@ public class tpHitObject implements Comparable<tpHitObject> {
 
 	//this method is Copy from https://github.com/Francesco149/koohii
 	private double d_spacing_weight(DifficultyType type, double distance, double delta_time,
-										double prev_distance, double prev_delta_time, double angle)
+        		double prev_distance, double prev_delta_time, double angle)
 	{
 		double strain_time = Math.max(delta_time, 50.0);
 		double prev_strain_time = Math.max(prev_delta_time, 50.0);
@@ -201,52 +201,52 @@ public class tpHitObject implements Comparable<tpHitObject> {
 		switch (type)
 		{
 			case Aim: {
-				double result = 0.0;
-				if (!Double.isNaN(angle) && angle > AIM_ANGLE_BONUS_BEGIN) {
-					angle_bonus = Math.sqrt(
-						Math.max(prev_distance - ANGLE_BONUS_SCALE, 0.0) *
-						Math.pow(Math.sin(angle - AIM_ANGLE_BONUS_BEGIN), 2.0) *
-						Math.max(distance - ANGLE_BONUS_SCALE, 0.0)
-					);
-					result = (
-						1.5 * Math.pow(Math.max(0.0, angle_bonus), 0.99) /
-						Math.max(AIM_TIMING_THRESHOLD, prev_strain_time)
-					);
-				}
-				double weighted_distance = Math.pow(distance, 0.99);
-				return Math.max(result +
-					weighted_distance /
-					Math.max(AIM_TIMING_THRESHOLD, strain_time),
-					weighted_distance / strain_time);
+    double result = 0.0;
+    if (!Double.isNaN(angle) && angle > AIM_ANGLE_BONUS_BEGIN) {
+    	angle_bonus = Math.sqrt(
+    		Math.max(prev_distance - ANGLE_BONUS_SCALE, 0.0) *
+    		Math.pow(Math.sin(angle - AIM_ANGLE_BONUS_BEGIN), 2.0) *
+    		Math.max(distance - ANGLE_BONUS_SCALE, 0.0)
+    	);
+    	result = (
+    		1.5 * Math.pow(Math.max(0.0, angle_bonus), 0.99) /
+    		Math.max(AIM_TIMING_THRESHOLD, prev_strain_time)
+    	);
+    }
+    double weighted_distance = Math.pow(distance, 0.99);
+    return Math.max(result +
+    	weighted_distance /
+    	Math.max(AIM_TIMING_THRESHOLD, strain_time),
+    	weighted_distance / strain_time);
 			}
 
 			case Speed: {
-				distance = Math.min(distance, SINGLE_SPACING_TRESHOLD);
-				delta_time = Math.max(delta_time, MAX_SPEED_BONUS);
-				double speed_bonus = 1.0;
-				if (delta_time < MIN_SPEED_BONUS) {
-					speed_bonus +=
-						Math.pow((MIN_SPEED_BONUS - delta_time) / SPEED_BALANCING_FACTOR, 2);
-				}
-				angle_bonus = 1.0;
-				if (!Double.isNaN(angle) && angle < SPEED_ANGLE_BONUS_BEGIN) {
-					double s = Math.sin(1.5 * (SPEED_ANGLE_BONUS_BEGIN - angle));
-					angle_bonus += Math.pow(s, 2) / 3.57;
-					if (angle < Math.PI / 2.0) {
-						angle_bonus = 1.28;
-						if (distance < ANGLE_BONUS_SCALE && angle < Math.PI / 4.0) {
-							angle_bonus += (1.0 - angle_bonus) *
-								Math.min((ANGLE_BONUS_SCALE - distance) / 10.0, 1.0);
-						} else if (distance < ANGLE_BONUS_SCALE) {
-							angle_bonus += (1.0 - angle_bonus) *
-								Math.min((ANGLE_BONUS_SCALE - distance) / 10.0, 1.0) *
-								Math.sin((Math.PI / 2.0 - angle) * 4.0 / Math.PI);
-						}
-					}
-				}
-				return ((1 + (speed_bonus - 1) * 0.75) * angle_bonus *
-					(0.95 + speed_bonus * Math.pow(distance / SINGLE_SPACING_TRESHOLD, 3.5))) 
-					/ strain_time;
+    distance = Math.min(distance, SINGLE_SPACING_TRESHOLD);
+    delta_time = Math.max(delta_time, MAX_SPEED_BONUS);
+    double speed_bonus = 1.0;
+    if (delta_time < MIN_SPEED_BONUS) {
+    	speed_bonus +=
+    		Math.pow((MIN_SPEED_BONUS - delta_time) / SPEED_BALANCING_FACTOR, 2);
+    }
+    angle_bonus = 1.0;
+    if (!Double.isNaN(angle) && angle < SPEED_ANGLE_BONUS_BEGIN) {
+    	double s = Math.sin(1.5 * (SPEED_ANGLE_BONUS_BEGIN - angle));
+    	angle_bonus += Math.pow(s, 2) / 3.57;
+    	if (angle < Math.PI / 2.0) {
+    		angle_bonus = 1.28;
+    		if (distance < ANGLE_BONUS_SCALE && angle < Math.PI / 4.0) {
+    			angle_bonus += (1.0 - angle_bonus) *
+        Math.min((ANGLE_BONUS_SCALE - distance) / 10.0, 1.0);
+    		} else if (distance < ANGLE_BONUS_SCALE) {
+    			angle_bonus += (1.0 - angle_bonus) *
+        Math.min((ANGLE_BONUS_SCALE - distance) / 10.0, 1.0) *
+        Math.sin((Math.PI / 2.0 - angle) * 4.0 / Math.PI);
+    		}
+    	}
+    }
+    return ((1 + (speed_bonus - 1) * 0.75) * angle_bonus *
+    	(0.95 + speed_bonus * Math.pow(distance / SINGLE_SPACING_TRESHOLD, 3.5))) 
+    	/ strain_time;
 			}
 		}
 

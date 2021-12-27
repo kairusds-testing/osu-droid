@@ -37,9 +37,9 @@ public class Utils {
 	}
 
 	public static PointF inter(final PointF v1, final PointF v2,
-							   final float percent) {
+    			   final float percent) {
 		return new PointF(v1.x * (1 - percent) + v2.x * percent, v1.y
-				* (1 - percent) + v2.y * percent);
+    * (1 - percent) + v2.y * percent);
 	}
 
 	public static void putSpriteAnchorCenter(float x, float y, Sprite sprite) {
@@ -105,25 +105,25 @@ public class Utils {
 	public static PointF scaleToReal(final PointF v) {
 		final PointF pos = new PointF(v.x, v.y);
 		pos.x *= toRes(Constants.MAP_ACTUAL_WIDTH)
-				/ (float) Constants.MAP_WIDTH;
+    / (float) Constants.MAP_WIDTH;
 		pos.y *= toRes(Constants.MAP_ACTUAL_HEIGHT)
-				/ (float) Constants.MAP_HEIGHT;
+    / (float) Constants.MAP_HEIGHT;
 		return pos;
 	}
 
 	public static PointF scaleToRealC(final PointF v) {
 		v.x *= toRes(Constants.MAP_ACTUAL_WIDTH) / (float) Constants.MAP_WIDTH;
 		v.y *= toRes(Constants.MAP_ACTUAL_HEIGHT)
-				/ (float) Constants.MAP_HEIGHT;
+    / (float) Constants.MAP_HEIGHT;
 		return v;
 	}
 
 	public static PointF scaleToTrack(final PointF v, boolean isOld) {
 		final PointF pos = new PointF(v.x, v.y);
 		pos.x *= Constants.MAP_WIDTH
-				/ toRes((float) (isOld ? Constants.MAP_ACTUAL_WIDTH_OLD : Constants.MAP_ACTUAL_WIDTH));
+    / toRes((float) (isOld ? Constants.MAP_ACTUAL_WIDTH_OLD : Constants.MAP_ACTUAL_WIDTH));
 		pos.y *= Constants.MAP_HEIGHT
-				/ toRes((float) (isOld ? Constants.MAP_ACTUAL_HEIGHT_OLD : Constants.MAP_ACTUAL_HEIGHT));
+    / toRes((float) (isOld ? Constants.MAP_ACTUAL_HEIGHT_OLD : Constants.MAP_ACTUAL_HEIGHT));
 		return pos;
 	}
 
@@ -169,7 +169,7 @@ public class Utils {
 	}
 
 	public static float squaredDistance(final float v1x, final float v1y,
-										final float v2x, final float v2y) {
+        		final float v2x, final float v2y) {
 		return ((v2x - v1x) * (v2x - v1x) + (v2y - v1y) * (v2y - v1y));
 	}
 
@@ -182,12 +182,12 @@ public class Utils {
 	}
 
 	public static void playHitSound(final GameObjectListener listener,
-									final int soundId) {
+        	final int soundId) {
 		playHitSound(listener, soundId, 0, 0);
 	}
 
 	public static void playHitSound(final GameObjectListener listener,
-									final int soundId, final int sampleSet, final int addition) {
+        	final int soundId, final int sampleSet, final int addition) {
 		if ((soundId & 32) > 0) {
 			return;
 		}
@@ -228,7 +228,7 @@ public class Utils {
 		final StringBuilder nameBuilder = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			if (FSReservedChars.indexOf(s.charAt(i)) == -1) {
-				nameBuilder.append(s.charAt(i));
+    nameBuilder.append(s.charAt(i));
 			}
 		}
 		return nameBuilder.toString();
@@ -242,10 +242,10 @@ public class Utils {
 	 */
 	public static boolean isWifi(Context context) {
 		ConnectivityManager connectivityManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+    .getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
 		if (activeNetInfo != null
-				&& activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+    && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
 			return true;
 		}
 		return false;

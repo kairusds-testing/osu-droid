@@ -104,52 +104,52 @@ public class ActivityUtils {
 
 			@Override
 			public void onPreExecute() {
-				this.mPD = ProgressDialog.show(pContext, pTitle, pMessage, true, pCancelable);
-				if(pCancelable) {
-					this.mPD.setOnCancelListener(new OnCancelListener() {
-						@Override
-						public void onCancel(final DialogInterface pDialogInterface) {
-							pExceptionCallback.onCallback(new CancelledException());
-							pDialogInterface.dismiss();
-						}
-					});
-				}
-				super.onPreExecute();
+    this.mPD = ProgressDialog.show(pContext, pTitle, pMessage, true, pCancelable);
+    if(pCancelable) {
+    	this.mPD.setOnCancelListener(new OnCancelListener() {
+    		@Override
+    		public void onCancel(final DialogInterface pDialogInterface) {
+    			pExceptionCallback.onCallback(new CancelledException());
+    			pDialogInterface.dismiss();
+    		}
+    	});
+    }
+    super.onPreExecute();
 			}
 
 			@Override
 			public T doInBackground(final Void... params) {
-				try {
-					return pCallable.call();
-				} catch (final Exception e) {
-					this.mException = e;
-				}
-				return null;
+    try {
+    	return pCallable.call();
+    } catch (final Exception e) {
+    	this.mException = e;
+    }
+    return null;
 			}
 
 			@Override
 			public void onPostExecute(final T result) {
-				try {
-					this.mPD.dismiss();
-				} catch (final Exception e) {
-					Debug.e("Error", e);
-				}
+    try {
+    	this.mPD.dismiss();
+    } catch (final Exception e) {
+    	Debug.e("Error", e);
+    }
 
-				if(this.isCancelled()) {
-					this.mException = new CancelledException();
-				}
+    if(this.isCancelled()) {
+    	this.mException = new CancelledException();
+    }
 
-				if(this.mException == null) {
-					pCallback.onCallback(result);
-				} else {
-					if(pExceptionCallback == null) {
-						Debug.e("Error", this.mException);
-					} else {
-						pExceptionCallback.onCallback(this.mException);
-					}
-				}
+    if(this.mException == null) {
+    	pCallback.onCallback(result);
+    } else {
+    	if(pExceptionCallback == null) {
+    		Debug.e("Error", this.mException);
+    	} else {
+    		pExceptionCallback.onCallback(this.mException);
+    	}
+    }
 
-				super.onPostExecute(result);
+    super.onPostExecute(result);
 			}
 		}.execute((Void[]) null);
 	}
@@ -165,59 +165,59 @@ public class ActivityUtils {
 
 			@Override
 			public void onPreExecute() {
-				this.mPD = new ProgressDialog(pContext);
-				this.mPD.setTitle(pTitleResID);
-				this.mPD.setIcon(android.R.drawable.ic_menu_save);
-				this.mPD.setIndeterminate(false);
-				this.mPD.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				this.mPD.show();
-				super.onPreExecute();
+    this.mPD = new ProgressDialog(pContext);
+    this.mPD.setTitle(pTitleResID);
+    this.mPD.setIcon(android.R.drawable.ic_menu_save);
+    this.mPD.setIndeterminate(false);
+    this.mPD.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+    this.mPD.show();
+    super.onPreExecute();
 			}
 
 			@Override
 			public T doInBackground(final Void... params) {
-				try {
-					return pCallable.call(new IProgressListener() {
-						@Override
-						public void onProgressChanged(final int pProgress) {
-							onProgressUpdate(pProgress);
-						}
-					});
-				} catch (final Exception e) {
-					this.mException = e;
-				}
-				return null;
+    try {
+    	return pCallable.call(new IProgressListener() {
+    		@Override
+    		public void onProgressChanged(final int pProgress) {
+    			onProgressUpdate(pProgress);
+    		}
+    	});
+    } catch (final Exception e) {
+    	this.mException = e;
+    }
+    return null;
 			}
 
 			@Override
 			public void onProgressUpdate(final Integer... values) {
-				this.mPD.setProgress(values[0]);
+    this.mPD.setProgress(values[0]);
 			}
 
 			@Override
 			public void onPostExecute(final T result) {
-				try {
-					this.mPD.dismiss();
-				} catch (final Exception e) {
-					Debug.e("Error", e);
-					/* Nothing. */
-				}
+    try {
+    	this.mPD.dismiss();
+    } catch (final Exception e) {
+    	Debug.e("Error", e);
+    	/* Nothing. */
+    }
 
-				if(this.isCancelled()) {
-					this.mException = new CancelledException();
-				}
+    if(this.isCancelled()) {
+    	this.mException = new CancelledException();
+    }
 
-				if(this.mException == null) {
-					pCallback.onCallback(result);
-				} else {
-					if(pExceptionCallback == null) {
-						Debug.e("Error", this.mException);
-					} else {
-						pExceptionCallback.onCallback(this.mException);
-					}
-				}
+    if(this.mException == null) {
+    	pCallback.onCallback(result);
+    } else {
+    	if(pExceptionCallback == null) {
+    		Debug.e("Error", this.mException);
+    	} else {
+    		pExceptionCallback.onCallback(this.mException);
+    	}
+    }
 
-				super.onPostExecute(result);
+    super.onPostExecute(result);
 			}
 		}.execute((Void[]) null);
 	}
@@ -227,14 +227,14 @@ public class ActivityUtils {
 		pAsyncCallable.call(new Callback<T>() {
 			@Override
 			public void onCallback(final T result) {
-				try {
-					pd.dismiss();
-				} catch (final Exception e) {
-					Debug.e("Error", e);
-					/* Nothing. */
-				}
+    try {
+    	pd.dismiss();
+    } catch (final Exception e) {
+    	Debug.e("Error", e);
+    	/* Nothing. */
+    }
 
-				pCallback.onCallback(result);
+    pCallback.onCallback(result);
 			}
 		}, pExceptionCallback);
 	}

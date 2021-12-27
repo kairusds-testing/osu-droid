@@ -56,8 +56,8 @@ public class RunnableHandler extends Loopable implements IRunnableHandler {
 			tmp = iter.next();
 			tmp.delay -= deltaTime;
 			if (tmp.delay <= 0) {
-				tmp.r.run();
-				iter.remove();
+    tmp.r.run();
+    iter.remove();
 			}
 		}
 		bufferedRunnables.endIterate();

@@ -28,8 +28,8 @@ public class FollowTrack extends GameObject {
 	}
 
 	public void init(final GameObjectListener listener, final Scene scene,
-					 final PointF start, final PointF end, final float time,
-					 final float approachtime, final float scale) {
+    	 final PointF start, final PointF end, final float time,
+    	 final float approachtime, final float scale) {
 		this.listener = listener;
 		this.approach = approachtime;
 		timeLeft = time;
@@ -38,7 +38,7 @@ public class FollowTrack extends GameObject {
 		final float dist = Utils.distance(start, end);
 		final float angle = (float) Math.atan2(end.y - start.y, end.x - start.x);
 		TextureRegion region = ResourceManager.getInstance().getTexture(
-				frameCount > 1 ? "followpoint-0" : "followpoint");
+    frameCount > 1 ? "followpoint-0" : "followpoint");
 		if (region == null) {
 			region = ResourceManager.getInstance().getTexture("followpoint");
 		}
@@ -64,13 +64,13 @@ public class FollowTrack extends GameObject {
 			pos.y = start.y * percent + end.y * (1 - percent);
 			final Sprite point;
 			if (frameCount == 1) {
-				point = SpritePool.getInstance().getCenteredSprite(
-						"followpoint", pos);
+    point = SpritePool.getInstance().getCenteredSprite(
+    		"followpoint", pos);
 			} else {
-				point = SpritePool.getInstance().getAnimSprite("followpoint-",
-						frameCount);
-				point.setPosition(pos.x - pointSize * 0.5f, pos.y - pointSize
-						* 0.5f);
+    point = SpritePool.getInstance().getAnimSprite("followpoint-",
+    		frameCount);
+    point.setPosition(pos.x - pointSize * 0.5f, pos.y - pointSize
+    		* 0.5f);
 			}
 			point.setScale(scale);
 			point.setAlpha(0);
@@ -93,34 +93,34 @@ public class FollowTrack extends GameObject {
 		if (timeLeft <= approach) {
 			float percent = (time) / (approach * 0.5f);
 			if (percent > 1) {
-				percent = 1;
+    percent = 1;
 			}
 			for (int i = 0; i < points.size(); i++) {
-				points.get(i).setAlpha(percent);
+    points.get(i).setAlpha(percent);
 			}
 		} else if (time < timeLeft - approach) {
 			float percent = (time) / (timeLeft - approach);
 			if (percent > 1) {
-				percent = 1;
+    percent = 1;
 			}
 			for (int i = 0; i < percent * points.size(); i++) {
-				points.get(i).setAlpha(1);
+    points.get(i).setAlpha(1);
 			}
 			if (percent < 1) {
-				points.get((int) (percent * points.size())).setAlpha(
-						percent - (int) percent);
+    points.get((int) (percent * points.size())).setAlpha(
+    		percent - (int) percent);
 			}
 		} else {
 			float percent = 1 - (timeLeft - time) / approach;
 			if (percent > 1) {
-				percent = 1;
+    percent = 1;
 			}
 			for (int i = 0; i < percent * points.size(); i++) {
-				points.get(i).setAlpha(0);
+    points.get(i).setAlpha(0);
 			}
 			if (percent >= 0 && percent < 1) {
-				points.get((int) (percent * points.size())).setAlpha(
-						1 - percent + (int) percent);
+    points.get((int) (percent * points.size())).setAlpha(
+    		1 - percent + (int) percent);
 			}
 		}
 
@@ -129,20 +129,20 @@ public class FollowTrack extends GameObject {
 			SyncTaskManager.getInstance().run(new Runnable() {
 
 
-				public void run() {
-					for (final Sprite sp : points) {
-						sp.detachSelf();
-						if (sp instanceof AnimSprite) {
-							SpritePool.getInstance().putAnimSprite(
-									"followpoint-", (AnimSprite) sp);
-						} else {
-							SpritePool.getInstance().putSprite("followpoint",
-									sp);
-						}
-					}
-					listener.removePassiveObject(FollowTrack.this);
-					GameObjectPool.getInstance().putTrac(FollowTrack.this);
-				}
+    public void run() {
+    	for (final Sprite sp : points) {
+    		sp.detachSelf();
+    		if (sp instanceof AnimSprite) {
+    			SpritePool.getInstance().putAnimSprite(
+        	"followpoint-", (AnimSprite) sp);
+    		} else {
+    			SpritePool.getInstance().putSprite("followpoint",
+        	sp);
+    		}
+    	}
+    	listener.removePassiveObject(FollowTrack.this);
+    	GameObjectPool.getInstance().putTrac(FollowTrack.this);
+    }
 			});
 		}
 	}

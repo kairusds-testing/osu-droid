@@ -48,16 +48,16 @@ public class StdPath {
 
 		public static Type forName(String n) {
 			switch (n) {
-				case "L":
-					return Linear;
-				case "P":
-					return Perfect;
-				case "B":
-					return Bezier;
-				case "C":
-					return Catmull;
-				default:
-					return null;
+    case "L":
+    	return Linear;
+    case "P":
+    	return Perfect;
+    case "B":
+    	return Bezier;
+    case "C":
+    	return Catmull;
+    default:
+    	return null;
 			}
 		}
 

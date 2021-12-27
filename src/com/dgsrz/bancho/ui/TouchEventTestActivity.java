@@ -51,8 +51,8 @@ public class TouchEventTestActivity extends LayeredGameActivity {
 	public Engine onLoadEngine() {
 		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
+    EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+    camera));
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class TouchEventTestActivity extends LayeredGameActivity {
 		BitmapTextureAtlas bitmapAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				bitmapAtlas, this, "cursor.png", 0, 0);
+    bitmapAtlas, this, "cursor.png", 0, 0);
 		getEngine().getTextureManager().loadTexture(bitmapAtlas);
 
 		DisplayMetrics dm = new DisplayMetrics();
@@ -77,19 +77,19 @@ public class TouchEventTestActivity extends LayeredGameActivity {
 		if (isSurfaceHolderReady()) {
 			MediaPlayer player = new MediaPlayer();
 			try {
-				AssetFileDescriptor fd = getAssets().openFd("game2.mp4");
-				player.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
-				player.setDisplay(getSurfaceHolder());
-				player.prepare();
-				player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-					@Override
-					public void onPrepared(MediaPlayer mp) {
-						player.start();
-						player.setLooping(true);
-					}
-				});
+    AssetFileDescriptor fd = getAssets().openFd("game2.mp4");
+    player.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+    player.setDisplay(getSurfaceHolder());
+    player.prepare();
+    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+    	@Override
+    	public void onPrepared(MediaPlayer mp) {
+    		player.start();
+    		player.setLooping(true);
+    	}
+    });
 			} catch (Exception e) {
-				e.printStackTrace();
+    e.printStackTrace();
 			}
 		}
 	}
@@ -104,13 +104,13 @@ public class TouchEventTestActivity extends LayeredGameActivity {
 		scene.registerUpdateHandler(new IUpdateHandler() {
 			@Override
 			public void onUpdate(float pSecondsElapsed) {
-				if (isCursorVisible) {
-					Log.i("position", "position set to: x=" + cursorPosX + ", y=" + cursorPosY);
-					mCursor.setPosition(cursorPosX, cursorPosY);
-					mCursor.setVisible(true);
-				} else {
-					mCursor.setVisible(false);
-				}
+    if (isCursorVisible) {
+    	Log.i("position", "position set to: x=" + cursorPosX + ", y=" + cursorPosY);
+    	mCursor.setPosition(cursorPosX, cursorPosY);
+    	mCursor.setVisible(true);
+    } else {
+    	mCursor.setVisible(false);
+    }
 			}
 
 			@Override
@@ -149,26 +149,26 @@ public class TouchEventTestActivity extends LayeredGameActivity {
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_POINTER_DOWN:
-				//mCursor.setPosition(posX, posY);
-				//mCursor.setVisible(true);
-				cursorPosX = posX;
-				cursorPosY = posY;
-				isCursorVisible = true;
-				break;
+    //mCursor.setPosition(posX, posY);
+    //mCursor.setVisible(true);
+    cursorPosX = posX;
+    cursorPosY = posY;
+    isCursorVisible = true;
+    break;
 
 			case MotionEvent.ACTION_MOVE:
-				// mCursor.setPosition(posX, posY);
-				cursorPosX = posX;
-				cursorPosY = posY;
-				break;
+    // mCursor.setPosition(posX, posY);
+    cursorPosX = posX;
+    cursorPosY = posY;
+    break;
 
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_POINTER_UP:
 			case MotionEvent.ACTION_CANCEL:
-				//if (< 500)
-				// mCursor.setVisible(false);
-				isCursorVisible = false;
-				break;
+    //if (< 500)
+    // mCursor.setVisible(false);
+    isCursorVisible = false;
+    break;
 		}
 
 		long currTimestamp = System.currentTimeMillis();

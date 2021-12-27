@@ -23,17 +23,17 @@ class BuildTypeNoticeFragment : BaseFragment() {
 		findViewById<View>(R.id.button_view_changelist)!!.setOnClickListener {
 			var markdown: String?
 			try {
-				val `in` = requireContext().assets.open("app/changelog.md")
-				markdown = StreamUtils.readFully(`in`)
-				`in`.close()
+    val `in` = requireContext().assets.open("app/changelog.md")
+    markdown = StreamUtils.readFully(`in`)
+    `in`.close()
 			} catch (e: IOException) {
-				e.printStackTrace()
-				markdown = e.message
+    e.printStackTrace()
+    markdown = e.message
 			}
 			MarkdownFragment()
-					.setTitle(R.string.changelog_title)
-					.setMarkdown(markdown)
-					.show()
+    	.setTitle(R.string.changelog_title)
+    	.setMarkdown(markdown)
+    	.show()
 		}
 		playOnLoadAnim()
 	}
@@ -47,9 +47,9 @@ class BuildTypeNoticeFragment : BaseFragment() {
 		body!!.alpha = 0f
 		body.animate().cancel()
 		body.animate()
-				.alpha(1f)
-				.setDuration(1000)
-				.start()
+    .alpha(1f)
+    .setDuration(1000)
+    .start()
 		/*View icon = findViewById(R.id.warning_icon);
 		Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.warning_rotate);
 		anim.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad));
@@ -61,16 +61,16 @@ class BuildTypeNoticeFragment : BaseFragment() {
 		val body = findViewById<View>(R.id.frg_body)
 		body!!.animate().cancel()
 		body.animate()
-				.scaleX(2f)
-				.scaleY(2f)
-				.setDuration(1000)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
-				.setListener(object : BaseAnimationListener() {
-					override fun onAnimationEnd(animation: Animator) {
-						runnable?.run()
-					}
-				})
-				.start()
+    .scaleX(2f)
+    .scaleY(2f)
+    .setDuration(1000)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.InOutQuad))
+    .setListener(object : BaseAnimationListener() {
+    	override fun onAnimationEnd(animation: Animator) {
+    		runnable?.run()
+    	}
+    })
+    .start()
 		playBackgroundHideOutAnim(1000)
 	}
 

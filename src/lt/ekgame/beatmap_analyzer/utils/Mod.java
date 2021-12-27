@@ -38,7 +38,7 @@ public enum Mod {
 		shortName = shortName.toLowerCase();
 		for (Mod mod : Mod.values())
 			if (mod.getShortName().equals(shortName))
-				return mod;
+    return mod;
 
 		return null;
 	}

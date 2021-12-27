@@ -56,14 +56,14 @@ public class Draw3DLinePath {
 		Vec3 orgAtLayer3D = new Vec3(org, zCenter);
 		for (int i = 1; i <= amountPoints; i++) {
 			triangles.add(
-					orgAtLayer3D,
-					current,
-					current = new Vec3(
-							Vec2.atCircle(theta + dir * Math.min(i * step, thetaDiff))
-									.zoom(width)
-									.add(org),
-							zEdge
-					)
+    	orgAtLayer3D,
+    	current,
+    	current = new Vec3(
+    			Vec2.atCircle(theta + dir * Math.min(i * step, thetaDiff))
+        	.zoom(width)
+        	.add(org),
+    			zEdge
+    	)
 			);
 		}
 	}
@@ -79,39 +79,39 @@ public class Draw3DLinePath {
 		Vec3 end = new Vec3(pe, zCenter);
 
 		triangles.add(
-				start,
-				end,
-				endL
+    start,
+    end,
+    endL
 		);
 
 		triangles.add(
-				start,
-				endL,
-				startL
+    start,
+    endL,
+    startL
 		);
 
 		triangles.add(
-				start,
-				endR,
-				end
+    start,
+    endR,
+    end
 		);
 
 		triangles.add(
-				start,
-				startR,
-				endR
+    start,
+    startR,
+    endR
 		);
 	}
 
 	private void init() {
 		if (path.size() < 2) {
 			if (path.size() == 1) {
-				addLineCap(path.get(0), FMath.Pi, FMath.Pi);
-				addLineCap(path.get(0), 0, FMath.Pi);
-				return;
+    addLineCap(path.get(0), FMath.Pi, FMath.Pi);
+    addLineCap(path.get(0), 0, FMath.Pi);
+    return;
 			} else {
-				return;
-				//throw new RuntimeException("Path must has at least 1 point");
+    return;
+    //throw new RuntimeException("Path must has at least 1 point");
 			}
 		}
 

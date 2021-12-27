@@ -36,9 +36,9 @@ public class GameEffect extends GameObject implements IEntityModifierListener {
 		if (isAnimationEffect(texname) && ResourceManager.getInstance().isTextureLoaded(texname + "-0")) {
 			List<String> loadedScoreBarTextures = new ArrayList<>();
 			for (int i = 0; i < 60; i++) {
-				if (ResourceManager.getInstance().isTextureLoaded(texname + "-" + i))
-					loadedScoreBarTextures.add(texname + "-" + i);
-				else break;
+    if (ResourceManager.getInstance().isTextureLoaded(texname + "-" + i))
+    	loadedScoreBarTextures.add(texname + "-" + i);
+    else break;
 			}
 			AnimSprite hit = new AnimSprite(0, 0, 60, loadedScoreBarTextures.toArray(new String[0]));
 			hit.setLoopType(AnimSprite.LoopType.STOP);
@@ -57,14 +57,14 @@ public class GameEffect extends GameObject implements IEntityModifierListener {
 	}
 
 	public void init(final Scene scene, final PointF pos, final float scale,
-					 final IEntityModifier... entityModifiers) {
+    	 final IEntityModifier... entityModifiers) {
 		if (hit instanceof AnimSprite) {
 			((AnimSprite) hit).setAnimTime(0);
 		}
 		hit.setPosition(pos.x - hit.getTextureRegion().getWidth() / 2f, pos.y
-				- hit.getTextureRegion().getHeight() / 2f);
+    - hit.getTextureRegion().getHeight() / 2f);
 		hit.registerEntityModifier(new ParallelEntityModifier(this,
-				entityModifiers));
+    entityModifiers));
 		hit.setScale(scale);
 		hit.setAlpha(1);
 		hit.detachSelf();

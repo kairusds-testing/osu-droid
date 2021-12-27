@@ -12,15 +12,15 @@ public enum SliderType {
 	public static SliderType parse(char value) {
 		switch (value) {
 			case 'C':
-				return Catmull;
+    return Catmull;
 			case 'B':
-				return Bezier;
+    return Bezier;
 			case 'L':
-				return Linear;
+    return Linear;
 			case 'P':
-				return PerfectCurve;
+    return PerfectCurve;
 			default:
-				return Bezier;
+    return Bezier;
 		}
 	}
 }

@@ -82,11 +82,11 @@ public class Tracker {
 
 		public void watch() {
 			if (stack == 0) {
-				latestRecordTime = Framework.relativePreciseTimeMillion();
+    latestRecordTime = Framework.relativePreciseTimeMillion();
 			} else {
-				double time = Framework.relativePreciseTimeMillion();
-				totalTimeMS += time - latestRecordTime;
-				latestRecordTime = time;
+    double time = Framework.relativePreciseTimeMillion();
+    totalTimeMS += time - latestRecordTime;
+    latestRecordTime = time;
 			}
 			stack++;
 		}
@@ -95,11 +95,11 @@ public class Tracker {
 			trackedTimes++;
 			stack--;
 			if (stack == 0) {
-				totalTimeMS += Framework.relativePreciseTimeMillion() - latestRecordTime;
+    totalTimeMS += Framework.relativePreciseTimeMillion() - latestRecordTime;
 			} else {
-				double time = Framework.relativePreciseTimeMillion();
-				totalTimeMS += time - latestRecordTime;
-				latestRecordTime = time;
+    double time = Framework.relativePreciseTimeMillion();
+    totalTimeMS += time - latestRecordTime;
+    latestRecordTime = time;
 			}
 		}
 

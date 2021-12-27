@@ -85,55 +85,55 @@ public class TextureRegionBuffer extends BufferObject {
 
 		if(this.mFlippedVertical) {
 			if(this.mFlippedHorizontal) {
-				bufferData[0] = x2;
-				bufferData[1] = y2;
+    bufferData[0] = x2;
+    bufferData[1] = y2;
 
-				bufferData[2] = x2;
-				bufferData[3] = y1;
+    bufferData[2] = x2;
+    bufferData[3] = y1;
 
-				bufferData[4] = x1;
-				bufferData[5] = y2;
+    bufferData[4] = x1;
+    bufferData[5] = y2;
 
-				bufferData[6] = x1;
-				bufferData[7] = y1;
+    bufferData[6] = x1;
+    bufferData[7] = y1;
 			} else {
-				bufferData[0] = x1;
-				bufferData[1] = y2;
+    bufferData[0] = x1;
+    bufferData[1] = y2;
 
-				bufferData[2] = x1;
-				bufferData[3] = y1;
+    bufferData[2] = x1;
+    bufferData[3] = y1;
 
-				bufferData[4] = x2;
-				bufferData[5] = y2;
+    bufferData[4] = x2;
+    bufferData[5] = y2;
 
-				bufferData[6] = x2;
-				bufferData[7] = y1;
+    bufferData[6] = x2;
+    bufferData[7] = y1;
 			}
 		} else {
 			if(this.mFlippedHorizontal) {
-				bufferData[0] = x2;
-				bufferData[1] = y1;
+    bufferData[0] = x2;
+    bufferData[1] = y1;
 
-				bufferData[2] = x2;
-				bufferData[3] = y2;
+    bufferData[2] = x2;
+    bufferData[3] = y2;
 
-				bufferData[4] = x1;
-				bufferData[5] = y1;
+    bufferData[4] = x1;
+    bufferData[5] = y1;
 
-				bufferData[6] = x1;
-				bufferData[7] = y2;
+    bufferData[6] = x1;
+    bufferData[7] = y2;
 			} else {
-				bufferData[0] = x1;
-				bufferData[1] = y1;
+    bufferData[0] = x1;
+    bufferData[1] = y1;
 
-				bufferData[2] = x1;
-				bufferData[3] = y2;
+    bufferData[2] = x1;
+    bufferData[3] = y2;
 
-				bufferData[4] = x2;
-				bufferData[5] = y1;
+    bufferData[4] = x2;
+    bufferData[5] = y1;
 
-				bufferData[6] = x2;
-				bufferData[7] = y2;
+    bufferData[6] = x2;
+    bufferData[7] = y2;
 			}
 		}
 

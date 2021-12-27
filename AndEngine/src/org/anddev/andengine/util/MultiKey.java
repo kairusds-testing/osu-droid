@@ -59,7 +59,7 @@ public class MultiKey<K> {
 		int hashCode = 0;
 		for(final Object key : pKeys) {
 			if(key != null) {
-				hashCode ^= key.hashCode();
+    hashCode ^= key.hashCode();
 			}
 		}
 		return hashCode;

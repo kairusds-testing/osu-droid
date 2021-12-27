@@ -110,8 +110,8 @@ public class GLWrapped {
 		if (!canvasStack.empty()) {
 			final BaseCanvas pre = canvasStack.peek();
 			if (pre.isPrepared()) {
-				//忘记释放，这里就帮忙释放
-				pre.onUnprepare();
+    //忘记释放，这里就帮忙释放
+    pre.onUnprepare();
 			}
 		}
 		BatchEngine.flush();

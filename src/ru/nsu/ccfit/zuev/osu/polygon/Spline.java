@@ -62,14 +62,14 @@ public class Spline {
 		for (int iteration = 0; iteration <= DetailLevel; iteration++) {
 			// Reset the control points for the next sample
 			for (int i = 0; i < input.size(); i++)
-				working[i] = new PointF(input.get(i).x, input.get(i).y);
+    working[i] = new PointF(input.get(i).x, input.get(i).y);
 
 			// I love how you unrolled the recursion from the Bezier formula, peppy ^o^
 			for (int level = 0; level < input.size() - 1; level++)
-				for (int i = 0; i < input.size() - level - 1; i++) {
-					lll = Lerp(working[i], working[i + 1], (float) iteration / DetailLevel2);
-					working[i] = lll; // fix premature overwriting of out variable before done with it
-				}
+    for (int i = 0; i < input.size() - level - 1; i++) {
+    	lll = Lerp(working[i], working[i + 1], (float) iteration / DetailLevel2);
+    	working[i] = lll; // fix premature overwriting of out variable before done with it
+    }
 
 			output.add(working[0]);
 		}
@@ -160,8 +160,8 @@ public class Spline {
 			double accu_value = 0D;
 			for (int x = 1; x < points.Count; x++)
 			{
-				result.Add(DistToOrigin(points[x] - points[x - 1]));
-				accumu.Add(accu_value += DistToOrigin(points[x] - points[x - 1]));
+    result.Add(DistToOrigin(points[x] - points[x - 1]));
+    accumu.Add(accu_value += DistToOrigin(points[x] - points[x - 1]));
 			}
 			return result;
 		}
@@ -186,15 +186,15 @@ public class Spline {
 	public static CurveTypes getCurveType(char c) {
 		switch (c) {
 			case 'L':
-				return CurveTypes.Linear;
+    return CurveTypes.Linear;
 			case 'C':
-				return CurveTypes.Catmull;
+    return CurveTypes.Catmull;
 			case 'P':
-				return CurveTypes.PerfectCurve;
+    return CurveTypes.PerfectCurve;
 			case 'B':
-				return CurveTypes.Bezier;
+    return CurveTypes.Bezier;
 			default:
-				return CurveTypes.Bezier;
+    return CurveTypes.Bezier;
 		}
 	}
 
@@ -231,8 +231,8 @@ public class Spline {
 			m_lengths = new ArrayList<Float>(m_path.size() + 1);
 			float length_so_far = 0;
 			for (int x = 0; x < m_path.size(); x++) {
-				m_lengths.add(length_so_far);
-				length_so_far += Rho(m_path.get(x));
+    m_lengths.add(length_so_far);
+    length_so_far += Rho(m_path.get(x));
 			}
 			m_lengths.add(length_so_far);
 		}
@@ -288,94 +288,94 @@ public class Spline {
 	private void sliderthing(CurveTypes CurveType, ArrayList<PointF> sliderCurvePoints, ArrayList<Line> path, ArrayList<PointF> points) {
 		switch (CurveType) {
 			case Catmull:
-				for (int j = 0; j < sliderCurvePoints.size() - 1; j++) {
-					PointF v1 = (j - 1 >= 0 ? sliderCurvePoints.get(j - 1) : sliderCurvePoints.get(j));
-					PointF v2 = sliderCurvePoints.get(j);
-					PointF v3 = (j + 1 < sliderCurvePoints.size()
-							? sliderCurvePoints.get(j + 1)
-							: Add(v2, Subtract(v2, v1)));
-					PointF v4 = (j + 2 < sliderCurvePoints.size()
-							? sliderCurvePoints.get(j + 2)
-							: Add(v3, Subtract(v3, v2)));
+    for (int j = 0; j < sliderCurvePoints.size() - 1; j++) {
+    	PointF v1 = (j - 1 >= 0 ? sliderCurvePoints.get(j - 1) : sliderCurvePoints.get(j));
+    	PointF v2 = sliderCurvePoints.get(j);
+    	PointF v3 = (j + 1 < sliderCurvePoints.size()
+    			? sliderCurvePoints.get(j + 1)
+    			: Add(v2, Subtract(v2, v1)));
+    	PointF v4 = (j + 2 < sliderCurvePoints.size()
+    			? sliderCurvePoints.get(j + 2)
+    			: Add(v3, Subtract(v3, v2)));
 
-					for (int k = 0; k < DetailLevel; k++) {
-//						path.add(
-//								new Line(CatmullRom(v1, v2, v3, v4, (float) k / DetailLevel),
-//										CatmullRom(v1, v2, v3, v4,
-//												(float) (k + 1) / DetailLevel)));
-						points.add(CatmullRom(v1, v2, v3, v4, (float) k / DetailLevel));
-					}
-				}
-				break;
+    	for (int k = 0; k < DetailLevel; k++) {
+//    		path.add(
+//        new Line(CatmullRom(v1, v2, v3, v4, (float) k / DetailLevel),
+//        		CatmullRom(v1, v2, v3, v4,
+//            (float) (k + 1) / DetailLevel)));
+    		points.add(CatmullRom(v1, v2, v3, v4, (float) k / DetailLevel));
+    	}
+    }
+    break;
 
 			case Bezier:
-				int lastIndex = 0;
-				for (int i = 0; i < sliderCurvePoints.size(); i++)
-					if ((i > 0 && sliderCurvePoints.get(i) == sliderCurvePoints.get(i - 1)) || i == sliderCurvePoints.size() - 1) {
-						ArrayList<PointF> thisLength = new ArrayList<PointF>(sliderCurvePoints.subList(lastIndex, i - lastIndex + ((i == sliderCurvePoints.size() - 1) ? 1 : 0))); // + 1); // i145
+    int lastIndex = 0;
+    for (int i = 0; i < sliderCurvePoints.size(); i++)
+    	if ((i > 0 && sliderCurvePoints.get(i) == sliderCurvePoints.get(i - 1)) || i == sliderCurvePoints.size() - 1) {
+    		ArrayList<PointF> thisLength = new ArrayList<PointF>(sliderCurvePoints.subList(lastIndex, i - lastIndex + ((i == sliderCurvePoints.size() - 1) ? 1 : 0))); // + 1); // i145
 
-						ArrayList<PointF> points1 = CreateBezier(thisLength);
-						points.addAll(points1);
-//						for (int j = 1; j < points1.size(); j++) {
-//							path.add(new Line(points1.get(j - 1), points1.get(j)));
-//						}
-						lastIndex = i;
-					}
-				break;
+    		ArrayList<PointF> points1 = CreateBezier(thisLength);
+    		points.addAll(points1);
+//    		for (int j = 1; j < points1.size(); j++) {
+//    			path.add(new Line(points1.get(j - 1), points1.get(j)));
+//    		}
+    		lastIndex = i;
+    	}
+    break;
 
 			case Linear:
-				for (int i = 1; i < sliderCurvePoints.size(); i++) {
-					Line l = new Line(sliderCurvePoints.get(i - 1), sliderCurvePoints.get(i));
-					int segments = (int) (Rho(l) / 10);
-//					if (segments == 0) segments = 1; /********FIX for current osu! bug!********/
-					if (segments <= 3) segments = 5; /********FIX for current osu! bug!********/
-					// Debug.i("segments=" + segments);
-					for (int j = 0; j < segments; j++) {
-//						path.add(
-//								new Line(Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) j / segments))),
-//										Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) (j + 1) / segments)))));
-						points.add(Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) j / segments))));
-					}
-				}
-				break;
+    for (int i = 1; i < sliderCurvePoints.size(); i++) {
+    	Line l = new Line(sliderCurvePoints.get(i - 1), sliderCurvePoints.get(i));
+    	int segments = (int) (Rho(l) / 10);
+//    	if (segments == 0) segments = 1; /********FIX for current osu! bug!********/
+    	if (segments <= 3) segments = 5; /********FIX for current osu! bug!********/
+    	// Debug.i("segments=" + segments);
+    	for (int j = 0; j < segments; j++) {
+//    		path.add(
+//        new Line(Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) j / segments))),
+//        		Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) (j + 1) / segments)))));
+    		points.add(Add(l.p1, MultiplyPt(Subtract(l.p2, l.p1), ((float) j / segments))));
+    	}
+    }
+    break;
 
 			case PerfectCurve:
-				if (sliderCurvePoints.size() < 3 ||
-						(sliderCurvePoints.size() == 3 && ((sliderCurvePoints.get(0).x - sliderCurvePoints.get(2).x) * (sliderCurvePoints.get(1).y - sliderCurvePoints.get(2).y)
-								== (sliderCurvePoints.get(1).x - sliderCurvePoints.get(2).x) * (sliderCurvePoints.get(0).y - sliderCurvePoints.get(2).y)))) {
-					sliderthing(CurveTypes.Linear, m_ctrl_pts, m_path, m_points);
-					break;
-				}
-				PointF point1 = sliderCurvePoints.get(0);
-				PointF point2 = sliderCurvePoints.get(1);
-				PointF point3 = sliderCurvePoints.get(2);
-				PointF circleCenter = CircleCenterPoint(point1, point2, point3);
-				float radius = CircleRadius(point1, point2, point3);
-				float startAng = (float) Math.atan2(point1.y - circleCenter.y, point1.x - circleCenter.x);
-				float midAng = (float) Math.atan2(point2.y - circleCenter.y, point2.x - circleCenter.x);
-				float endAng = (float) Math.atan2(point3.y - circleCenter.y, point3.x - circleCenter.x);
-				if (!isIn(startAng, midAng, endAng)) {
-					if (Math.abs(startAng + TWO_PI - endAng) < TWO_PI && isIn(startAng + (TWO_PI), midAng, endAng))
-						startAng += TWO_PI;
-					else if (Math.abs(startAng - (endAng + TWO_PI)) < TWO_PI && isIn(startAng, midAng, endAng + (TWO_PI)))
-						endAng += TWO_PI;
-					else if (Math.abs(startAng - TWO_PI - endAng) < TWO_PI && isIn(startAng - (TWO_PI), midAng, endAng))
-						startAng -= TWO_PI;
-					else if (Math.abs(startAng - (endAng - TWO_PI)) < TWO_PI && isIn(startAng, midAng, endAng - (TWO_PI)))
-						endAng -= TWO_PI;
-				}
-				if (Math.abs(startAng - midAng) < 0.1 && Math.abs(midAng - endAng) < 0.1) {
-					sliderthing(CurveTypes.Bezier, m_ctrl_pts, m_path, m_points);
-					break;
-				}
-//				points.add(point1);
-				for (int k = 0; k < DetailLevel; k++) {
-//					path.add(new Line(CircularArc(startAng, endAng, circleCenter, radius, (float) k / DetailLevel),
-//							CircularArc(startAng, endAng, circleCenter, radius, (float) (k + 1) / DetailLevel)));
-					points.add(CircularArc(startAng, endAng, circleCenter, radius, (float) k / DetailLevel));
-				}
-//				points.add(point3);
-				break;
+    if (sliderCurvePoints.size() < 3 ||
+    		(sliderCurvePoints.size() == 3 && ((sliderCurvePoints.get(0).x - sliderCurvePoints.get(2).x) * (sliderCurvePoints.get(1).y - sliderCurvePoints.get(2).y)
+        == (sliderCurvePoints.get(1).x - sliderCurvePoints.get(2).x) * (sliderCurvePoints.get(0).y - sliderCurvePoints.get(2).y)))) {
+    	sliderthing(CurveTypes.Linear, m_ctrl_pts, m_path, m_points);
+    	break;
+    }
+    PointF point1 = sliderCurvePoints.get(0);
+    PointF point2 = sliderCurvePoints.get(1);
+    PointF point3 = sliderCurvePoints.get(2);
+    PointF circleCenter = CircleCenterPoint(point1, point2, point3);
+    float radius = CircleRadius(point1, point2, point3);
+    float startAng = (float) Math.atan2(point1.y - circleCenter.y, point1.x - circleCenter.x);
+    float midAng = (float) Math.atan2(point2.y - circleCenter.y, point2.x - circleCenter.x);
+    float endAng = (float) Math.atan2(point3.y - circleCenter.y, point3.x - circleCenter.x);
+    if (!isIn(startAng, midAng, endAng)) {
+    	if (Math.abs(startAng + TWO_PI - endAng) < TWO_PI && isIn(startAng + (TWO_PI), midAng, endAng))
+    		startAng += TWO_PI;
+    	else if (Math.abs(startAng - (endAng + TWO_PI)) < TWO_PI && isIn(startAng, midAng, endAng + (TWO_PI)))
+    		endAng += TWO_PI;
+    	else if (Math.abs(startAng - TWO_PI - endAng) < TWO_PI && isIn(startAng - (TWO_PI), midAng, endAng))
+    		startAng -= TWO_PI;
+    	else if (Math.abs(startAng - (endAng - TWO_PI)) < TWO_PI && isIn(startAng, midAng, endAng - (TWO_PI)))
+    		endAng -= TWO_PI;
+    }
+    if (Math.abs(startAng - midAng) < 0.1 && Math.abs(midAng - endAng) < 0.1) {
+    	sliderthing(CurveTypes.Bezier, m_ctrl_pts, m_path, m_points);
+    	break;
+    }
+//    points.add(point1);
+    for (int k = 0; k < DetailLevel; k++) {
+//    	path.add(new Line(CircularArc(startAng, endAng, circleCenter, radius, (float) k / DetailLevel),
+//    			CircularArc(startAng, endAng, circleCenter, radius, (float) (k + 1) / DetailLevel)));
+    	points.add(CircularArc(startAng, endAng, circleCenter, radius, (float) k / DetailLevel));
+    }
+//    points.add(point3);
+    break;
 		}
 	}
 

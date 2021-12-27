@@ -34,7 +34,7 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 		this.mPool = new Pool<T>() {
 			@Override
 			protected T onAllocatePoolItem() {
-				return PoolUpdateHandler.this.onAllocatePoolItem();
+    return PoolUpdateHandler.this.onAllocatePoolItem();
 			}
 		};
 	}
@@ -43,7 +43,7 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 		this.mPool = new Pool<T>(pInitialPoolSize) {
 			@Override
 			protected T onAllocatePoolItem() {
-				return PoolUpdateHandler.this.onAllocatePoolItem();
+    return PoolUpdateHandler.this.onAllocatePoolItem();
 			}
 		};
 	}
@@ -52,7 +52,7 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 		this.mPool = new Pool<T>(pInitialPoolSize, pGrowth) {
 			@Override
 			protected T onAllocatePoolItem() {
-				return PoolUpdateHandler.this.onAllocatePoolItem();
+    return PoolUpdateHandler.this.onAllocatePoolItem();
 			}
 		};
 	}
@@ -77,16 +77,16 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 			final int count = scheduledPoolItems.size();
 
 			if(count > 0) {
-				final Pool<T> pool = this.mPool;
-				T item;
+    final Pool<T> pool = this.mPool;
+    T item;
 
-				for(int i = 0; i < count; i++) {
-					item = scheduledPoolItems.get(i);
-					this.onHandlePoolItem(item);
-					pool.recyclePoolItem(item);
-				}
+    for(int i = 0; i < count; i++) {
+    	item = scheduledPoolItems.get(i);
+    	this.onHandlePoolItem(item);
+    	pool.recyclePoolItem(item);
+    }
 
-				scheduledPoolItems.clear();
+    scheduledPoolItems.clear();
 			}
 		}
 	}
@@ -99,7 +99,7 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 
 			final Pool<T> pool = this.mPool;
 			for(int i = count - 1; i >= 0; i--) {
-				pool.recyclePoolItem(scheduledPoolItems.get(i));
+    pool.recyclePoolItem(scheduledPoolItems.get(i));
 			}
 
 			scheduledPoolItems.clear();
@@ -117,9 +117,9 @@ public abstract class PoolUpdateHandler<T extends PoolItem> implements IUpdateHa
 	public void postPoolItem(final T pPoolItem) {
 		synchronized (this.mScheduledPoolItems) {
 			if(pPoolItem == null) {
-				throw new IllegalArgumentException("PoolItem already recycled!");
+    throw new IllegalArgumentException("PoolItem already recycled!");
 			} else if(!this.mPool.ownsPoolItem(pPoolItem)) {
-				throw new IllegalArgumentException("PoolItem from another pool!");
+    throw new IllegalArgumentException("PoolItem from another pool!");
 			}
 
 			this.mScheduledPoolItems.add(pPoolItem);

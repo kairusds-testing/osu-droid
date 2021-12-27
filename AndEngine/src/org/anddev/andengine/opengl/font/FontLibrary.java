@@ -49,7 +49,7 @@ public class FontLibrary extends Library<Font> {
 		for(int i = items.size() - 1; i >= 0; i--) {
 			final Font font = items.valueAt(i);
 			if(font != null) {
-				pFontManager.loadFont(font);
+    pFontManager.loadFont(font);
 			}
 		}
 	}

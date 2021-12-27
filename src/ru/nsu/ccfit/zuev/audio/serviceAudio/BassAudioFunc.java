@@ -48,36 +48,36 @@ public class BassAudioFunc {
 		this.mode = mode;
 		switch (mode) {
 			case MODE_NONE: //None
-				channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, playflag);
-				// BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
-				break;
+    channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, playflag);
+    // BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
+    break;
 			case MODE_HT: //HT
-				channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
-				// BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, -25.0f);
-				break;
+    channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
+    // BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, -25.0f);
+    break;
 			case MODE_DT: //DT
-				channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
-				// BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 50.0f);
-				break;
+    channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
+    // BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 50.0f);
+    break;
 			case MODE_NC: //NC
-				channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
-				// BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
+    channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
+    // BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
 
-				BASS.BASS_ChannelGetInfo(channel, fx);
-				BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 1.5));
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 0.0f);
-				break;
+    BASS.BASS_ChannelGetInfo(channel, fx);
+    BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 1.5));
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 0.0f);
+    break;
 			case MODE_SU: //SU
-				channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
-				// BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 25.0f);
-				break;
+    channel = BASS.BASS_StreamCreateFile(filePath, 0, 0, BASS.BASS_STREAM_DECODE | BASS.BASS_STREAM_PRESCAN);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, BASS.BASS_STREAM_AUTOFREE);
+    // BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_NOBUFFER, 1);
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 25.0f);
+    break;
 		}
 		return channel != 0;
 	}
@@ -95,16 +95,16 @@ public class BassAudioFunc {
 		if (enableNC) {
 			BASS.BASS_ChannelGetInfo(channel, fx);
 			if (speed > 1.5){
-				BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 1.5f));
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, (speed / 1.5f - 1.0f) * 100);
+    BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 1.5f));
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, (speed / 1.5f - 1.0f) * 100);
 			}
 			else if (speed < 0.75){
-				BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 0.75f));
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, (speed / 0.75f - 1.0f) * 100);
+    BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * 0.75f));
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, (speed / 0.75f - 1.0f) * 100);
 			}
 			else {
-				BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * speed));
-				BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 0.0f);
+    BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, (int) (fx.freq * speed));
+    BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 0.0f);
 			}
 		}
 		else{
@@ -118,22 +118,22 @@ public class BassAudioFunc {
 			return resume();
 		} else if (channel != 0) {
 			/*if(!isGaming){
-				BASS.BASS_ChannelSetSync(channel, BASS.BASS_SYNC_END, 0, new BASS.SYNCPROC() {
-					@Override
-					public void SYNCPROC(int handle, int channel, int data, Object user) {
-						broadcastManager.sendBroadcast(new Intent("Notify_next"));
-					}
-				},0);
+    BASS.BASS_ChannelSetSync(channel, BASS.BASS_SYNC_END, 0, new BASS.SYNCPROC() {
+    	@Override
+    	public void SYNCPROC(int handle, int channel, int data, Object user) {
+    		broadcastManager.sendBroadcast(new Intent("Notify_next"));
+    	}
+    },0);
 			}*/
 			BASS.BASS_ChannelSetSync(channel, BASS.BASS_SYNC_END, 0, new BASS.SYNCPROC() {
-				@Override
-				public void SYNCPROC(int handle, int channel, int data, Object user) {
-					if (!isGaming) {
-						broadcastManager.sendBroadcast(new Intent("Notify_next"));
-					} else {
-						stop();
-					}
-				}
+    @Override
+    public void SYNCPROC(int handle, int channel, int data, Object user) {
+    	if (!isGaming) {
+    		broadcastManager.sendBroadcast(new Intent("Notify_next"));
+    	} else {
+    		stop();
+    	}
+    }
 			}, 0);
 			return BASS.BASS_ChannelPlay(channel, true);
 		}
@@ -151,9 +151,9 @@ public class BassAudioFunc {
 	public boolean jump(int ms) {
 		if (channel != 0 && ms > 0) {
 			if (skipPosition == 0 || skipPosition == -1)
-				skipPosition = BASS.BASS_ChannelSeconds2Bytes(channel, ms / 1000.0);
+    skipPosition = BASS.BASS_ChannelSeconds2Bytes(channel, ms / 1000.0);
 			if (mode == PlayMode.MODE_NONE)
-				return BASS.BASS_ChannelSetPosition(channel, skipPosition, BASS.BASS_POS_BYTE);
+    return BASS.BASS_ChannelSetPosition(channel, skipPosition, BASS.BASS_POS_BYTE);
 			else return BASS.BASS_ChannelSetPosition(channel, skipPosition, BASS.BASS_POS_DECODE);
 		}
 		return false;
@@ -164,11 +164,11 @@ public class BassAudioFunc {
 
 		switch (BASS.BASS_ChannelIsActive(channel)) {
 			case BASS.BASS_ACTIVE_STOPPED:
-				return Status.STOPPED;
+    return Status.STOPPED;
 			case BASS.BASS_ACTIVE_PAUSED:
-				return Status.PAUSED;
+    return Status.PAUSED;
 			case BASS.BASS_ACTIVE_PLAYING:
-				return Status.PLAYING;
+    return Status.PLAYING;
 		}
 
 		return Status.STALLED;
@@ -178,7 +178,7 @@ public class BassAudioFunc {
 		if (channel != 0) {
 			long pos = BASS.BASS_ChannelGetPosition(channel, BASS.BASS_POS_BYTE);
 			if (pos != -1) {
-				return (int) (BASS.BASS_ChannelBytes2Seconds(channel, pos) * 1000);
+    return (int) (BASS.BASS_ChannelBytes2Seconds(channel, pos) * 1000);
 			}
 		}
 		return 0;
@@ -188,7 +188,7 @@ public class BassAudioFunc {
 		if (channel != 0) {
 			long length = BASS.BASS_ChannelGetLength(channel, BASS.BASS_POS_BYTE);
 			if (length != -1) {
-				return (int) (BASS.BASS_ChannelBytes2Seconds(channel, length) * 1000);
+    return (int) (BASS.BASS_ChannelBytes2Seconds(channel, length) * 1000);
 			}
 		}
 		return 0;

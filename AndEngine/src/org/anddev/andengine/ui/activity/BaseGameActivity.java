@@ -83,12 +83,12 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 		}
 		if(pHasWindowFocus) {
 			if(this.mPaused) {
-				this.doResume();
+    this.doResume();
 			}
 			this.mHasWindowFocused = true;
 		} else {
 			/* if(!this.mPaused) {
-				this.doPause();
+    this.doPause();
 			} */
 			this.mHasWindowFocused = false;
 		}
@@ -232,9 +232,9 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 			final PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
 			this.mWakeLock = pm.newWakeLock(pWakeLockOptions.getFlag() | PowerManager.ON_AFTER_RELEASE, "andengine:AndEngine");
 			try {
-				this.mWakeLock.acquire();
+    this.mWakeLock.acquire();
 			} catch (final SecurityException e) {
-				Debug.e("You have to add\n\t<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>\nto your AndroidManifest.xml !", e);
+    Debug.e("You have to add\n\t<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>\nto your AndroidManifest.xml !", e);
 			}
 		}
 	}
@@ -257,12 +257,12 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 		if (pEngineOptions.getScreenOrientation() != null) {
 			switch (pEngineOptions.getScreenOrientation()) {
 
-				case LANDSCAPE:
-					this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-					break;
-				case PORTRAIT:
-					this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-					break;
+    case LANDSCAPE:
+    	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    	break;
+    case PORTRAIT:
+    	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    	break;
 			}
 		}
 	}

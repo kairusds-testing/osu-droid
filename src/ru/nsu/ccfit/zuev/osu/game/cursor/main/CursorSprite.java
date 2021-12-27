@@ -33,9 +33,9 @@ public class CursorSprite extends Sprite implements ISliderListener {
 			setScale(baseSize);
 		}
 		registerEntityModifier(
-				previousClickModifier = new ParallelEntityModifier(
-						new SequenceEntityModifier(clickInModifier(), clickOutModifier())
-				)
+    previousClickModifier = new ParallelEntityModifier(
+    		new SequenceEntityModifier(clickInModifier(), clickOutModifier())
+    )
 		);
 	}
 

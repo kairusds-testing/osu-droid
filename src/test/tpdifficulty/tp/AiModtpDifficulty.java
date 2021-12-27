@@ -35,24 +35,24 @@ public class AiModtpDifficulty {
 		for (tpHitObject hitObject : tpHitObjects) {
 			// While we are beyond the current interval push the currently available maximum to our strain list
 			while (hitObject.BaseHitObject.getStartTime() > IntervalEndTime) {
-				HighestStrains.add(MaximumStrain);
+    HighestStrains.add(MaximumStrain);
 
-				// The maximum strain of the next interval is not zero by default! We need to take the last hitObject we encountered, take its strain and apply the decay
-				// until the beginning of the next interval.
-				if (PreviousHitObject == null) {
-					MaximumStrain = 0;
-				} else {
-					double Decay = Math.pow(tpHitObject.DECAY_BASE[Type.value()], (double) (IntervalEndTime - PreviousHitObject.BaseHitObject.getStartTime()) / 1000);
-					MaximumStrain = PreviousHitObject.Strains[Type.value()] * Decay;
-				}
+    // The maximum strain of the next interval is not zero by default! We need to take the last hitObject we encountered, take its strain and apply the decay
+    // until the beginning of the next interval.
+    if (PreviousHitObject == null) {
+    	MaximumStrain = 0;
+    } else {
+    	double Decay = Math.pow(tpHitObject.DECAY_BASE[Type.value()], (double) (IntervalEndTime - PreviousHitObject.BaseHitObject.getStartTime()) / 1000);
+    	MaximumStrain = PreviousHitObject.Strains[Type.value()] * Decay;
+    }
 
-				// Go to the next time interval
-				IntervalEndTime += STRAIN_STEP;
+    // Go to the next time interval
+    IntervalEndTime += STRAIN_STEP;
 			}
 
 			// Obtain maximum strain
 			if (hitObject.Strains[Type.value()] > MaximumStrain) {
-				MaximumStrain = hitObject.Strains[Type.value()];
+    MaximumStrain = hitObject.Strains[Type.value()];
 			}
 
 			PreviousHitObject = hitObject;
@@ -121,16 +121,16 @@ public class AiModtpDifficulty {
 		int i = 0;
 		for(tpHitObject hitObject : tpHitObjects){
 			if(i >= 2){
-				PointF v1 = new PointF(prev2.getNormPosStart().x - prev1.getNormPosEnd().x,
-					prev2.getNormPosStart().y - prev1.getNormPosEnd().y);
-				PointF v2 = new PointF(hitObject.getNormPosStart().x - prev1.getNormPosEnd().x,
-					hitObject.getNormPosStart().y - prev1.getNormPosEnd().y);
-				double dot = v1.x * v2.x + v1.y * v2.y;
-				double det = v1.x * v2.y - v1.y * v2.x;
-				hitObject.angle = Math.abs(Math.atan2(det, dot));
+    PointF v1 = new PointF(prev2.getNormPosStart().x - prev1.getNormPosEnd().x,
+    	prev2.getNormPosStart().y - prev1.getNormPosEnd().y);
+    PointF v2 = new PointF(hitObject.getNormPosStart().x - prev1.getNormPosEnd().x,
+    	hitObject.getNormPosStart().y - prev1.getNormPosEnd().y);
+    double dot = v1.x * v2.x + v1.y * v2.y;
+    double det = v1.x * v2.y - v1.y * v2.x;
+    hitObject.angle = Math.abs(Math.atan2(det, dot));
 			} 
 			else {
-				hitObject.angle = Double.NaN;
+    hitObject.angle = Double.NaN;
 			}
 			prev2 = prev1;
 			prev1 = hitObject;

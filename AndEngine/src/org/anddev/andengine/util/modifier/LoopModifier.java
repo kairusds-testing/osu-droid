@@ -111,7 +111,7 @@ public class LoopModifier<T> extends BaseModifier<T> implements IModifierListene
 
 			this.mFinishedCached = false;
 			while(secondsElapsedRemaining > 0 && !this.mFinishedCached) {
-				secondsElapsedRemaining -= this.mModifier.onUpdate(secondsElapsedRemaining, pItem);
+    secondsElapsedRemaining -= this.mModifier.onUpdate(secondsElapsedRemaining, pItem);
 			}
 			this.mFinishedCached = false;
 
@@ -157,12 +157,12 @@ public class LoopModifier<T> extends BaseModifier<T> implements IModifierListene
 		} else {
 			this.mLoop++;
 			if(this.mLoop >= this.mLoopCount) {
-				this.mFinished = true;
-				this.mFinishedCached = true;
-				this.onModifierFinished(pItem);
+    this.mFinished = true;
+    this.mFinishedCached = true;
+    this.onModifierFinished(pItem);
 			} else {
-				this.mSecondsElapsed = 0;
-				this.mModifier.reset();
+    this.mSecondsElapsed = 0;
+    this.mModifier.reset();
 			}
 		}
 	}

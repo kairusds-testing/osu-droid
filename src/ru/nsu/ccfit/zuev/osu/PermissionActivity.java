@@ -44,18 +44,18 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
 	private void checkPermissions() {
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 			if (Environment.isExternalStorageManager()) {
-				startGameActivity();
+    startGameActivity();
 			} else {
-				Uri uri = Uri.parse("package:" + getPackageName());
-				Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-				startActivityForResult(intent, 2444);
+    Uri uri = Uri.parse("package:" + getPackageName());
+    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+    startActivityForResult(intent, 2444);
 			}
 		}else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
 			if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-					== PermissionChecker.PERMISSION_GRANTED) {
-				startGameActivity();
+    	== PermissionChecker.PERMISSION_GRANTED) {
+    startGameActivity();
 			} else {
-				ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2333);
+    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2333);
 			}
 		}
 	}
@@ -82,8 +82,8 @@ public class PermissionActivity extends AppCompatActivity implements EasyPermiss
 	@Override
 	public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 		if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-				!= PermissionChecker.PERMISSION_GRANTED
-				&& EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+    != PermissionChecker.PERMISSION_GRANTED
+    && EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 			new AppSettingsDialog.Builder(this).build().show();
 		}
 	}

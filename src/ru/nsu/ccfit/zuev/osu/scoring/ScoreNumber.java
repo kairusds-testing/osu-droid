@@ -12,27 +12,27 @@ public class ScoreNumber {
 	private float x, y, height;
 
 	public ScoreNumber(final float x, final float y, final String text,
-					   final float scale, final boolean center) {
+    	   final float scale, final boolean center) {
 		this.x = x;
 		this.y = y;
 		letters = new Sprite[text.length()];
 		float width = 0;
 		for (int i = 0; i < text.length(); i++) {
 			if (text.charAt(i) <= '9' && text.charAt(i) >= '0') {
-				letters[i] = new Sprite(x + width * scale, y, ResourceManager
-						.getInstance().getTexture("score-" + text.charAt(i)));
+    letters[i] = new Sprite(x + width * scale, y, ResourceManager
+    		.getInstance().getTexture("score-" + text.charAt(i)));
 			} else if (text.charAt(i) == '.' || text.charAt(i) == ',') {
-				letters[i] = new Sprite(x + width * scale, y, ResourceManager
-						.getInstance().getTexture("score-comma"));
+    letters[i] = new Sprite(x + width * scale, y, ResourceManager
+    		.getInstance().getTexture("score-comma"));
 			} else if (text.charAt(i) == '%') {
-				letters[i] = new Sprite(x + width * scale, y, ResourceManager
-						.getInstance().getTexture("score-percent"));
+    letters[i] = new Sprite(x + width * scale, y, ResourceManager
+    		.getInstance().getTexture("score-percent"));
 			} else {
-				letters[i] = new Sprite(x + width * scale, y, ResourceManager
-						.getInstance().getTexture("score-x"));
+    letters[i] = new Sprite(x + width * scale, y, ResourceManager
+    		.getInstance().getTexture("score-x"));
 			}
 			letters[i].setSize(letters[i].getWidth() * scale,
-					letters[i].getHeight() * scale);
+    	letters[i].getHeight() * scale);
 			width += letters[i].getWidth() * scale;
 			height = letters[i].getHeight() * scale;
 		}
@@ -40,10 +40,10 @@ public class ScoreNumber {
 		if (center) {
 			width /= 2 * scale;
 			for (final Sprite sp : letters) {
-				sp.setPosition(sp.getX() - width, sp.getY());
-				sp.registerEntityModifier(new SequenceEntityModifier(
-						new ScaleModifier(0.2f, scale, scale * 1.5f),
-						new ScaleModifier(0.4f, scale * 1.5f, scale)));
+    sp.setPosition(sp.getX() - width, sp.getY());
+    sp.registerEntityModifier(new SequenceEntityModifier(
+    		new ScaleModifier(0.2f, scale, scale * 1.5f),
+    		new ScaleModifier(0.4f, scale * 1.5f, scale)));
 			}
 		}// if center
 	}

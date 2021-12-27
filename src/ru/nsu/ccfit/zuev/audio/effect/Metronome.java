@@ -38,7 +38,7 @@ public class Metronome {
 		if (beatIndex % (8 * GameHelper.getTimeSignature()) == 0) {
 			kickSound.play(volume);
 			if (beatIndex > 0) {
-				finishSound.play(volume);
+    finishSound.play(volume);
 			}
 			return;
 		}

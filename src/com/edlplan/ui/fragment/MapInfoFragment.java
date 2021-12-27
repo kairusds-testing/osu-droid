@@ -38,9 +38,9 @@ public class MapInfoFragment extends BaseFragment {
 		body.setTranslationY(200);
 		body.animate().cancel();
 		body.animate()
-				.translationY(0)
-				.setDuration(200)
-				.start();
+    .translationY(0)
+    .setDuration(200)
+    .start();
 		playBackgroundHideInAnim(200);
 	}
 
@@ -48,19 +48,19 @@ public class MapInfoFragment extends BaseFragment {
 		View body = findViewById(R.id.frg_body);
 		body.animate().cancel();
 		body.animate()
-				.translationXBy(50)
-				.alpha(0)
-				.setDuration(150)
-				.setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
-				.setListener(new BaseAnimationListener() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						if (action != null) {
-							action.run();
-						}
-					}
-				})
-				.start();
+    .translationXBy(50)
+    .alpha(0)
+    .setDuration(150)
+    .setInterpolator(EasingHelper.asInterpolator(Easing.OutQuad))
+    .setListener(new BaseAnimationListener() {
+    	@Override
+    	public void onAnimationEnd(Animator animation) {
+    		if (action != null) {
+    			action.run();
+    		}
+    	}
+    })
+    .start();
 		playBackgroundHideOutAnim(200);
 	}
 
@@ -102,16 +102,16 @@ public class MapInfoFragment extends BaseFragment {
 		//	track.getHitCircleCount(), track.getSliderCount(), track.getSpinnerCount(), track.getBeatmapSetID()));
 		//string.append("\n\r");
 		string.append(String.format("圈数:%d[%.1f%%] 滑条数:%d[%.1f%%] 转盘数:%d[%.1f%%] 物件数:%d 实际时间:%.1fs %.1f物件/分",
-									circleCount, circlePercent, sliderCount, sliderPercent, spinnerCount, spinnerPercent,
-									objectCount, realTime, objectPerMin));
+        	circleCount, circlePercent, sliderCount, sliderPercent, spinnerCount, spinnerPercent,
+        	objectCount, realTime, objectPerMin));
 		string.append("\n\r");
 		string.append(String.format("单点:%d[%.1f%%] 高速单点:%d[%.1f%%] 连打:%d[%.1f%%] 跳:%d[%.1f%%]",
-									singleCount, singlePercent, fastSingleCount, fastSinglePercent,
-									streamCount, streamPercent, jumpCount, jumpPercent));
+        	singleCount, singlePercent, fastSingleCount, fastSinglePercent,
+        	streamCount, streamPercent, jumpCount, jumpPercent));
 		string.append("\n\r");
 		string.append(String.format("多押:%d[%.1f%%] 切指:%d[%.1f%%] 最长连打:%d",
-									multiCount, multiPercent,
-									switchCount, switchPercent, longestStreamCount));
+        	multiCount, multiPercent,
+        	switchCount, switchPercent, longestStreamCount));
 		info = string.toString();
 		show();
 		diffRecalculator = null;

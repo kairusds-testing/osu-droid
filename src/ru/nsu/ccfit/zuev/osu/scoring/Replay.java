@@ -150,45 +150,45 @@ public class Replay {
 			os.writeObject(md5);
 
 			if (stat != null) {
-				os.writeLong(stat.getTime());
-				os.writeInt(stat.getHit300k());
-				os.writeInt(stat.getHit300());
-				os.writeInt(stat.getHit100k());
-				os.writeInt(stat.getHit100());
-				os.writeInt(stat.getHit50());
-				os.writeInt(stat.getMisses());
-				os.writeInt(stat.getModifiedTotalScore());
-				os.writeInt(stat.getMaxCombo());
-				os.writeFloat(stat.getAccuracy());
-				os.writeBoolean(stat.isPerfect());
-				os.writeObject(stat.getPlayerName());
-				os.writeObject(stat.getMod());
-				//Add in replay version
-				os.writeObject(stat.getExtraModString());
+    os.writeLong(stat.getTime());
+    os.writeInt(stat.getHit300k());
+    os.writeInt(stat.getHit300());
+    os.writeInt(stat.getHit100k());
+    os.writeInt(stat.getHit100());
+    os.writeInt(stat.getHit50());
+    os.writeInt(stat.getMisses());
+    os.writeInt(stat.getModifiedTotalScore());
+    os.writeInt(stat.getMaxCombo());
+    os.writeFloat(stat.getAccuracy());
+    os.writeBoolean(stat.isPerfect());
+    os.writeObject(stat.getPlayerName());
+    os.writeObject(stat.getMod());
+    //Add in replay version
+    os.writeObject(stat.getExtraModString());
 			}
 
 			os.writeInt(cursorMoves.size());
 			//Storing all moves
 			for (final MoveArray move : cursorMoves) {
-				move.writeTo(os);
+    move.writeTo(os);
 			}
 			os.writeInt(objectData.length);
 			for (ReplayObjectData data : objectData) {
-				if (data == null) data = new ReplayObjectData();
-				os.writeShort(data.accuracy);
-				if (data.tickSet == null || data.tickSet.length() == 0) {
-					os.writeByte(0);
-				} else {
-					byte[] bytes = new byte[(data.tickSet.length() + 7) / 8];
-					for (int i = 0; i < data.tickSet.length(); i++) {
-						if (data.tickSet.get(i)) {
-							bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
-						}
-					}
-					os.writeByte(bytes.length);
-					os.write(bytes);
-				}
-				os.writeByte(data.result);
+    if (data == null) data = new ReplayObjectData();
+    os.writeShort(data.accuracy);
+    if (data.tickSet == null || data.tickSet.length() == 0) {
+    	os.writeByte(0);
+    } else {
+    	byte[] bytes = new byte[(data.tickSet.length() + 7) / 8];
+    	for (int i = 0; i < data.tickSet.length(); i++) {
+    		if (data.tickSet.get(i)) {
+    			bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
+    		}
+    	}
+    	os.writeByte(bytes.length);
+    	os.write(bytes);
+    }
+    os.writeByte(data.result);
 			}
 		} catch (final IOException e) {
 			Debug.e("IOException: " + e.getMessage(), e);
@@ -210,7 +210,7 @@ public class Replay {
 		ObjectInputStream os;
 		try {
 			final ZipInputStream zip = new ZipInputStream(new FileInputStream(
-					new File(filename)));
+    	new File(filename)));
 			zip.getNextEntry();
 			os = new ObjectInputStream(zip);
 			// zip.close();
@@ -227,13 +227,13 @@ public class Replay {
 			Object firstObject = os.readObject();
 			Debug.i("Readed object: " + firstObject.getClass().getName());
 			if (firstObject.getClass().equals(ReplayVersion.class)) {
-				Debug.i("Other replay version");
-				version = ((ReplayVersion) firstObject).version;
-				replayVersion = version;
-				mapname = (String) os.readObject();
+    Debug.i("Other replay version");
+    version = ((ReplayVersion) firstObject).version;
+    replayVersion = version;
+    mapname = (String) os.readObject();
 
 			} else {
-				mapname = (String) firstObject;
+    mapname = (String) firstObject;
 			}
 			mapfile = (String) os.readObject();
 			md5 = (String) os.readObject();
@@ -243,24 +243,24 @@ public class Replay {
 			Debug.i(md5);
 
 			if (version >= 3) {
-				stat = new StatisticV2();
-				stat.setTime(os.readLong());
-				stat.setHit300k(os.readInt());
-				stat.setHit300(os.readInt());
-				stat.setHit100k(os.readInt());
-				stat.setHit100(os.readInt());
-				stat.setHit50(os.readInt());
-				stat.setMisses(os.readInt());
-				stat.setForcedScore(os.readInt());
-				stat.setMaxCombo(os.readInt());
-				stat.setAccuracy(os.readFloat());
-				stat.setPerfect(os.readBoolean());
-				stat.setPlayerName((String) os.readObject());
-				stat.setMod((EnumSet<GameMod>) os.readObject());
+    stat = new StatisticV2();
+    stat.setTime(os.readLong());
+    stat.setHit300k(os.readInt());
+    stat.setHit300(os.readInt());
+    stat.setHit100k(os.readInt());
+    stat.setHit100(os.readInt());
+    stat.setHit50(os.readInt());
+    stat.setMisses(os.readInt());
+    stat.setForcedScore(os.readInt());
+    stat.setMaxCombo(os.readInt());
+    stat.setAccuracy(os.readFloat());
+    stat.setPerfect(os.readBoolean());
+    stat.setPlayerName((String) os.readObject());
+    stat.setMod((EnumSet<GameMod>) os.readObject());
 			}
 
 			if  (version >= 4) {
-				stat.setExtraModFromString((String) os.readObject());
+    stat.setExtraModFromString((String) os.readObject());
 			}
 
 		} catch (EOFException e) {
@@ -282,7 +282,7 @@ public class Replay {
 		ObjectInputStream os;
 		try {
 			final ZipInputStream zip = new ZipInputStream(new FileInputStream(
-					new File(filename)));
+    	new File(filename)));
 			zip.getNextEntry();
 			os = new ObjectInputStream(zip);
 			// zip.close();
@@ -300,71 +300,71 @@ public class Replay {
 			Object firstObject = os.readObject();
 			Debug.i("Readed object: " + firstObject.getClass().getName());
 			if (firstObject.getClass().equals(ReplayVersion.class)) {
-				Debug.i("Other replay version");
-				version = ((ReplayVersion) firstObject).version;
-				replayVersion = version;
-				mname = (String) os.readObject();
+    Debug.i("Other replay version");
+    version = ((ReplayVersion) firstObject).version;
+    replayVersion = version;
+    mname = (String) os.readObject();
 
 			} else {
-				mname = (String) firstObject;
+    mname = (String) firstObject;
 			}
 			String mfile = (String) os.readObject();
 			String mmd5 = (String) os.readObject();
 
 			if (mname.equals(mapname) == false && mfile.equals(mapfile) == false) {
-				Debug.i("Replay doesn't match the map!");
-				Debug.i(mapname + " ::: " + mname);
-				Debug.i(mapfile + " ::: " + mfile);
-				Debug.i(md5 + " ::: " + mmd5);
-				ToastLogger.showTextId(R.string.replay_wrongmap, true);
+    Debug.i("Replay doesn't match the map!");
+    Debug.i(mapname + " ::: " + mname);
+    Debug.i(mapfile + " ::: " + mfile);
+    Debug.i(md5 + " ::: " + mmd5);
+    ToastLogger.showTextId(R.string.replay_wrongmap, true);
 
-				os.close();
-				return false;
+    os.close();
+    return false;
 			}
 
 			if (version >= 3) {
-				stat = new StatisticV2();
-				stat.setTime(os.readLong());
-				stat.setHit300k(os.readInt());
-				stat.setHit300(os.readInt());
-				stat.setHit100k(os.readInt());
-				stat.setHit100(os.readInt());
-				stat.setHit50(os.readInt());
-				stat.setMisses(os.readInt());
-				stat.setForcedScore(os.readInt());
-				stat.setMaxCombo(os.readInt());
-				stat.setAccuracy(os.readFloat());
-				stat.setPerfect(os.readBoolean());
-				stat.setPlayerName((String) os.readObject());
-				stat.setMod((EnumSet<GameMod>) os.readObject());
+    stat = new StatisticV2();
+    stat.setTime(os.readLong());
+    stat.setHit300k(os.readInt());
+    stat.setHit300(os.readInt());
+    stat.setHit100k(os.readInt());
+    stat.setHit100(os.readInt());
+    stat.setHit50(os.readInt());
+    stat.setMisses(os.readInt());
+    stat.setForcedScore(os.readInt());
+    stat.setMaxCombo(os.readInt());
+    stat.setAccuracy(os.readFloat());
+    stat.setPerfect(os.readBoolean());
+    stat.setPlayerName((String) os.readObject());
+    stat.setMod((EnumSet<GameMod>) os.readObject());
 			}
 
 			if  (version >= 4) {
-				stat.setExtraModFromString((String) os.readObject());
+    stat.setExtraModFromString((String) os.readObject());
 			}
 
 			int msize = os.readInt();
 			for (int i = 0; i < msize; i++) {
-				cursorMoves.add(MoveArray.readFrom(os, this));
+    cursorMoves.add(MoveArray.readFrom(os, this));
 			}
 
 			os.readInt();
 			for (int i = 0; i < objectData.length; i++) {
-				ReplayObjectData data = new ReplayObjectData();
-				data.accuracy = os.readShort();
-				int len = os.readByte();
-				if (len > 0) {
-					data.tickSet = new BitSet();
-					byte[] bytes = new byte[len];
-					os.read(bytes);
-					for (int j = 0; j < len * 8; j++) {
-						data.tickSet.set(j, (bytes[len - j / 8 - 1] & 1 << (j % 8)) != 0);
-					}
-				}
-				if (version >= 1) {
-					data.result = os.readByte();
-				}
-				objectData[i] = data;
+    ReplayObjectData data = new ReplayObjectData();
+    data.accuracy = os.readShort();
+    int len = os.readByte();
+    if (len > 0) {
+    	data.tickSet = new BitSet();
+    	byte[] bytes = new byte[len];
+    	os.read(bytes);
+    	for (int j = 0; j < len * 8; j++) {
+    		data.tickSet.set(j, (bytes[len - j / 8 - 1] & 1 << (j % 8)) != 0);
+    	}
+    }
+    if (version >= 1) {
+    	data.result = os.readByte();
+    }
+    objectData[i] = data;
 			}
 		} catch (EOFException e) {
 			Debug.e("Replay.load: " + e.getMessage(), e);
@@ -442,31 +442,31 @@ public class Replay {
 			MoveArray array = new MoveArray(size);
 
 			for (int i = 0; i < size; i++) {
-				array.time[i] = is.readInt();
-				array.id[i] = (byte) (array.time[i] & 3);
-				array.time[i] >>= 2;
-				if (array.id[i] != ID_UP) {
-					PointF gamePoint;
+    array.time[i] = is.readInt();
+    array.id[i] = (byte) (array.time[i] & 3);
+    array.time[i] >>= 2;
+    if (array.id[i] != ID_UP) {
+    	PointF gamePoint;
 
-					if(replay.replayVersion >= 5) {
-						gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
-								(float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
-					}else {
-						gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
-							(float) (is.readShort() / Config.getTextureQuality()));
-					}
+    	if(replay.replayVersion >= 5) {
+    		gamePoint = new PointF((float) (Math.round(is.readFloat()) / Config.getTextureQuality()),
+        (float) (Math.round(is.readFloat()) / Config.getTextureQuality()));
+    	}else {
+    		gamePoint = new PointF((float) (is.readShort() / Config.getTextureQuality()),
+    			(float) (is.readShort() / Config.getTextureQuality()));
+    	}
 
-					if (replay.replayVersion == 1) {
-						PointF realPoint = Utils.trackToRealCoords(Utils.realToTrackCoords(gamePoint, 1024, 600, true));
-						array.x[i] = realPoint.x;
-						array.y[i] = realPoint.y;
-					} else if (replay.replayVersion > 1) {
-						PointF realPoint = Utils.trackToRealCoords(gamePoint);
-						array.x[i] = realPoint.x;
-						array.y[i] = realPoint.y;
-					}
-				}
-				array.size = size;
+    	if (replay.replayVersion == 1) {
+    		PointF realPoint = Utils.trackToRealCoords(Utils.realToTrackCoords(gamePoint, 1024, 600, true));
+    		array.x[i] = realPoint.x;
+    		array.y[i] = realPoint.y;
+    	} else if (replay.replayVersion > 1) {
+    		PointF realPoint = Utils.trackToRealCoords(gamePoint);
+    		array.x[i] = realPoint.x;
+    		array.y[i] = realPoint.y;
+    	}
+    }
+    array.size = size;
 			}
 
 			return array;
@@ -503,12 +503,12 @@ public class Replay {
 		public void pushBack(int time, float x, float y, byte id) {
 			int idx = size;
 			if (id == ID_MOVE && checkNewPoint(x, y)) {
-				idx = size - 1;
-				pointsSkipped++;
+    idx = size - 1;
+    pointsSkipped++;
 			} else {
-				if (size + 1 >= allocated)
-					reallocate((allocated * 3) / 2);
-				size++;
+    if (size + 1 >= allocated)
+    	reallocate((allocated * 3) / 2);
+    size++;
 			}
 			this.time[idx] = time;
 			this.x[idx] = x;
@@ -518,7 +518,7 @@ public class Replay {
 
 		public void pushBack(int time, byte id) {
 			if (size >= allocated)
-				reallocate((allocated * 3) / 2);
+    reallocate((allocated * 3) / 2);
 			this.time[size] = time;
 			this.id[size] = id;
 			size++;
@@ -527,11 +527,11 @@ public class Replay {
 		public void writeTo(ObjectOutputStream os) throws IOException {
 			os.writeInt(size);
 			for (int i = 0; i < size; i++) {
-				os.writeInt((time[i] << 2) + id[i]);
-				if (id[i] != ID_UP) {
-					os.writeFloat(x[i] * Config.getTextureQuality());
-					os.writeFloat(y[i] * Config.getTextureQuality());
-				}
+    os.writeInt((time[i] << 2) + id[i]);
+    if (id[i] != ID_UP) {
+    	os.writeFloat(x[i] * Config.getTextureQuality());
+    	os.writeFloat(y[i] * Config.getTextureQuality());
+    }
 			}
 		}
 	}

@@ -56,11 +56,11 @@ public class ModifierList<T> extends SmartList<IModifier<T>> implements IUpdateH
 		final int modifierCount = this.size();
 		if(modifierCount > 0) {
 			for(int i = modifierCount - 1; i >= 0; i--) {
-				final IModifier<T> modifier = modifiers.get(i);
-				modifier.onUpdate(pSecondsElapsed, this.mTarget);
-				if(modifier.isFinished() && modifier.isRemoveWhenFinished()) {
-					modifiers.remove(i);
-				}
+    final IModifier<T> modifier = modifiers.get(i);
+    modifier.onUpdate(pSecondsElapsed, this.mTarget);
+    if(modifier.isFinished() && modifier.isRemoveWhenFinished()) {
+    	modifiers.remove(i);
+    }
 			}
 		}
 	}

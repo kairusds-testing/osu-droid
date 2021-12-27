@@ -28,23 +28,23 @@ public class MathUtils {
 			diff = Math.min(10, diff * 1.4);
 
 		return (diff > 5) ? (mid + (max - mid) * (diff - 5) / 5)
-				: (diff < 5) ? (mid - (mid - min) * (5 - diff) / 5)
-				: mid;
+    : (diff < 5) ? (mid - (mid - min) * (5 - diff) / 5)
+    : mid;
 	}
 
 	public static int getHitWindow50(double od, Gamemode gamemode, Mods mods) {
 		double speed = mods.getSpeedMultiplier();
 		switch (gamemode) {
 			case OSU:
-				return (int) (difficultyRange(od, 200, 150, 100, mods) / speed);
+    return (int) (difficultyRange(od, 200, 150, 100, mods) / speed);
 			case TAIKO:
-				return (int) (difficultyRange(od, 135, 95, 70, mods) / speed);
+    return (int) (difficultyRange(od, 135, 95, 70, mods) / speed);
 			case CATCH:
-				return -1;
+    return -1;
 			case MANIA:
-				return -1;
+    return -1;
 			default:
-				return -1;
+    return -1;
 		}
 	}
 
@@ -52,15 +52,15 @@ public class MathUtils {
 		double speed = mods.getSpeedMultiplier();
 		switch (gamemode) {
 			case OSU:
-				return (int) (difficultyRange(od, 140, 100, 60, mods) / speed);
+    return (int) (difficultyRange(od, 140, 100, 60, mods) / speed);
 			case TAIKO:
-				return (int) (difficultyRange(od, 120, 80, 50, mods) / speed);
+    return (int) (difficultyRange(od, 120, 80, 50, mods) / speed);
 			case CATCH:
-				return -1;
+    return -1;
 			case MANIA:
-				return -1;
+    return -1;
 			default:
-				return -1;
+    return -1;
 		}
 	}
 
@@ -68,15 +68,15 @@ public class MathUtils {
 		double speed = mods.getSpeedMultiplier();
 		switch (gamemode) {
 			case OSU:
-				return (int) (difficultyRange(od, 80, 50, 20, mods) / speed);
+    return (int) (difficultyRange(od, 80, 50, 20, mods) / speed);
 			case TAIKO:
-				return (int) (difficultyRange(od, 50, 35, 20, mods) / speed);
+    return (int) (difficultyRange(od, 50, 35, 20, mods) / speed);
 			case CATCH:
-				return -1;
+    return -1;
 			case MANIA:
-				return -1;
+    return -1;
 			default:
-				return -1;
+    return -1;
 		}
 	}
 

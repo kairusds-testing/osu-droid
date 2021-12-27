@@ -40,7 +40,7 @@ public class StringUtils {
 			final StringBuilder sb = new StringBuilder();
 
 			for(int i = padCount - 1; i >= 0; i--) {
-				sb.append(pPadChar);
+    sb.append(pPadChar);
 			}
 			sb.append(pString);
 
@@ -95,9 +95,9 @@ public class StringUtils {
 			int to;
 
 			for (int i = 0; i < partCount - 1; i++) {
-				to = pString.indexOf(pCharacter, from);
-				out[i] = pString.substring(from, to);
-				from = to + 1;
+    to = pString.indexOf(pCharacter, from);
+    out[i] = pString.substring(from, to);
+    from = to + 1;
 			}
 
 			out[partCount - 1] = pString.substring(from, pString.length());

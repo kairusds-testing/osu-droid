@@ -23,7 +23,7 @@ public class GameObjectData {
 		if (dataSize < data.length) {
 			rawdata = new String[dataSize];
 			for (int i = 0; i < rawdata.length; i++) {
-				rawdata[i] = data[i];
+    rawdata[i] = data[i];
 			}
 		} else
 			rawdata = data;
@@ -31,7 +31,7 @@ public class GameObjectData {
 		time = Integer.parseInt(rawdata[2]);
 		comboCode = Integer.parseInt(rawdata[3]);
 		pos = Utils.trackToRealCoords(new PointF(Float.parseFloat(rawdata[0]),
-				Float.parseFloat(rawdata[1])));
+    Float.parseFloat(rawdata[1])));
 		posOffset = 0;
 	}
 
@@ -51,16 +51,16 @@ public class GameObjectData {
 		if (rawdata.length >= 8) {
 			final int repeats = Integer.parseInt(rawdata[6]);
 			if ((repeats % 2) != 1) {
-				return pos;
+    return pos;
 			}
 			final String[] endP = rawdata[5].substring(
-					rawdata[5].lastIndexOf('|') + 1).split("[:]");
+    	rawdata[5].lastIndexOf('|') + 1).split("[:]");
 			PointF end;
 			try {
-				end = Utils.trackToRealCoords(new PointF(Float
-						.parseFloat(endP[0]), Float.parseFloat(endP[1])));
+    end = Utils.trackToRealCoords(new PointF(Float
+    		.parseFloat(endP[0]), Float.parseFloat(endP[1])));
 			} catch (final NumberFormatException e) {
-				end = pos;
+    end = pos;
 			}
 			return end;
 		}

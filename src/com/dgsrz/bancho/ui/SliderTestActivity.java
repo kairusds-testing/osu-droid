@@ -33,8 +33,8 @@ public class SliderTestActivity extends BaseGameActivity {
 	public Engine onLoadEngine() {
 		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
+    EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+    camera));
 	}
 
 	@Override

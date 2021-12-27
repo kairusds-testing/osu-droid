@@ -38,7 +38,7 @@ public class OnlineInitializer implements View.OnClickListener {
 		btn = (Button) registerDialog.findViewById(R.id.cancel_btn);
 		if (btn != null) btn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				registerDialog.dismiss();
+    registerDialog.dismiss();
 			}
 		});
 
@@ -48,13 +48,13 @@ public class OnlineInitializer implements View.OnClickListener {
 
 	public void onClick(View v) {
 		final String username = ((EditText) registerDialog.findViewById(R.id.username_edit))
-				.getText().toString();
+    .getText().toString();
 		final String password = ((EditText) registerDialog.findViewById(R.id.password_edit))
-				.getText().toString();
+    .getText().toString();
 		final String confirm_password = ((EditText) registerDialog.findViewById(R.id.confirm_password_edit))
-				.getText().toString();
+    .getText().toString();
 		final String email = ((EditText) registerDialog.findViewById(R.id.email_edit))
-				.getText().toString();
+    .getText().toString();
 
 		final TextView errorText = (TextView) registerDialog.findViewById(R.id.register_error_text);
 		errorText.setText("");
@@ -77,8 +77,8 @@ public class OnlineInitializer implements View.OnClickListener {
 		}
 
 		final ProgressDialog pdialog = ProgressDialog.show(activity,
-				StringTable.get(R.string.online_registration),
-				StringTable.get(R.string.online_registration_process));
+    StringTable.get(R.string.online_registration),
+    StringTable.get(R.string.online_registration_process));
 
 		new AsyncTaskLoader().execute(new OsuAsyncCallback() {
 			private boolean success = false;
@@ -86,43 +86,43 @@ public class OnlineInitializer implements View.OnClickListener {
 
 			public void run() {
 
-				try {
-					success = OnlineManager.getInstance().register(username, password, email,
-							Config.getOnlineDeviceID());
-				} catch (OnlineManagerException e) {
-					resultMessage = e.getMessage();
-					ToastLogger.showText(resultMessage, true);
-					return;
-				}
+    try {
+    	success = OnlineManager.getInstance().register(username, password, email,
+    			Config.getOnlineDeviceID());
+    } catch (OnlineManagerException e) {
+    	resultMessage = e.getMessage();
+    	ToastLogger.showText(resultMessage, true);
+    	return;
+    }
 
-				//Error check
-				resultMessage = OnlineManager.getInstance().getFailMessage();
+    //Error check
+    resultMessage = OnlineManager.getInstance().getFailMessage();
 			}
 
 			public void onComplete() {
-				activity.runOnUiThread(new Runnable() {
-					public void run() {
-						pdialog.dismiss();
-						if (success)
-							registerDialog.dismiss();
-						errorText.setText(resultMessage);
-					}
-				});
-				final SharedPreferences prefs = PreferenceManager
-						.getDefaultSharedPreferences(activity);
+    activity.runOnUiThread(new Runnable() {
+    	public void run() {
+    		pdialog.dismiss();
+    		if (success)
+    			registerDialog.dismiss();
+    		errorText.setText(resultMessage);
+    	}
+    });
+    final SharedPreferences prefs = PreferenceManager
+    		.getDefaultSharedPreferences(activity);
 
-				//Save changes
-				Editor editor = prefs.edit();
-				if (prefs.getBoolean("onlineSet", false) == false || success) {
-					editor.putBoolean("stayOnline", success);
-					editor.putString("onlineUsername", username);
-					editor.putString("onlinePassword", password);
-				}
-				editor.putBoolean("onlineSet", true);
-				editor.commit();
-				if (success) {
-					ToastLogger.showTextId(R.string.online_regcomplete, true);
-				}
+    //Save changes
+    Editor editor = prefs.edit();
+    if (prefs.getBoolean("onlineSet", false) == false || success) {
+    	editor.putBoolean("stayOnline", success);
+    	editor.putString("onlineUsername", username);
+    	editor.putString("onlinePassword", password);
+    }
+    editor.putBoolean("onlineSet", true);
+    editor.commit();
+    if (success) {
+    	ToastLogger.showTextId(R.string.online_regcomplete, true);
+    }
 			}
 		});
 	}

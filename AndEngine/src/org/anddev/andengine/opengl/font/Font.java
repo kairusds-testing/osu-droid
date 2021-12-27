@@ -213,13 +213,13 @@ public class Font {
 			final float textureHeight = this.mTextureHeight;
 
 			for(int i = lettersPendingToBeDrawnToTexture.size() - 1; i >= 0; i--) {
-				final Letter letter = lettersPendingToBeDrawnToTexture.get(i);
-				final Bitmap bitmap = this.getLetterBitmap(letter.mCharacter);
+    final Letter letter = lettersPendingToBeDrawnToTexture.get(i);
+    final Bitmap bitmap = this.getLetterBitmap(letter.mCharacter);
 
-				// TODO What about premultiplyalpha of the textureOptions?
-				GLUtils.texSubImage2D(GL10.GL_TEXTURE_2D, 0, (int)(letter.mTextureX * textureWidth), (int)(letter.mTextureY * textureHeight), bitmap);
+    // TODO What about premultiplyalpha of the textureOptions?
+    GLUtils.texSubImage2D(GL10.GL_TEXTURE_2D, 0, (int)(letter.mTextureX * textureWidth), (int)(letter.mTextureY * textureHeight), bitmap);
 
-				bitmap.recycle();
+    bitmap.recycle();
 			}
 			lettersPendingToBeDrawnToTexture.clear();
 			System.gc();

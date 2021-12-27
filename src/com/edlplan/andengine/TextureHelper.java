@@ -44,7 +44,7 @@ public class TextureHelper {
 	public static TextureRegion createRegion(Bitmap bitmap) {
 		int tw = 4, th = 4;
 		final QualityFileBitmapSource source = new QualityFileBitmapSource(
-				createFactoryFromBitmap(bitmap));
+    createFactoryFromBitmap(bitmap));
 		if (source.getWidth() == 0 || source.getHeight() == 0) {
 			return null;
 		}
@@ -65,7 +65,7 @@ public class TextureHelper {
 		final BitmapTextureAtlas tex = new BitmapTextureAtlas(tw, th, TextureOptions.BILINEAR);
 
 		TextureRegion region = TextureRegionFactory.createFromSource(tex, source, 0, 0,
-				false);
+    false);
 		GlobalManager.getInstance().getEngine().getTextureManager().loadTexture(tex);
 		return region;
 	}
@@ -75,7 +75,7 @@ public class TextureHelper {
 		bmp.eraseColor(color);
 		int tw = 4, th = 4;
 		final QualityFileBitmapSource source = new QualityFileBitmapSource(
-				createMemoryFactoryFromBitmap(bmp));
+    createMemoryFactoryFromBitmap(bmp));
 		if (source.getWidth() == 0 || source.getHeight() == 0) {
 			return null;
 		}
@@ -96,7 +96,7 @@ public class TextureHelper {
 		final BitmapTextureAtlas tex = new BitmapTextureAtlas(tw, th, TextureOptions.BILINEAR);
 
 		TextureRegion region = TextureRegionFactory.createFromSource(tex, source, 0, 0,
-				false);
+    false);
 		GlobalManager.getInstance().getEngine().getTextureManager().loadTexture(tex);
 		return region;
 	}

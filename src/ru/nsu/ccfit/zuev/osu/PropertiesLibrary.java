@@ -42,22 +42,22 @@ public class PropertiesLibrary {
 
 		try {
 			final ObjectInputStream istream = new ObjectInputStream(
-					new FileInputStream(lib));
+    	new FileInputStream(lib));
 			Object obj = istream.readObject();
 			if (obj instanceof String) {
-				if (((String) obj).equals(version) == false) {
-					istream.close();
-					return;
-				}
+    if (((String) obj).equals(version) == false) {
+    	istream.close();
+    	return;
+    }
 			} else {
-				istream.close();
-				return;
+    istream.close();
+    return;
 			}
 			obj = istream.readObject();
 			if (obj instanceof Map<?, ?>) {
-				props = (Map<String, BeatmapProperties>) obj;
-				istream.close();
-				Debug.i("Properties loaded");
+    props = (Map<String, BeatmapProperties>) obj;
+    istream.close();
+    Debug.i("Properties loaded");
 			}
 			istream.close();
 		} catch (final FileNotFoundException e) {
@@ -74,19 +74,19 @@ public class PropertiesLibrary {
 		final File lib = new File(activity.getFilesDir(), "properties");
 		try {
 			final ObjectOutputStream ostream = new ObjectOutputStream(
-					new FileOutputStream(lib));
+    	new FileOutputStream(lib));
 			ostream.writeObject(version);
 			ostream.writeObject(props);
 			ostream.close();
 		} catch (final FileNotFoundException e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("PropertiesLibrary: " + e.getMessage(), e);
 		} catch (final IOException e) {
 			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
+    	StringTable.format(R.string.message_error, e.getMessage()),
+    	false);
 			Debug.e("PropertiesLibrary: " + e.getMessage(), e);
 		}
 	}
@@ -112,7 +112,7 @@ public class PropertiesLibrary {
 
 
 			public void run() {
-				save(context);
+    save(context);
 			}
 
 
@@ -129,7 +129,7 @@ public class PropertiesLibrary {
 	}
 
 	public void setProperties(final String path,
-							  final BeatmapProperties properties) {
+    			  final BeatmapProperties properties) {
 		this.load((Activity) context);
 		props.put(path, properties);
 		if (properties.favorite == false && properties.getOffset() == 0) {

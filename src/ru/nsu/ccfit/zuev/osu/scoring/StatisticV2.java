@@ -54,7 +54,7 @@ public class StatisticV2 implements Serializable {
 		if (Config.isStayOnline()) {
 			playerName = OnlineManager.getInstance().getUsername();
 			if (playerName == null || playerName.length() == 0)
-				playerName = Config.getOnlineUsername();
+    playerName = Config.getOnlineUsername();
 		}
 
 		if (playerName == null || playerName.length() == 0)
@@ -141,7 +141,7 @@ public class StatisticV2 implements Serializable {
 		float mult = 1;
 		for (GameMod m : mod) {
 			if (m.unranked) {
-				continue;
+    continue;
 			}
 			mult *= m.scoreMultiplier;
 		}
@@ -169,7 +169,7 @@ public class StatisticV2 implements Serializable {
 		if (score == 0 && k == true) {
 			changeHp(-(5 + GameHelper.getDrain()) / 100f);
 			if (currentCombo > maxCombo) {
-				maxCombo = currentCombo;
+    maxCombo = currentCombo;
 			}
 			currentCombo = 0;
 			return;
@@ -180,41 +180,41 @@ public class StatisticV2 implements Serializable {
 
 		switch (score) {
 			case 300:
-				changeHp(k ? 0.10f : 0.05f);
-				if (g) {
-					hit300k++;
-				}
-				hit300++;
-				addScore(300, true);
-				realScore += 300;
-				currentCombo++;
-				break;
+    changeHp(k ? 0.10f : 0.05f);
+    if (g) {
+    	hit300k++;
+    }
+    hit300++;
+    addScore(300, true);
+    realScore += 300;
+    currentCombo++;
+    break;
 			case 100:
-				changeHp(k ? 0.15f : 0.05f);
-				if (k) {
-					hit100k++;
-				}
-				hit100++;
-				addScore(100, true);
-				realScore += 100;
-				currentCombo++;
-				break;
+    changeHp(k ? 0.15f : 0.05f);
+    if (k) {
+    	hit100k++;
+    }
+    hit100++;
+    addScore(100, true);
+    realScore += 100;
+    currentCombo++;
+    break;
 			case 50:
-				changeHp(0.05f);
-				hit50++;
-				addScore(50, true);
-				realScore += 50;
-				currentCombo++;
-				break;
+    changeHp(0.05f);
+    hit50++;
+    addScore(50, true);
+    realScore += 50;
+    currentCombo++;
+    break;
 			default:
-				changeHp(-(5 + GameHelper.getDrain()) / 100f);
-				misses++;
-				perfect = false;
-				if (currentCombo > maxCombo) {
-					maxCombo = currentCombo;
-				}
-				currentCombo = 0;
-				break;
+    changeHp(-(5 + GameHelper.getDrain()) / 100f);
+    misses++;
+    perfect = false;
+    if (currentCombo > maxCombo) {
+    	maxCombo = currentCombo;
+    }
+    currentCombo = 0;
+    break;
 		}
 	}
 
@@ -239,7 +239,7 @@ public class StatisticV2 implements Serializable {
 		//如果使用scorev2
 		if (mod.contains(GameMod.MOD_SCOREV2)){
 			if (amount == 1000) {
-				bonusScore += amount;
+    bonusScore += amount;
 			}
 			float percentage = (float)(notes) / maxObjectsCount;
 			//get real maxcb
@@ -248,33 +248,33 @@ public class StatisticV2 implements Serializable {
 			//get real acc
 			float acc = 0;
 			if (possibleScore > 0){
-				switch (amount) {
-					case 300:
-						acc = (realScore + 300) / (float) possibleScore;
-						break;
-					case 100:
-						acc = (realScore + 100) / (float) possibleScore;
-						break;
-					case 50:
-						acc = (realScore + 50) / (float) possibleScore;
-						break;
-					default:
-						acc = realScore / (float) possibleScore;
-						break;
-				}
+    switch (amount) {
+    	case 300:
+    		acc = (realScore + 300) / (float) possibleScore;
+    		break;
+    	case 100:
+    		acc = (realScore + 100) / (float) possibleScore;
+    		break;
+    	case 50:
+    		acc = (realScore + 50) / (float) possibleScore;
+    		break;
+    	default:
+    		acc = realScore / (float) possibleScore;
+    		break;
+    }
 			}
 			totalScore = (int)(MAX_SCORE * (ACC_PORTION * Math.pow(acc , 10) * percentage
-					+ COMBO_PORTION * maxcb / maxHighestCombo) + bonusScore);
+    	+ COMBO_PORTION * maxcb / maxHighestCombo) + bonusScore);
 		} else{
 			//如果分数溢出或分数满了
 			if (totalScore + (amount * currentCombo * diffModifier) / 25 + amount < 0 || totalScore == Integer.MAX_VALUE){
-				totalScore = Integer.MAX_VALUE;
+    totalScore = Integer.MAX_VALUE;
 			}
 			else{
-				totalScore += amount;
-				if (combo) {
-					totalScore += (amount * currentCombo * diffModifier) / 25;
-				}
+    totalScore += amount;
+    if (combo) {
+    	totalScore += (amount * currentCombo * diffModifier) / 25;
+    }
 			}
 		}
 		scoreHash = SecurityUtils.getHigh16Bits(totalScore);
@@ -287,36 +287,36 @@ public class StatisticV2 implements Serializable {
 		forcycle:
 		for (final GameMod m : mod) {
 			switch (m) {
-				case MOD_HIDDEN:
-					isH = true;
-					break forcycle;
-				case MOD_FLASHLIGHT:
-					isH = true;
-					break forcycle;
-				default:
-					break;
+    case MOD_HIDDEN:
+    	isH = true;
+    	break forcycle;
+    case MOD_FLASHLIGHT:
+    	isH = true;
+    	break forcycle;
+    default:
+    	break;
 			}
 		}
 
 		if (hit100 == 0 && hit50 == 0 && misses == 0) {
 			if (isH) {
-				return "XH";
+    return "XH";
 			}
 			return "X";
 		}
 		if ((hit300) / (float) notes > 0.9f && misses == 0
-				&& hit50 / (float) notes < 0.01f) {
+    && hit50 / (float) notes < 0.01f) {
 			if (isH) {
-				return "SH";
+    return "SH";
 			}
 			return "S";
 		}
 		if ((hit300) / (float) notes > 0.8f && misses == 0
-				|| (hit300) / (float) notes > 0.9f) {
+    || (hit300) / (float) notes > 0.9f) {
 			return "A";
 		}
 		if ((hit300) / (float) notes > 0.7f && misses == 0
-				|| (hit300) / (float) notes > 0.8f) {
+    || (hit300) / (float) notes > 0.8f) {
 			return "B";
 		}
 		if ((hit300) / (float) notes > 0.6f) {
@@ -500,57 +500,57 @@ public class StatisticV2 implements Serializable {
 		mod = EnumSet.noneOf(GameMod.class);
 		for (int i = 0; i < strMod[0].length(); i++) {
 			switch (strMod[0].charAt(i)) {
-				case 'a':
-					mod.add(GameMod.MOD_AUTO);
-					break;
-				case 'x':
-					mod.add(GameMod.MOD_RELAX);
-					break;
-				case 'p':
-					mod.add(GameMod.MOD_AUTOPILOT);
-					break;
-				case 'e':
-					mod.add(GameMod.MOD_EASY);
-					break;
-				case 'n':
-					mod.add(GameMod.MOD_NOFAIL);
-					break;
-				case 'r':
-					mod.add(GameMod.MOD_HARDROCK);
-					break;
-				case 'h':
-					mod.add(GameMod.MOD_HIDDEN);
-					break;
-				case 'i':
-					mod.add(GameMod.MOD_FLASHLIGHT);
-					break;
-				case 'd':
-					mod.add(GameMod.MOD_DOUBLETIME);
-					break;
-				case 'c':
-					mod.add(GameMod.MOD_NIGHTCORE);
-					break;
-				case 't':
-					mod.add(GameMod.MOD_HALFTIME);
-					break;
-				case 's':
-					mod.add(GameMod.MOD_PRECISE);
-					break;
-				case 'm':
-					mod.add(GameMod.MOD_SMALLCIRCLE);
-					break;	
-				case 'l':
-					mod.add(GameMod.MOD_REALLYEASY);
-					break;	
-				case 'u':
-					mod.add(GameMod.MOD_SUDDENDEATH);
-					break;	
-				case 'f':
-					mod.add(GameMod.MOD_PERFECT);
-					break;
-				case 'v':
-					mod.add(GameMod.MOD_SCOREV2);
-					break;   
+    case 'a':
+    	mod.add(GameMod.MOD_AUTO);
+    	break;
+    case 'x':
+    	mod.add(GameMod.MOD_RELAX);
+    	break;
+    case 'p':
+    	mod.add(GameMod.MOD_AUTOPILOT);
+    	break;
+    case 'e':
+    	mod.add(GameMod.MOD_EASY);
+    	break;
+    case 'n':
+    	mod.add(GameMod.MOD_NOFAIL);
+    	break;
+    case 'r':
+    	mod.add(GameMod.MOD_HARDROCK);
+    	break;
+    case 'h':
+    	mod.add(GameMod.MOD_HIDDEN);
+    	break;
+    case 'i':
+    	mod.add(GameMod.MOD_FLASHLIGHT);
+    	break;
+    case 'd':
+    	mod.add(GameMod.MOD_DOUBLETIME);
+    	break;
+    case 'c':
+    	mod.add(GameMod.MOD_NIGHTCORE);
+    	break;
+    case 't':
+    	mod.add(GameMod.MOD_HALFTIME);
+    	break;
+    case 's':
+    	mod.add(GameMod.MOD_PRECISE);
+    	break;
+    case 'm':
+    	mod.add(GameMod.MOD_SMALLCIRCLE);
+    	break;	
+    case 'l':
+    	mod.add(GameMod.MOD_REALLYEASY);
+    	break;	
+    case 'u':
+    	mod.add(GameMod.MOD_SUDDENDEATH);
+    	break;	
+    case 'f':
+    	mod.add(GameMod.MOD_PERFECT);
+    	break;
+    case 'v':
+    	mod.add(GameMod.MOD_SCOREV2);
+    	break;   
 			}
 		}
 		if (strMod.length > 1)
@@ -710,15 +710,15 @@ public class StatisticV2 implements Serializable {
 	public void setExtraModFromString(String s) {
 		for (String str: s.split("\\|")){
 			if (str.startsWith("x") && str.length() == 5){
-				changeSpeed = Float.parseFloat(str.substring(1));
-				continue;
+    changeSpeed = Float.parseFloat(str.substring(1));
+    continue;
 			}
 			if (str.startsWith("AR")){
-				enableForceAR = true;
-				forceAR = Float.parseFloat(str.substring(2));
+    enableForceAR = true;
+    forceAR = Float.parseFloat(str.substring(2));
 			}
 			if (str.startsWith("FLD")) {
-				flFollowDelay = Float.parseFloat(str.substring(3));
+    flFollowDelay = Float.parseFloat(str.substring(3));
 			}
 		}
 	}

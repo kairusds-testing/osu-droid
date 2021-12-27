@@ -38,19 +38,19 @@ public class BassAudioProvider {
 		if (fileName != null && fileName.length() > 0) {
 			channel = BASS.BASS_StreamCreateFile(fileName, 0, 0, fileFlag);  // BASS.BASS_STREAM_DECODE
 			if (decoder > 0) {
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, 0);
-				BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, 0);
+    BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq);
 
-				if (decoder == DECODER_DOUBLE_TIME) {
-					float targetTempo = multiplier - 100.0f;
-					BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value);
-					BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, targetTempo);
+    if (decoder == DECODER_DOUBLE_TIME) {
+    	float targetTempo = multiplier - 100.0f;
+    	BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value);
+    	BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, targetTempo);
 
-				} else if (decoder == DECODER_NIGHT_CORE) {
-					float targetFreq = multiplier / 100.0f;
-					BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value * targetFreq);
-					BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 1.0f);
-				}
+    } else if (decoder == DECODER_NIGHT_CORE) {
+    	float targetFreq = multiplier / 100.0f;
+    	BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value * targetFreq);
+    	BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 1.0f);
+    }
 			}
 		}
 		return channel != 0;
@@ -62,19 +62,19 @@ public class BassAudioProvider {
 			BASS.Asset asset = new BASS.Asset(manager, assetName);
 			channel = BASS.BASS_StreamCreateFile(asset, 0, 0, fileFlag);
 			if (decoder > 0) {
-				channel = BASS_FX.BASS_FX_TempoCreate(channel, 0);
-				BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq);
+    channel = BASS_FX.BASS_FX_TempoCreate(channel, 0);
+    BASS.BASS_ChannelGetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq);
 
-				if (decoder == DECODER_DOUBLE_TIME) {
-					float targetTempo = multiplier - 100.0f;
-					BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value);
-					BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, targetTempo);
+    if (decoder == DECODER_DOUBLE_TIME) {
+    	float targetTempo = multiplier - 100.0f;
+    	BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value);
+    	BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, targetTempo);
 
-				} else if (decoder == DECODER_NIGHT_CORE) {
-					float targetFreq = multiplier / 100.0f;
-					BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value * targetFreq);
-					BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 1.0f);
-				}
+    } else if (decoder == DECODER_NIGHT_CORE) {
+    	float targetFreq = multiplier / 100.0f;
+    	BASS.BASS_ChannelSetAttribute(channel, BASS.BASS_ATTRIB_FREQ, freq.value * targetFreq);
+    	BASS.BASS_ChannelSetAttribute(channel, BASS_FX.BASS_ATTRIB_TEMPO, 1.0f);
+    }
 			}
 		}
 		return channel != 0;
@@ -83,9 +83,9 @@ public class BassAudioProvider {
 	public void play() {
 		if (channel != 0) {
 			if (BASS.BASS_ChannelIsActive(channel) == BASS.BASS_ACTIVE_PAUSED) {
-				BASS.BASS_ChannelPlay(channel, false);
+    BASS.BASS_ChannelPlay(channel, false);
 			} else {
-				BASS.BASS_ChannelPlay(channel, true);
+    BASS.BASS_ChannelPlay(channel, true);
 			}
 		}
 	}
@@ -160,7 +160,7 @@ public class BassAudioProvider {
 		if (channel != 0) {
 			long pos = BASS.BASS_ChannelGetPosition(channel, BASS.BASS_POS_BYTE);
 			if (pos != -1) {
-				return BASS.BASS_ChannelBytes2Seconds(channel, pos);
+    return BASS.BASS_ChannelBytes2Seconds(channel, pos);
 			}
 		}
 		return 0f;
@@ -170,7 +170,7 @@ public class BassAudioProvider {
 		if (channel != 0) {
 			long length = BASS.BASS_ChannelGetLength(channel, BASS.BASS_POS_BYTE);
 			if (length != -1) {
-				return BASS.BASS_ChannelBytes2Seconds(channel, length);
+    return BASS.BASS_ChannelBytes2Seconds(channel, length);
 			}
 		}
 		return 0f;

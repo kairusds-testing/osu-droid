@@ -78,9 +78,9 @@ public class TextureManager {
 			/* If the Texture is loaded, unload it.
 			 * If the Texture is about to be loaded, stop it from being loaded. */
 			if(this.mTexturesLoaded.contains(pTexture)){
-				this.mTexturesToBeUnloaded.add(pTexture);
+    this.mTexturesToBeUnloaded.add(pTexture);
 			} else if(this.mTexturesToBeLoaded.remove(pTexture)){
-				this.mTexturesManaged.remove(pTexture);
+    this.mTexturesManaged.remove(pTexture);
 			}
 			return true;
 		} else {
@@ -124,14 +124,14 @@ public class TextureManager {
 
 		if(textursLoadedCount > 0){
 			for(int i = textursLoadedCount - 1; i >= 0; i--){
-				final ITexture textureToBeReloaded = texturesLoaded.get(i);
-				if(textureToBeReloaded.isUpdateOnHardwareNeeded()){
-					try {
-						textureToBeReloaded.reloadToHardware(pGL);
-					} catch(IOException e) {
-						Debug.e(e);
-					}
-				}
+    final ITexture textureToBeReloaded = texturesLoaded.get(i);
+    if(textureToBeReloaded.isUpdateOnHardwareNeeded()){
+    	try {
+    		textureToBeReloaded.reloadToHardware(pGL);
+    	} catch(IOException e) {
+    		Debug.e(e);
+    	}
+    }
 			}
 		}
 
@@ -140,15 +140,15 @@ public class TextureManager {
 
 		if(texturesToBeLoadedCount > 0){
 			for(int i = texturesToBeLoadedCount - 1; i >= 0; i--){
-				final ITexture textureToBeLoaded = texturesToBeLoaded.remove(i);
-				if(!textureToBeLoaded.isLoadedToHardware()){
-					try {
-						textureToBeLoaded.loadToHardware(pGL);
-					} catch(IOException e) {
-						Debug.e(e);
-					}
-				}
-				texturesLoaded.add(textureToBeLoaded);
+    final ITexture textureToBeLoaded = texturesToBeLoaded.remove(i);
+    if(!textureToBeLoaded.isLoadedToHardware()){
+    	try {
+    		textureToBeLoaded.loadToHardware(pGL);
+    	} catch(IOException e) {
+    		Debug.e(e);
+    	}
+    }
+    texturesLoaded.add(textureToBeLoaded);
 			}
 		}
 
@@ -157,12 +157,12 @@ public class TextureManager {
 
 		if(texturesToBeUnloadedCount > 0){
 			for(int i = texturesToBeUnloadedCount - 1; i >= 0; i--){
-				final ITexture textureToBeUnloaded = texturesToBeUnloaded.remove(i);
-				if(textureToBeUnloaded.isLoadedToHardware()){
-					textureToBeUnloaded.unloadFromHardware(pGL);
-				}
-				texturesLoaded.remove(textureToBeUnloaded);
-				texturesManaged.remove(textureToBeUnloaded);
+    final ITexture textureToBeUnloaded = texturesToBeUnloaded.remove(i);
+    if(textureToBeUnloaded.isLoadedToHardware()){
+    	textureToBeUnloaded.unloadFromHardware(pGL);
+    }
+    texturesLoaded.remove(textureToBeUnloaded);
+    texturesManaged.remove(textureToBeUnloaded);
 			}
 		}
 

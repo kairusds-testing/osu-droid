@@ -39,12 +39,12 @@ public class QualityFileBitmapSource extends BaseTextureAtlasSource implements
 	}
 
 	public QualityFileBitmapSource(final File pFile,
-								   final int pTexturePositionX, final int pTexturePositionY) {
+           final int pTexturePositionX, final int pTexturePositionY) {
 		this(() -> new FileInputStream(pFile), pTexturePositionX, pTexturePositionY);
 	}
 
 	public QualityFileBitmapSource(final InputFactory pFile,
-								   final int pTexturePositionX, final int pTexturePositionY) {
+           final int pTexturePositionX, final int pTexturePositionY) {
 		super(pTexturePositionX, pTexturePositionY);
 
 		fileBitmapInput = pFile;
@@ -62,7 +62,7 @@ public class QualityFileBitmapSource extends BaseTextureAtlasSource implements
 			this.mHeight = decodeOptions.outHeight;
 		} catch (final IOException e) {
 			Debug.e("Failed loading Bitmap in FileBitmapTextureAtlasSource. File: "
-					+ pFile, e);
+    	+ pFile, e);
 			this.mWidth = 0;
 			this.mHeight = 0;
 		} finally {
@@ -72,7 +72,7 @@ public class QualityFileBitmapSource extends BaseTextureAtlasSource implements
 	}
 
 	QualityFileBitmapSource(final InputFactory pFile, final int pTexturePositionX,
-							final int pTexturePositionY, final int pWidth, final int pHeight) {
+    			final int pTexturePositionY, final int pWidth, final int pHeight) {
 		super(pTexturePositionX, pTexturePositionY);
 		fileBitmapInput = pFile;
 		this.mWidth = pWidth;
@@ -86,7 +86,7 @@ public class QualityFileBitmapSource extends BaseTextureAtlasSource implements
 
 	public QualityFileBitmapSource deepCopy() {
 		QualityFileBitmapSource source = new QualityFileBitmapSource(this.fileBitmapInput, this.mTexturePositionX,
-				this.mTexturePositionY, this.mWidth, this.mHeight);
+    this.mTexturePositionY, this.mWidth, this.mHeight);
 		source.inSampleSize = inSampleSize;
 		return source;
 	}
@@ -131,8 +131,8 @@ public class QualityFileBitmapSource extends BaseTextureAtlasSource implements
 			return BitmapFactory.decodeStream(in, null, decodeOptions);
 		} catch (final IOException e) {
 			Debug.e("Failed loading Bitmap in "
-							+ this.getClass().getSimpleName() + ". File: " + this.fileBitmapInput,
-					e);
+    			+ this.getClass().getSimpleName() + ". File: " + this.fileBitmapInput,
+    	e);
 			return null;
 		} finally {
 			StreamUtils.close(in);
