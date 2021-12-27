@@ -11,66 +11,66 @@ import org.anddev.andengine.util.modifier.SequenceModifier;
  * @since 15:04:02 - 03.09.2010
  */
 public class SequenceBackgroundModifier extends SequenceModifier<IBackground> implements IBackgroundModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SequenceBackgroundModifier(final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pBackgroundModifiers);
-	}
-	
-	public SequenceBackgroundModifier(final ISubSequenceBackgroundModifierListener pSubSequenceBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pSubSequenceBackgroundModifierListener, pBackgroundModifiers);
-	}
+    public SequenceBackgroundModifier(final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pBackgroundModifiers);
+    }
+    
+    public SequenceBackgroundModifier(final ISubSequenceBackgroundModifierListener pSubSequenceBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pSubSequenceBackgroundModifierListener, pBackgroundModifiers);
+    }
 
-	public SequenceBackgroundModifier(final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pBackgroundModifierListener, pBackgroundModifiers);
-	}
+    public SequenceBackgroundModifier(final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pBackgroundModifierListener, pBackgroundModifiers);
+    }
 
-	public SequenceBackgroundModifier(final ISubSequenceBackgroundModifierListener pSubSequenceBackgroundModifierListener, final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pSubSequenceBackgroundModifierListener, pBackgroundModifierListener, pBackgroundModifiers);
-	}
+    public SequenceBackgroundModifier(final ISubSequenceBackgroundModifierListener pSubSequenceBackgroundModifierListener, final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pSubSequenceBackgroundModifierListener, pBackgroundModifierListener, pBackgroundModifiers);
+    }
 
-	protected SequenceBackgroundModifier(final SequenceBackgroundModifier pSequenceBackgroundModifier) throws DeepCopyNotSupportedException {
-		super(pSequenceBackgroundModifier);
-	}
+    protected SequenceBackgroundModifier(final SequenceBackgroundModifier pSequenceBackgroundModifier) throws DeepCopyNotSupportedException {
+        super(pSequenceBackgroundModifier);
+    }
 
-	@Override
-	public SequenceBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
-		return new SequenceBackgroundModifier(this);
-	}
+    @Override
+    public SequenceBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
+        return new SequenceBackgroundModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public interface ISubSequenceBackgroundModifierListener extends ISubSequenceModifierListener<IBackground> {
-		// ===========================================================
-		// Final Fields
-		// ===========================================================
+    public interface ISubSequenceBackgroundModifierListener extends ISubSequenceModifierListener<IBackground> {
+        // ===========================================================
+        // Final Fields
+        // ===========================================================
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
-	}
+        // ===========================================================
+        // Methods
+        // ===========================================================
+    }
 }

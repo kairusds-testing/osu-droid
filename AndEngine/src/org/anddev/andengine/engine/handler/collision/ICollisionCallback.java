@@ -10,18 +10,18 @@ import org.anddev.andengine.entity.shape.IShape;
  * @since 12:05:39 - 11.03.2010
  */
 public interface ICollisionCallback {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	/**
-	 * @param pCheckShape
-	 * @param pTargetShape
-	 * @return <code>true</code> to proceed, <code>false</code> to stop further collosion-checks.
-	 */
-	public boolean onCollision(final IShape pCheckShape, final IShape pTargetShape);
+    /**
+     * @param pCheckShape
+     * @param pTargetShape
+     * @return <code>true</code> to proceed, <code>false</code> to stop further collosion-checks.
+     */
+    public boolean onCollision(final IShape pCheckShape, final IShape pTargetShape);
 }

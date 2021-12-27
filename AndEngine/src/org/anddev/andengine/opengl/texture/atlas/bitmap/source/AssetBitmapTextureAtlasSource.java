@@ -20,108 +20,108 @@ import android.graphics.BitmapFactory;
  * @since 12:07:52 - 09.03.2010
  */
 public class AssetBitmapTextureAtlasSource extends BaseTextureAtlasSource implements IBitmapTextureAtlasSource {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final int mWidth;
-	private final int mHeight;
+    private final int mWidth;
+    private final int mHeight;
 
-	private final String mAssetPath;
-	private final Context mContext;
+    private final String mAssetPath;
+    private final Context mContext;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath) {
-		this(pContext, pAssetPath, 0, 0);
-	}
+    public AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath) {
+        this(pContext, pAssetPath, 0, 0);
+    }
 
-	public AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath, final int pTexturePositionX, final int pTexturePositionY) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mAssetPath = pAssetPath;
+    public AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath, final int pTexturePositionX, final int pTexturePositionY) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mAssetPath = pAssetPath;
 
-		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-		decodeOptions.inJustDecodeBounds = true;
+        final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+        decodeOptions.inJustDecodeBounds = true;
 
-		InputStream in = null;
-		try {
-			in = pContext.getAssets().open(pAssetPath);
-			BitmapFactory.decodeStream(in, null, decodeOptions);
-		} catch (final IOException e) {
-			Debug.e("Failed loading Bitmap in AssetBitmapTextureAtlasSource. AssetPath: " + pAssetPath, e);
-		} finally {
-			StreamUtils.close(in);
-		}
+        InputStream in = null;
+        try {
+            in = pContext.getAssets().open(pAssetPath);
+            BitmapFactory.decodeStream(in, null, decodeOptions);
+        } catch (final IOException e) {
+            Debug.e("Failed loading Bitmap in AssetBitmapTextureAtlasSource. AssetPath: " + pAssetPath, e);
+        } finally {
+            StreamUtils.close(in);
+        }
 
-		this.mWidth = decodeOptions.outWidth;
-		this.mHeight = decodeOptions.outHeight;
-	}
+        this.mWidth = decodeOptions.outWidth;
+        this.mHeight = decodeOptions.outHeight;
+    }
 
-	AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mAssetPath = pAssetPath;
-		this.mWidth = pWidth;
-		this.mHeight = pHeight;
-	}
+    AssetBitmapTextureAtlasSource(final Context pContext, final String pAssetPath, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mAssetPath = pAssetPath;
+        this.mWidth = pWidth;
+        this.mHeight = pHeight;
+    }
 
-	@Override
-	public AssetBitmapTextureAtlasSource deepCopy() {
-		return new AssetBitmapTextureAtlasSource(this.mContext, this.mAssetPath, this.mTexturePositionX, this.mTexturePositionY, this.mWidth, this.mHeight);
-	}
+    @Override
+    public AssetBitmapTextureAtlasSource deepCopy() {
+        return new AssetBitmapTextureAtlasSource(this.mContext, this.mAssetPath, this.mTexturePositionX, this.mTexturePositionY, this.mWidth, this.mHeight);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public int getWidth() {
-		return this.mWidth;
-	}
+    @Override
+    public int getWidth() {
+        return this.mWidth;
+    }
 
-	@Override
-	public int getHeight() {
-		return this.mHeight;
-	}
+    @Override
+    public int getHeight() {
+        return this.mHeight;
+    }
 
-	@Override
-	public Bitmap onLoadBitmap(final Config pBitmapConfig) {
-		InputStream in = null;
-		try {
-			final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-			decodeOptions.inPreferredConfig = pBitmapConfig;
+    @Override
+    public Bitmap onLoadBitmap(final Config pBitmapConfig) {
+        InputStream in = null;
+        try {
+            final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+            decodeOptions.inPreferredConfig = pBitmapConfig;
 
-			in = this.mContext.getAssets().open(this.mAssetPath);
-			return BitmapFactory.decodeStream(in, null, decodeOptions);
-		} catch (final IOException e) {
-			Debug.e("Failed loading Bitmap in " + this.getClass().getSimpleName() + ". AssetPath: " + this.mAssetPath, e);
-			return null;
-		} finally {
-			StreamUtils.close(in);
-		}
-	}
+            in = this.mContext.getAssets().open(this.mAssetPath);
+            return BitmapFactory.decodeStream(in, null, decodeOptions);
+        } catch (final IOException e) {
+            Debug.e("Failed loading Bitmap in " + this.getClass().getSimpleName() + ". AssetPath: " + this.mAssetPath, e);
+            return null;
+        } finally {
+            StreamUtils.close(in);
+        }
+    }
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "(" + this.mAssetPath + ")";
-	}
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "(" + this.mAssetPath + ")";
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -8,13 +8,13 @@ package org.anddev.andengine.sensor.accelerometer;
  * @since 16:58:38 - 10.03.2010
  */
 public interface IAccelerometerListener {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void onAccelerometerChanged(final AccelerometerData pAccelerometerData);
+    public void onAccelerometerChanged(final AccelerometerData pAccelerometerData);
 }

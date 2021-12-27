@@ -9,53 +9,53 @@ package org.anddev.andengine.util.modifier.ease;
  * @since 16:52:11 - 26.07.2010
  */
 public class EaseQuadIn implements IEaseFunction {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static EaseQuadIn INSTANCE;
+    private static EaseQuadIn INSTANCE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	private EaseQuadIn() {
+    private EaseQuadIn() {
 
-	}
+    }
 
-	public static EaseQuadIn getInstance() {
-		if(INSTANCE == null) {
-			INSTANCE = new EaseQuadIn();
-		}
-		return INSTANCE;
-	}
+    public static EaseQuadIn getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EaseQuadIn();
+        }
+        return INSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
-		return EaseQuadIn.getValue(pSecondsElapsed / pDuration);
-	}
+    @Override
+    public float getPercentage(final float pSecondsElapsed, final float pDuration) {
+        return EaseQuadIn.getValue(pSecondsElapsed / pDuration);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static float getValue(final float pPercentage) {
-		return pPercentage * pPercentage;
-	}
+    public static float getValue(final float pPercentage) {
+        return pPercentage * pPercentage;
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

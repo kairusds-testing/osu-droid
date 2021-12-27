@@ -15,66 +15,66 @@ import android.preference.PreferenceManager;
  * @since 18:55:12 - 02.08.2010
  */
 public class SimplePreferences implements Constants {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static SharedPreferences INSTANCE;
-	private static Editor EDITORINSTANCE;
+    private static SharedPreferences INSTANCE;
+    private static Editor EDITORINSTANCE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public static SharedPreferences getInstance(final Context pContext) {
-		if(SimplePreferences.INSTANCE == null) {
-			SimplePreferences.INSTANCE = PreferenceManager.getDefaultSharedPreferences(pContext);
-		}
-		return SimplePreferences.INSTANCE;
-	}
+    public static SharedPreferences getInstance(final Context pContext) {
+        if(SimplePreferences.INSTANCE == null) {
+            SimplePreferences.INSTANCE = PreferenceManager.getDefaultSharedPreferences(pContext);
+        }
+        return SimplePreferences.INSTANCE;
+    }
 
-	public static Editor getEditorInstance(final Context pContext) {
-		if(SimplePreferences.EDITORINSTANCE == null) {
-			SimplePreferences.EDITORINSTANCE = SimplePreferences.getInstance(pContext).edit();
-		}
-		return SimplePreferences.EDITORINSTANCE;
-	}
+    public static Editor getEditorInstance(final Context pContext) {
+        if(SimplePreferences.EDITORINSTANCE == null) {
+            SimplePreferences.EDITORINSTANCE = SimplePreferences.getInstance(pContext).edit();
+        }
+        return SimplePreferences.EDITORINSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static int incrementAccessCount(final Context pContext, final String pKey) {
-		return SimplePreferences.incrementAccessCount(pContext, pKey, 1);
-	}
+    public static int incrementAccessCount(final Context pContext, final String pKey) {
+        return SimplePreferences.incrementAccessCount(pContext, pKey, 1);
+    }
 
-	public static int incrementAccessCount(final Context pContext, final String pKey, final int pIncrement) {
-		final SharedPreferences prefs = SimplePreferences.getInstance(pContext);
-		final int accessCount = prefs.getInt(pKey, 0);
+    public static int incrementAccessCount(final Context pContext, final String pKey, final int pIncrement) {
+        final SharedPreferences prefs = SimplePreferences.getInstance(pContext);
+        final int accessCount = prefs.getInt(pKey, 0);
 
-		final int newAccessCount = accessCount + pIncrement;
-		prefs.edit().putInt(pKey, newAccessCount).commit();
+        final int newAccessCount = accessCount + pIncrement;
+        prefs.edit().putInt(pKey, newAccessCount).commit();
 
-		return newAccessCount;
-	}
+        return newAccessCount;
+    }
 
-	public static int getAccessCount(final Context pCtx, final String pKey) {
-		return SimplePreferences.getInstance(pCtx).getInt(pKey, 0);
-	}
+    public static int getAccessCount(final Context pCtx, final String pKey) {
+        return SimplePreferences.getInstance(pCtx).getInt(pKey, 0);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

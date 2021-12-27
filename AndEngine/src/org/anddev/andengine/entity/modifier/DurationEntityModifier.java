@@ -11,43 +11,43 @@ import org.anddev.andengine.util.modifier.BaseDurationModifier;
  * @since 16:10:42 - 19.03.2010
  */
 public abstract class DurationEntityModifier extends BaseDurationModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public DurationEntityModifier(final float pDuration) {
-		super(pDuration);
-	}
+    public DurationEntityModifier(final float pDuration) {
+        super(pDuration);
+    }
 
-	public DurationEntityModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener) {
-		super(pDuration, pEntityModifierListener);
-	}
+    public DurationEntityModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener) {
+        super(pDuration, pEntityModifierListener);
+    }
 
-	protected DurationEntityModifier(final DurationEntityModifier pDurationEntityModifier) {
-		super(pDurationEntityModifier);
-	}
+    protected DurationEntityModifier(final DurationEntityModifier pDurationEntityModifier) {
+        super(pDurationEntityModifier);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

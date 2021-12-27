@@ -12,41 +12,41 @@ import android.view.View.MeasureSpec;
  * @since 11:22:48 - 29.03.2010
  */
 public class FillResolutionPolicy extends BaseResolutionPolicy {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onMeasure(final RenderSurfaceView pRenderSurfaceView, final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
-		BaseResolutionPolicy.throwOnNotMeasureSpecEXACTLY(pWidthMeasureSpec, pHeightMeasureSpec);
+    @Override
+    public void onMeasure(final RenderSurfaceView pRenderSurfaceView, final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
+        BaseResolutionPolicy.throwOnNotMeasureSpecEXACTLY(pWidthMeasureSpec, pHeightMeasureSpec);
 
-		final int measuredWidth = MeasureSpec.getSize(pWidthMeasureSpec);
-		final int measuredHeight = MeasureSpec.getSize(pHeightMeasureSpec);
+        final int measuredWidth = MeasureSpec.getSize(pWidthMeasureSpec);
+        final int measuredHeight = MeasureSpec.getSize(pHeightMeasureSpec);
 
-		pRenderSurfaceView.setMeasuredDimensionProxy(measuredWidth, measuredHeight);
-	}
+        pRenderSurfaceView.setMeasuredDimensionProxy(measuredWidth, measuredHeight);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

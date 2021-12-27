@@ -30,250 +30,250 @@ import android.widget.FrameLayout.LayoutParams;
  * @since 11:27:06 - 08.03.2010
  */
 public abstract class BaseGameActivity extends BaseActivity implements IGameInterface {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected Engine mEngine;
-	private WakeLock mWakeLock;
-	protected RenderSurfaceView mRenderSurfaceView;
-	protected boolean mHasWindowFocused;
-	private boolean mPaused;
-	private boolean mGameLoaded;
+    protected Engine mEngine;
+    private WakeLock mWakeLock;
+    protected RenderSurfaceView mRenderSurfaceView;
+    protected boolean mHasWindowFocused;
+    private boolean mPaused;
+    private boolean mGameLoaded;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	@Override
-	protected void onCreate(final Bundle pSavedInstanceState) {
-		super.onCreate(pSavedInstanceState);
-		this.mPaused = true;
+    @Override
+    protected void onCreate(final Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPaused = true;
 
-		this.mEngine = this.onLoadEngine();
-		if (this.mEngine == null) {
-			return;
-		}
-
-		this.applyEngineOptions(this.mEngine.getEngineOptions());
-
-		this.onSetContentView();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (this.mEngine == null) {
-			return;
-		}
-		if(this.mPaused && this.mHasWindowFocused) {
-			this.doResume();
-		}
-	}
-
-	@Override
-	public void onWindowFocusChanged(final boolean pHasWindowFocus) {
-		super.onWindowFocusChanged(pHasWindowFocus);
-		if (this.mEngine == null) {
-			return;
-		}
-		if(pHasWindowFocus) {
-			if(this.mPaused) {
-				this.doResume();
-			}
-			this.mHasWindowFocused = true;
-		} else {
-			/* if(!this.mPaused) {
-				this.doPause();
-			} */
-			this.mHasWindowFocused = false;
-		}
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		if (this.mEngine == null) {
-			return;
-		}
-		if(!this.mPaused) {
-			this.doPause();
-		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+        this.mEngine = this.onLoadEngine();
         if (this.mEngine == null) {
             return;
         }
-		android.os.Process.killProcess(android.os.Process.myPid());
 
-		this.mEngine.interruptUpdateThread();
+        this.applyEngineOptions(this.mEngine.getEngineOptions());
 
-		this.onUnloadResources();
-	}
+        this.onSetContentView();
+    }
 
-	@Override
-	public void onUnloadResources() {
-		if (this.mEngine == null) {
-			return;
-		}
-		if(this.mEngine.getEngineOptions().needsMusic()) {
-			this.getMusicManager().releaseAll();
-		}
-		if(this.mEngine.getEngineOptions().needsSound()) {
-			this.getSoundManager().releaseAll();
-		}
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.mEngine == null) {
+            return;
+        }
+        if(this.mPaused && this.mHasWindowFocused) {
+            this.doResume();
+        }
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    @Override
+    public void onWindowFocusChanged(final boolean pHasWindowFocus) {
+        super.onWindowFocusChanged(pHasWindowFocus);
+        if (this.mEngine == null) {
+            return;
+        }
+        if(pHasWindowFocus) {
+            if(this.mPaused) {
+                this.doResume();
+            }
+            this.mHasWindowFocused = true;
+        } else {
+            /* if(!this.mPaused) {
+                this.doPause();
+            } */
+            this.mHasWindowFocused = false;
+        }
+    }
 
-	public Engine getEngine() {
-		return this.mEngine;
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.mEngine == null) {
+            return;
+        }
+        if(!this.mPaused) {
+            this.doPause();
+        }
+    }
 
-	public TextureManager getTextureManager() {
-		return this.mEngine.getTextureManager();
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (this.mEngine == null) {
+            return;
+        }
+        android.os.Process.killProcess(android.os.Process.myPid());
 
-	public FontManager getFontManager() {
-		return this.mEngine.getFontManager();
-	}
+        this.mEngine.interruptUpdateThread();
 
-	public SoundManager getSoundManager() {
-		return this.mEngine.getSoundManager();
-	}
+        this.onUnloadResources();
+    }
 
-	public MusicManager getMusicManager() {
-		return this.mEngine.getMusicManager();
-	}
+    @Override
+    public void onUnloadResources() {
+        if (this.mEngine == null) {
+            return;
+        }
+        if(this.mEngine.getEngineOptions().needsMusic()) {
+            this.getMusicManager().releaseAll();
+        }
+        if(this.mEngine.getEngineOptions().needsSound()) {
+            this.getSoundManager().releaseAll();
+        }
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	@Override
-	public void onResumeGame() {
+    public Engine getEngine() {
+        return this.mEngine;
+    }
 
-	}
+    public TextureManager getTextureManager() {
+        return this.mEngine.getTextureManager();
+    }
 
-	@Override
-	public void onPauseGame() {
+    public FontManager getFontManager() {
+        return this.mEngine.getFontManager();
+    }
 
-	}
+    public SoundManager getSoundManager() {
+        return this.mEngine.getSoundManager();
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    public MusicManager getMusicManager() {
+        return this.mEngine.getMusicManager();
+    }
 
-	private void doResume() {
-		if (this.mEngine == null) {
-			return;
-		}
-		if(!this.mGameLoaded) {
-			this.onLoadResources();
-			final Scene scene = this.onLoadScene();
-			this.mEngine.onLoadComplete(scene);
-			this.onLoadComplete();
-			this.mGameLoaded = true;
-		}
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-		this.mPaused = false;
-		this.acquireWakeLock(this.mEngine.getEngineOptions().getWakeLockOptions());
-		this.mEngine.onResume();
+    @Override
+    public void onResumeGame() {
 
-		this.mRenderSurfaceView.onResume();
-		this.mEngine.start();
-		this.onResumeGame();
-	}
+    }
 
-	private void doPause() {
-		if (this.mEngine == null) {
-			return;
-		}
-		this.mPaused = true;
-		this.releaseWakeLock();
+    @Override
+    public void onPauseGame() {
 
-		this.mEngine.onPause();
-		this.mEngine.stop();
-		this.mRenderSurfaceView.onPause();
-		this.onPauseGame();
-	}
+    }
 
-	public void runOnUpdateThread(final Runnable pRunnable) {
-		if (this.mEngine == null) {
-			return;
-		}
-		this.mEngine.runOnUpdateThread(pRunnable);
-	}
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	protected void onSetContentView() {
-		if (this.mEngine == null) {
-			return;
-		}
-		this.mRenderSurfaceView = new RenderSurfaceView(this);
-		this.mRenderSurfaceView.setEGLConfigChooser(false);
-		this.mRenderSurfaceView.setRenderer(this.mEngine);
+    private void doResume() {
+        if (this.mEngine == null) {
+            return;
+        }
+        if(!this.mGameLoaded) {
+            this.onLoadResources();
+            final Scene scene = this.onLoadScene();
+            this.mEngine.onLoadComplete(scene);
+            this.onLoadComplete();
+            this.mGameLoaded = true;
+        }
 
-		this.setContentView(this.mRenderSurfaceView, this.createSurfaceViewLayoutParams());
-	}
+        this.mPaused = false;
+        this.acquireWakeLock(this.mEngine.getEngineOptions().getWakeLockOptions());
+        this.mEngine.onResume();
 
-	private void acquireWakeLock(final WakeLockOptions pWakeLockOptions) {
-		if(pWakeLockOptions == WakeLockOptions.SCREEN_ON) {
-			ActivityUtils.keepScreenOn(this);
-		} else {
-			final PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-			this.mWakeLock = pm.newWakeLock(pWakeLockOptions.getFlag() | PowerManager.ON_AFTER_RELEASE, "andengine:AndEngine");
-			try {
-				this.mWakeLock.acquire();
-			} catch (final SecurityException e) {
-				Debug.e("You have to add\n\t<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>\nto your AndroidManifest.xml !", e);
-			}
-		}
-	}
+        this.mRenderSurfaceView.onResume();
+        this.mEngine.start();
+        this.onResumeGame();
+    }
 
-	private void releaseWakeLock() {
-		if(this.mWakeLock != null && this.mWakeLock.isHeld()) {
-			this.mWakeLock.release();
-		}
-	}
+    private void doPause() {
+        if (this.mEngine == null) {
+            return;
+        }
+        this.mPaused = true;
+        this.releaseWakeLock();
 
-	private void applyEngineOptions(final EngineOptions pEngineOptions) {
-		if(pEngineOptions.isFullscreen()) {
-			ActivityUtils.requestFullscreen(this);
-		}
+        this.mEngine.onPause();
+        this.mEngine.stop();
+        this.mRenderSurfaceView.onPause();
+        this.onPauseGame();
+    }
 
-		if(pEngineOptions.needsMusic() || pEngineOptions.needsSound()) {
-			this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		}
+    public void runOnUpdateThread(final Runnable pRunnable) {
+        if (this.mEngine == null) {
+            return;
+        }
+        this.mEngine.runOnUpdateThread(pRunnable);
+    }
 
-		if (pEngineOptions.getScreenOrientation() != null) {
-			switch (pEngineOptions.getScreenOrientation()) {
+    protected void onSetContentView() {
+        if (this.mEngine == null) {
+            return;
+        }
+        this.mRenderSurfaceView = new RenderSurfaceView(this);
+        this.mRenderSurfaceView.setEGLConfigChooser(false);
+        this.mRenderSurfaceView.setRenderer(this.mEngine);
 
-				case LANDSCAPE:
-					this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-					break;
-				case PORTRAIT:
-					this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-					break;
-			}
-		}
-	}
+        this.setContentView(this.mRenderSurfaceView, this.createSurfaceViewLayoutParams());
+    }
 
-	protected LayoutParams createSurfaceViewLayoutParams() {
-		final LayoutParams layoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-		layoutParams.gravity = Gravity.CENTER;
-		return layoutParams;
-	}
+    private void acquireWakeLock(final WakeLockOptions pWakeLockOptions) {
+        if(pWakeLockOptions == WakeLockOptions.SCREEN_ON) {
+            ActivityUtils.keepScreenOn(this);
+        } else {
+            final PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+            this.mWakeLock = pm.newWakeLock(pWakeLockOptions.getFlag() | PowerManager.ON_AFTER_RELEASE, "andengine:AndEngine");
+            try {
+                this.mWakeLock.acquire();
+            } catch (final SecurityException e) {
+                Debug.e("You have to add\n\t<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>\nto your AndroidManifest.xml !", e);
+            }
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    private void releaseWakeLock() {
+        if(this.mWakeLock != null && this.mWakeLock.isHeld()) {
+            this.mWakeLock.release();
+        }
+    }
+
+    private void applyEngineOptions(final EngineOptions pEngineOptions) {
+        if(pEngineOptions.isFullscreen()) {
+            ActivityUtils.requestFullscreen(this);
+        }
+
+        if(pEngineOptions.needsMusic() || pEngineOptions.needsSound()) {
+            this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        }
+
+        if (pEngineOptions.getScreenOrientation() != null) {
+            switch (pEngineOptions.getScreenOrientation()) {
+
+                case LANDSCAPE:
+                    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    break;
+                case PORTRAIT:
+                    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    break;
+            }
+        }
+    }
+
+    protected LayoutParams createSurfaceViewLayoutParams() {
+        final LayoutParams layoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+        return layoutParams;
+    }
+
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

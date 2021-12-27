@@ -15,62 +15,62 @@ import org.anddev.andengine.util.HorizontalAlign;
  * @since 17:19:30 - 03.08.2010
  */
 public class TextPopupScene extends PopupScene {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final Text mText;
+    private final Text mText;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds) {
-		this(pCamera, pParentScene, pFont, pText, pDurationSeconds, null, null);
-	}
+    public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds) {
+        this(pCamera, pParentScene, pFont, pText, pDurationSeconds, null, null);
+    }
 
-	public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final IEntityModifier pShapeModifier) {
-		this(pCamera, pParentScene, pFont, pText, pDurationSeconds, pShapeModifier, null);
-	}
+    public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final IEntityModifier pShapeModifier) {
+        this(pCamera, pParentScene, pFont, pText, pDurationSeconds, pShapeModifier, null);
+    }
 
-	public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final Runnable pRunnable) {
-		this(pCamera, pParentScene, pFont, pText, pDurationSeconds, null, pRunnable);
-	}
+    public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final Runnable pRunnable) {
+        this(pCamera, pParentScene, pFont, pText, pDurationSeconds, null, pRunnable);
+    }
 
-	public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final IEntityModifier pShapeModifier, final Runnable pRunnable) {
-		super(pCamera, pParentScene, pDurationSeconds, pRunnable);
+    public TextPopupScene(final Camera pCamera, final Scene pParentScene, final Font pFont, final String pText, final float pDurationSeconds, final IEntityModifier pShapeModifier, final Runnable pRunnable) {
+        super(pCamera, pParentScene, pDurationSeconds, pRunnable);
 
-		this.mText = new Text(0, 0, pFont, pText, HorizontalAlign.CENTER);
-		this.centerShapeInCamera(this.mText);
+        this.mText = new Text(0, 0, pFont, pText, HorizontalAlign.CENTER);
+        this.centerShapeInCamera(this.mText);
 
-		if(pShapeModifier != null) {
-			this.mText.registerEntityModifier(pShapeModifier);
-		}
+        if(pShapeModifier != null) {
+            this.mText.registerEntityModifier(pShapeModifier);
+        }
 
-		this.attachChild(this.mText);
-	}
+        this.attachChild(this.mText);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public Text getText() {
-		return this.mText;
-	}
+    public Text getText() {
+        return this.mText;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

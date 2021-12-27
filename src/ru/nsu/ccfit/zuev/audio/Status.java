@@ -5,8 +5,8 @@ package ru.nsu.ccfit.zuev.audio;
  */
 public enum Status {
 
-	STOPPED,
-	PLAYING,
-	PAUSED,
-	STALLED
+    STOPPED,
+    PLAYING,
+    PAUSED,
+    STALLED
 }

@@ -10,62 +10,62 @@ package org.anddev.andengine.util.pool;
  * @since 23:02:47 - 21.08.2010
  */
 public abstract class PoolItem {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	Pool<? extends PoolItem> mParent;
-	boolean mRecycled = true;
+    Pool<? extends PoolItem> mParent;
+    boolean mRecycled = true;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public Pool<? extends PoolItem> getParent() {
-		return this.mParent;
-	}
+    public Pool<? extends PoolItem> getParent() {
+        return this.mParent;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public boolean isRecycled() {
-		return this.mRecycled;
-	}
+    public boolean isRecycled() {
+        return this.mRecycled;
+    }
 
-	public boolean isFromPool(final Pool<? extends PoolItem> pPool) {
-		return pPool == this.mParent;
-	}
+    public boolean isFromPool(final Pool<? extends PoolItem> pPool) {
+        return pPool == this.mParent;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	protected void onRecycle() {
+    protected void onRecycle() {
 
-	}
+    }
 
-	protected void onObtain() {
+    protected void onObtain() {
 
-	}
+    }
 
-	public void recycle() {
-		if(this.mParent == null) {
-			throw new IllegalStateException("Item already recycled!");
-		}
+    public void recycle() {
+        if(this.mParent == null) {
+            throw new IllegalStateException("Item already recycled!");
+        }
 
-		this.mParent.recycle(this);
-	}
+        this.mParent.recycle(this);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

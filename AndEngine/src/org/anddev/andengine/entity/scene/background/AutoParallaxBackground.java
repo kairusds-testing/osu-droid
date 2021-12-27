@@ -10,49 +10,49 @@ package org.anddev.andengine.entity.scene.background;
  * @since 19:44:31 - 19.07.2010
  */
 public class AutoParallaxBackground extends ParallaxBackground {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private float mParallaxChangePerSecond;
+    private float mParallaxChangePerSecond;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public AutoParallaxBackground(final float pRed, final float pGreen, final float pBlue, final float pParallaxChangePerSecond) {
-		super(pRed, pGreen, pBlue);
-		this.mParallaxChangePerSecond = pParallaxChangePerSecond;
-	}
+    public AutoParallaxBackground(final float pRed, final float pGreen, final float pBlue, final float pParallaxChangePerSecond) {
+        super(pRed, pGreen, pBlue);
+        this.mParallaxChangePerSecond = pParallaxChangePerSecond;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public void setParallaxChangePerSecond(final float pParallaxChangePerSecond) {
-		this.mParallaxChangePerSecond = pParallaxChangePerSecond;
-	}
+    public void setParallaxChangePerSecond(final float pParallaxChangePerSecond) {
+        this.mParallaxChangePerSecond = pParallaxChangePerSecond;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onUpdate(final float pSecondsElapsed) {
-		super.onUpdate(pSecondsElapsed);
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
+        super.onUpdate(pSecondsElapsed);
 
-		this.mParallaxValue += this.mParallaxChangePerSecond * pSecondsElapsed;
-	}
+        this.mParallaxValue += this.mParallaxChangePerSecond * pSecondsElapsed;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

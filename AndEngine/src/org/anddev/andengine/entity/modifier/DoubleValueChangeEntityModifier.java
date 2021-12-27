@@ -10,43 +10,43 @@ import org.anddev.andengine.util.modifier.BaseDoubleValueChangeModifier;
  * @since 14:27:48 - 10.08.2011
  */
 public abstract class DoubleValueChangeEntityModifier extends BaseDoubleValueChangeModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public DoubleValueChangeEntityModifier(float pDuration, float pValueChangeA, float pValueChangeB) {
-		super(pDuration, pValueChangeA, pValueChangeB);
-	}
+    public DoubleValueChangeEntityModifier(float pDuration, float pValueChangeA, float pValueChangeB) {
+        super(pDuration, pValueChangeA, pValueChangeB);
+    }
 
-	public DoubleValueChangeEntityModifier(float pDuration, float pValueChangeA, float pValueChangeB, IEntityModifierListener pModifierListener) {
-		super(pDuration, pValueChangeA, pValueChangeB, pModifierListener);
-	}
+    public DoubleValueChangeEntityModifier(float pDuration, float pValueChangeA, float pValueChangeB, IEntityModifierListener pModifierListener) {
+        super(pDuration, pValueChangeA, pValueChangeB, pModifierListener);
+    }
 
-	public DoubleValueChangeEntityModifier(DoubleValueChangeEntityModifier pDoubleValueChangeEntityModifier) {
-		super(pDoubleValueChangeEntityModifier);
-	}
+    public DoubleValueChangeEntityModifier(DoubleValueChangeEntityModifier pDoubleValueChangeEntityModifier) {
+        super(pDoubleValueChangeEntityModifier);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -5,6 +5,6 @@ package ru.nsu.ccfit.zuev.osu.storyboard;
  */
 public class HitSound {
 
-	public int soundType;//Normal 0, Whistle 2, Finish 4, Clap 8
-	public long time;
+    public int soundType;//Normal 0, Whistle 2, Finish 4, Clap 8
+    public long time;
 }

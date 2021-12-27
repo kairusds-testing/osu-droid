@@ -11,122 +11,122 @@ import org.anddev.andengine.engine.options.resolutionpolicy.IResolutionPolicy;
  * @since 15:59:52 - 09.03.2010
  */
 public class EngineOptions {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final boolean mFullscreen;
-	private final ScreenOrientation mScreenOrientation;
-	private final IResolutionPolicy mResolutionPolicy;
-	private final Camera mCamera;
+    private final boolean mFullscreen;
+    private final ScreenOrientation mScreenOrientation;
+    private final IResolutionPolicy mResolutionPolicy;
+    private final Camera mCamera;
 
-	private final TouchOptions mTouchOptions = new TouchOptions();
-	private final RenderOptions mRenderOptions = new RenderOptions();
+    private final TouchOptions mTouchOptions = new TouchOptions();
+    private final RenderOptions mRenderOptions = new RenderOptions();
 
-	private boolean mNeedsSound;
-	private boolean mNeedsMusic;
-	private WakeLockOptions mWakeLockOptions = WakeLockOptions.SCREEN_BRIGHT;
-	private int mUpdateThreadPriority = android.os.Process.THREAD_PRIORITY_DEFAULT;;
+    private boolean mNeedsSound;
+    private boolean mNeedsMusic;
+    private WakeLockOptions mWakeLockOptions = WakeLockOptions.SCREEN_BRIGHT;
+    private int mUpdateThreadPriority = android.os.Process.THREAD_PRIORITY_DEFAULT;;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public EngineOptions(final boolean pFullscreen, final ScreenOrientation pScreenOrientation, final IResolutionPolicy pResolutionPolicy, final Camera pCamera) {
-		this.mFullscreen = pFullscreen;
-		this.mScreenOrientation = pScreenOrientation;
-		this.mResolutionPolicy = pResolutionPolicy;
-		this.mCamera = pCamera;
-	}
+    public EngineOptions(final boolean pFullscreen, final ScreenOrientation pScreenOrientation, final IResolutionPolicy pResolutionPolicy, final Camera pCamera) {
+        this.mFullscreen = pFullscreen;
+        this.mScreenOrientation = pScreenOrientation;
+        this.mResolutionPolicy = pResolutionPolicy;
+        this.mCamera = pCamera;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public TouchOptions getTouchOptions() {
-		return this.mTouchOptions;
-	}
+    public TouchOptions getTouchOptions() {
+        return this.mTouchOptions;
+    }
 
-	public RenderOptions getRenderOptions() {
-		return this.mRenderOptions;
-	}
+    public RenderOptions getRenderOptions() {
+        return this.mRenderOptions;
+    }
 
-	public boolean isFullscreen() {
-		return this.mFullscreen;
-	}
+    public boolean isFullscreen() {
+        return this.mFullscreen;
+    }
 
-	public ScreenOrientation getScreenOrientation() {
-		return this.mScreenOrientation;
-	}
+    public ScreenOrientation getScreenOrientation() {
+        return this.mScreenOrientation;
+    }
 
-	public IResolutionPolicy getResolutionPolicy() {
-		return this.mResolutionPolicy;
-	}
+    public IResolutionPolicy getResolutionPolicy() {
+        return this.mResolutionPolicy;
+    }
 
-	public Camera getCamera() {
-		return this.mCamera;
-	}
+    public Camera getCamera() {
+        return this.mCamera;
+    }
 
-	public int getUpdateThreadPriority() {
-		return this.mUpdateThreadPriority;
-	}
+    public int getUpdateThreadPriority() {
+        return this.mUpdateThreadPriority;
+    }
 
-	/**
-	 * @param pUpdateThreadPriority Use constants from: {@link android.os.Process}.
-	 */
-	public void setUpdateThreadPriority(final int pUpdateThreadPriority) {
-		this.mUpdateThreadPriority = pUpdateThreadPriority;
-	}
+    /**
+     * @param pUpdateThreadPriority Use constants from: {@link android.os.Process}.
+     */
+    public void setUpdateThreadPriority(final int pUpdateThreadPriority) {
+        this.mUpdateThreadPriority = pUpdateThreadPriority;
+    }
 
-	public boolean needsSound() {
-		return this.mNeedsSound;
-	}
+    public boolean needsSound() {
+        return this.mNeedsSound;
+    }
 
-	public EngineOptions setNeedsSound(final boolean pNeedsSound) {
-		this.mNeedsSound = pNeedsSound;
-		return this;
-	}
+    public EngineOptions setNeedsSound(final boolean pNeedsSound) {
+        this.mNeedsSound = pNeedsSound;
+        return this;
+    }
 
-	public boolean needsMusic() {
-		return this.mNeedsMusic;
-	}
+    public boolean needsMusic() {
+        return this.mNeedsMusic;
+    }
 
-	public EngineOptions setNeedsMusic(final boolean pNeedsMusic) {
-		this.mNeedsMusic = pNeedsMusic;
-		return this;
-	}
+    public EngineOptions setNeedsMusic(final boolean pNeedsMusic) {
+        this.mNeedsMusic = pNeedsMusic;
+        return this;
+    }
 
-	public WakeLockOptions getWakeLockOptions() {
-		return this.mWakeLockOptions;
-	}
+    public WakeLockOptions getWakeLockOptions() {
+        return this.mWakeLockOptions;
+    }
 
-	public EngineOptions setWakeLockOptions(final WakeLockOptions pWakeLockOptions) {
-		this.mWakeLockOptions = pWakeLockOptions;
-		return this;
-	}
+    public EngineOptions setWakeLockOptions(final WakeLockOptions pWakeLockOptions) {
+        this.mWakeLockOptions = pWakeLockOptions;
+        return this;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public static enum ScreenOrientation {
-		// ===========================================================
-		// Elements
-		// ===========================================================
+    public static enum ScreenOrientation {
+        // ===========================================================
+        // Elements
+        // ===========================================================
 
-		LANDSCAPE,
-		PORTRAIT;
-	}
+        LANDSCAPE,
+        PORTRAIT;
+    }
 }

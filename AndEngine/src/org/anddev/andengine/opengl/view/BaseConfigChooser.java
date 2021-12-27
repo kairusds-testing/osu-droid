@@ -15,59 +15,59 @@ import javax.microedition.khronos.egl.EGLDisplay;
  * @since 20:42:29 - 28.06.2010
  */
 abstract class BaseConfigChooser implements EGLConfigChooser {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected final int[] mConfigSpec;
+    protected final int[] mConfigSpec;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseConfigChooser(final int[] pConfigSpec) {
-		this.mConfigSpec = pConfigSpec;
-	}
+    public BaseConfigChooser(final int[] pConfigSpec) {
+        this.mConfigSpec = pConfigSpec;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	abstract EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay, final EGLConfig[] pEGLConfigs);
+    abstract EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay, final EGLConfig[] pEGLConfigs);
 
-	@Override
-	public EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay) {
-		final int[] num_config = new int[1];
-		pEGL.eglChooseConfig(pEGLDisplay, this.mConfigSpec, null, 0, num_config);
+    @Override
+    public EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay) {
+        final int[] num_config = new int[1];
+        pEGL.eglChooseConfig(pEGLDisplay, this.mConfigSpec, null, 0, num_config);
 
-		final int numConfigs = num_config[0];
+        final int numConfigs = num_config[0];
 
-		if(numConfigs <= 0) {
-			throw new IllegalArgumentException("No configs match configSpec");
-		}
+        if(numConfigs <= 0) {
+            throw new IllegalArgumentException("No configs match configSpec");
+        }
 
-		final EGLConfig[] configs = new EGLConfig[numConfigs];
-		pEGL.eglChooseConfig(pEGLDisplay, this.mConfigSpec, configs, numConfigs, num_config);
-		final EGLConfig config = this.chooseConfig(pEGL, pEGLDisplay, configs);
-		if(config == null) {
-			throw new IllegalArgumentException("No config chosen");
-		}
-		return config;
-	}
+        final EGLConfig[] configs = new EGLConfig[numConfigs];
+        pEGL.eglChooseConfig(pEGLDisplay, this.mConfigSpec, configs, numConfigs, num_config);
+        final EGLConfig config = this.chooseConfig(pEGL, pEGLDisplay, configs);
+        if(config == null) {
+            throw new IllegalArgumentException("No config chosen");
+        }
+        return config;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

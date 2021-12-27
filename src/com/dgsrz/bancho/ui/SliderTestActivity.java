@@ -21,50 +21,50 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
  */
 public class SliderTestActivity extends BaseGameActivity {
 
-	private static final int INVALID_POINTER_ID = -1;
+    private static final int INVALID_POINTER_ID = -1;
 
-	private static final int CAMERA_WIDTH = 640;
-	private static final int CAMERA_HEIGHT = 360;
+    private static final int CAMERA_WIDTH = 640;
+    private static final int CAMERA_HEIGHT = 360;
 
-	private BitmapTextureAtlas bitmapAtlas;
-	private TextureRegion mCursorTextureRegion;
+    private BitmapTextureAtlas bitmapAtlas;
+    private TextureRegion mCursorTextureRegion;
 
-	@Override
-	public Engine onLoadEngine() {
-		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
-	}
+    @Override
+    public Engine onLoadEngine() {
+        Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        return new Engine(new EngineOptions(true,
+                EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+                camera));
+    }
 
-	@Override
-	public void onLoadResources() {
-		bitmapAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bitmapAtlas, this, "cursor.png", 0, 0);
-		getEngine().getTextureManager().loadTexture(bitmapAtlas);
-	}
+    @Override
+    public void onLoadResources() {
+        bitmapAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        mCursorTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(bitmapAtlas, this, "cursor.png", 0, 0);
+        getEngine().getTextureManager().loadTexture(bitmapAtlas);
+    }
 
-	@Override
-	public Scene onLoadScene() {
-		final Scene scene = new Scene();
-		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
-		this.mEngine.registerUpdateHandler(new FPSLogger());
+    @Override
+    public Scene onLoadScene() {
+        final Scene scene = new Scene();
+        scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
+        this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		Sprite mCursor = new Sprite(0, 0, this.mCursorTextureRegion);
-		mCursor.setZIndex(1);
-		scene.attachChild(mCursor);
+        Sprite mCursor = new Sprite(0, 0, this.mCursorTextureRegion);
+        mCursor.setZIndex(1);
+        scene.attachChild(mCursor);
 
-		Sprite mCursor2 = new Sprite(16, 16, this.mCursorTextureRegion);
-		mCursor2.setZIndex(0);
-		scene.attachChild(mCursor2);
+        Sprite mCursor2 = new Sprite(16, 16, this.mCursorTextureRegion);
+        mCursor2.setZIndex(0);
+        scene.attachChild(mCursor2);
 
-		scene.sortChildren();
-		return scene;
-	}
+        scene.sortChildren();
+        return scene;
+    }
 
-	@Override
-	public void onLoadComplete() {
+    @Override
+    public void onLoadComplete() {
 
-	}
+    }
 }

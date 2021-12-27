@@ -10,100 +10,100 @@ import org.anddev.andengine.engine.handler.IUpdateHandler;
  * @since 16:23:58 - 12.03.2010
  */
 public class TimerHandler implements IUpdateHandler {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private float mTimerSeconds;
-	private float mTimerSecondsElapsed;
-	private boolean mTimerCallbackTriggered;
-	protected final ITimerCallback mTimerCallback;
-	private boolean mAutoReset;
+    private float mTimerSeconds;
+    private float mTimerSecondsElapsed;
+    private boolean mTimerCallbackTriggered;
+    protected final ITimerCallback mTimerCallback;
+    private boolean mAutoReset;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TimerHandler(final float pTimerSeconds, final ITimerCallback pTimerCallback) {
-		this(pTimerSeconds, false, pTimerCallback);
-	}
+    public TimerHandler(final float pTimerSeconds, final ITimerCallback pTimerCallback) {
+        this(pTimerSeconds, false, pTimerCallback);
+    }
 
-	public TimerHandler(final float pTimerSeconds, final boolean pAutoReset, final ITimerCallback pTimerCallback) {
-		this.mTimerSeconds = pTimerSeconds;
-		this.mAutoReset = pAutoReset;
-		this.mTimerCallback = pTimerCallback;
-	}
+    public TimerHandler(final float pTimerSeconds, final boolean pAutoReset, final ITimerCallback pTimerCallback) {
+        this.mTimerSeconds = pTimerSeconds;
+        this.mAutoReset = pAutoReset;
+        this.mTimerCallback = pTimerCallback;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public boolean isAutoReset() {
-		return this.mAutoReset;
-	}
+    public boolean isAutoReset() {
+        return this.mAutoReset;
+    }
 
-	public void setAutoReset(final boolean pAutoReset) {
-		this.mAutoReset = pAutoReset;
-	}
+    public void setAutoReset(final boolean pAutoReset) {
+        this.mAutoReset = pAutoReset;
+    }
 
-	public void setTimerSeconds(final float pTimerSeconds) {
-		this.mTimerSeconds = pTimerSeconds;
-	}
+    public void setTimerSeconds(final float pTimerSeconds) {
+        this.mTimerSeconds = pTimerSeconds;
+    }
 
-	public float getTimerSeconds() {
-		return this.mTimerSeconds;
-	}
+    public float getTimerSeconds() {
+        return this.mTimerSeconds;
+    }
 
-	public float getTimerSecondsElapsed() {
-		return this.mTimerSecondsElapsed;
-	}
-	
-	public boolean isTimerCallbackTriggered() {
-		return this.mTimerCallbackTriggered;
-	}
+    public float getTimerSecondsElapsed() {
+        return this.mTimerSecondsElapsed;
+    }
+    
+    public boolean isTimerCallbackTriggered() {
+        return this.mTimerCallbackTriggered;
+    }
 
-	public void setTimerCallbackTriggered(boolean pTimerCallbackTriggered) {
-		this.mTimerCallbackTriggered = pTimerCallbackTriggered;
-	}
+    public void setTimerCallbackTriggered(boolean pTimerCallbackTriggered) {
+        this.mTimerCallbackTriggered = pTimerCallbackTriggered;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onUpdate(final float pSecondsElapsed) {
-		if(this.mAutoReset) {
-			this.mTimerSecondsElapsed += pSecondsElapsed;
-			while(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
-				this.mTimerSecondsElapsed -= this.mTimerSeconds;
-				this.mTimerCallback.onTimePassed(this);
-			}
-		} else {
-			if(!this.mTimerCallbackTriggered) {
-				this.mTimerSecondsElapsed += pSecondsElapsed;
-				if(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
-					this.mTimerCallbackTriggered = true;
-					this.mTimerCallback.onTimePassed(this);
-				}
-			}
-		}
-	}
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
+        if(this.mAutoReset) {
+            this.mTimerSecondsElapsed += pSecondsElapsed;
+            while(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
+                this.mTimerSecondsElapsed -= this.mTimerSeconds;
+                this.mTimerCallback.onTimePassed(this);
+            }
+        } else {
+            if(!this.mTimerCallbackTriggered) {
+                this.mTimerSecondsElapsed += pSecondsElapsed;
+                if(this.mTimerSecondsElapsed >= this.mTimerSeconds) {
+                    this.mTimerCallbackTriggered = true;
+                    this.mTimerCallback.onTimePassed(this);
+                }
+            }
+        }
+    }
 
-	@Override
-	public void reset() {
-		this.mTimerCallbackTriggered = false;
-		this.mTimerSecondsElapsed = 0;
-	}
+    @Override
+    public void reset() {
+        this.mTimerCallbackTriggered = false;
+        this.mTimerSecondsElapsed = 0;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

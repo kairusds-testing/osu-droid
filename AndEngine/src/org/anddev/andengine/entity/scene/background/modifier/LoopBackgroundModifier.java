@@ -11,70 +11,70 @@ import org.anddev.andengine.util.modifier.LoopModifier;
  * @since 15:03:53 - 03.09.2010
  */
 public class LoopBackgroundModifier extends LoopModifier<IBackground> implements IBackgroundModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier) {
-		super(pBackgroundModifier);
-	}
+    public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier) {
+        super(pBackgroundModifier);
+    }
 
-	public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount) {
-		super(pBackgroundModifier, pLoopCount);
-	}
+    public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount) {
+        super(pBackgroundModifier, pLoopCount);
+    }
 
-	public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final ILoopBackgroundModifierListener pLoopModifierListener) {
-		super(pBackgroundModifier, pLoopCount, pLoopModifierListener, (IBackgroundModifierListener)null);
-	}
+    public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final ILoopBackgroundModifierListener pLoopModifierListener) {
+        super(pBackgroundModifier, pLoopCount, pLoopModifierListener, (IBackgroundModifierListener)null);
+    }
 
-	public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final IBackgroundModifierListener pBackgroundModifierListener) {
-		super(pBackgroundModifier, pLoopCount, pBackgroundModifierListener);
-	}
+    public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final IBackgroundModifierListener pBackgroundModifierListener) {
+        super(pBackgroundModifier, pLoopCount, pBackgroundModifierListener);
+    }
 
-	public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final ILoopBackgroundModifierListener pLoopModifierListener, final IBackgroundModifierListener pBackgroundModifierListener) {
-		super(pBackgroundModifier, pLoopCount, pLoopModifierListener, pBackgroundModifierListener);
-	}
+    public LoopBackgroundModifier(final IBackgroundModifier pBackgroundModifier, final int pLoopCount, final ILoopBackgroundModifierListener pLoopModifierListener, final IBackgroundModifierListener pBackgroundModifierListener) {
+        super(pBackgroundModifier, pLoopCount, pLoopModifierListener, pBackgroundModifierListener);
+    }
 
-	protected LoopBackgroundModifier(final LoopBackgroundModifier pLoopBackgroundModifier) throws DeepCopyNotSupportedException {
-		super(pLoopBackgroundModifier);
-	}
+    protected LoopBackgroundModifier(final LoopBackgroundModifier pLoopBackgroundModifier) throws DeepCopyNotSupportedException {
+        super(pLoopBackgroundModifier);
+    }
 
-	@Override
-	public LoopBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
-		return new LoopBackgroundModifier(this);
-	}
+    @Override
+    public LoopBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
+        return new LoopBackgroundModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public interface ILoopBackgroundModifierListener extends ILoopModifierListener<IBackground> {
-		// ===========================================================
-		// Final Fields
-		// ===========================================================
+    public interface ILoopBackgroundModifierListener extends ILoopModifierListener<IBackground> {
+        // ===========================================================
+        // Final Fields
+        // ===========================================================
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
-	}
+        // ===========================================================
+        // Methods
+        // ===========================================================
+    }
 }

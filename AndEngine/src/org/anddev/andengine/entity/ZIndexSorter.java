@@ -6,67 +6,67 @@ import java.util.List;
 import org.anddev.andengine.util.sort.InsertionSorter;
 
 public class ZIndexSorter extends InsertionSorter<IEntity> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static ZIndexSorter INSTANCE;
+    private static ZIndexSorter INSTANCE;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final Comparator<IEntity> mZIndexComparator = new Comparator<IEntity>() {
-		@Override
-		public int compare(final IEntity pEntityA, final IEntity pEntityB) {
-			return pEntityA.getZIndex() - pEntityB.getZIndex();
-		}
-	};
+    private final Comparator<IEntity> mZIndexComparator = new Comparator<IEntity>() {
+        @Override
+        public int compare(final IEntity pEntityA, final IEntity pEntityB) {
+            return pEntityA.getZIndex() - pEntityB.getZIndex();
+        }
+    };
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	private ZIndexSorter() {
+    private ZIndexSorter() {
 
-	}
+    }
 
-	public static ZIndexSorter getInstance() {
-		if(INSTANCE == null) {
-			INSTANCE = new ZIndexSorter();
-		}
-		return INSTANCE;
-	}
+    public static ZIndexSorter getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new ZIndexSorter();
+        }
+        return INSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void sort(final IEntity[] pEntities) {
-		this.sort(pEntities, this.mZIndexComparator);
-	}
+    public void sort(final IEntity[] pEntities) {
+        this.sort(pEntities, this.mZIndexComparator);
+    }
 
-	public void sort(final IEntity[] pEntities, final int pStart, final int pEnd) {
-		this.sort(pEntities, pStart, pEnd, this.mZIndexComparator);
-	}
+    public void sort(final IEntity[] pEntities, final int pStart, final int pEnd) {
+        this.sort(pEntities, pStart, pEnd, this.mZIndexComparator);
+    }
 
-	public void sort(final List<IEntity> pEntities) {
-		this.sort(pEntities, this.mZIndexComparator);
-	}
+    public void sort(final List<IEntity> pEntities) {
+        this.sort(pEntities, this.mZIndexComparator);
+    }
 
-	public void sort(final List<IEntity> pEntities, final int pStart, final int pEnd) {
-		this.sort(pEntities, pStart, pEnd, this.mZIndexComparator);
-	}
+    public void sort(final List<IEntity> pEntities, final int pStart, final int pEnd) {
+        this.sort(pEntities, pStart, pEnd, this.mZIndexComparator);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

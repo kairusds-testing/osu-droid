@@ -13,48 +13,48 @@ import org.anddev.andengine.entity.IEntity;
  * @since 18:25:10 - 21.07.2010
  */
 public class EntityBackground extends ColorBackground {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected IEntity mEntity;
+    protected IEntity mEntity;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public EntityBackground(final IEntity pEntity) {
-		this.mEntity = pEntity;
-	}
+    public EntityBackground(final IEntity pEntity) {
+        this.mEntity = pEntity;
+    }
 
-	public EntityBackground(final float pRed, final float pGreen, final float pBlue, final IEntity pEntity) {
-		super(pRed, pGreen, pBlue);
-		this.mEntity = pEntity;
-	}
+    public EntityBackground(final float pRed, final float pGreen, final float pBlue, final IEntity pEntity) {
+        super(pRed, pGreen, pBlue);
+        this.mEntity = pEntity;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onDraw(final GL10 pGL, final Camera pCamera) {
-		super.onDraw(pGL, pCamera);
-		this.mEntity.onDraw(pGL, pCamera);
-	}
+    @Override
+    public void onDraw(final GL10 pGL, final Camera pCamera) {
+        super.onDraw(pGL, pCamera);
+        this.mEntity.onDraw(pGL, pCamera);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

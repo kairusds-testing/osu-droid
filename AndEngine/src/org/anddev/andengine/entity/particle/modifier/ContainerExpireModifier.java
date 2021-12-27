@@ -17,70 +17,70 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 21:01:00 - 08.08.2011
  */
 public class ContainerExpireModifier extends ExpireModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final List<BaseSingleValueSpanModifier> mModifiers = new ArrayList<BaseSingleValueSpanModifier>();
+    private final List<BaseSingleValueSpanModifier> mModifiers = new ArrayList<BaseSingleValueSpanModifier>();
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ContainerExpireModifier(final float pLifeTime) {
-		super(pLifeTime);
-	}
-
-	public ContainerExpireModifier(final float pMinLifeTime, final float pMaxLifeTime) {
-		super(pMinLifeTime, pMaxLifeTime);
-	}
-
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
-
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
-	
-	@Override
-    public void onUpdateParticle(final Particle pParticle) {
-	    // Apply all the contained modifiers
-	    for (final BaseSingleValueSpanModifier modifier : mModifiers) {
-	        modifier.onUpdateParticle(pParticle, pParticle.getDeathTime());
-	    }
+    public ContainerExpireModifier(final float pLifeTime) {
+        super(pLifeTime);
     }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
-	
-	/**
-	 * <p>Adds the specified modifier to the contained modifier list.</p>
-	 * 
-	 * <p>The <code>toTime</code> in the modifier will be ignored, and replaced with the actual
-	 * lifetime of the {@link Particle}.</p>
-	 * 
-	 * @param pModifier The modifier to add
-	 */
-	public void addParticleModifier(final BaseSingleValueSpanModifier pModifier) {
-	    mModifiers.add(pModifier);
-	}
-	
-	/**
-	 * <p>Removes the specified modifier from the contained modifier list.</p>
-	 * @param pModifier The modifier to remove
-	 * @return true if the list was modified by this operation, false otherwise.
-	 */
-	public boolean removeParticleModifier(final BaseSingleValueSpanModifier pModifier) {
-	    return mModifiers.remove(pModifier);
-	}
+    public ContainerExpireModifier(final float pMinLifeTime, final float pMaxLifeTime) {
+        super(pMinLifeTime, pMaxLifeTime);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
+
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
+    
+    @Override
+    public void onUpdateParticle(final Particle pParticle) {
+        // Apply all the contained modifiers
+        for (final BaseSingleValueSpanModifier modifier : mModifiers) {
+            modifier.onUpdateParticle(pParticle, pParticle.getDeathTime());
+        }
+    }
+
+    // ===========================================================
+    // Methods
+    // ===========================================================
+    
+    /**
+     * <p>Adds the specified modifier to the contained modifier list.</p>
+     * 
+     * <p>The <code>toTime</code> in the modifier will be ignored, and replaced with the actual
+     * lifetime of the {@link Particle}.</p>
+     * 
+     * @param pModifier The modifier to add
+     */
+    public void addParticleModifier(final BaseSingleValueSpanModifier pModifier) {
+        mModifiers.add(pModifier);
+    }
+    
+    /**
+     * <p>Removes the specified modifier from the contained modifier list.</p>
+     * @param pModifier The modifier to remove
+     * @return true if the list was modified by this operation, false otherwise.
+     */
+    public boolean removeParticleModifier(final BaseSingleValueSpanModifier pModifier) {
+        return mModifiers.remove(pModifier);
+    }
+
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

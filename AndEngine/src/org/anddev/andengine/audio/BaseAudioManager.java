@@ -10,68 +10,68 @@ import java.util.ArrayList;
  * @since 18:07:02 - 13.06.2010
  */
 public abstract class BaseAudioManager<T extends IAudioEntity> implements IAudioManager<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected final ArrayList<T> mAudioEntities = new ArrayList<T>();
+    protected final ArrayList<T> mAudioEntities = new ArrayList<T>();
 
-	protected float mMasterVolume = 1.0f;
+    protected float mMasterVolume = 1.0f;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getMasterVolume() {
-		return this.mMasterVolume;
-	}
+    @Override
+    public float getMasterVolume() {
+        return this.mMasterVolume;
+    }
 
-	@Override
-	public void setMasterVolume(final float pMasterVolume) {
-		this.mMasterVolume = pMasterVolume;
+    @Override
+    public void setMasterVolume(final float pMasterVolume) {
+        this.mMasterVolume = pMasterVolume;
 
-		final ArrayList<T> audioEntities = this.mAudioEntities;
-		for(int i = audioEntities.size() - 1; i >= 0; i--) {
-			final T audioEntity = audioEntities.get(i);
+        final ArrayList<T> audioEntities = this.mAudioEntities;
+        for(int i = audioEntities.size() - 1; i >= 0; i--) {
+            final T audioEntity = audioEntities.get(i);
 
-			audioEntity.onMasterVolumeChanged(pMasterVolume);
-		}
-	}
+            audioEntity.onMasterVolumeChanged(pMasterVolume);
+        }
+    }
 
-	@Override
-	public void add(final T pAudioEntity) {
-		this.mAudioEntities.add(pAudioEntity);
-	}
+    @Override
+    public void add(final T pAudioEntity) {
+        this.mAudioEntities.add(pAudioEntity);
+    }
 
-	@Override
-	public void releaseAll() {
-		final ArrayList<T> audioEntities = this.mAudioEntities;
-		for(int i = audioEntities.size() - 1; i >= 0; i--) {
-			final T audioEntity = audioEntities.get(i);
+    @Override
+    public void releaseAll() {
+        final ArrayList<T> audioEntities = this.mAudioEntities;
+        for(int i = audioEntities.size() - 1; i >= 0; i--) {
+            final T audioEntity = audioEntities.get(i);
 
-			audioEntity.stop();
-			audioEntity.release();
-		}
-	}
+            audioEntity.stop();
+            audioEntity.release();
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

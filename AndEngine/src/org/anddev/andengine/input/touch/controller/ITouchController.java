@@ -14,25 +14,25 @@ import android.view.MotionEvent;
  * @since 20:23:45 - 13.07.2010
  */
 public interface ITouchController extends IUpdateHandler {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void setTouchEventCallback(final ITouchEventCallback pTouchEventCallback);
+    public void setTouchEventCallback(final ITouchEventCallback pTouchEventCallback);
 
-	public void applyTouchOptions(final TouchOptions pTouchOptions);
+    public void applyTouchOptions(final TouchOptions pTouchOptions);
 
-	public boolean onHandleMotionEvent(final MotionEvent pMotionEvent);
+    public boolean onHandleMotionEvent(final MotionEvent pMotionEvent);
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	static interface ITouchEventCallback {
-		public boolean onTouchEvent(final TouchEvent pTouchEvent);
-	}
+    static interface ITouchEventCallback {
+        public boolean onTouchEvent(final TouchEvent pTouchEvent);
+    }
 }

@@ -10,45 +10,45 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 21:21:10 - 14.03.2010
  */
 public class AlphaModifier extends BaseSingleValueSpanModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public AlphaModifier(final float pFromAlpha, final float pToAlpha, final float pFromTime, final float pToTime) {
-		super(pFromAlpha, pToAlpha, pFromTime, pToTime);
-	}
+    public AlphaModifier(final float pFromAlpha, final float pToAlpha, final float pFromTime, final float pToTime) {
+        super(pFromAlpha, pToAlpha, pFromTime, pToTime);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected void onSetInitialValue(final Particle pParticle, final float pAlpha) {
-		pParticle.setAlpha(pAlpha);
-	}
+    @Override
+    protected void onSetInitialValue(final Particle pParticle, final float pAlpha) {
+        pParticle.setAlpha(pAlpha);
+    }
 
-	@Override
-	protected void onSetValue(final Particle pParticle, final float pAlpha) {
-		pParticle.setAlpha(pAlpha);
-	}
+    @Override
+    protected void onSetValue(final Particle pParticle, final float pAlpha) {
+        pParticle.setAlpha(pAlpha);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

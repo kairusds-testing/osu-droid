@@ -8,56 +8,56 @@ package org.anddev.andengine.util.modifier;
  * @since 14:17:30 - 10.08.2011
  */
 public abstract class BaseDoubleValueChangeModifier<T> extends BaseSingleValueChangeModifier<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private float mValueChangeBPerSecond;
+    private float mValueChangeBPerSecond;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseDoubleValueChangeModifier(final float pDuration, final float pValueChangeA, final float pValueChangeB) {
-		this(pDuration, pValueChangeA, pValueChangeB, null);
-	}
+    public BaseDoubleValueChangeModifier(final float pDuration, final float pValueChangeA, final float pValueChangeB) {
+        this(pDuration, pValueChangeA, pValueChangeB, null);
+    }
 
-	public BaseDoubleValueChangeModifier(final float pDuration, final float pValueChangeA, final float pValueChangeB, final IModifierListener<T> pModifierListener) {
-		super(pDuration, pValueChangeA, pModifierListener);
+    public BaseDoubleValueChangeModifier(final float pDuration, final float pValueChangeA, final float pValueChangeB, final IModifierListener<T> pModifierListener) {
+        super(pDuration, pValueChangeA, pModifierListener);
 
-		this.mValueChangeBPerSecond = pValueChangeB / pDuration;
-	}
+        this.mValueChangeBPerSecond = pValueChangeB / pDuration;
+    }
 
-	protected BaseDoubleValueChangeModifier(final BaseDoubleValueChangeModifier<T> pBaseDoubleValueChangeModifier) {
-		super(pBaseDoubleValueChangeModifier);
+    protected BaseDoubleValueChangeModifier(final BaseDoubleValueChangeModifier<T> pBaseDoubleValueChangeModifier) {
+        super(pBaseDoubleValueChangeModifier);
 
-		this.mValueChangeBPerSecond = pBaseDoubleValueChangeModifier.mValueChangeBPerSecond;
-	}
+        this.mValueChangeBPerSecond = pBaseDoubleValueChangeModifier.mValueChangeBPerSecond;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected void onChangeValue(final float pSecondsElapsed, final T pItem, final float pValueA) {
-		this.onChangeValues(pSecondsElapsed, pItem, pValueA, pSecondsElapsed * this.mValueChangeBPerSecond);
-	}
+    @Override
+    protected void onChangeValue(final float pSecondsElapsed, final T pItem, final float pValueA) {
+        this.onChangeValues(pSecondsElapsed, pItem, pValueA, pSecondsElapsed * this.mValueChangeBPerSecond);
+    }
 
-	protected abstract void onChangeValues(float pSecondsElapsed, T pItem, float pValueA, float pValueB);
+    protected abstract void onChangeValues(float pSecondsElapsed, T pItem, float pValueA, float pValueB);
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

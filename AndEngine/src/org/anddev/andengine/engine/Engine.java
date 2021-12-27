@@ -62,538 +62,538 @@ import android.view.WindowManager;
  * @since 12:21:31 - 08.03.2010
  */
 public class Engine implements SensorEventListener, OnTouchListener, ITouchEventCallback, TimeConstants, LocationListener {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final SensorDelay SENSORDELAY_DEFAULT = SensorDelay.GAME;
-	private static final int UPDATEHANDLERS_CAPACITY_DEFAULT = 32;
+    private static final SensorDelay SENSORDELAY_DEFAULT = SensorDelay.GAME;
+    private static final int UPDATEHANDLERS_CAPACITY_DEFAULT = 32;
 
-	public static int INPUT_PAUSE_DURATION = 0;
+    public static int INPUT_PAUSE_DURATION = 0;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private boolean mRunning = false;
+    private boolean mRunning = false;
 
-	private long mLastTick = -1;
-	private float mSecondsElapsedTotal = 0;
+    private long mLastTick = -1;
+    private float mSecondsElapsedTotal = 0;
 
-	private final State mThreadLocker = new State();
+    private final State mThreadLocker = new State();
 
-	private final UpdateThread mUpdateThread = new UpdateThread();
+    private final UpdateThread mUpdateThread = new UpdateThread();
 
-	private final RunnableHandler mUpdateThreadRunnableHandler = new RunnableHandler();
+    private final RunnableHandler mUpdateThreadRunnableHandler = new RunnableHandler();
 
-	private final EngineOptions mEngineOptions;
-	protected final Camera mCamera;
+    private final EngineOptions mEngineOptions;
+    protected final Camera mCamera;
 
-	private ITouchController mTouchController;
+    private ITouchController mTouchController;
 
-	private SoundManager mSoundManager;
-	private MusicManager mMusicManager;
-	private final TextureManager mTextureManager = new TextureManager();
-	private final BufferObjectManager mBufferObjectManager = new BufferObjectManager();
-	private final FontManager mFontManager = new FontManager();
+    private SoundManager mSoundManager;
+    private MusicManager mMusicManager;
+    private final TextureManager mTextureManager = new TextureManager();
+    private final BufferObjectManager mBufferObjectManager = new BufferObjectManager();
+    private final FontManager mFontManager = new FontManager();
 
-	protected Scene mScene;
+    protected Scene mScene;
 
-	private Vibrator mVibrator;
+    private Vibrator mVibrator;
 
-	private ILocationListener mLocationListener;
-	private Location mLocation;
+    private ILocationListener mLocationListener;
+    private Location mLocation;
 
-	private IAccelerometerListener mAccelerometerListener;
-	private AccelerometerData mAccelerometerData;
+    private IAccelerometerListener mAccelerometerListener;
+    private AccelerometerData mAccelerometerData;
 
-	private IOrientationListener mOrientationListener;
-	private OrientationData mOrientationData;
+    private IOrientationListener mOrientationListener;
+    private OrientationData mOrientationData;
 
-	private final UpdateHandlerList mUpdateHandlers = new UpdateHandlerList(UPDATEHANDLERS_CAPACITY_DEFAULT);
+    private final UpdateHandlerList mUpdateHandlers = new UpdateHandlerList(UPDATEHANDLERS_CAPACITY_DEFAULT);
 
-	protected int mSurfaceWidth = 1; // 1 to prevent accidental DIV/0
-	protected int mSurfaceHeight = 1; // 1 to prevent accidental DIV/0
+    protected int mSurfaceWidth = 1; // 1 to prevent accidental DIV/0
+    protected int mSurfaceHeight = 1; // 1 to prevent accidental DIV/0
 
-	private boolean mIsMethodTracing;
+    private boolean mIsMethodTracing;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public Engine(final EngineOptions pEngineOptions) {
-		BitmapTextureAtlasTextureRegionFactory.reset();
-		SoundFactory.reset();
-		MusicFactory.reset();
-		FontFactory.reset();
+    public Engine(final EngineOptions pEngineOptions) {
+        BitmapTextureAtlasTextureRegionFactory.reset();
+        SoundFactory.reset();
+        MusicFactory.reset();
+        FontFactory.reset();
 
-		BufferObjectManager.setActiveInstance(this.mBufferObjectManager);
+        BufferObjectManager.setActiveInstance(this.mBufferObjectManager);
 
-		this.mEngineOptions = pEngineOptions;
-		this.setTouchController(new SingleTouchControler());
-		this.mCamera = pEngineOptions.getCamera();
+        this.mEngineOptions = pEngineOptions;
+        this.setTouchController(new SingleTouchControler());
+        this.mCamera = pEngineOptions.getCamera();
 
-		if(this.mEngineOptions.needsSound()) {
-			this.mSoundManager = new SoundManager();
-		}
+        if(this.mEngineOptions.needsSound()) {
+            this.mSoundManager = new SoundManager();
+        }
 
-		if(this.mEngineOptions.needsMusic()) {
-			this.mMusicManager = new MusicManager();
-		}
+        if(this.mEngineOptions.needsMusic()) {
+            this.mMusicManager = new MusicManager();
+        }
 
-		this.mUpdateThread.start();
-	}
+        this.mUpdateThread.start();
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public boolean isRunning() {
-		return this.mRunning;
-	}
+    public boolean isRunning() {
+        return this.mRunning;
+    }
 
-	public synchronized void start() {
-		if(!this.mRunning) {
-			this.mLastTick = System.nanoTime();
-			this.mRunning = true;
-		}
-	}
+    public synchronized void start() {
+        if(!this.mRunning) {
+            this.mLastTick = System.nanoTime();
+            this.mRunning = true;
+        }
+    }
 
-	public synchronized void stop() {
-		if(this.mRunning) {
-			this.mRunning = false;
-		}
-	}
+    public synchronized void stop() {
+        if(this.mRunning) {
+            this.mRunning = false;
+        }
+    }
 
-	public Scene getScene() {
-		return this.mScene;
-	}
+    public Scene getScene() {
+        return this.mScene;
+    }
 
-	public void setScene(final Scene pScene) {
-		this.mScene = pScene;
-	}
+    public void setScene(final Scene pScene) {
+        this.mScene = pScene;
+    }
 
-	public EngineOptions getEngineOptions() {
-		return this.mEngineOptions;
-	}
+    public EngineOptions getEngineOptions() {
+        return this.mEngineOptions;
+    }
 
-	public Camera getCamera() {
-		return this.mCamera;
-	}
+    public Camera getCamera() {
+        return this.mCamera;
+    }
 
-	public float getSecondsElapsedTotal() {
-		return this.mSecondsElapsedTotal;
-	}
+    public float getSecondsElapsedTotal() {
+        return this.mSecondsElapsedTotal;
+    }
 
-	public void setSurfaceSize(final int pSurfaceWidth, final int pSurfaceHeight) {
-		//		Debug.w("SurfaceView size changed to (width x height): " + pSurfaceWidth + " x " + pSurfaceHeight, new Exception());
-		this.mSurfaceWidth = pSurfaceWidth;
-		this.mSurfaceHeight = pSurfaceHeight;
-		this.onUpdateCameraSurface();
-	}
+    public void setSurfaceSize(final int pSurfaceWidth, final int pSurfaceHeight) {
+        //        Debug.w("SurfaceView size changed to (width x height): " + pSurfaceWidth + " x " + pSurfaceHeight, new Exception());
+        this.mSurfaceWidth = pSurfaceWidth;
+        this.mSurfaceHeight = pSurfaceHeight;
+        this.onUpdateCameraSurface();
+    }
 
-	protected void onUpdateCameraSurface() {
-		this.mCamera.setSurfaceSize(0, 0, this.mSurfaceWidth, this.mSurfaceHeight);
-	}
+    protected void onUpdateCameraSurface() {
+        this.mCamera.setSurfaceSize(0, 0, this.mSurfaceWidth, this.mSurfaceHeight);
+    }
 
-	public int getSurfaceWidth() {
-		return this.mSurfaceWidth;
-	}
+    public int getSurfaceWidth() {
+        return this.mSurfaceWidth;
+    }
 
-	public int getSurfaceHeight() {
-		return this.mSurfaceHeight;
-	}
+    public int getSurfaceHeight() {
+        return this.mSurfaceHeight;
+    }
 
-	public ITouchController getTouchController() {
-		return this.mTouchController;
-	}
+    public ITouchController getTouchController() {
+        return this.mTouchController;
+    }
 
-	public void setTouchController(final ITouchController pTouchController) {
-		this.mTouchController = pTouchController;
-		this.mTouchController.applyTouchOptions(this.mEngineOptions.getTouchOptions());
-		this.mTouchController.setTouchEventCallback(this);
-	}
+    public void setTouchController(final ITouchController pTouchController) {
+        this.mTouchController = pTouchController;
+        this.mTouchController.applyTouchOptions(this.mEngineOptions.getTouchOptions());
+        this.mTouchController.setTouchEventCallback(this);
+    }
 
-	public AccelerometerData getAccelerometerData() {
-		return this.mAccelerometerData;
-	}
+    public AccelerometerData getAccelerometerData() {
+        return this.mAccelerometerData;
+    }
 
-	public OrientationData getOrientationData() {
-		return this.mOrientationData;
-	}
+    public OrientationData getOrientationData() {
+        return this.mOrientationData;
+    }
 
-	public SoundManager getSoundManager() throws IllegalStateException {
-		if(this.mSoundManager != null) {
-			return this.mSoundManager;
-		} else {
-			throw new IllegalStateException("To enable the SoundManager, check the EngineOptions!");
-		}
-	}
+    public SoundManager getSoundManager() throws IllegalStateException {
+        if(this.mSoundManager != null) {
+            return this.mSoundManager;
+        } else {
+            throw new IllegalStateException("To enable the SoundManager, check the EngineOptions!");
+        }
+    }
 
-	public MusicManager getMusicManager() throws IllegalStateException {
-		if(this.mMusicManager != null) {
-			return this.mMusicManager;
-		} else {
-			throw new IllegalStateException("To enable the MusicManager, check the EngineOptions!");
-		}
-	}
+    public MusicManager getMusicManager() throws IllegalStateException {
+        if(this.mMusicManager != null) {
+            return this.mMusicManager;
+        } else {
+            throw new IllegalStateException("To enable the MusicManager, check the EngineOptions!");
+        }
+    }
 
-	public TextureManager getTextureManager() {
-		return this.mTextureManager;
-	}
+    public TextureManager getTextureManager() {
+        return this.mTextureManager;
+    }
 
-	public FontManager getFontManager() {
-		return this.mFontManager;
-	}
+    public FontManager getFontManager() {
+        return this.mFontManager;
+    }
 
-	public void clearUpdateHandlers() {
-		this.mUpdateHandlers.clear();
-	}
+    public void clearUpdateHandlers() {
+        this.mUpdateHandlers.clear();
+    }
 
-	public void registerUpdateHandler(final IUpdateHandler pUpdateHandler) {
-		this.mUpdateHandlers.add(pUpdateHandler);
-	}
+    public void registerUpdateHandler(final IUpdateHandler pUpdateHandler) {
+        this.mUpdateHandlers.add(pUpdateHandler);
+    }
 
-	public void unregisterUpdateHandler(final IUpdateHandler pUpdateHandler) {
-		this.mUpdateHandlers.remove(pUpdateHandler);
-	}
+    public void unregisterUpdateHandler(final IUpdateHandler pUpdateHandler) {
+        this.mUpdateHandlers.remove(pUpdateHandler);
+    }
 
-	public boolean isMethodTracing() {
-		return this.mIsMethodTracing;
-	}
+    public boolean isMethodTracing() {
+        return this.mIsMethodTracing;
+    }
 
-	public void startMethodTracing(final String pTraceFileName) {
-		if(!this.mIsMethodTracing) {
-			this.mIsMethodTracing = true;
-			android.os.Debug.startMethodTracing(pTraceFileName);
-		}
-	}
+    public void startMethodTracing(final String pTraceFileName) {
+        if(!this.mIsMethodTracing) {
+            this.mIsMethodTracing = true;
+            android.os.Debug.startMethodTracing(pTraceFileName);
+        }
+    }
 
-	public void stopMethodTracing() {
-		if(this.mIsMethodTracing) {
-			android.os.Debug.stopMethodTracing();
-			this.mIsMethodTracing = false;
-		}
-	}
+    public void stopMethodTracing() {
+        if(this.mIsMethodTracing) {
+            android.os.Debug.stopMethodTracing();
+            this.mIsMethodTracing = false;
+        }
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onAccuracyChanged(final Sensor pSensor, final int pAccuracy) {
-		if(this.mRunning) {
-			switch(pSensor.getType()) {
-				case Sensor.TYPE_ACCELEROMETER:
-					if(this.mAccelerometerData != null) {
-						this.mAccelerometerData.setAccuracy(pAccuracy);
-						this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
-					} else if(this.mOrientationData != null) {
-						this.mOrientationData.setAccelerometerAccuracy(pAccuracy);
-						this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					}
-					break;
-				case Sensor.TYPE_MAGNETIC_FIELD:
-					this.mOrientationData.setMagneticFieldAccuracy(pAccuracy);
-					this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					break;
-			}
-		}
-	}
-
-	@Override
-	public void onSensorChanged(final SensorEvent pEvent) {
-		if(this.mRunning) {
-			switch(pEvent.sensor.getType()) {
-				case Sensor.TYPE_ACCELEROMETER:
-					if(this.mAccelerometerData != null) {
-						this.mAccelerometerData.setValues(pEvent.values);
-						this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
-					} else if(this.mOrientationData != null) {
-						this.mOrientationData.setAccelerometerValues(pEvent.values);
-						this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					}
-					break;
-				case Sensor.TYPE_MAGNETIC_FIELD:
-					this.mOrientationData.setMagneticFieldValues(pEvent.values);
-					this.mOrientationListener.onOrientationChanged(this.mOrientationData);
-					break;
-			}
-		}
-	}
-
-	@Override
-	public void onLocationChanged(final Location pLocation) {
-		if(this.mLocation == null) {
-			this.mLocation = pLocation;
-		} else {
-			if(pLocation == null) {
-				this.mLocationListener.onLocationLost();
-			} else {
-				this.mLocation = pLocation;
-				this.mLocationListener.onLocationChanged(pLocation);
-			}
-		}
-	}
-
-	@Override
-	public void onProviderDisabled(final String pProvider) {
-		this.mLocationListener.onLocationProviderDisabled();
-	}
-
-	@Override
-	public void onProviderEnabled(final String pProvider) {
-		this.mLocationListener.onLocationProviderEnabled();
-	}
-
-	@Override
-	public void onStatusChanged(final String pProvider, final int pStatus, final Bundle pExtras) {
-		switch(pStatus) {
-			case LocationProvider.AVAILABLE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.AVAILABLE, pExtras);
-				break;
-			case LocationProvider.OUT_OF_SERVICE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.OUT_OF_SERVICE, pExtras);
-				break;
-			case LocationProvider.TEMPORARILY_UNAVAILABLE:
-				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.TEMPORARILY_UNAVAILABLE, pExtras);
-				break;
-		}
-	}
-
-	@SuppressLint("ClickableViewAccessibility")
     @Override
-	public boolean onTouch(final View pView, final MotionEvent pSurfaceMotionEvent) {
-		if(this.mRunning) {
-			final boolean handled = this.mTouchController.onHandleMotionEvent(pSurfaceMotionEvent);
-			try {
-				/*
-				 * As a human cannot interact 1000x per second, we pause the
-				 * UI-Thread for a little.
-				 */
-				if (INPUT_PAUSE_DURATION != 0) {
-					Thread.sleep(INPUT_PAUSE_DURATION);
-				}
-				// TODO Maybe this can be removed, when TouchEvents are handled on the UpdateThread!}
-			} catch (final InterruptedException e) {
-				Debug.e(e);
-			}
-			return handled;
-		} else {
-			return false;
-		}
-	}
+    public void onAccuracyChanged(final Sensor pSensor, final int pAccuracy) {
+        if(this.mRunning) {
+            switch(pSensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
+                    if(this.mAccelerometerData != null) {
+                        this.mAccelerometerData.setAccuracy(pAccuracy);
+                        this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
+                    } else if(this.mOrientationData != null) {
+                        this.mOrientationData.setAccelerometerAccuracy(pAccuracy);
+                        this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+                    }
+                    break;
+                case Sensor.TYPE_MAGNETIC_FIELD:
+                    this.mOrientationData.setMagneticFieldAccuracy(pAccuracy);
+                    this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+                    break;
+            }
+        }
+    }
 
-	@Override
-	public boolean onTouchEvent(final TouchEvent pSurfaceTouchEvent) {
-		/*
-		 * Let the engine determine which scene and camera this event should be
-		 * handled by.
-		 */
-		final Scene scene = this.getSceneFromSurfaceTouchEvent(pSurfaceTouchEvent);
-		final Camera camera = this.getCameraFromSurfaceTouchEvent(pSurfaceTouchEvent);
+    @Override
+    public void onSensorChanged(final SensorEvent pEvent) {
+        if(this.mRunning) {
+            switch(pEvent.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
+                    if(this.mAccelerometerData != null) {
+                        this.mAccelerometerData.setValues(pEvent.values);
+                        this.mAccelerometerListener.onAccelerometerChanged(this.mAccelerometerData);
+                    } else if(this.mOrientationData != null) {
+                        this.mOrientationData.setAccelerometerValues(pEvent.values);
+                        this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+                    }
+                    break;
+                case Sensor.TYPE_MAGNETIC_FIELD:
+                    this.mOrientationData.setMagneticFieldValues(pEvent.values);
+                    this.mOrientationListener.onOrientationChanged(this.mOrientationData);
+                    break;
+            }
+        }
+    }
 
-		this.convertSurfaceToSceneTouchEvent(camera, pSurfaceTouchEvent);
+    @Override
+    public void onLocationChanged(final Location pLocation) {
+        if(this.mLocation == null) {
+            this.mLocation = pLocation;
+        } else {
+            if(pLocation == null) {
+                this.mLocationListener.onLocationLost();
+            } else {
+                this.mLocation = pLocation;
+                this.mLocationListener.onLocationChanged(pLocation);
+            }
+        }
+    }
 
-		if(this.onTouchHUD(camera, pSurfaceTouchEvent)) {
-			return true;
-		} else {
-			/* If HUD didn't handle it, Scene may handle it. */
-			return this.onTouchScene(scene, pSurfaceTouchEvent);
-		}
-	}
+    @Override
+    public void onProviderDisabled(final String pProvider) {
+        this.mLocationListener.onLocationProviderDisabled();
+    }
 
-	protected boolean onTouchHUD(final Camera pCamera, final TouchEvent pSceneTouchEvent) {
-		if(pCamera.hasHUD()) {
-			return pCamera.getHUD().onSceneTouchEvent(pSceneTouchEvent);
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public void onProviderEnabled(final String pProvider) {
+        this.mLocationListener.onLocationProviderEnabled();
+    }
 
-	protected boolean onTouchScene(final Scene pScene, final TouchEvent pSceneTouchEvent) {
-		if(pScene != null) {
-			return pScene.onSceneTouchEvent(pSceneTouchEvent);
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public void onStatusChanged(final String pProvider, final int pStatus, final Bundle pExtras) {
+        switch(pStatus) {
+            case LocationProvider.AVAILABLE:
+                this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.AVAILABLE, pExtras);
+                break;
+            case LocationProvider.OUT_OF_SERVICE:
+                this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.OUT_OF_SERVICE, pExtras);
+                break;
+            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.TEMPORARILY_UNAVAILABLE, pExtras);
+                break;
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(final View pView, final MotionEvent pSurfaceMotionEvent) {
+        if(this.mRunning) {
+            final boolean handled = this.mTouchController.onHandleMotionEvent(pSurfaceMotionEvent);
+            try {
+                /*
+                 * As a human cannot interact 1000x per second, we pause the
+                 * UI-Thread for a little.
+                 */
+                if (INPUT_PAUSE_DURATION != 0) {
+                    Thread.sleep(INPUT_PAUSE_DURATION);
+                }
+                // TODO Maybe this can be removed, when TouchEvents are handled on the UpdateThread!}
+            } catch (final InterruptedException e) {
+                Debug.e(e);
+            }
+            return handled;
+        } else {
+            return false;
+        }
+    }
 
-	public void runOnUpdateThread(final Runnable pRunnable) {
-		this.mUpdateThreadRunnableHandler.postRunnable(pRunnable);
-	}
+    @Override
+    public boolean onTouchEvent(final TouchEvent pSurfaceTouchEvent) {
+        /*
+         * Let the engine determine which scene and camera this event should be
+         * handled by.
+         */
+        final Scene scene = this.getSceneFromSurfaceTouchEvent(pSurfaceTouchEvent);
+        final Camera camera = this.getCameraFromSurfaceTouchEvent(pSurfaceTouchEvent);
 
-	public void interruptUpdateThread(){
-		this.mUpdateThread.interrupt();
-	}
+        this.convertSurfaceToSceneTouchEvent(camera, pSurfaceTouchEvent);
 
-	public void onResume() {
-		// TODO GLHelper.reset(pGL); ?
-		this.mTextureManager.reloadTextures();
-		this.mFontManager.reloadFonts();
-		BufferObjectManager.setActiveInstance(this.mBufferObjectManager);
-		this.mBufferObjectManager.reloadBufferObjects();
-	}
+        if(this.onTouchHUD(camera, pSurfaceTouchEvent)) {
+            return true;
+        } else {
+            /* If HUD didn't handle it, Scene may handle it. */
+            return this.onTouchScene(scene, pSurfaceTouchEvent);
+        }
+    }
 
-	public void onPause() {
+    protected boolean onTouchHUD(final Camera pCamera, final TouchEvent pSceneTouchEvent) {
+        if(pCamera.hasHUD()) {
+            return pCamera.getHUD().onSceneTouchEvent(pSceneTouchEvent);
+        } else {
+            return false;
+        }
+    }
 
-	}
+    protected boolean onTouchScene(final Scene pScene, final TouchEvent pSceneTouchEvent) {
+        if(pScene != null) {
+            return pScene.onSceneTouchEvent(pSceneTouchEvent);
+        } else {
+            return false;
+        }
+    }
 
-	protected Camera getCameraFromSurfaceTouchEvent(@SuppressWarnings("unused") final TouchEvent pTouchEvent) {
-		return this.getCamera();
-	}
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	protected Scene getSceneFromSurfaceTouchEvent(@SuppressWarnings("unused") final TouchEvent pTouchEvent) {
-		return this.mScene;
-	}
+    public void runOnUpdateThread(final Runnable pRunnable) {
+        this.mUpdateThreadRunnableHandler.postRunnable(pRunnable);
+    }
 
-	protected void convertSurfaceToSceneTouchEvent(final Camera pCamera, final TouchEvent pSurfaceTouchEvent) {
-		pCamera.convertSurfaceToSceneTouchEvent(pSurfaceTouchEvent, this.mSurfaceWidth, this.mSurfaceHeight);
-	}
+    public void interruptUpdateThread(){
+        this.mUpdateThread.interrupt();
+    }
 
-	protected void convertSceneToSurfaceTouchEvent(final Camera pCamera, final TouchEvent pSurfaceTouchEvent) {
-		pCamera.convertSceneToSurfaceTouchEvent(pSurfaceTouchEvent, this.mSurfaceWidth, this.mSurfaceHeight);
-	}
+    public void onResume() {
+        // TODO GLHelper.reset(pGL); ?
+        this.mTextureManager.reloadTextures();
+        this.mFontManager.reloadFonts();
+        BufferObjectManager.setActiveInstance(this.mBufferObjectManager);
+        this.mBufferObjectManager.reloadBufferObjects();
+    }
 
-	public void onLoadComplete(final Scene pScene) {
-		this.setScene(pScene);
-	}
+    public void onPause() {
 
-	void onTickUpdate() throws InterruptedException {
-		if(this.mRunning) {
-			final long secondsElapsed = this.getNanosecondsElapsed();
+    }
 
-			this.onUpdate(secondsElapsed);
+    protected Camera getCameraFromSurfaceTouchEvent(@SuppressWarnings("unused") final TouchEvent pTouchEvent) {
+        return this.getCamera();
+    }
 
-			this.yieldDraw();
-		} else {
-			this.yieldDraw();
+    protected Scene getSceneFromSurfaceTouchEvent(@SuppressWarnings("unused") final TouchEvent pTouchEvent) {
+        return this.mScene;
+    }
 
-			Thread.sleep(16);
-		}
-	}
+    protected void convertSurfaceToSceneTouchEvent(final Camera pCamera, final TouchEvent pSurfaceTouchEvent) {
+        pCamera.convertSurfaceToSceneTouchEvent(pSurfaceTouchEvent, this.mSurfaceWidth, this.mSurfaceHeight);
+    }
 
-	private void yieldDraw() throws InterruptedException {
-		final State threadLocker = this.mThreadLocker;
-		threadLocker.notifyCanDraw();
-		threadLocker.waitUntilCanUpdate();
-	}
+    protected void convertSceneToSurfaceTouchEvent(final Camera pCamera, final TouchEvent pSurfaceTouchEvent) {
+        pCamera.convertSceneToSurfaceTouchEvent(pSurfaceTouchEvent, this.mSurfaceWidth, this.mSurfaceHeight);
+    }
 
-	protected void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
-		final float pSecondsElapsed = (float)pNanosecondsElapsed / TimeConstants.NANOSECONDSPERSECOND;
+    public void onLoadComplete(final Scene pScene) {
+        this.setScene(pScene);
+    }
 
-		this.mSecondsElapsedTotal += pSecondsElapsed;
-		this.mLastTick += pNanosecondsElapsed;
+    void onTickUpdate() throws InterruptedException {
+        if(this.mRunning) {
+            final long secondsElapsed = this.getNanosecondsElapsed();
 
-		this.mTouchController.onUpdate(pSecondsElapsed);
-		this.updateUpdateHandlers(pSecondsElapsed);
-		this.onUpdateScene(pSecondsElapsed);
-	}
+            this.onUpdate(secondsElapsed);
 
-	protected void onUpdateScene(final float pSecondsElapsed) {
-		if(this.mScene != null) {
-			this.mScene.onUpdate(pSecondsElapsed);
-		}
-	}
+            this.yieldDraw();
+        } else {
+            this.yieldDraw();
 
-	protected void updateUpdateHandlers(final float pSecondsElapsed) {
-		this.mUpdateThreadRunnableHandler.onUpdate(pSecondsElapsed);
-		this.mUpdateHandlers.onUpdate(pSecondsElapsed);
-		this.getCamera().onUpdate(pSecondsElapsed);
-	}
+            Thread.sleep(16);
+        }
+    }
 
-	public void onDrawFrame(final GL10 pGL) throws InterruptedException {
-		final State threadLocker = this.mThreadLocker;
+    private void yieldDraw() throws InterruptedException {
+        final State threadLocker = this.mThreadLocker;
+        threadLocker.notifyCanDraw();
+        threadLocker.waitUntilCanUpdate();
+    }
 
-		threadLocker.waitUntilCanDraw();
+    protected void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
+        final float pSecondsElapsed = (float)pNanosecondsElapsed / TimeConstants.NANOSECONDSPERSECOND;
 
-		this.mTextureManager.updateTextures(pGL);
-		this.mFontManager.updateFonts(pGL);
-		if(GLHelper.EXTENSIONS_VERTEXBUFFEROBJECTS) {
-			this.mBufferObjectManager.updateBufferObjects((GL11) pGL);
-		}
+        this.mSecondsElapsedTotal += pSecondsElapsed;
+        this.mLastTick += pNanosecondsElapsed;
 
-		this.onDrawScene(pGL);
+        this.mTouchController.onUpdate(pSecondsElapsed);
+        this.updateUpdateHandlers(pSecondsElapsed);
+        this.onUpdateScene(pSecondsElapsed);
+    }
 
-		threadLocker.notifyCanUpdate();
-	}
+    protected void onUpdateScene(final float pSecondsElapsed) {
+        if(this.mScene != null) {
+            this.mScene.onUpdate(pSecondsElapsed);
+        }
+    }
 
-	protected void onDrawScene(final GL10 pGL) {
-		final Camera camera = this.getCamera();
+    protected void updateUpdateHandlers(final float pSecondsElapsed) {
+        this.mUpdateThreadRunnableHandler.onUpdate(pSecondsElapsed);
+        this.mUpdateHandlers.onUpdate(pSecondsElapsed);
+        this.getCamera().onUpdate(pSecondsElapsed);
+    }
 
-		this.mScene.onDraw(pGL, camera);
+    public void onDrawFrame(final GL10 pGL) throws InterruptedException {
+        final State threadLocker = this.mThreadLocker;
 
-		camera.onDrawHUD(pGL);
-	}
+        threadLocker.waitUntilCanDraw();
 
-	private long getNanosecondsElapsed() {
-		final long now = System.nanoTime();
+        this.mTextureManager.updateTextures(pGL);
+        this.mFontManager.updateFonts(pGL);
+        if(GLHelper.EXTENSIONS_VERTEXBUFFEROBJECTS) {
+            this.mBufferObjectManager.updateBufferObjects((GL11) pGL);
+        }
 
-		return this.calculateNanosecondsElapsed(now, this.mLastTick);
-	}
+        this.onDrawScene(pGL);
 
-	protected long calculateNanosecondsElapsed(final long pNow, final long pLastTick) {
-		return pNow - pLastTick;
-	}
+        threadLocker.notifyCanUpdate();
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    protected void onDrawScene(final GL10 pGL) {
+        final Camera camera = this.getCamera();
 
-	private class UpdateThread extends Thread {
-		public UpdateThread() {
-			super("UpdateThread");
-		}
+        this.mScene.onDraw(pGL, camera);
 
-		@Override
-		public void run() {
-			android.os.Process.setThreadPriority(Engine.this.mEngineOptions.getUpdateThreadPriority());
-			try {
-				while(true) {
-					Engine.this.onTickUpdate();
-				}
-			} catch (final InterruptedException e) {
-				Debug.d("UpdateThread interrupted. Don't worry - this Exception is most likely expected!", e);
-				this.interrupt();
-			}
-		}
-	}
+        camera.onDrawHUD(pGL);
+    }
 
-	private static class State {
-		boolean mDrawing = false;
+    private long getNanosecondsElapsed() {
+        final long now = System.nanoTime();
 
-		public synchronized void notifyCanDraw() {
-			// Debug.d(">>> notifyCanDraw");
-			this.mDrawing = true;
-			this.notifyAll();
-			// Debug.d("<<< notifyCanDraw");
-		}
+        return this.calculateNanosecondsElapsed(now, this.mLastTick);
+    }
 
-		public synchronized void notifyCanUpdate() {
-			// Debug.d(">>> notifyCanUpdate");
-			this.mDrawing = false;
-			this.notifyAll();
-			// Debug.d("<<< notifyCanUpdate");
-		}
+    protected long calculateNanosecondsElapsed(final long pNow, final long pLastTick) {
+        return pNow - pLastTick;
+    }
 
-		public synchronized void waitUntilCanDraw() throws InterruptedException {
-			// Debug.d(">>> waitUntilCanDraw");
-			while(!this.mDrawing) {
-				this.wait();
-			}
-			// Debug.d("<<< waitUntilCanDraw");
-		}
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-		public synchronized void waitUntilCanUpdate() throws InterruptedException {
-			// Debug.d(">>> waitUntilCanUpdate");
-			while(this.mDrawing) {
-				this.wait();
-			}
-			// Debug.d("<<< waitUntilCanUpdate");
-		}
-	}
+    private class UpdateThread extends Thread {
+        public UpdateThread() {
+            super("UpdateThread");
+        }
+
+        @Override
+        public void run() {
+            android.os.Process.setThreadPriority(Engine.this.mEngineOptions.getUpdateThreadPriority());
+            try {
+                while(true) {
+                    Engine.this.onTickUpdate();
+                }
+            } catch (final InterruptedException e) {
+                Debug.d("UpdateThread interrupted. Don't worry - this Exception is most likely expected!", e);
+                this.interrupt();
+            }
+        }
+    }
+
+    private static class State {
+        boolean mDrawing = false;
+
+        public synchronized void notifyCanDraw() {
+            // Debug.d(">>> notifyCanDraw");
+            this.mDrawing = true;
+            this.notifyAll();
+            // Debug.d("<<< notifyCanDraw");
+        }
+
+        public synchronized void notifyCanUpdate() {
+            // Debug.d(">>> notifyCanUpdate");
+            this.mDrawing = false;
+            this.notifyAll();
+            // Debug.d("<<< notifyCanUpdate");
+        }
+
+        public synchronized void waitUntilCanDraw() throws InterruptedException {
+            // Debug.d(">>> waitUntilCanDraw");
+            while(!this.mDrawing) {
+                this.wait();
+            }
+            // Debug.d("<<< waitUntilCanDraw");
+        }
+
+        public synchronized void waitUntilCanUpdate() throws InterruptedException {
+            // Debug.d(">>> waitUntilCanUpdate");
+            while(this.mDrawing) {
+                this.wait();
+            }
+            // Debug.d("<<< waitUntilCanUpdate");
+        }
+    }
 }

@@ -10,73 +10,73 @@ import org.anddev.andengine.util.Debug;
  * @since 19:52:31 - 09.03.2010
  */
 public class FPSLogger extends AverageFPSCounter {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected float mShortestFrame = Float.MAX_VALUE;
-	protected float mLongestFrame = Float.MIN_VALUE;
+    protected float mShortestFrame = Float.MAX_VALUE;
+    protected float mLongestFrame = Float.MIN_VALUE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public FPSLogger() {
-		super();
-	}
+    public FPSLogger() {
+        super();
+    }
 
-	public FPSLogger(final float pAverageDuration) {
-		super(pAverageDuration);
-	}
+    public FPSLogger(final float pAverageDuration) {
+        super(pAverageDuration);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected void onHandleAverageDurationElapsed(final float pFPS) {
-		this.onLogFPS();
+    @Override
+    protected void onHandleAverageDurationElapsed(final float pFPS) {
+        this.onLogFPS();
 
-		this.mLongestFrame = Float.MIN_VALUE;
-		this.mShortestFrame = Float.MAX_VALUE;
-	}
+        this.mLongestFrame = Float.MIN_VALUE;
+        this.mShortestFrame = Float.MAX_VALUE;
+    }
 
-	@Override
-	public void onUpdate(final float pSecondsElapsed) {
-		super.onUpdate(pSecondsElapsed);
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
+        super.onUpdate(pSecondsElapsed);
 
-		this.mShortestFrame = Math.min(this.mShortestFrame, pSecondsElapsed);
-		this.mLongestFrame = Math.max(this.mLongestFrame, pSecondsElapsed);
-	}
+        this.mShortestFrame = Math.min(this.mShortestFrame, pSecondsElapsed);
+        this.mLongestFrame = Math.max(this.mLongestFrame, pSecondsElapsed);
+    }
 
-	@Override
-	public void reset() {
-		super.reset();
+    @Override
+    public void reset() {
+        super.reset();
 
-		this.mShortestFrame = Float.MAX_VALUE;
-		this.mLongestFrame = Float.MIN_VALUE;
-	}
+        this.mShortestFrame = Float.MAX_VALUE;
+        this.mLongestFrame = Float.MIN_VALUE;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	protected void onLogFPS() {
-		Debug.d(String.format("FPS: %.2f (MIN: %.0f ms | MAX: %.0f ms)",
-				this.mFrames / this.mSecondsElapsed,
-				this.mShortestFrame * MILLISECONDSPERSECOND,
-				this.mLongestFrame * MILLISECONDSPERSECOND));
-	}
+    protected void onLogFPS() {
+        Debug.d(String.format("FPS: %.2f (MIN: %.0f ms | MAX: %.0f ms)",
+                this.mFrames / this.mSecondsElapsed,
+                this.mShortestFrame * MILLISECONDSPERSECOND,
+                this.mLongestFrame * MILLISECONDSPERSECOND));
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

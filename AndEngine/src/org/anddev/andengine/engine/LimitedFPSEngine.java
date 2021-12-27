@@ -14,53 +14,53 @@ import org.anddev.andengine.engine.options.EngineOptions;
  * @since 10:17:47 - 02.08.2010
  */
 public class LimitedFPSEngine extends Engine {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final long mPreferredFrameLengthNanoseconds;
+    private final long mPreferredFrameLengthNanoseconds;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public LimitedFPSEngine(final EngineOptions pEngineOptions, final int pFramesPerSecond) {
-		super(pEngineOptions);
-		this.mPreferredFrameLengthNanoseconds = NANOSECONDSPERSECOND / pFramesPerSecond;
-	}
+    public LimitedFPSEngine(final EngineOptions pEngineOptions, final int pFramesPerSecond) {
+        super(pEngineOptions);
+        this.mPreferredFrameLengthNanoseconds = NANOSECONDSPERSECOND / pFramesPerSecond;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
-		final long preferredFrameLengthNanoseconds = this.mPreferredFrameLengthNanoseconds;
-		final long deltaFrameLengthNanoseconds = preferredFrameLengthNanoseconds - pNanosecondsElapsed;
+    @Override
+    public void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
+        final long preferredFrameLengthNanoseconds = this.mPreferredFrameLengthNanoseconds;
+        final long deltaFrameLengthNanoseconds = preferredFrameLengthNanoseconds - pNanosecondsElapsed;
 
-		if(deltaFrameLengthNanoseconds <= 0) {
-			super.onUpdate(pNanosecondsElapsed);
-		} else {
-			final int sleepTimeMilliseconds = (int) (deltaFrameLengthNanoseconds / NANOSECONDSPERMILLISECOND);
+        if(deltaFrameLengthNanoseconds <= 0) {
+            super.onUpdate(pNanosecondsElapsed);
+        } else {
+            final int sleepTimeMilliseconds = (int) (deltaFrameLengthNanoseconds / NANOSECONDSPERMILLISECOND);
 
-			Thread.sleep(sleepTimeMilliseconds);
-			super.onUpdate(pNanosecondsElapsed + deltaFrameLengthNanoseconds);
-		}
-	}
+            Thread.sleep(sleepTimeMilliseconds);
+            super.onUpdate(pNanosecondsElapsed + deltaFrameLengthNanoseconds);
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

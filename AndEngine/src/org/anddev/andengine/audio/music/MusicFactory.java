@@ -16,83 +16,83 @@ import android.media.MediaPlayer;
  * @since 15:05:49 - 13.06.2010
  */
 public class MusicFactory {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static String sAssetBasePath = "";
+    private static String sAssetBasePath = "";
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	/**
-	 * @param pAssetBasePath must end with '<code>/</code>' or have <code>.length() == 0</code>.
-	 */
-	public static void setAssetBasePath(final String pAssetBasePath) {
-		if(pAssetBasePath.endsWith("/") || pAssetBasePath.length() == 0) {
-			MusicFactory.sAssetBasePath = pAssetBasePath;
-		} else {
-			throw new IllegalStateException("pAssetBasePath must end with '/' or be lenght zero.");
-		}
-	}
+    /**
+     * @param pAssetBasePath must end with '<code>/</code>' or have <code>.length() == 0</code>.
+     */
+    public static void setAssetBasePath(final String pAssetBasePath) {
+        if(pAssetBasePath.endsWith("/") || pAssetBasePath.length() == 0) {
+            MusicFactory.sAssetBasePath = pAssetBasePath;
+        } else {
+            throw new IllegalStateException("pAssetBasePath must end with '/' or be lenght zero.");
+        }
+    }
 
-	public static void reset() {
-		MusicFactory.setAssetBasePath("");
-	}
+    public static void reset() {
+        MusicFactory.setAssetBasePath("");
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static Music createMusicFromFile(final MusicManager pMusicManager, final File pFile) throws IOException {
-		final MediaPlayer mediaPlayer = new MediaPlayer();
+    public static Music createMusicFromFile(final MusicManager pMusicManager, final File pFile) throws IOException {
+        final MediaPlayer mediaPlayer = new MediaPlayer();
 
-		mediaPlayer.setDataSource(new FileInputStream(pFile).getFD());
-		mediaPlayer.prepare();
+        mediaPlayer.setDataSource(new FileInputStream(pFile).getFD());
+        mediaPlayer.prepare();
 
-		final Music music = new Music(pMusicManager, mediaPlayer);
-		pMusicManager.add(music);
+        final Music music = new Music(pMusicManager, mediaPlayer);
+        pMusicManager.add(music);
 
-		return music;
-	}
+        return music;
+    }
 
-	public static Music createMusicFromAsset(final MusicManager pMusicManager, final Context pContext, final String pAssetPath) throws IOException {
-		final MediaPlayer mediaPlayer = new MediaPlayer();
+    public static Music createMusicFromAsset(final MusicManager pMusicManager, final Context pContext, final String pAssetPath) throws IOException {
+        final MediaPlayer mediaPlayer = new MediaPlayer();
 
-		final AssetFileDescriptor assetFileDescritor = pContext.getAssets().openFd(MusicFactory.sAssetBasePath + pAssetPath);
-		mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
-		mediaPlayer.prepare();
+        final AssetFileDescriptor assetFileDescritor = pContext.getAssets().openFd(MusicFactory.sAssetBasePath + pAssetPath);
+        mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
+        mediaPlayer.prepare();
 
-		final Music music = new Music(pMusicManager, mediaPlayer);
-		pMusicManager.add(music);
+        final Music music = new Music(pMusicManager, mediaPlayer);
+        pMusicManager.add(music);
 
-		return music;
-	}
+        return music;
+    }
 
-	public static Music createMusicFromResource(final MusicManager pMusicManager, final Context pContext, final int pMusicResID) throws IOException {
-		final MediaPlayer mediaPlayer = MediaPlayer.create(pContext, pMusicResID);
-		mediaPlayer.prepare();
+    public static Music createMusicFromResource(final MusicManager pMusicManager, final Context pContext, final int pMusicResID) throws IOException {
+        final MediaPlayer mediaPlayer = MediaPlayer.create(pContext, pMusicResID);
+        mediaPlayer.prepare();
 
-		final Music music = new Music(pMusicManager, mediaPlayer);
-		pMusicManager.add(music);
+        final Music music = new Music(pMusicManager, mediaPlayer);
+        pMusicManager.add(music);
 
-		return music;
-	}
+        return music;
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

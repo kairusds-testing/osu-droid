@@ -11,63 +11,63 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @param <T>
  */
 public abstract class BaseTripleValueSpanModifier<T> extends BaseDoubleValueSpanModifier<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final float mFromValueC;
-	private final float mValueSpanC;
+    private final float mFromValueC;
+    private final float mValueSpanC;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseTripleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final float pFromValueC, final float pToValueC, final IEaseFunction pEaseFunction) {
-		this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pFromValueC, pToValueC, null, pEaseFunction);
-	}
+    public BaseTripleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final float pFromValueC, final float pToValueC, final IEaseFunction pEaseFunction) {
+        this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pFromValueC, pToValueC, null, pEaseFunction);
+    }
 
-	public BaseTripleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final float pFromValueC, final float pToValueC, final IModifierListener<T> pModifierListener, final IEaseFunction pEaseFunction) {
-		super(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pModifierListener, pEaseFunction);
-		this.mFromValueC = pFromValueC;
-		this.mValueSpanC = pToValueC - pFromValueC;
-	}
+    public BaseTripleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final float pFromValueC, final float pToValueC, final IModifierListener<T> pModifierListener, final IEaseFunction pEaseFunction) {
+        super(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pModifierListener, pEaseFunction);
+        this.mFromValueC = pFromValueC;
+        this.mValueSpanC = pToValueC - pFromValueC;
+    }
 
-	protected BaseTripleValueSpanModifier(final BaseTripleValueSpanModifier<T> pBaseTripleValueSpanModifier) {
-		super(pBaseTripleValueSpanModifier);
-		this.mFromValueC = pBaseTripleValueSpanModifier.mFromValueC;
-		this.mValueSpanC = pBaseTripleValueSpanModifier.mValueSpanC;
-	}
+    protected BaseTripleValueSpanModifier(final BaseTripleValueSpanModifier<T> pBaseTripleValueSpanModifier) {
+        super(pBaseTripleValueSpanModifier);
+        this.mFromValueC = pBaseTripleValueSpanModifier.mFromValueC;
+        this.mValueSpanC = pBaseTripleValueSpanModifier.mValueSpanC;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract void onSetInitialValues(final T pItem, final float pValueA, final float pValueB, final float pValueC);
-	protected abstract void onSetValues(final T pItem, final float pPerctentageDone, final float pValueA, final float pValueB, final float pValueC);
+    protected abstract void onSetInitialValues(final T pItem, final float pValueA, final float pValueB, final float pValueC);
+    protected abstract void onSetValues(final T pItem, final float pPerctentageDone, final float pValueA, final float pValueB, final float pValueC);
 
-	@Override
-	protected void onSetInitialValues(final T pItem, final float pValueA, final float pValueB) {
-		this.onSetInitialValues(pItem, pValueA, pValueB, this.mFromValueC);
-	}
+    @Override
+    protected void onSetInitialValues(final T pItem, final float pValueA, final float pValueB) {
+        this.onSetInitialValues(pItem, pValueA, pValueB, this.mFromValueC);
+    }
 
-	@Override
-	protected void onSetValues(final T pItem, final float pPercentageDone, final float pValueA, final float pValueB) {
-		this.onSetValues(pItem, pPercentageDone, pValueA, pValueB, this.mFromValueC + pPercentageDone * this.mValueSpanC);
-	}
+    @Override
+    protected void onSetValues(final T pItem, final float pPercentageDone, final float pValueA, final float pValueB) {
+        this.onSetValues(pItem, pPercentageDone, pValueA, pValueB, this.mFromValueC + pPercentageDone * this.mValueSpanC);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

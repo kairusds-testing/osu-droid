@@ -5,6 +5,6 @@ import lt.ekgame.beatmap_analyzer.performance.scores.Score;
 
 public interface PerformanceCalculator {
 
-	public Performance calculate(Difficulty difficulty, Score score);
+    public Performance calculate(Difficulty difficulty, Score score);
 
 }

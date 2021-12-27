@@ -14,53 +14,53 @@ import org.anddev.andengine.entity.scene.Scene;
  * @since 16:36:51 - 03.08.2010
  */
 public class PopupScene extends CameraScene {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public PopupScene(final Camera pCamera, final Scene pParentScene, final float pDurationSeconds) {
-		this(pCamera, pParentScene, pDurationSeconds, null);
-	}
+    public PopupScene(final Camera pCamera, final Scene pParentScene, final float pDurationSeconds) {
+        this(pCamera, pParentScene, pDurationSeconds, null);
+    }
 
-	public PopupScene(final Camera pCamera, final Scene pParentScene, final float pDurationSeconds, final Runnable pRunnable) {
-		super(pCamera);
-		this.setBackgroundEnabled(false);
+    public PopupScene(final Camera pCamera, final Scene pParentScene, final float pDurationSeconds, final Runnable pRunnable) {
+        super(pCamera);
+        this.setBackgroundEnabled(false);
 
-		pParentScene.setChildScene(this, false, true, true);
+        pParentScene.setChildScene(this, false, true, true);
 
-		this.registerUpdateHandler(new TimerHandler(pDurationSeconds, new ITimerCallback() {
-			@Override
-			public void onTimePassed(final TimerHandler pTimerHandler) {
-				PopupScene.this.unregisterUpdateHandler(pTimerHandler);
-				pParentScene.clearChildScene();
-				if(pRunnable != null) {
-					pRunnable.run();
-				}
-			}
-		}));
-	}
+        this.registerUpdateHandler(new TimerHandler(pDurationSeconds, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                PopupScene.this.unregisterUpdateHandler(pTimerHandler);
+                pParentScene.clearChildScene();
+                if(pRunnable != null) {
+                    pRunnable.run();
+                }
+            }
+        }));
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -13,60 +13,60 @@ import org.anddev.andengine.util.modifier.ModifierList;
  * @since 14:08:17 - 19.07.2010
  */
 public abstract class BaseBackground implements IBackground {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final int BACKGROUNDMODIFIERS_CAPACITY_DEFAULT = 4;
+    private static final int BACKGROUNDMODIFIERS_CAPACITY_DEFAULT = 4;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final ModifierList<IBackground> mBackgroundModifiers = new ModifierList<IBackground>(this, BACKGROUNDMODIFIERS_CAPACITY_DEFAULT);
+    private final ModifierList<IBackground> mBackgroundModifiers = new ModifierList<IBackground>(this, BACKGROUNDMODIFIERS_CAPACITY_DEFAULT);
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void addBackgroundModifier(final IModifier<IBackground> pBackgroundModifier) {
-		this.mBackgroundModifiers.add(pBackgroundModifier);
-	}
+    @Override
+    public void addBackgroundModifier(final IModifier<IBackground> pBackgroundModifier) {
+        this.mBackgroundModifiers.add(pBackgroundModifier);
+    }
 
-	@Override
-	public boolean removeBackgroundModifier(final IModifier<IBackground> pBackgroundModifier) {
-		return this.mBackgroundModifiers.remove(pBackgroundModifier);
-	}
+    @Override
+    public boolean removeBackgroundModifier(final IModifier<IBackground> pBackgroundModifier) {
+        return this.mBackgroundModifiers.remove(pBackgroundModifier);
+    }
 
-	@Override
-	public void clearBackgroundModifiers() {
-		this.mBackgroundModifiers.clear();
-	}
+    @Override
+    public void clearBackgroundModifiers() {
+        this.mBackgroundModifiers.clear();
+    }
 
-	@Override
-	public void onUpdate(final float pSecondsElapsed) {
-		this.mBackgroundModifiers.onUpdate(pSecondsElapsed);
-	}
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
+        this.mBackgroundModifiers.onUpdate(pSecondsElapsed);
+    }
 
-	@Override
-	public void reset() {
-		this.mBackgroundModifiers.reset();
-	}
+    @Override
+    public void reset() {
+        this.mBackgroundModifiers.reset();
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -11,58 +11,58 @@ import android.util.SparseArray;
  * @param <T>
  */
 public class Library<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected final SparseArray<T> mItems;
+    protected final SparseArray<T> mItems;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public Library() {
-		this.mItems = new SparseArray<T>();
-	}
+    public Library() {
+        this.mItems = new SparseArray<T>();
+    }
 
-	public Library(final int pInitialCapacity) {
-		this.mItems = new SparseArray<T>(pInitialCapacity);
-	}
+    public Library(final int pInitialCapacity) {
+        this.mItems = new SparseArray<T>(pInitialCapacity);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public void put(final int pID, final T pItem) {
-		final T existingItem = this.mItems.get(pID);
-		if(existingItem == null) {
-			this.mItems.put(pID, pItem);
-		} else {
-			throw new IllegalArgumentException("ID: '" + pID + "' is already associated with item: '" + existingItem.toString() + "'.");
-		}
-	}
+    public void put(final int pID, final T pItem) {
+        final T existingItem = this.mItems.get(pID);
+        if(existingItem == null) {
+            this.mItems.put(pID, pItem);
+        } else {
+            throw new IllegalArgumentException("ID: '" + pID + "' is already associated with item: '" + existingItem.toString() + "'.");
+        }
+    }
 
-	public void remove(final int pID) {
-		this.mItems.remove(pID);
-	}
+    public void remove(final int pID) {
+        this.mItems.remove(pID);
+    }
 
-	public T get(final int pID) {
-		return this.mItems.get(pID);
-	}
+    public T get(final int pID) {
+        return this.mItems.get(pID);
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

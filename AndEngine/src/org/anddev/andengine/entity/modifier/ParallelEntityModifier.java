@@ -11,48 +11,48 @@ import org.anddev.andengine.util.modifier.ParallelModifier;
  * @since 12:40:31 - 03.09.2010
  */
 public class ParallelEntityModifier extends ParallelModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ParallelEntityModifier(final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pEntityModifiers);
-	}
+    public ParallelEntityModifier(final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pEntityModifiers);
+    }
 
-	public ParallelEntityModifier(final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pEntityModifierListener, pEntityModifiers);
-	}
+    public ParallelEntityModifier(final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pEntityModifierListener, pEntityModifiers);
+    }
 
-	protected ParallelEntityModifier(final ParallelEntityModifier pParallelShapeModifier) throws DeepCopyNotSupportedException {
-		super(pParallelShapeModifier);
-	}
+    protected ParallelEntityModifier(final ParallelEntityModifier pParallelShapeModifier) throws DeepCopyNotSupportedException {
+        super(pParallelShapeModifier);
+    }
 
-	@Override
-	public ParallelEntityModifier deepCopy() throws DeepCopyNotSupportedException {
-		return new ParallelEntityModifier(this);
-	}
+    @Override
+    public ParallelEntityModifier deepCopy() throws DeepCopyNotSupportedException {
+        return new ParallelEntityModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

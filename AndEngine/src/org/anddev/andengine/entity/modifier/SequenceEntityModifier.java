@@ -11,66 +11,66 @@ import org.anddev.andengine.util.modifier.SequenceModifier;
  * @since 12:41:15 - 03.09.2010
  */
 public class SequenceEntityModifier extends SequenceModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SequenceEntityModifier(final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pEntityModifiers);
-	}
+    public SequenceEntityModifier(final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pEntityModifiers);
+    }
 
-	public SequenceEntityModifier(final ISubSequenceShapeModifierListener pSubSequenceShapeModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pSubSequenceShapeModifierListener, pEntityModifiers);
-	}
+    public SequenceEntityModifier(final ISubSequenceShapeModifierListener pSubSequenceShapeModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pSubSequenceShapeModifierListener, pEntityModifiers);
+    }
 
-	public SequenceEntityModifier(final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pEntityModifierListener, pEntityModifiers);
-	}
+    public SequenceEntityModifier(final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pEntityModifierListener, pEntityModifiers);
+    }
 
-	public SequenceEntityModifier(final ISubSequenceShapeModifierListener pSubSequenceShapeModifierListener, final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
-		super(pSubSequenceShapeModifierListener, pEntityModifierListener, pEntityModifiers);
-	}
+    public SequenceEntityModifier(final ISubSequenceShapeModifierListener pSubSequenceShapeModifierListener, final IEntityModifierListener pEntityModifierListener, final IEntityModifier... pEntityModifiers) throws IllegalArgumentException {
+        super(pSubSequenceShapeModifierListener, pEntityModifierListener, pEntityModifiers);
+    }
 
-	protected SequenceEntityModifier(final SequenceEntityModifier pSequenceShapeModifier) throws DeepCopyNotSupportedException {
-		super(pSequenceShapeModifier);
-	}
+    protected SequenceEntityModifier(final SequenceEntityModifier pSequenceShapeModifier) throws DeepCopyNotSupportedException {
+        super(pSequenceShapeModifier);
+    }
 
-	@Override
-	public SequenceEntityModifier deepCopy() throws DeepCopyNotSupportedException {
-		return new SequenceEntityModifier(this);
-	}
+    @Override
+    public SequenceEntityModifier deepCopy() throws DeepCopyNotSupportedException {
+        return new SequenceEntityModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public interface ISubSequenceShapeModifierListener extends ISubSequenceModifierListener<IEntity> {
-		// ===========================================================
-		// Final Fields
-		// ===========================================================
+    public interface ISubSequenceShapeModifierListener extends ISubSequenceModifierListener<IEntity> {
+        // ===========================================================
+        // Final Fields
+        // ===========================================================
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
-	}
+        // ===========================================================
+        // Methods
+        // ===========================================================
+    }
 }

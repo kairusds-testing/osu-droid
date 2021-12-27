@@ -14,22 +14,22 @@ import lt.ekgame.beatmap_analyzer.beatmap.TimingPoint;
 
 public abstract class HitObjectParser<T extends HitObject> {
 
-	public abstract T parse(String line);
+    public abstract T parse(String line);
 
-	public List<T> parse(List<String> lines) {
-		List<T> l = new ArrayList<T>(lines.size());
-		for (int i = 0; i < lines.size(); i++) {
-			l.add(i, parse(lines.get(i)));
-		}
+    public List<T> parse(List<String> lines) {
+        List<T> l = new ArrayList<T>(lines.size());
+        for (int i = 0; i < lines.size(); i++) {
+            l.add(i, parse(lines.get(i)));
+        }
 
 
-		return l;
-		//lines.stream().map(this::parse)
-		//	.collect(Collectors.toList());
-	}
+        return l;
+        //lines.stream().map(this::parse)
+        //    .collect(Collectors.toList());
+    }
 
-	public abstract Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
-										 BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
-										 List<TimingPoint> timingPoints, List<String> rawObjects);
+    public abstract Beatmap buildBeatmap(BeatmapGenerals generals, BeatmapEditorState editorState,
+                                         BeatmapMetadata metadata, BeatmapDifficulties difficulties, List<BreakPeriod> breaks,
+                                         List<TimingPoint> timingPoints, List<String> rawObjects);
 
 }

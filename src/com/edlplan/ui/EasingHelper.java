@@ -7,9 +7,9 @@ import com.edlplan.framework.easing.EasingManager;
 
 public class EasingHelper {
 
-	public static Interpolator asInterpolator(Easing easing) {
-		return f -> (float) EasingManager.apply(easing, f);
-	}
+    public static Interpolator asInterpolator(Easing easing) {
+        return f -> (float) EasingManager.apply(easing, f);
+    }
 
 
 }

@@ -19,95 +19,95 @@ import ru.nsu.ccfit.zuev.osu.helper.StringTable;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class StartingMapManager {
-	private final Activity activity;
+    private final Activity activity;
 
-	public StartingMapManager(final Activity activity) {
-		this.activity = activity;
-	}
+    public StartingMapManager(final Activity activity) {
+        this.activity = activity;
+    }
 
-	public boolean checkStartingMaps() {
-		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		return prefs.getBoolean("initialized", false);
-	}
+    public boolean checkStartingMaps() {
+        final SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        return prefs.getBoolean("initialized", false);
+    }
 
-	public void copyStartingMaps() {
-		if (checkStartingMaps()) {
-			return;
-		}
-		ToastLogger.showText("Preparing for the first launch", false);
-		String dirList[];
-		try {
-			dirList = activity.getAssets().list("Songs");
-		} catch (final IOException e) {
-			Debug.e("StartingMapManager: " + e.getMessage(), e);
-			return;
-		}
+    public void copyStartingMaps() {
+        if (checkStartingMaps()) {
+            return;
+        }
+        ToastLogger.showText("Preparing for the first launch", false);
+        String dirList[];
+        try {
+            dirList = activity.getAssets().list("Songs");
+        } catch (final IOException e) {
+            Debug.e("StartingMapManager: " + e.getMessage(), e);
+            return;
+        }
 
-		for (final String dir : dirList) {
-			copyAllFiles(dir);
-		}
+        for (final String dir : dirList) {
+            copyAllFiles(dir);
+        }
 
-		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		final SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean("initialized", true);
-		editor.commit();
-	}
+        final SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        final SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("initialized", true);
+        editor.commit();
+    }
 
-	private void copyAllFiles(final String dirname) {
-		final File dir = new File(Config.getBeatmapPath() + "/" + dirname);
-		if (dir.exists() == false && dir.mkdirs() == false) {
-			ToastLogger.showText("Cannot create " + dir.getPath(), false);
-			return;
-		}
-		String fileList[];
-		try {
-			fileList = activity.getAssets().list("Songs/" + dirname);
-		} catch (final IOException e) {
-			Debug.e("StartingMapManager: " + e.getMessage(), e);
-			return;
-		}
+    private void copyAllFiles(final String dirname) {
+        final File dir = new File(Config.getBeatmapPath() + "/" + dirname);
+        if (dir.exists() == false && dir.mkdirs() == false) {
+            ToastLogger.showText("Cannot create " + dir.getPath(), false);
+            return;
+        }
+        String fileList[];
+        try {
+            fileList = activity.getAssets().list("Songs/" + dirname);
+        } catch (final IOException e) {
+            Debug.e("StartingMapManager: " + e.getMessage(), e);
+            return;
+        }
 
-		final AssetManager mgr = activity.getAssets();
-		for (final String file : fileList) {
-			final String fullname = "Songs/" + dirname + "/" + file;
-			try {
-				final InputStream istream = mgr.open(fullname);
-				copyFile(dirname + "/" + file, istream);
-			} catch (final IOException e) {
-				Debug.e("StartingMapManager: " + e.getMessage(), e);
-			}
-		}
-	}
+        final AssetManager mgr = activity.getAssets();
+        for (final String file : fileList) {
+            final String fullname = "Songs/" + dirname + "/" + file;
+            try {
+                final InputStream istream = mgr.open(fullname);
+                copyFile(dirname + "/" + file, istream);
+            } catch (final IOException e) {
+                Debug.e("StartingMapManager: " + e.getMessage(), e);
+            }
+        }
+    }
 
-	private void copyFile(final String filename, final InputStream istream) {
-		OutputStream out;
+    private void copyFile(final String filename, final InputStream istream) {
+        OutputStream out;
 
-		try {
-			out = new FileOutputStream(Config.getBeatmapPath() + "/" + filename);
-		} catch (final FileNotFoundException e) {
-			ToastLogger.showText(
-					StringTable.format(R.string.message_error, e.getMessage()),
-					false);
-			Debug.e("StartingMapManager: " + e.getMessage(), e);
-			return;
-		}
+        try {
+            out = new FileOutputStream(Config.getBeatmapPath() + "/" + filename);
+        } catch (final FileNotFoundException e) {
+            ToastLogger.showText(
+                    StringTable.format(R.string.message_error, e.getMessage()),
+                    false);
+            Debug.e("StartingMapManager: " + e.getMessage(), e);
+            return;
+        }
 
-		try {
-			final byte[] buffer = new byte[4096];
-			int read;
-			while ((read = istream.read(buffer)) != -1) {
-				out.write(buffer, 0, read);
-			}
+        try {
+            final byte[] buffer = new byte[4096];
+            int read;
+            while ((read = istream.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
 
-			istream.close();
-			out.flush();
-			out.close();
-		} catch (final IOException e) {
-			ToastLogger.showText(e.getMessage(), false);
-			Debug.e("StartingMapManager: " + e.getMessage(), e);
-			return;
-		}
-	}
+            istream.close();
+            out.flush();
+            out.close();
+        } catch (final IOException e) {
+            ToastLogger.showText(e.getMessage(), false);
+            Debug.e("StartingMapManager: " + e.getMessage(), e);
+            return;
+        }
+    }
 }

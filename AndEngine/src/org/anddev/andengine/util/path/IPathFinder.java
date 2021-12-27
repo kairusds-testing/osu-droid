@@ -8,13 +8,13 @@ package org.anddev.andengine.util.path;
  * @since 22:57:13 - 16.08.2010
  */
 public interface IPathFinder<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	public Path findPath(final T pEntity, final int pMaxCost, final int pFromTileColumn, final int pFromTileRow, final int pToTileColumn, final int pToTileRow);
+    public Path findPath(final T pEntity, final int pMaxCost, final int pFromTileColumn, final int pFromTileRow, final int pToTileColumn, final int pToTileRow);
 }

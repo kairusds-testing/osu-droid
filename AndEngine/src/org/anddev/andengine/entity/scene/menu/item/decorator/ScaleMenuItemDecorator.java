@@ -10,62 +10,62 @@ import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
  * @since 15:04:29 - 18.11.2010
  */
 public class ScaleMenuItemDecorator extends BaseMenuItemDecorator {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final float mSelectedScale;
-	private final float mUnselectedScale;
+    private final float mSelectedScale;
+    private final float mUnselectedScale;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ScaleMenuItemDecorator(final IMenuItem pMenuItem, final float pSelectedScale, final float pUnselectedScale) {
-		super(pMenuItem);
+    public ScaleMenuItemDecorator(final IMenuItem pMenuItem, final float pSelectedScale, final float pUnselectedScale) {
+        super(pMenuItem);
 
-		this.mSelectedScale = pSelectedScale;
-		this.mUnselectedScale = pUnselectedScale;
+        this.mSelectedScale = pSelectedScale;
+        this.mUnselectedScale = pUnselectedScale;
 
-		pMenuItem.setScale(pUnselectedScale);
-	}
+        pMenuItem.setScale(pUnselectedScale);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onMenuItemSelected(final IMenuItem pMenuItem) {
-		this.setScale(this.mSelectedScale);
-	}
+    @Override
+    public void onMenuItemSelected(final IMenuItem pMenuItem) {
+        this.setScale(this.mSelectedScale);
+    }
 
-	@Override
-	public void onMenuItemUnselected(final IMenuItem pMenuItem) {
-		this.setScale(this.mUnselectedScale);
-	}
+    @Override
+    public void onMenuItemUnselected(final IMenuItem pMenuItem) {
+        this.setScale(this.mUnselectedScale);
+    }
 
-	@Override
-	public void onMenuItemReset(final IMenuItem pMenuItem) {
-		this.setScale(this.mUnselectedScale);
-	}
+    @Override
+    public void onMenuItemReset(final IMenuItem pMenuItem) {
+        this.setScale(this.mUnselectedScale);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -13,54 +13,54 @@ import android.media.SoundPool;
  * @since 13:22:59 - 11.03.2010
  */
 public class SoundManager extends BaseAudioManager<Sound> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final int MAX_SIMULTANEOUS_STREAMS_DEFAULT = 5;
+    private static final int MAX_SIMULTANEOUS_STREAMS_DEFAULT = 5;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final SoundPool mSoundPool;
+    private final SoundPool mSoundPool;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SoundManager() {
-		this(MAX_SIMULTANEOUS_STREAMS_DEFAULT);
-	}
+    public SoundManager() {
+        this(MAX_SIMULTANEOUS_STREAMS_DEFAULT);
+    }
 
-	public SoundManager(final int pMaxSimultaneousStreams) {
-		this.mSoundPool = new SoundPool(pMaxSimultaneousStreams, AudioManager.STREAM_MUSIC, 0);
-	}
+    public SoundManager(final int pMaxSimultaneousStreams) {
+        this.mSoundPool = new SoundPool(pMaxSimultaneousStreams, AudioManager.STREAM_MUSIC, 0);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	SoundPool getSoundPool() {
-		return this.mSoundPool;
-	}
+    SoundPool getSoundPool() {
+        return this.mSoundPool;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	@Override
-	public void releaseAll() {
-		super.releaseAll();
+    @Override
+    public void releaseAll() {
+        super.releaseAll();
 
-		this.mSoundPool.release();
-	}
+        this.mSoundPool.release();
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

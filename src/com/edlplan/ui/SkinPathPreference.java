@@ -19,52 +19,52 @@ import ru.nsu.ccfit.zuev.osu.async.OsuAsyncCallback;
 import ru.nsu.ccfit.zuev.osuplus.R;
 
 public class SkinPathPreference extends ListPreference {
-	
-	public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-	}
+    
+    public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
 
-	public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs);
-	}
+    public SkinPathPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs);
+    }
  
-	public SkinPathPreference(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public SkinPathPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public SkinPathPreference(Context context) {
-		super(context);
-	}
+    public SkinPathPreference(Context context) {
+        super(context);
+    }
 
-	public void reloadSkinList() {
-		try {
-			File skinMain = new File(Config.getSkinTopPath());
-			Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
-			int skinsSize = (skins.size() > 0) ? skins.size() + 1 : 1;
-			Debug.i("Skins count:" + skinsSize);
-			CharSequence[] entries = new CharSequence[skinsSize];
-			CharSequence[] entryValues = new CharSequence[skinsSize];
-			entries[0] = skinMain.getName() + " (Default)";
-			entryValues[0] = skinMain.getPath();
-			
-			if(skins.size() > 0) {
-				int index = 1;
-				for(Map.Entry<String, String> skin : skins.entrySet()) {
-					entries[index] = skin.getKey();
-					entryValues[index] = skin.getValue();
-					index++;
-				}
+    public void reloadSkinList() {
+        try {
+            File skinMain = new File(Config.getSkinTopPath());
+            Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
+            int skinsSize = (skins.size() > 0) ? skins.size() + 1 : 1;
+            Debug.i("Skins count:" + skinsSize);
+            CharSequence[] entries = new CharSequence[skinsSize];
+            CharSequence[] entryValues = new CharSequence[skinsSize];
+            entries[0] = skinMain.getName() + " (Default)";
+            entryValues[0] = skinMain.getPath();
+            
+            if(skins.size() > 0) {
+                int index = 1;
+                for(Map.Entry<String, String> skin : skins.entrySet()) {
+                    entries[index] = skin.getKey();
+                    entryValues[index] = skin.getValue();
+                    index++;
+                }
 
-				Arrays.sort(entries, 1, entries.length);
-				Arrays.sort(entryValues, 1, entryValues.length);
-			}
+                Arrays.sort(entries, 1, entries.length);
+                Arrays.sort(entryValues, 1, entryValues.length);
+            }
 
-			setEntries(entries);
-			setEntryValues(entryValues);
-		} catch (Exception e) {
-			Debug.e("SkinPathPreference.reloadSkinList: ", e);
-			e.printStackTrace();
-		}
-	}
+            setEntries(entries);
+            setEntryValues(entryValues);
+        } catch (Exception e) {
+            Debug.e("SkinPathPreference.reloadSkinList: ", e);
+            e.printStackTrace();
+        }
+    }
 
 }

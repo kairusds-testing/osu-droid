@@ -11,56 +11,56 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @since 19:03:12 - 08.06.2010
  */
 public class FadeOutModifier extends AlphaModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public FadeOutModifier(final float pDuration) {
-		super(pDuration, 1.0f, 0.0f, IEaseFunction.DEFAULT);
-	}
+    public FadeOutModifier(final float pDuration) {
+        super(pDuration, 1.0f, 0.0f, IEaseFunction.DEFAULT);
+    }
 
-	public FadeOutModifier(final float pDuration, final IEaseFunction pEaseFunction) {
-		super(pDuration, 1.0f, 0.0f, pEaseFunction);
-	}
+    public FadeOutModifier(final float pDuration, final IEaseFunction pEaseFunction) {
+        super(pDuration, 1.0f, 0.0f, pEaseFunction);
+    }
 
-	public FadeOutModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener) {
-		super(pDuration, 1.0f, 0.0f, pEntityModifierListener, IEaseFunction.DEFAULT);
-	}
+    public FadeOutModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener) {
+        super(pDuration, 1.0f, 0.0f, pEntityModifierListener, IEaseFunction.DEFAULT);
+    }
 
-	public FadeOutModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener, final IEaseFunction pEaseFunction) {
-		super(pDuration, 1.0f, 0.0f, pEntityModifierListener, pEaseFunction);
-	}
+    public FadeOutModifier(final float pDuration, final IEntityModifierListener pEntityModifierListener, final IEaseFunction pEaseFunction) {
+        super(pDuration, 1.0f, 0.0f, pEntityModifierListener, pEaseFunction);
+    }
 
-	protected FadeOutModifier(final FadeOutModifier pFadeOutModifier) {
-		super(pFadeOutModifier);
-	}
+    protected FadeOutModifier(final FadeOutModifier pFadeOutModifier) {
+        super(pFadeOutModifier);
+    }
 
-	@Override
-	public FadeOutModifier deepCopy() {
-		return new FadeOutModifier(this);
-	}
+    @Override
+    public FadeOutModifier deepCopy() {
+        return new FadeOutModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

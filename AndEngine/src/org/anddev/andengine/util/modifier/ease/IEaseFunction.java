@@ -9,15 +9,15 @@ package org.anddev.andengine.util.modifier.ease;
  * @since 17:13:17 - 26.07.2010
  */
 public interface IEaseFunction {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	public static final IEaseFunction DEFAULT = EaseLinear.getInstance();
+    public static final IEaseFunction DEFAULT = EaseLinear.getInstance();
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public float getPercentage(final float pSecondsElapsed, final float pDuration);
+    public float getPercentage(final float pSecondsElapsed, final float pDuration);
 }

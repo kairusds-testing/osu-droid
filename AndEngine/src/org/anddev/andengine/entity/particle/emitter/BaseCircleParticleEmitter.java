@@ -9,70 +9,70 @@ package org.anddev.andengine.entity.particle.emitter;
  * @since 20:14:43 - 01.10.2010
  */
 public abstract class BaseCircleParticleEmitter extends BaseParticleEmitter {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected float mRadiusX;
-	protected float mRadiusY;
+    protected float mRadiusX;
+    protected float mRadiusY;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseCircleParticleEmitter(final float pCenterX, final float pCenterY, final float pRadius) {
-		this(pCenterX, pCenterY, pRadius, pRadius);
-	}
+    public BaseCircleParticleEmitter(final float pCenterX, final float pCenterY, final float pRadius) {
+        this(pCenterX, pCenterY, pRadius, pRadius);
+    }
 
-	public BaseCircleParticleEmitter(final float pCenterX, final float pCenterY, final float pRadiusX, final float pRadiusY) {
-		super(pCenterX, pCenterY);
-		this.setRadiusX(pRadiusX);
-		this.setRadiusY(pRadiusY);
-	}
+    public BaseCircleParticleEmitter(final float pCenterX, final float pCenterY, final float pRadiusX, final float pRadiusY) {
+        super(pCenterX, pCenterY);
+        this.setRadiusX(pRadiusX);
+        this.setRadiusY(pRadiusY);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public float getRadiusX() {
-		return this.mRadiusX;
-	}
+    public float getRadiusX() {
+        return this.mRadiusX;
+    }
 
-	public void setRadiusX(final float pRadiusX) {
-		this.mRadiusX = pRadiusX;
-	}
+    public void setRadiusX(final float pRadiusX) {
+        this.mRadiusX = pRadiusX;
+    }
 
-	public float getRadiusY() {
-		return this.mRadiusY;
-	}
+    public float getRadiusY() {
+        return this.mRadiusY;
+    }
 
-	public void setRadiusY(final float pRadiusY) {
-		this.mRadiusY = pRadiusY;
-	}
+    public void setRadiusY(final float pRadiusY) {
+        this.mRadiusY = pRadiusY;
+    }
 
-	public void setRadius(final float pRadius) {
-		this.mRadiusX = pRadius;
-		this.mRadiusY = pRadius;
-	}
+    public void setRadius(final float pRadius) {
+        this.mRadiusX = pRadius;
+        this.mRadiusY = pRadius;
+    }
 
-	public void setRadius(final float pRadiusX, final float pRadiusY) {
-		this.mRadiusX = pRadiusX;
-		this.mRadiusY = pRadiusY;
-	}
+    public void setRadius(final float pRadiusX, final float pRadiusY) {
+        this.mRadiusX = pRadiusX;
+        this.mRadiusY = pRadiusY;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

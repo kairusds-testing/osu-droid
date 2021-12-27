@@ -10,45 +10,45 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 10:36:18 - 29.06.2010
  */
 public class RotationModifier extends BaseSingleValueSpanModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public RotationModifier(final float pFromRotation, final float pToRotation, final float pFromTime, final float pToTime) {
-		super(pFromRotation, pToRotation, pFromTime, pToTime);
-	}
+    public RotationModifier(final float pFromRotation, final float pToRotation, final float pFromTime, final float pToTime) {
+        super(pFromRotation, pToRotation, pFromTime, pToTime);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected void onSetInitialValue(final Particle pParticle, final float pRotation) {
-		pParticle.setRotation(pRotation);
-	}
+    @Override
+    protected void onSetInitialValue(final Particle pParticle, final float pRotation) {
+        pParticle.setRotation(pRotation);
+    }
 
-	@Override
-	protected void onSetValue(final Particle pParticle, final float pRotation) {
-		pParticle.setRotation(pRotation);
-	}
+    @Override
+    protected void onSetValue(final Particle pParticle, final float pRotation) {
+        pParticle.setRotation(pRotation);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

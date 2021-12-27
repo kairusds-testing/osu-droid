@@ -11,52 +11,52 @@ import org.anddev.andengine.opengl.vertex.RectangleVertexBuffer;
  * @since 19:22:38 - 09.03.2010
  */
 public class Sprite extends BaseSprite {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public Sprite(final float pX, final float pY, final TextureRegion pTextureRegion) {
-		super(pX, pY, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion);
-	}
+    public Sprite(final float pX, final float pY, final TextureRegion pTextureRegion) {
+        super(pX, pY, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion);
+    }
 
-	public Sprite(final float pX, final float pY, final float pWidth, final float pHeight, final TextureRegion pTextureRegion) {
-		super(pX, pY, pWidth, pHeight, pTextureRegion);
-	}
+    public Sprite(final float pX, final float pY, final float pWidth, final float pHeight, final TextureRegion pTextureRegion) {
+        super(pX, pY, pWidth, pHeight, pTextureRegion);
+    }
 
-	public Sprite(final float pX, final float pY, final TextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
-		super(pX, pY, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion, pRectangleVertexBuffer);
-	}
+    public Sprite(final float pX, final float pY, final TextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
+        super(pX, pY, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion, pRectangleVertexBuffer);
+    }
 
-	public Sprite(final float pX, final float pY, final float pWidth, final float pHeight, final TextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
-		super(pX, pY, pWidth, pHeight, pTextureRegion, pRectangleVertexBuffer);
-	}
+    public Sprite(final float pX, final float pY, final float pWidth, final float pHeight, final TextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
+        super(pX, pY, pWidth, pHeight, pTextureRegion, pRectangleVertexBuffer);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public TextureRegion getTextureRegion() {
-		return (TextureRegion)this.mTextureRegion;
-	}
+    @Override
+    public TextureRegion getTextureRegion() {
+        return (TextureRegion)this.mTextureRegion;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

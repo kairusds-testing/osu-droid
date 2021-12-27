@@ -10,83 +10,83 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 16:10:16 - 04.05.2010
  */
 public abstract class BaseSingleValueSpanModifier implements IParticleModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final float mFromValue;
-	private final float mToValue;
+    private final float mFromValue;
+    private final float mToValue;
 
-	private final float mFromTime;
-	private final float mToTime;
+    private final float mFromTime;
+    private final float mToTime;
 
-	private final float mDuration;
-	private final float mSpanValue;
+    private final float mDuration;
+    private final float mSpanValue;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseSingleValueSpanModifier(final float pFromValue, final float pToValue, final float pFromTime, final float pToTime) {
-		this.mFromValue = pFromValue;
-		this.mToValue = pToValue;
-		this.mFromTime = pFromTime;
-		this.mToTime = pToTime;
+    public BaseSingleValueSpanModifier(final float pFromValue, final float pToValue, final float pFromTime, final float pToTime) {
+        this.mFromValue = pFromValue;
+        this.mToValue = pToValue;
+        this.mFromTime = pFromTime;
+        this.mToTime = pToTime;
 
-		this.mSpanValue = this.mToValue - this.mFromValue;
-		this.mDuration = this.mToTime - this.mFromTime;
-	}
+        this.mSpanValue = this.mToValue - this.mFromValue;
+        this.mDuration = this.mToTime - this.mFromTime;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract void onSetInitialValue(final Particle pParticle, final float pValue);
-	protected abstract void onSetValue(final Particle pParticle, final float pValue);
+    protected abstract void onSetInitialValue(final Particle pParticle, final float pValue);
+    protected abstract void onSetValue(final Particle pParticle, final float pValue);
 
-	@Override
-	public void onInitializeParticle(final Particle pParticle) {
-		this.onSetInitialValue(pParticle, this.mFromValue);
-	}
+    @Override
+    public void onInitializeParticle(final Particle pParticle) {
+        this.onSetInitialValue(pParticle, this.mFromValue);
+    }
 
-	@Override
-	public void onUpdateParticle(final Particle pParticle) {
-		final float lifeTime = pParticle.getLifeTime();
-		if(lifeTime > this.mFromTime && lifeTime < this.mToTime) {
-			final float percent = (lifeTime - this.mFromTime) / this.mDuration;
-			this.onSetValueInternal(pParticle, percent);
-		}
-	}
+    @Override
+    public void onUpdateParticle(final Particle pParticle) {
+        final float lifeTime = pParticle.getLifeTime();
+        if(lifeTime > this.mFromTime && lifeTime < this.mToTime) {
+            final float percent = (lifeTime - this.mFromTime) / this.mDuration;
+            this.onSetValueInternal(pParticle, percent);
+        }
+    }
 
-	public void onUpdateParticle(final Particle pParticle, final float overrideToTime) {
-	    final float lifeTime = pParticle.getLifeTime();
-	    if (lifeTime > this.mFromTime) {
-	        final float percent = (lifeTime - this.mFromTime) / (overrideToTime - this.mFromTime);
-	        this.onSetValueInternal(pParticle, percent);
-	    }
-	}
+    public void onUpdateParticle(final Particle pParticle, final float overrideToTime) {
+        final float lifeTime = pParticle.getLifeTime();
+        if (lifeTime > this.mFromTime) {
+            final float percent = (lifeTime - this.mFromTime) / (overrideToTime - this.mFromTime);
+            this.onSetValueInternal(pParticle, percent);
+        }
+    }
 
-	protected void onSetValueInternal(final Particle pParticle, final float pPercent) {
-		this.onSetValue(pParticle, this.calculateValue(pPercent));
-	}
+    protected void onSetValueInternal(final Particle pParticle, final float pPercent) {
+        this.onSetValue(pParticle, this.calculateValue(pPercent));
+    }
 
-	protected final float calculateValue(final float pPercent) {
-		return this.mFromValue + this.mSpanValue * pPercent;
-	}
+    protected final float calculateValue(final float pPercent) {
+        return this.mFromValue + this.mSpanValue * pPercent;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

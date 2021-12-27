@@ -13,64 +13,64 @@ import org.anddev.andengine.util.constants.MathConstants;
  * @since 16:52:11 - 26.07.2010
  */
 public class EaseElasticIn implements IEaseFunction, MathConstants {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static EaseElasticIn INSTANCE;
+    private static EaseElasticIn INSTANCE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	private EaseElasticIn() {
+    private EaseElasticIn() {
 
-	}
+    }
 
-	public static EaseElasticIn getInstance() {
-		if(INSTANCE == null) {
-			INSTANCE = new EaseElasticIn();
-		}
-		return INSTANCE;
-	}
+    public static EaseElasticIn getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EaseElasticIn();
+        }
+        return INSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
-		return EaseElasticIn.getValue(pSecondsElapsed, pDuration, pSecondsElapsed / pDuration);
-	}
+    @Override
+    public float getPercentage(final float pSecondsElapsed, final float pDuration) {
+        return EaseElasticIn.getValue(pSecondsElapsed, pDuration, pSecondsElapsed / pDuration);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static float getValue(final float pSecondsElapsed, final float pDuration, final float pPercentage) {
-		if(pSecondsElapsed == 0) {
-			return 0;
-		}
-		if(pSecondsElapsed == pDuration) {
-			return 1;
-		}
+    public static float getValue(final float pSecondsElapsed, final float pDuration, final float pPercentage) {
+        if(pSecondsElapsed == 0) {
+            return 0;
+        }
+        if(pSecondsElapsed == pDuration) {
+            return 1;
+        }
 
-		final float p = pDuration * 0.3f;
-		final float s = p / 4;
+        final float p = pDuration * 0.3f;
+        final float s = p / 4;
 
-		final float t = pPercentage - 1;
-		return -(float)Math.pow(2, 10 * t) * (float) Math.sin((t * pDuration - s) * PI_TWICE / p);
-	}
+        final float t = pPercentage - 1;
+        return -(float)Math.pow(2, 10 * t) * (float) Math.sin((t * pDuration - s) * PI_TWICE / p);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }
