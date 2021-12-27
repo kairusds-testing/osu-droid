@@ -7,9 +7,7 @@ import androidx.preference.ListPreference;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.anddev.andengine.util.Debug;
@@ -49,23 +47,25 @@ public class SkinPathPreference extends ListPreference {
 					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
 					File skinMain = new File(Config.getSkinTopPath());
 					Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
-					Debug.i("Skins count:" + skins.size());
-					CharSequence[] entries = new CharSequence[skins.size() + 1];
-					CharSequence[] entryValues = new CharSequence[skins.size() + 1];
+					int skinsSize = (skins.size > 0) ? skins.size() + 1 : 1;
+					Debug.i("Skins count:" + skinsSize);
+					CharSequence[] entries = new CharSequence[skinsSize];
+					CharSequence[] entryValues = new CharSequence[skinsSize];
 					entries[0] = skinMain.getName() + " (Default)";
 					entryValues[0] = skinMain.getPath();
 					
 					if(skins.size() > 0) {
-						List<String> skinIndex = new ArrayList<String>(skins.keySet());
-						
-						for (int i = 1; i < entries.length; i++) {
-							entries[i] = skinIndex.get(i - 1); // skinFolders[i - 1].getName();
-							entryValues[i] = skins.get(entries[i -1]); // skinFolders[i - 1].getPath();
+						int index = 1;
+						for(Map.Entry<String, String> skin : skins.entrySet()) {
+							entries[index] = skin.getKey();
+							entryValues[i] = skins.get(index]);
+							index++;
 						}
+
+						Arrays.sort(entries, 1, entries.length);
+						Arrays.sort(entryValues, 1, entryValues.length);
 					}
 
-					Arrays.sort(entries, 1, entries.length);
-					Arrays.sort(entryValues, 1, entryValues.length);
 					setEntries(entries);
 					setEntryValues(entryValues);
 				/* }
