@@ -40,33 +40,37 @@ public class SkinPathPreference extends ListPreference {
 
 	public void reloadSkinList() {
 		try {
-			/* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+			new AsyncTaskLoader().execute(new OsuAsyncCallback() {
 				public void run() {
-					File skinMain = new File(Config.getSkinTopPath());
+					/* File skinMain = new File(Config.getSkinTopPath());
 					if(!skinMain.exists() && !skinMain.mkdir()) {
 						skinMain = new File(Config.getDefaultCorePath() + "Skin/");
 					}
 					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
 					File skinMain = new File(Config.getSkinTopPath());
-					HashMap<String, String> skins = Config.getSkins();
-					Debug.i("Skins:" + skins.size());
-					List<String> skinIndex = new ArrayList<String>(skins.keySet());
+					Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
+					Debug.i("Skins count:" + skins.size());
 					CharSequence[] entries = new CharSequence[skins.size() + 1];
 					CharSequence[] entryValues = new CharSequence[skins.size() + 1];
 					entries[0] = skinMain.getName() + " (Default)";
 					entryValues[0] = skinMain.getPath();
 					
-					for (int i = 1; i < entries.length; i++) {
-						entries[i] = skinIndex.get(i - 1); // skinFolders[i - 1].getName();
-						entryValues[i] = skins.get(entries[i -1]); // skinFolders[i - 1].getPath();
+					if(skins.size() > 0)) {
+						List<String> skinIndex = new ArrayList<String>(skins.keySet());
+						
+						for (int i = 1; i < entries.length; i++) {
+							entries[i] = skinIndex.get(i - 1); // skinFolders[i - 1].getName();
+							entryValues[i] = skins.get(entries[i -1]); // skinFolders[i - 1].getPath();
+						}
 					}
+
 					Arrays.sort(entries, 1, entries.length);
 					Arrays.sort(entryValues, 1, entryValues.length);
 					setEntries(entries);
 					setEntryValues(entryValues);
-				/* }
+				}
 				 public void onComplete() {}
-			}); */
+			});
 		} catch (Exception e) {
 			Debug.e("SkinPathPreference.reloadSkinList: ", e);
 			e.printStackTrace();
