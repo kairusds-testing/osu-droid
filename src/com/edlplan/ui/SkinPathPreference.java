@@ -47,7 +47,7 @@ public class SkinPathPreference extends ListPreference {
 					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
 					File skinMain = new File(Config.getSkinTopPath());
 					Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
-					int skinsSize = (skins.size > 0) ? skins.size() + 1 : 1;
+					int skinsSize = (skins.size() > 0) ? skins.size() + 1 : 1;
 					Debug.i("Skins count:" + skinsSize);
 					CharSequence[] entries = new CharSequence[skinsSize];
 					CharSequence[] entryValues = new CharSequence[skinsSize];
