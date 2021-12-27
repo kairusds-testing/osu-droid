@@ -55,7 +55,7 @@ public class SkinPathPreference extends ListPreference {
 					entries[0] = skinMain.getName() + " (Default)";
 					entryValues[0] = skinMain.getPath();
 					
-					if(skins.size() > 0)) {
+					if(skins.size() > 0) {
 						List<String> skinIndex = new ArrayList<String>(skins.keySet());
 						
 						for (int i = 1; i < entries.length; i++) {
