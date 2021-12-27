@@ -38,39 +38,29 @@ public class SkinPathPreference extends ListPreference {
 
 	public void reloadSkinList() {
 		try {
-			/* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
-				public void run() {
-					File skinMain = new File(Config.getSkinTopPath());
-					if(!skinMain.exists() && !skinMain.mkdir()) {
-						skinMain = new File(Config.getDefaultCorePath() + "Skin/");
-					}
-					File[] skinFolders = skinMain.listFiles(file -> file.isDirectory() && !file.getName().startsWith(".")); */
-					File skinMain = new File(Config.getSkinTopPath());
-					Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
-					int skinsSize = (skins.size() > 0) ? skins.size() + 1 : 1;
-					Debug.i("Skins count:" + skinsSize);
-					CharSequence[] entries = new CharSequence[skinsSize];
-					CharSequence[] entryValues = new CharSequence[skinsSize];
-					entries[0] = skinMain.getName() + " (Default)";
-					entryValues[0] = skinMain.getPath();
-					
-					if(skins.size() > 0) {
-						int index = 1;
-						for(Map.Entry<String, String> skin : skins.entrySet()) {
-							entries[index] = skin.getKey();
-							entryValues[index] = skin.getValue();
-							index++;
-						}
+			File skinMain = new File(Config.getSkinTopPath());
+			Map<String, String> skins = new HashMap<String, String>(Config.getSkins());
+			int skinsSize = (skins.size() > 0) ? skins.size() + 1 : 1;
+			Debug.i("Skins count:" + skinsSize);
+			CharSequence[] entries = new CharSequence[skinsSize];
+			CharSequence[] entryValues = new CharSequence[skinsSize];
+			entries[0] = skinMain.getName() + " (Default)";
+			entryValues[0] = skinMain.getPath();
+			
+			if(skins.size() > 0) {
+				int index = 1;
+				for(Map.Entry<String, String> skin : skins.entrySet()) {
+					entries[index] = skin.getKey();
+					entryValues[index] = skin.getValue();
+					index++;
+				}
 
-						Arrays.sort(entries, 1, entries.length);
-						Arrays.sort(entryValues, 1, entryValues.length);
-					}
+				Arrays.sort(entries, 1, entries.length);
+				Arrays.sort(entryValues, 1, entryValues.length);
+			}
 
-					setEntries(entries);
-					setEntryValues(entryValues);
-				/* }
-				 public void onComplete() {}
-			}); */
+			setEntries(entries);
+			setEntryValues(entryValues);
 		} catch (Exception e) {
 			Debug.e("SkinPathPreference.reloadSkinList: ", e);
 			e.printStackTrace();
