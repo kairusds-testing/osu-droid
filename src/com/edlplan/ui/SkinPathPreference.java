@@ -58,7 +58,7 @@ public class SkinPathPreference extends ListPreference {
 						int index = 1;
 						for(Map.Entry<String, String> skin : skins.entrySet()) {
 							entries[index] = skin.getKey();
-							entryValues[i] = skins.get(index]);
+							entryValues[index] = skin.getValue();
 							index++;
 						}
 
