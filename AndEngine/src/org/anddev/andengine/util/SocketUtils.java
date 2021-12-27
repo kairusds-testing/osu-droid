@@ -13,57 +13,57 @@ import java.net.Socket;
  * @since 14:42:15 - 18.09.2009
  */
 public class SocketUtils {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static void closeSocket(final DatagramSocket pDatagramSocket) {
-		if(pDatagramSocket != null && !pDatagramSocket.isClosed()) {
-			pDatagramSocket.close();
-		}
-	}
+    public static void closeSocket(final DatagramSocket pDatagramSocket) {
+        if(pDatagramSocket != null && !pDatagramSocket.isClosed()) {
+            pDatagramSocket.close();
+        }
+    }
 
-	public static void closeSocket(final Socket pSocket) {
-		if(pSocket != null && !pSocket.isClosed()) {
-			try {
-				pSocket.close();
-			} catch (final IOException e) {
-				Debug.e(e);
-			}
-		}
-	}
+    public static void closeSocket(final Socket pSocket) {
+        if(pSocket != null && !pSocket.isClosed()) {
+            try {
+                pSocket.close();
+            } catch (final IOException e) {
+                Debug.e(e);
+            }
+        }
+    }
 
-	public static void closeSocket(final ServerSocket pServerSocket) {
-		if(pServerSocket != null && !pServerSocket.isClosed()) {
-			try {
-				pServerSocket.close();
-			} catch (final IOException e) {
-				Debug.e(e);
-			}
-		}
-	}
+    public static void closeSocket(final ServerSocket pServerSocket) {
+        if(pServerSocket != null && !pServerSocket.isClosed()) {
+            try {
+                pServerSocket.close();
+            } catch (final IOException e) {
+                Debug.e(e);
+            }
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

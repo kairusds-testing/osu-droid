@@ -12,56 +12,56 @@ import org.anddev.andengine.input.touch.TouchEvent;
  * @since 15:59:00 - 05.11.2010
  */
 public abstract class BaseDetector implements IOnSceneTouchListener {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private boolean mEnabled = true;
+    private boolean mEnabled = true;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public boolean isEnabled() {
-		return this.mEnabled;
-	}
+    public boolean isEnabled() {
+        return this.mEnabled;
+    }
 
-	public void setEnabled(final boolean pEnabled) {
-		this.mEnabled = pEnabled;
-	}
+    public void setEnabled(final boolean pEnabled) {
+        this.mEnabled = pEnabled;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract boolean onManagedTouchEvent(TouchEvent pSceneTouchEvent);
+    protected abstract boolean onManagedTouchEvent(TouchEvent pSceneTouchEvent);
 
-	@Override
-	public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
-		return this.onTouchEvent(pSceneTouchEvent);
-	}
+    @Override
+    public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
+        return this.onTouchEvent(pSceneTouchEvent);
+    }
 
-	public final boolean onTouchEvent(final TouchEvent pSceneTouchEvent) {
-		if(this.mEnabled) {
-			return this.onManagedTouchEvent(pSceneTouchEvent);
-		} else {
-			return false;
-		}
-	}
+    public final boolean onTouchEvent(final TouchEvent pSceneTouchEvent) {
+        if(this.mEnabled) {
+            return this.onManagedTouchEvent(pSceneTouchEvent);
+        } else {
+            return false;
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -11,43 +11,43 @@ import org.anddev.andengine.util.modifier.BaseSingleValueChangeModifier;
  * @since 15:34:35 - 17.06.2010
  */
 public abstract class SingleValueChangeEntityModifier extends BaseSingleValueChangeModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SingleValueChangeEntityModifier(final float pDuration, final float pValueChange) {
-		super(pDuration, pValueChange);
-	}
+    public SingleValueChangeEntityModifier(final float pDuration, final float pValueChange) {
+        super(pDuration, pValueChange);
+    }
 
-	public SingleValueChangeEntityModifier(final float pDuration, final float pValueChange, final IEntityModifierListener pEntityModifierListener) {
-		super(pDuration, pValueChange, pEntityModifierListener);
-	}
+    public SingleValueChangeEntityModifier(final float pDuration, final float pValueChange, final IEntityModifierListener pEntityModifierListener) {
+        super(pDuration, pValueChange, pEntityModifierListener);
+    }
 
-	protected SingleValueChangeEntityModifier(final SingleValueChangeEntityModifier pSingleValueChangeEntityModifier) {
-		super(pSingleValueChangeEntityModifier);
-	}
+    protected SingleValueChangeEntityModifier(final SingleValueChangeEntityModifier pSingleValueChangeEntityModifier) {
+        super(pSingleValueChangeEntityModifier);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

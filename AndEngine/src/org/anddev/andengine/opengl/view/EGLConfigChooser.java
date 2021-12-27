@@ -18,24 +18,24 @@ import javax.microedition.khronos.egl.EGLDisplay;
  * @since 20:53:49 - 28.06.2010
  */
 public interface EGLConfigChooser {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	/**
-	 * Choose a configuration from the list. Implementors typically
-	 * implement this method by calling {@link EGL10#eglChooseConfig} and
-	 * iterating through the results. Please consult the EGL specification
-	 * available from The Khronos Group to learn how to call
-	 * eglChooseConfig.
-	 * 
-	 * @param pEGL the EGL10 for the current display.
-	 * @param pEGLDisplay the current display.
-	 * @return the chosen configuration.
-	 */
-	public EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay);
+    /**
+     * Choose a configuration from the list. Implementors typically
+     * implement this method by calling {@link EGL10#eglChooseConfig} and
+     * iterating through the results. Please consult the EGL specification
+     * available from The Khronos Group to learn how to call
+     * eglChooseConfig.
+     * 
+     * @param pEGL the EGL10 for the current display.
+     * @param pEGLDisplay the current display.
+     * @return the chosen configuration.
+     */
+    public EGLConfig chooseConfig(final EGL10 pEGL, final EGLDisplay pEGLDisplay);
 }

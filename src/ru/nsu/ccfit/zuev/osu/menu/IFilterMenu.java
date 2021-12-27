@@ -6,19 +6,19 @@ import org.anddev.andengine.entity.scene.Scene;
 
 public interface IFilterMenu {
 
-	String getFilter();
+    String getFilter();
 
-	SongMenu.SortOrder getOrder();
+    SongMenu.SortOrder getOrder();
 
-	boolean isFavoritesOnly();
+    boolean isFavoritesOnly();
 
-	String getFavoriteFolder();
+    String getFavoriteFolder();
 
-	void loadConfig(Context context);
+    void loadConfig(Context context);
 
-	Scene getScene();
+    Scene getScene();
 
-	void hideMenu();
+    void hideMenu();
 
-	void showMenu(SongMenu parent);
+    void showMenu(SongMenu parent);
 }

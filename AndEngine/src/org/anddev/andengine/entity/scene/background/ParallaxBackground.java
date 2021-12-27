@@ -15,131 +15,131 @@ import org.anddev.andengine.entity.shape.Shape;
  * @since 15:36:26 - 19.07.2010
  */
 public class ParallaxBackground extends ColorBackground {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final ArrayList<ParallaxEntity> mParallaxEntities = new ArrayList<ParallaxEntity>();
-	private int mParallaxEntityCount;
+    private final ArrayList<ParallaxEntity> mParallaxEntities = new ArrayList<ParallaxEntity>();
+    private int mParallaxEntityCount;
 
-	protected float mParallaxValue;
+    protected float mParallaxValue;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ParallaxBackground(final float pRed, final float pGreen, final float pBlue) {
-		super(pRed, pGreen, pBlue);
-	}
+    public ParallaxBackground(final float pRed, final float pGreen, final float pBlue) {
+        super(pRed, pGreen, pBlue);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public void setParallaxValue(final float pParallaxValue) {
-		this.mParallaxValue = pParallaxValue;
-	}
+    public void setParallaxValue(final float pParallaxValue) {
+        this.mParallaxValue = pParallaxValue;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onDraw(final GL10 pGL, final Camera pCamera) {
-		super.onDraw(pGL, pCamera);
+    @Override
+    public void onDraw(final GL10 pGL, final Camera pCamera) {
+        super.onDraw(pGL, pCamera);
 
-		final float parallaxValue = this.mParallaxValue;
-		final ArrayList<ParallaxEntity> parallaxEntities = this.mParallaxEntities;
+        final float parallaxValue = this.mParallaxValue;
+        final ArrayList<ParallaxEntity> parallaxEntities = this.mParallaxEntities;
 
-		for(int i = 0; i < this.mParallaxEntityCount; i++) {
-			parallaxEntities.get(i).onDraw(pGL, parallaxValue, pCamera);
-		}
-	}
+        for(int i = 0; i < this.mParallaxEntityCount; i++) {
+            parallaxEntities.get(i).onDraw(pGL, parallaxValue, pCamera);
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void attachParallaxEntity(final ParallaxEntity pParallaxEntity) {
-		this.mParallaxEntities.add(pParallaxEntity);
-		this.mParallaxEntityCount++;
-	}
+    public void attachParallaxEntity(final ParallaxEntity pParallaxEntity) {
+        this.mParallaxEntities.add(pParallaxEntity);
+        this.mParallaxEntityCount++;
+    }
 
-	public boolean detachParallaxEntity(final ParallaxEntity pParallaxEntity) {
-		this.mParallaxEntityCount--;
-		final boolean success = this.mParallaxEntities.remove(pParallaxEntity);
-		if(!success) {
-			this.mParallaxEntityCount++;
-		}
-		return success;
-	}
+    public boolean detachParallaxEntity(final ParallaxEntity pParallaxEntity) {
+        this.mParallaxEntityCount--;
+        final boolean success = this.mParallaxEntities.remove(pParallaxEntity);
+        if(!success) {
+            this.mParallaxEntityCount++;
+        }
+        return success;
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public static class ParallaxEntity {
-		// ===========================================================
-		// Constants
-		// ===========================================================
+    public static class ParallaxEntity {
+        // ===========================================================
+        // Constants
+        // ===========================================================
 
-		// ===========================================================
-		// Fields
-		// ===========================================================
+        // ===========================================================
+        // Fields
+        // ===========================================================
 
-		final float mParallaxFactor;
-		final Shape mShape;
+        final float mParallaxFactor;
+        final Shape mShape;
 
-		// ===========================================================
-		// Constructors
-		// ===========================================================
+        // ===========================================================
+        // Constructors
+        // ===========================================================
 
-		public ParallaxEntity(final float pParallaxFactor, final Shape pShape) {
-			this.mParallaxFactor = pParallaxFactor;
-			this.mShape = pShape;
-		}
+        public ParallaxEntity(final float pParallaxFactor, final Shape pShape) {
+            this.mParallaxFactor = pParallaxFactor;
+            this.mShape = pShape;
+        }
 
-		// ===========================================================
-		// Getter & Setter
-		// ===========================================================
+        // ===========================================================
+        // Getter & Setter
+        // ===========================================================
 
-		// ===========================================================
-		// Methods for/from SuperClass/Interfaces
-		// ===========================================================
+        // ===========================================================
+        // Methods for/from SuperClass/Interfaces
+        // ===========================================================
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
+        // ===========================================================
+        // Methods
+        // ===========================================================
 
-		public void onDraw(final GL10 pGL, final float pParallaxValue, final Camera pCamera) {
-			pGL.glPushMatrix();
-			{
-				final float cameraWidth = pCamera.getWidth();
-				final float shapeWidthScaled = this.mShape.getWidthScaled();
-				float baseOffset = (pParallaxValue * this.mParallaxFactor) % shapeWidthScaled;
+        public void onDraw(final GL10 pGL, final float pParallaxValue, final Camera pCamera) {
+            pGL.glPushMatrix();
+            {
+                final float cameraWidth = pCamera.getWidth();
+                final float shapeWidthScaled = this.mShape.getWidthScaled();
+                float baseOffset = (pParallaxValue * this.mParallaxFactor) % shapeWidthScaled;
 
-				while(baseOffset > 0) {
-					baseOffset -= shapeWidthScaled;
-				}
-				pGL.glTranslatef(baseOffset, 0, 0);
+                while(baseOffset > 0) {
+                    baseOffset -= shapeWidthScaled;
+                }
+                pGL.glTranslatef(baseOffset, 0, 0);
 
-				float currentMaxX = baseOffset;
+                float currentMaxX = baseOffset;
 
-				do {
-					this.mShape.onDraw(pGL, pCamera);
-					pGL.glTranslatef(shapeWidthScaled, 0, 0);
-					currentMaxX += shapeWidthScaled;
-				} while(currentMaxX < cameraWidth);
-			}
-			pGL.glPopMatrix();
-		}
+                do {
+                    this.mShape.onDraw(pGL, pCamera);
+                    pGL.glTranslatef(shapeWidthScaled, 0, 0);
+                    currentMaxX += shapeWidthScaled;
+                } while(currentMaxX < cameraWidth);
+            }
+            pGL.glPopMatrix();
+        }
 
-		// ===========================================================
-		// Inner and Anonymous Classes
-		// ===========================================================
-	}
+        // ===========================================================
+        // Inner and Anonymous Classes
+        // ===========================================================
+    }
 }

@@ -12,53 +12,53 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 21:21:10 - 14.03.2010
  */
 public class OffCameraExpireModifier implements IParticleModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final Camera mCamera;
+    private final Camera mCamera;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public OffCameraExpireModifier(final Camera pCamera) {
-		this.mCamera = pCamera;
-	}
+    public OffCameraExpireModifier(final Camera pCamera) {
+        this.mCamera = pCamera;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public Camera getCamera() {
-		return this.mCamera;
-	}
+    public Camera getCamera() {
+        return this.mCamera;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onInitializeParticle(final Particle pParticle) {
+    @Override
+    public void onInitializeParticle(final Particle pParticle) {
 
-	}
+    }
 
-	@Override
-	public void onUpdateParticle(final Particle pParticle) {
-		if(!this.mCamera.isRectangularShapeVisible(pParticle)) {
-			pParticle.setDead(true);
-		}
-	}
+    @Override
+    public void onUpdateParticle(final Particle pParticle) {
+        if(!this.mCamera.isRectangularShapeVisible(pParticle)) {
+            pParticle.setDead(true);
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

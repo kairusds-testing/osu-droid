@@ -12,16 +12,16 @@ import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
  * @since 10:50:36 - 02.04.2010
  */
 public interface IMenuAnimator {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	public static final IMenuAnimator DEFAULT = new AlphaMenuAnimator();
+    public static final IMenuAnimator DEFAULT = new AlphaMenuAnimator();
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void prepareAnimations(final ArrayList<IMenuItem> pMenuItems, final float pCameraWidth, final float pCameraHeight);
-	public void buildAnimations(final ArrayList<IMenuItem> pMenuItems, final float pCameraWidth, final float pCameraHeight);
+    public void prepareAnimations(final ArrayList<IMenuItem> pMenuItems, final float pCameraWidth, final float pCameraHeight);
+    public void buildAnimations(final ArrayList<IMenuItem> pMenuItems, final float pCameraWidth, final float pCameraHeight);
 }

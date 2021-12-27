@@ -31,20 +31,20 @@ import javax.microedition.khronos.opengles.GL;
  * @since 20:53:38 - 28.06.2010
  */
 public interface GLWrapper {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	/**
-	 * Wraps a gl interface in another gl interface.
-	 * 
-	 * @param pGL a GL interface that is to be wrapped.
-	 * @return either the input argument or another GL object that wraps the
-	 *         input argument.
-	 */
-	public GL wrap(final GL pGL);
+    /**
+     * Wraps a gl interface in another gl interface.
+     * 
+     * @param pGL a GL interface that is to be wrapped.
+     * @return either the input argument or another GL object that wraps the
+     *         input argument.
+     */
+    public GL wrap(final GL pGL);
 }

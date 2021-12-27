@@ -11,71 +11,71 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @param <T>
  */
 public abstract class BaseDoubleValueSpanModifier<T> extends BaseSingleValueSpanModifier<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final float mFromValueB;
-	private final float mValueSpanB;
+    private final float mFromValueB;
+    private final float mValueSpanB;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB) {
-		this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, null, IEaseFunction.DEFAULT);
-	}
+    public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB) {
+        this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, null, IEaseFunction.DEFAULT);
+    }
 
-	public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IEaseFunction pEaseFunction) {
-		this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, null, pEaseFunction);
-	}
+    public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IEaseFunction pEaseFunction) {
+        this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, null, pEaseFunction);
+    }
 
-	public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IModifierListener<T> pModifierListener) {
-		this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pModifierListener, IEaseFunction.DEFAULT);
-	}
+    public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IModifierListener<T> pModifierListener) {
+        this(pDuration, pFromValueA, pToValueA, pFromValueB, pToValueB, pModifierListener, IEaseFunction.DEFAULT);
+    }
 
-	public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IModifierListener<T> pModifierListener, final IEaseFunction pEaseFunction) {
-		super(pDuration, pFromValueA, pToValueA, pModifierListener, pEaseFunction);
-		this.mFromValueB = pFromValueB;
-		this.mValueSpanB = pToValueB - pFromValueB;
-	}
+    public BaseDoubleValueSpanModifier(final float pDuration, final float pFromValueA, final float pToValueA, final float pFromValueB, final float pToValueB, final IModifierListener<T> pModifierListener, final IEaseFunction pEaseFunction) {
+        super(pDuration, pFromValueA, pToValueA, pModifierListener, pEaseFunction);
+        this.mFromValueB = pFromValueB;
+        this.mValueSpanB = pToValueB - pFromValueB;
+    }
 
-	protected BaseDoubleValueSpanModifier(final BaseDoubleValueSpanModifier<T> pBaseDoubleValueSpanModifier) {
-		super(pBaseDoubleValueSpanModifier);
-		this.mFromValueB = pBaseDoubleValueSpanModifier.mFromValueB;
-		this.mValueSpanB = pBaseDoubleValueSpanModifier.mValueSpanB;
-	}
+    protected BaseDoubleValueSpanModifier(final BaseDoubleValueSpanModifier<T> pBaseDoubleValueSpanModifier) {
+        super(pBaseDoubleValueSpanModifier);
+        this.mFromValueB = pBaseDoubleValueSpanModifier.mFromValueB;
+        this.mValueSpanB = pBaseDoubleValueSpanModifier.mValueSpanB;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract void onSetInitialValues(final T pItem, final float pValueA, final float pValueB);
-	protected abstract void onSetValues(final T pItem, final float pPercentageDone, final float pValueA, final float pValueB);
+    protected abstract void onSetInitialValues(final T pItem, final float pValueA, final float pValueB);
+    protected abstract void onSetValues(final T pItem, final float pPercentageDone, final float pValueA, final float pValueB);
 
-	@Override
-	protected void onSetInitialValue(final T pItem, final float pValueA) {
-		this.onSetInitialValues(pItem, pValueA, this.mFromValueB);
-	}
+    @Override
+    protected void onSetInitialValue(final T pItem, final float pValueA) {
+        this.onSetInitialValues(pItem, pValueA, this.mFromValueB);
+    }
 
-	@Override
-	protected void onSetValue(final T pItem, final float pPercentageDone, final float pValueA) {
-		this.onSetValues(pItem, pPercentageDone, pValueA, this.mFromValueB + pPercentageDone * this.mValueSpanB);
-	}
+    @Override
+    protected void onSetValue(final T pItem, final float pPercentageDone, final float pValueA) {
+        this.onSetValues(pItem, pPercentageDone, pValueA, this.mFromValueB + pPercentageDone * this.mValueSpanB);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

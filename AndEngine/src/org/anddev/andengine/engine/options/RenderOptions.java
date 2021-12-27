@@ -8,74 +8,74 @@ package org.anddev.andengine.engine.options;
  * @since 13:01:40 - 02.07.2010
  */
 public class RenderOptions {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private boolean mDisableExtensionVertexBufferObjects = false;
-	private boolean mDisableExtensionDrawTexture = false;
+    private boolean mDisableExtensionVertexBufferObjects = false;
+    private boolean mDisableExtensionDrawTexture = false;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	/**
-	 * <u><b>Default:</b></u> <code>false</code>
-	 */
-	public boolean isDisableExtensionVertexBufferObjects() {
-		return this.mDisableExtensionVertexBufferObjects;
-	}
+    /**
+     * <u><b>Default:</b></u> <code>false</code>
+     */
+    public boolean isDisableExtensionVertexBufferObjects() {
+        return this.mDisableExtensionVertexBufferObjects;
+    }
 
-	public RenderOptions enableExtensionVertexBufferObjects() {
-		return this.setDisableExtensionVertexBufferObjects(false);
-	}
+    public RenderOptions enableExtensionVertexBufferObjects() {
+        return this.setDisableExtensionVertexBufferObjects(false);
+    }
 
-	public RenderOptions disableExtensionVertexBufferObjects() {
-		return this.setDisableExtensionVertexBufferObjects(true);
-	}
+    public RenderOptions disableExtensionVertexBufferObjects() {
+        return this.setDisableExtensionVertexBufferObjects(true);
+    }
 
-	public RenderOptions setDisableExtensionVertexBufferObjects(final boolean pDisableExtensionVertexBufferObjects) {
-		this.mDisableExtensionVertexBufferObjects = pDisableExtensionVertexBufferObjects;
-		return this;
-	}
+    public RenderOptions setDisableExtensionVertexBufferObjects(final boolean pDisableExtensionVertexBufferObjects) {
+        this.mDisableExtensionVertexBufferObjects = pDisableExtensionVertexBufferObjects;
+        return this;
+    }
 
-	/**
-	 * <u><b>Default:</b></u> <code>false</code>
-	 */
-	public boolean isDisableExtensionDrawTexture() {
-		return this.mDisableExtensionDrawTexture;
-	}
+    /**
+     * <u><b>Default:</b></u> <code>false</code>
+     */
+    public boolean isDisableExtensionDrawTexture() {
+        return this.mDisableExtensionDrawTexture;
+    }
 
-	public RenderOptions enableExtensionDrawTexture() {
-		return this.setDisableExtensionDrawTexture(false);
-	}
+    public RenderOptions enableExtensionDrawTexture() {
+        return this.setDisableExtensionDrawTexture(false);
+    }
 
-	public RenderOptions disableExtensionDrawTexture() {
-		return this.setDisableExtensionDrawTexture(true);
-	}
+    public RenderOptions disableExtensionDrawTexture() {
+        return this.setDisableExtensionDrawTexture(true);
+    }
 
-	public RenderOptions setDisableExtensionDrawTexture(final boolean pDisableExtensionDrawTexture) {
-		this.mDisableExtensionDrawTexture = pDisableExtensionDrawTexture;
-		return this;
-	}
+    public RenderOptions setDisableExtensionDrawTexture(final boolean pDisableExtensionDrawTexture) {
+        this.mDisableExtensionDrawTexture = pDisableExtensionDrawTexture;
+        return this;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

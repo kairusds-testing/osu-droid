@@ -10,44 +10,44 @@ import org.anddev.andengine.opengl.view.RenderSurfaceView;
  * @since 11:23:00 - 29.03.2010
  */
 public class FixedResolutionPolicy extends BaseResolutionPolicy {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final int mWidth;
-	private final int mHeight;
+    private final int mWidth;
+    private final int mHeight;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public FixedResolutionPolicy(final int pWidth, final int pHeight) {
-		this.mWidth = pWidth;
-		this.mHeight = pHeight;
-	}
+    public FixedResolutionPolicy(final int pWidth, final int pHeight) {
+        this.mWidth = pWidth;
+        this.mHeight = pHeight;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onMeasure(final RenderSurfaceView pRenderSurfaceView, final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
-		pRenderSurfaceView.setMeasuredDimensionProxy(this.mWidth, this.mHeight);
-	}
+    @Override
+    public void onMeasure(final RenderSurfaceView pRenderSurfaceView, final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
+        pRenderSurfaceView.setMeasuredDimensionProxy(this.mWidth, this.mHeight);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

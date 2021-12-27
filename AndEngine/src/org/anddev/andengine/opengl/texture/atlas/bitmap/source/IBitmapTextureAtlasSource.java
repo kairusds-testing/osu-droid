@@ -13,16 +13,16 @@ import android.graphics.Bitmap.Config;
  * @since 12:08:52 - 09.03.2010
  */
 public interface IBitmapTextureAtlasSource extends ITextureAtlasSource {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	@Override
-	public IBitmapTextureAtlasSource deepCopy();
+    @Override
+    public IBitmapTextureAtlasSource deepCopy();
 
-	public Bitmap onLoadBitmap(final Config pBitmapConfig);
+    public Bitmap onLoadBitmap(final Config pBitmapConfig);
 }

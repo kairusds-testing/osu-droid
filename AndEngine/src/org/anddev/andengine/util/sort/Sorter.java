@@ -12,43 +12,43 @@ import java.util.List;
  * @param <T>
  */
 public abstract class Sorter<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	public abstract void sort(final T[] pArray, final int pStart, final int pEnd, final Comparator<T> pComparator);
+    public abstract void sort(final T[] pArray, final int pStart, final int pEnd, final Comparator<T> pComparator);
 
-	public abstract void sort(final List<T> pList, final int pStart, final int pEnd, final Comparator<T> pComparator);
+    public abstract void sort(final List<T> pList, final int pStart, final int pEnd, final Comparator<T> pComparator);
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public final void sort(final T[] pArray, final Comparator<T> pComparator){
-		this.sort(pArray, 0, pArray.length, pComparator);
-	}
+    public final void sort(final T[] pArray, final Comparator<T> pComparator){
+        this.sort(pArray, 0, pArray.length, pComparator);
+    }
 
-	public final void sort(final List<T> pList, final Comparator<T> pComparator){
-		this.sort(pList, 0, pList.size(), pComparator);
-	}
+    public final void sort(final List<T> pList, final Comparator<T> pComparator){
+        this.sort(pList, 0, pList.size(), pComparator);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

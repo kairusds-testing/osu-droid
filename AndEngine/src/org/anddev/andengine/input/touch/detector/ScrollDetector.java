@@ -12,109 +12,109 @@ import android.view.MotionEvent;
  * @since 14:29:59 - 16.08.2010
  */
 public class ScrollDetector extends BaseDetector {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final float TRIGGER_SCROLL_MINIMUM_DISTANCE_DEFAULT = 10;
+    private static final float TRIGGER_SCROLL_MINIMUM_DISTANCE_DEFAULT = 10;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private float mTriggerScrollMinimumDistance;
+    private float mTriggerScrollMinimumDistance;
 
-	private final IScrollDetectorListener mScrollDetectorListener;
+    private final IScrollDetectorListener mScrollDetectorListener;
 
-	private boolean mTriggered;
+    private boolean mTriggered;
 
-	private float mLastX;
-	private float mLastY;
+    private float mLastX;
+    private float mLastY;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ScrollDetector(final IScrollDetectorListener pScrollDetectorListener) {
-		this(TRIGGER_SCROLL_MINIMUM_DISTANCE_DEFAULT, pScrollDetectorListener);
-	}
+    public ScrollDetector(final IScrollDetectorListener pScrollDetectorListener) {
+        this(TRIGGER_SCROLL_MINIMUM_DISTANCE_DEFAULT, pScrollDetectorListener);
+    }
 
-	public ScrollDetector(final float pTriggerScrollMinimumDistance, final IScrollDetectorListener pScrollDetectorListener) {
-		this.mTriggerScrollMinimumDistance = pTriggerScrollMinimumDistance;
-		this.mScrollDetectorListener = pScrollDetectorListener;
-	}
+    public ScrollDetector(final float pTriggerScrollMinimumDistance, final IScrollDetectorListener pScrollDetectorListener) {
+        this.mTriggerScrollMinimumDistance = pTriggerScrollMinimumDistance;
+        this.mScrollDetectorListener = pScrollDetectorListener;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public float getTriggerScrollMinimumDistance() {
-		return this.mTriggerScrollMinimumDistance;
-	}
+    public float getTriggerScrollMinimumDistance() {
+        return this.mTriggerScrollMinimumDistance;
+    }
 
-	public void setTriggerScrollMinimumDistance(final float pTriggerScrollMinimumDistance) {
-		this.mTriggerScrollMinimumDistance = pTriggerScrollMinimumDistance;
-	}
+    public void setTriggerScrollMinimumDistance(final float pTriggerScrollMinimumDistance) {
+        this.mTriggerScrollMinimumDistance = pTriggerScrollMinimumDistance;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public boolean onManagedTouchEvent(final TouchEvent pSceneTouchEvent) {
-		final float touchX = this.getX(pSceneTouchEvent);
-		final float touchY = this.getY(pSceneTouchEvent);
+    @Override
+    public boolean onManagedTouchEvent(final TouchEvent pSceneTouchEvent) {
+        final float touchX = this.getX(pSceneTouchEvent);
+        final float touchY = this.getY(pSceneTouchEvent);
 
-		switch(pSceneTouchEvent.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				this.mLastX = touchX;
-				this.mLastY = touchY;
-				this.mTriggered = false;
-				return true;
-			case MotionEvent.ACTION_MOVE:
-			case MotionEvent.ACTION_UP:
-			case MotionEvent.ACTION_CANCEL:
-				final float distanceX = touchX - this.mLastX;
-				final float distanceY = touchY - this.mLastY;
+        switch(pSceneTouchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                this.mLastX = touchX;
+                this.mLastY = touchY;
+                this.mTriggered = false;
+                return true;
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                final float distanceX = touchX - this.mLastX;
+                final float distanceY = touchY - this.mLastY;
 
-				final float triggerScrollMinimumDistance = this.mTriggerScrollMinimumDistance;
-				if(this.mTriggered || Math.abs(distanceX) > triggerScrollMinimumDistance || Math.abs(distanceY) > triggerScrollMinimumDistance) {
-					this.mScrollDetectorListener.onScroll(this, pSceneTouchEvent, distanceX, distanceY);
-					this.mLastX = touchX;
-					this.mLastY = touchY;
-					this.mTriggered = true;
-				}
-				return true;
-			default:
-				return false;
-		}
-	}
+                final float triggerScrollMinimumDistance = this.mTriggerScrollMinimumDistance;
+                if(this.mTriggered || Math.abs(distanceX) > triggerScrollMinimumDistance || Math.abs(distanceY) > triggerScrollMinimumDistance) {
+                    this.mScrollDetectorListener.onScroll(this, pSceneTouchEvent, distanceX, distanceY);
+                    this.mLastX = touchX;
+                    this.mLastY = touchY;
+                    this.mTriggered = true;
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	protected float getX(final TouchEvent pTouchEvent) {
-		return pTouchEvent.getX();
-	}
+    protected float getX(final TouchEvent pTouchEvent) {
+        return pTouchEvent.getX();
+    }
 
-	protected float getY(final TouchEvent pTouchEvent) {
-		return pTouchEvent.getY();
-	}
+    protected float getY(final TouchEvent pTouchEvent) {
+        return pTouchEvent.getY();
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public static interface IScrollDetectorListener {
-		// ===========================================================
-		// Constants
-		// ===========================================================
+    public static interface IScrollDetectorListener {
+        // ===========================================================
+        // Constants
+        // ===========================================================
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
+        // ===========================================================
+        // Methods
+        // ===========================================================
 
-		public void onScroll(final ScrollDetector pScollDetector, final TouchEvent pTouchEvent, final float pDistanceX, final float pDistanceY);
-	}
+        public void onScroll(final ScrollDetector pScollDetector, final TouchEvent pTouchEvent, final float pDistanceX, final float pDistanceY);
+    }
 }

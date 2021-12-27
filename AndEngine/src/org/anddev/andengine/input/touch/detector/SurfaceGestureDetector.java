@@ -15,184 +15,184 @@ import android.view.MotionEvent;
  * @since 11:36:26 - 11.10.2010
  */
 public abstract class SurfaceGestureDetector extends BaseDetector {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final float SWIPE_MIN_DISTANCE_DEFAULT = 120;
+    private static final float SWIPE_MIN_DISTANCE_DEFAULT = 120;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final GestureDetector mGestureDetector;
+    private final GestureDetector mGestureDetector;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SurfaceGestureDetector() {
-		this(SWIPE_MIN_DISTANCE_DEFAULT);
-	}
+    public SurfaceGestureDetector() {
+        this(SWIPE_MIN_DISTANCE_DEFAULT);
+    }
 
-	public SurfaceGestureDetector(final float pSwipeMinDistance) {
-		this.mGestureDetector = new GestureDetector(new InnerOnGestureDetectorListener(pSwipeMinDistance));
-	}
+    public SurfaceGestureDetector(final float pSwipeMinDistance) {
+        this.mGestureDetector = new GestureDetector(new InnerOnGestureDetectorListener(pSwipeMinDistance));
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract boolean onSingleTap();
-	protected abstract boolean onDoubleTap();
-	protected abstract boolean onSwipeUp();
-	protected abstract boolean onSwipeDown();
-	protected abstract boolean onSwipeLeft();
-	protected abstract boolean onSwipeRight();
+    protected abstract boolean onSingleTap();
+    protected abstract boolean onDoubleTap();
+    protected abstract boolean onSwipeUp();
+    protected abstract boolean onSwipeDown();
+    protected abstract boolean onSwipeLeft();
+    protected abstract boolean onSwipeRight();
 
-	@Override
-	public boolean onManagedTouchEvent(final TouchEvent pSceneTouchEvent) {
-		return this.mGestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
-	}
+    @Override
+    public boolean onManagedTouchEvent(final TouchEvent pSceneTouchEvent) {
+        return this.mGestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	private class InnerOnGestureDetectorListener extends SimpleOnGestureListener {
-		// ===========================================================
-		// Constants
-		// ===========================================================
+    private class InnerOnGestureDetectorListener extends SimpleOnGestureListener {
+        // ===========================================================
+        // Constants
+        // ===========================================================
 
-		// ===========================================================
-		// Fields
-		// ===========================================================
+        // ===========================================================
+        // Fields
+        // ===========================================================
 
-		private final float mSwipeMinDistance;
+        private final float mSwipeMinDistance;
 
-		// ===========================================================
-		// Constructors
-		// ===========================================================
+        // ===========================================================
+        // Constructors
+        // ===========================================================
 
-		public InnerOnGestureDetectorListener(final float pSwipeMinDistance) {
-			this.mSwipeMinDistance = pSwipeMinDistance;
-		}
+        public InnerOnGestureDetectorListener(final float pSwipeMinDistance) {
+            this.mSwipeMinDistance = pSwipeMinDistance;
+        }
 
-		// ===========================================================
-		// Getter & Setter
-		// ===========================================================
+        // ===========================================================
+        // Getter & Setter
+        // ===========================================================
 
-		// ===========================================================
-		// Methods for/from SuperClass/Interfaces
-		// ===========================================================
+        // ===========================================================
+        // Methods for/from SuperClass/Interfaces
+        // ===========================================================
 
-		@Override
-		public boolean onSingleTapConfirmed(final MotionEvent pMotionEvent) {
-			return SurfaceGestureDetector.this.onSingleTap();
-		}
+        @Override
+        public boolean onSingleTapConfirmed(final MotionEvent pMotionEvent) {
+            return SurfaceGestureDetector.this.onSingleTap();
+        }
 
-		@Override
-		public boolean onDoubleTap(final MotionEvent pMotionEvent) {
-			return SurfaceGestureDetector.this.onDoubleTap();
-		}
+        @Override
+        public boolean onDoubleTap(final MotionEvent pMotionEvent) {
+            return SurfaceGestureDetector.this.onDoubleTap();
+        }
 
-		@Override
-		public boolean onFling(final MotionEvent pMotionEventStart, final MotionEvent pMotionEventEnd, final float pVelocityX, final float pVelocityY) {
-			final float swipeMinDistance = this.mSwipeMinDistance;
+        @Override
+        public boolean onFling(final MotionEvent pMotionEventStart, final MotionEvent pMotionEventEnd, final float pVelocityX, final float pVelocityY) {
+            final float swipeMinDistance = this.mSwipeMinDistance;
 
-			final boolean isHorizontalFling = Math.abs(pVelocityX) > Math.abs(pVelocityY);
+            final boolean isHorizontalFling = Math.abs(pVelocityX) > Math.abs(pVelocityY);
 
-			if(isHorizontalFling) {
-				if(pMotionEventStart.getX() - pMotionEventEnd.getX() > swipeMinDistance) {
-					return SurfaceGestureDetector.this.onSwipeLeft();
-				} else if(pMotionEventEnd.getX() - pMotionEventStart.getX() > swipeMinDistance) {
-					return SurfaceGestureDetector.this.onSwipeRight();
-				}
-			} else {
-				if(pMotionEventStart.getY() - pMotionEventEnd.getY() > swipeMinDistance) {
-					return SurfaceGestureDetector.this.onSwipeUp();
-				} else if(pMotionEventEnd.getY() - pMotionEventStart.getY() > swipeMinDistance) {
-					return SurfaceGestureDetector.this.onSwipeDown();
-				}
-			}
+            if(isHorizontalFling) {
+                if(pMotionEventStart.getX() - pMotionEventEnd.getX() > swipeMinDistance) {
+                    return SurfaceGestureDetector.this.onSwipeLeft();
+                } else if(pMotionEventEnd.getX() - pMotionEventStart.getX() > swipeMinDistance) {
+                    return SurfaceGestureDetector.this.onSwipeRight();
+                }
+            } else {
+                if(pMotionEventStart.getY() - pMotionEventEnd.getY() > swipeMinDistance) {
+                    return SurfaceGestureDetector.this.onSwipeUp();
+                } else if(pMotionEventEnd.getY() - pMotionEventStart.getY() > swipeMinDistance) {
+                    return SurfaceGestureDetector.this.onSwipeDown();
+                }
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
+        // ===========================================================
+        // Methods
+        // ===========================================================
 
-		// ===========================================================
-		// Inner and Anonymous Classes
-		// ===========================================================
-	}
+        // ===========================================================
+        // Inner and Anonymous Classes
+        // ===========================================================
+    }
 
-	public static class SurfaceGestureDetectorAdapter extends SurfaceGestureDetector {
-		// ===========================================================
-		// Constants
-		// ===========================================================
+    public static class SurfaceGestureDetectorAdapter extends SurfaceGestureDetector {
+        // ===========================================================
+        // Constants
+        // ===========================================================
 
-		// ===========================================================
-		// Fields
-		// ===========================================================
+        // ===========================================================
+        // Fields
+        // ===========================================================
 
-		// ===========================================================
-		// Constructors
-		// ===========================================================
+        // ===========================================================
+        // Constructors
+        // ===========================================================
 
-		// ===========================================================
-		// Getter & Setter
-		// ===========================================================
+        // ===========================================================
+        // Getter & Setter
+        // ===========================================================
 
-		// ===========================================================
-		// Methods for/from SuperClass/Interfaces
-		// ===========================================================
+        // ===========================================================
+        // Methods for/from SuperClass/Interfaces
+        // ===========================================================
 
-		@Override
-		protected boolean onDoubleTap() {
-			return false;
-		}
+        @Override
+        protected boolean onDoubleTap() {
+            return false;
+        }
 
-		@Override
-		protected boolean onSingleTap() {
-			return false;
-		}
+        @Override
+        protected boolean onSingleTap() {
+            return false;
+        }
 
-		@Override
-		protected boolean onSwipeDown() {
-			return false;
-		}
+        @Override
+        protected boolean onSwipeDown() {
+            return false;
+        }
 
-		@Override
-		protected boolean onSwipeLeft() {
-			return false;
-		}
+        @Override
+        protected boolean onSwipeLeft() {
+            return false;
+        }
 
-		@Override
-		protected boolean onSwipeRight() {
-			return false;
-		}
+        @Override
+        protected boolean onSwipeRight() {
+            return false;
+        }
 
-		@Override
-		protected boolean onSwipeUp() {
-			return false;
-		}
+        @Override
+        protected boolean onSwipeUp() {
+            return false;
+        }
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
+        // ===========================================================
+        // Methods
+        // ===========================================================
 
-		// ===========================================================
-		// Inner and Anonymous Classes
-		// ===========================================================
-	}
+        // ===========================================================
+        // Inner and Anonymous Classes
+        // ===========================================================
+    }
 }

@@ -14,50 +14,50 @@ import org.anddev.andengine.engine.options.EngineOptions;
  * @since 10:17:47 - 02.08.2010
  */
 public class FixedStepEngine extends Engine {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final long mStepLength;
-	private long mSecondsElapsedAccumulator;
+    private final long mStepLength;
+    private long mSecondsElapsedAccumulator;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public FixedStepEngine(final EngineOptions pEngineOptions, final int pStepsPerSecond) {
-		super(pEngineOptions);
-		this.mStepLength = NANOSECONDSPERSECOND / pStepsPerSecond;
-	}
+    public FixedStepEngine(final EngineOptions pEngineOptions, final int pStepsPerSecond) {
+        super(pEngineOptions);
+        this.mStepLength = NANOSECONDSPERSECOND / pStepsPerSecond;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
-		this.mSecondsElapsedAccumulator += pNanosecondsElapsed;
+    @Override
+    public void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
+        this.mSecondsElapsedAccumulator += pNanosecondsElapsed;
 
-		final long stepLength = this.mStepLength;
-		while(this.mSecondsElapsedAccumulator >= stepLength) {
-			super.onUpdate(stepLength);
-			this.mSecondsElapsedAccumulator -= stepLength;
-		}
-	}
+        final long stepLength = this.mStepLength;
+        while(this.mSecondsElapsedAccumulator >= stepLength) {
+            super.onUpdate(stepLength);
+            this.mSecondsElapsedAccumulator -= stepLength;
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

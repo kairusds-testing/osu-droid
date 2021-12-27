@@ -10,91 +10,91 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 21:21:10 - 14.03.2010
  */
 public class VelocityInitializer extends BaseDoubleValueInitializer {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public VelocityInitializer(final float pVelocity) {
-		this(pVelocity, pVelocity, pVelocity, pVelocity);
-	}
+    public VelocityInitializer(final float pVelocity) {
+        this(pVelocity, pVelocity, pVelocity, pVelocity);
+    }
 
-	public VelocityInitializer(final float pVelocityX, final float pVelocityY) {
-		this(pVelocityX, pVelocityX, pVelocityY, pVelocityY);
-	}
+    public VelocityInitializer(final float pVelocityX, final float pVelocityY) {
+        this(pVelocityX, pVelocityX, pVelocityY, pVelocityY);
+    }
 
-	public VelocityInitializer(final float pMinVelocityX, final float pMaxVelocityX, final float pMinVelocityY, final float pMaxVelocityY) {
-		super(pMinVelocityX, pMaxVelocityX, pMinVelocityY, pMaxVelocityY);
-	}
+    public VelocityInitializer(final float pMinVelocityX, final float pMaxVelocityX, final float pMinVelocityY, final float pMaxVelocityY) {
+        super(pMinVelocityX, pMaxVelocityX, pMinVelocityY, pMaxVelocityY);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public float getMinVelocityX() {
-		return this.mMinValue;
-	}
+    public float getMinVelocityX() {
+        return this.mMinValue;
+    }
 
-	public float getMaxVelocityX() {
-		return this.mMaxValue;
-	}
+    public float getMaxVelocityX() {
+        return this.mMaxValue;
+    }
 
-	public float getMinVelocityY() {
-		return this.mMinValueB;
-	}
+    public float getMinVelocityY() {
+        return this.mMinValueB;
+    }
 
-	public float getMaxVelocityY() {
-		return this.mMaxValueB;
-	}
+    public float getMaxVelocityY() {
+        return this.mMaxValueB;
+    }
 
-	public void setVelocityX(final float pVelocityX) {
-		this.mMinValue = pVelocityX;
-		this.mMaxValue = pVelocityX;
-	}
+    public void setVelocityX(final float pVelocityX) {
+        this.mMinValue = pVelocityX;
+        this.mMaxValue = pVelocityX;
+    }
 
-	public void setVelocityY(final float pVelocityY) {
-		this.mMinValueB = pVelocityY;
-		this.mMaxValueB = pVelocityY;
-	}
+    public void setVelocityY(final float pVelocityY) {
+        this.mMinValueB = pVelocityY;
+        this.mMaxValueB = pVelocityY;
+    }
 
-	public void setVelocityX(final float pMinVelocityX, final float pMaxVelocityX) {
-		this.mMinValue = pMinVelocityX;
-		this.mMaxValue = pMaxVelocityX;
-	}
+    public void setVelocityX(final float pMinVelocityX, final float pMaxVelocityX) {
+        this.mMinValue = pMinVelocityX;
+        this.mMaxValue = pMaxVelocityX;
+    }
 
-	public void setVelocityY(final float pMinVelocityY, final float pMaxVelocityY) {
-		this.mMinValueB = pMinVelocityY;
-		this.mMaxValueB = pMaxVelocityY;
-	}
+    public void setVelocityY(final float pMinVelocityY, final float pMaxVelocityY) {
+        this.mMinValueB = pMinVelocityY;
+        this.mMaxValueB = pMaxVelocityY;
+    }
 
-	public void setVelocity(final float pMinVelocityX, final float pMaxVelocityX, final float pMinVelocityY, final float pMaxVelocityY) {
-		this.mMinValue = pMinVelocityX;
-		this.mMaxValue = pMaxVelocityX;
-		this.mMinValueB = pMinVelocityY;
-		this.mMaxValueB = pMaxVelocityY;
-	}
+    public void setVelocity(final float pMinVelocityX, final float pMaxVelocityX, final float pMinVelocityY, final float pMaxVelocityY) {
+        this.mMinValue = pMinVelocityX;
+        this.mMaxValue = pMaxVelocityX;
+        this.mMinValueB = pMinVelocityY;
+        this.mMaxValueB = pMaxVelocityY;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onInitializeParticle(final Particle pParticle, final float pVelocityX, final float pVelocityY) {
-		pParticle.getPhysicsHandler().setVelocity(pVelocityX, pVelocityY);
-	}
+    @Override
+    public void onInitializeParticle(final Particle pParticle, final float pVelocityX, final float pVelocityY) {
+        pParticle.getPhysicsHandler().setVelocity(pVelocityX, pVelocityY);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

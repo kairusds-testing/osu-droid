@@ -11,53 +11,53 @@ package org.anddev.andengine.util.modifier.ease;
  * @since 16:52:11 - 26.07.2010
  */
 public class EaseCircularIn implements IEaseFunction {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static EaseCircularIn INSTANCE;
+    private static EaseCircularIn INSTANCE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	private EaseCircularIn() {
+    private EaseCircularIn() {
 
-	}
+    }
 
-	public static EaseCircularIn getInstance() {
-		if(INSTANCE == null) {
-			INSTANCE = new EaseCircularIn();
-		}
-		return INSTANCE;
-	}
+    public static EaseCircularIn getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EaseCircularIn();
+        }
+        return INSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
-		return EaseCircularIn.getValue(pSecondsElapsed / pDuration);
-	}
+    @Override
+    public float getPercentage(final float pSecondsElapsed, final float pDuration) {
+        return EaseCircularIn.getValue(pSecondsElapsed / pDuration);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static float getValue(final float pPercentage) {
-		return -((float)Math.sqrt(1 - pPercentage * pPercentage) - 1.0f);
-	}
+    public static float getValue(final float pPercentage) {
+        return -((float)Math.sqrt(1 - pPercentage * pPercentage) - 1.0f);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

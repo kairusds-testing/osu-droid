@@ -10,43 +10,43 @@ import java.util.List;
 
 public class EGFStoryboardAnimationSprite extends EGFStoryboardSprite {
 
-	public EGFStoryboardAnimationSprite(OsbContext context) {
-		super(context);
-	}
+    public EGFStoryboardAnimationSprite(OsbContext context) {
+        super(context);
+    }
 
-	@Override
-	public void update(double time) {
-		super.update(time);
-		StoryboardAnimationSprite sprite = (StoryboardAnimationSprite) this.sprite;
-		int idx = (int) (Math.max(0, time - sprite.startTime()) / sprite.frameDelay);
-		if (idx >= sprite.frameCount) {
-			switch (sprite.loopType) {
-				case LoopOnce:
-					idx = sprite.frameCount - 1;
-					break;
-				case LoopForever:
-				default:
-					idx %= sprite.frameCount;
-			}
-		}
-		((MultipleFlippableTextureQuad) textureQuad).switchTexture(idx);
-	}
+    @Override
+    public void update(double time) {
+        super.update(time);
+        StoryboardAnimationSprite sprite = (StoryboardAnimationSprite) this.sprite;
+        int idx = (int) (Math.max(0, time - sprite.startTime()) / sprite.frameDelay);
+        if (idx >= sprite.frameCount) {
+            switch (sprite.loopType) {
+                case LoopOnce:
+                    idx = sprite.frameCount - 1;
+                    break;
+                case LoopForever:
+                default:
+                    idx %= sprite.frameCount;
+            }
+        }
+        ((MultipleFlippableTextureQuad) textureQuad).switchTexture(idx);
+    }
 
-	@Override
-	protected void onLoad() {
-		StoryboardAnimationSprite sprite = (StoryboardAnimationSprite) this.sprite;
-		MultipleFlippableTextureQuad textureQuad = new MultipleFlippableTextureQuad();
+    @Override
+    protected void onLoad() {
+        StoryboardAnimationSprite sprite = (StoryboardAnimationSprite) this.sprite;
+        MultipleFlippableTextureQuad textureQuad = new MultipleFlippableTextureQuad();
 
-		List<TextureRegion> paths = new ArrayList<>(sprite.frameCount);
-		for (int i = 0; i < sprite.frameCount; i++) {
-			paths.add(context.texturePool.get(sprite.buildPath(i)));
-		}
-		textureQuad.initialWithTextureList(paths);
-		textureQuad.switchTexture(0);
-		textureQuad.position.x.value = sprite.startX;
-		textureQuad.position.y.value = sprite.startY;
-		textureQuad.anchor = sprite.origin.value;
-		this.textureQuad = textureQuad;
-	}
+        List<TextureRegion> paths = new ArrayList<>(sprite.frameCount);
+        for (int i = 0; i < sprite.frameCount; i++) {
+            paths.add(context.texturePool.get(sprite.buildPath(i)));
+        }
+        textureQuad.initialWithTextureList(paths);
+        textureQuad.switchTexture(0);
+        textureQuad.position.x.value = sprite.startX;
+        textureQuad.position.y.value = sprite.startY;
+        textureQuad.anchor = sprite.origin.value;
+        this.textureQuad = textureQuad;
+    }
 
 }

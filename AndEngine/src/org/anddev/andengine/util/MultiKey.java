@@ -10,85 +10,85 @@ import java.util.Arrays;
  * @since 16:54:24 - 07.11.2010
  */
 public class MultiKey<K> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final K[] mKeys;
-	private final int mCachedHashCode;
+    private final K[] mKeys;
+    private final int mCachedHashCode;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public MultiKey(final K... pKeys) {
-		this.mKeys = pKeys;
+    public MultiKey(final K... pKeys) {
+        this.mKeys = pKeys;
 
-		this.mCachedHashCode = MultiKey.hash(pKeys);
-	}
+        this.mCachedHashCode = MultiKey.hash(pKeys);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public K[] getKeys() {
-		return this.mKeys;
-	}
+    public K[] getKeys() {
+        return this.mKeys;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public boolean equals(final Object pOther) {
-		if(pOther == this) {
-			return true;
-		}
-		if(pOther instanceof MultiKey<?>) {
-			final MultiKey<?> otherMultiKey = (MultiKey<?>) pOther;
-			return Arrays.equals(this.mKeys, otherMultiKey.mKeys);
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(final Object pOther) {
+        if(pOther == this) {
+            return true;
+        }
+        if(pOther instanceof MultiKey<?>) {
+            final MultiKey<?> otherMultiKey = (MultiKey<?>) pOther;
+            return Arrays.equals(this.mKeys, otherMultiKey.mKeys);
+        }
+        return false;
+    }
 
-	public static int hash(final Object ... pKeys) {
-		int hashCode = 0;
-		for(final Object key : pKeys) {
-			if(key != null) {
-				hashCode ^= key.hashCode();
-			}
-		}
-		return hashCode;
-	}
+    public static int hash(final Object ... pKeys) {
+        int hashCode = 0;
+        for(final Object key : pKeys) {
+            if(key != null) {
+                hashCode ^= key.hashCode();
+            }
+        }
+        return hashCode;
+    }
 
 
-	@Override
-	public int hashCode() {
-		return this.mCachedHashCode;
-	}
+    @Override
+    public int hashCode() {
+        return this.mCachedHashCode;
+    }
 
-	@Override
-	public String toString() {
-		return "MultiKey" + Arrays.asList(this.mKeys).toString();
-	}
+    @Override
+    public String toString() {
+        return "MultiKey" + Arrays.asList(this.mKeys).toString();
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public K getKey(final int pIndex) {
-		return this.mKeys[pIndex];
-	}
+    public K getKey(final int pIndex) {
+        return this.mKeys[pIndex];
+    }
 
-	public int size() {
-		return this.mKeys.length;
-	}
+    public int size() {
+        return this.mKeys.length;
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

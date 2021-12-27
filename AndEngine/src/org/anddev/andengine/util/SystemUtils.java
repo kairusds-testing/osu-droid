@@ -20,216 +20,216 @@ import android.os.Build;
  * @since 15:50:31 - 14.07.2010
  */
 public class SystemUtils {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final String BOGOMIPS_PATTERN = "BogoMIPS[\\s]*:[\\s]*(\\d+\\.\\d+)[\\s]*\n";
-	private static final String MEMTOTAL_PATTERN = "MemTotal[\\s]*:[\\s]*(\\d+)[\\s]*kB\n";
-	private static final String MEMFREE_PATTERN = "MemFree[\\s]*:[\\s]*(\\d+)[\\s]*kB\n";
+    private static final String BOGOMIPS_PATTERN = "BogoMIPS[\\s]*:[\\s]*(\\d+\\.\\d+)[\\s]*\n";
+    private static final String MEMTOTAL_PATTERN = "MemTotal[\\s]*:[\\s]*(\\d+)[\\s]*kB\n";
+    private static final String MEMFREE_PATTERN = "MemFree[\\s]*:[\\s]*(\\d+)[\\s]*kB\n";
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static int getPackageVersionCode(final Context pContext) {
-		return SystemUtils.getPackageInfo(pContext).versionCode;
-	}
+    public static int getPackageVersionCode(final Context pContext) {
+        return SystemUtils.getPackageInfo(pContext).versionCode;
+    }
 
-	public static String getPackageVersionName(final Context pContext) {
-		return SystemUtils.getPackageInfo(pContext).versionName;
-	}
+    public static String getPackageVersionName(final Context pContext) {
+        return SystemUtils.getPackageInfo(pContext).versionName;
+    }
 
-	private static PackageInfo getPackageInfo(final Context pContext) {
-		try {
-			return pContext.getPackageManager().getPackageInfo(pContext.getPackageName(), 0);
-		} catch (final NameNotFoundException e) {
-			Debug.e(e);
-			return null;
-		}
-	}
+    private static PackageInfo getPackageInfo(final Context pContext) {
+        try {
+            return pContext.getPackageManager().getPackageInfo(pContext.getPackageName(), 0);
+        } catch (final NameNotFoundException e) {
+            Debug.e(e);
+            return null;
+        }
+    }
 
-	public static boolean hasSystemFeature(final Context pContext, final String pFeature) {
-		try {
-			final Method PackageManager_hasSystemFeatures = PackageManager.class.getMethod("hasSystemFeature", new Class[] { String.class });
-			return (PackageManager_hasSystemFeatures == null) ? false : (Boolean) PackageManager_hasSystemFeatures.invoke(pContext.getPackageManager(), pFeature);
-		} catch (final Throwable t) {
-			return false;
-		}
-	}
+    public static boolean hasSystemFeature(final Context pContext, final String pFeature) {
+        try {
+            final Method PackageManager_hasSystemFeatures = PackageManager.class.getMethod("hasSystemFeature", new Class[] { String.class });
+            return (PackageManager_hasSystemFeatures == null) ? false : (Boolean) PackageManager_hasSystemFeatures.invoke(pContext.getPackageManager(), pFeature);
+        } catch (final Throwable t) {
+            return false;
+        }
+    }
 
-	/**
-	 * @param pBuildVersionCode taken from {@link Build.VERSION_CODES}.
-	 */
-	public static boolean isAndroidVersionOrHigher(final int pBuildVersionCode) {
-		return Integer.parseInt(Build.VERSION.SDK) >= pBuildVersionCode;
-	}
+    /**
+     * @param pBuildVersionCode taken from {@link Build.VERSION_CODES}.
+     */
+    public static boolean isAndroidVersionOrHigher(final int pBuildVersionCode) {
+        return Integer.parseInt(Build.VERSION.SDK) >= pBuildVersionCode;
+    }
 
-	public static float getCPUBogoMips() throws SystemUtilsException {
-		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/cpuinfo", BOGOMIPS_PATTERN, 1000);
+    public static float getCPUBogoMips() throws SystemUtilsException {
+        final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/cpuinfo", BOGOMIPS_PATTERN, 1000);
 
-		try {
-			if(matchResult.groupCount() > 0) {
-				return Float.parseFloat(matchResult.group(1));
-			} else {
-				throw new SystemUtilsException();
-			}
-		} catch (final NumberFormatException e) {
-			throw new SystemUtilsException(e);
-		}
-	}
+        try {
+            if(matchResult.groupCount() > 0) {
+                return Float.parseFloat(matchResult.group(1));
+            } else {
+                throw new SystemUtilsException();
+            }
+        } catch (final NumberFormatException e) {
+            throw new SystemUtilsException(e);
+        }
+    }
 
-	/**
-	 * @return in kiloBytes.
-	 * @throws SystemUtilsException
-	 */
-	public static int getMemoryTotal() throws SystemUtilsException {
-		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", MEMTOTAL_PATTERN, 1000);
+    /**
+     * @return in kiloBytes.
+     * @throws SystemUtilsException
+     */
+    public static int getMemoryTotal() throws SystemUtilsException {
+        final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", MEMTOTAL_PATTERN, 1000);
 
-		try {
-			if(matchResult.groupCount() > 0) {
-				return Integer.parseInt(matchResult.group(1));
-			} else {
-				throw new SystemUtilsException();
-			}
-		} catch (final NumberFormatException e) {
-			throw new SystemUtilsException(e);
-		}
-	}
+        try {
+            if(matchResult.groupCount() > 0) {
+                return Integer.parseInt(matchResult.group(1));
+            } else {
+                throw new SystemUtilsException();
+            }
+        } catch (final NumberFormatException e) {
+            throw new SystemUtilsException(e);
+        }
+    }
 
-	/**
-	 * @return in kiloBytes.
-	 * @throws SystemUtilsException
-	 */
-	public static int getMemoryFree() throws SystemUtilsException {
-		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", MEMFREE_PATTERN, 1000);
+    /**
+     * @return in kiloBytes.
+     * @throws SystemUtilsException
+     */
+    public static int getMemoryFree() throws SystemUtilsException {
+        final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", MEMFREE_PATTERN, 1000);
 
-		try {
-			if(matchResult.groupCount() > 0) {
-				return Integer.parseInt(matchResult.group(1));
-			} else {
-				throw new SystemUtilsException();
-			}
-		} catch (final NumberFormatException e) {
-			throw new SystemUtilsException(e);
-		}
-	}
+        try {
+            if(matchResult.groupCount() > 0) {
+                return Integer.parseInt(matchResult.group(1));
+            } else {
+                throw new SystemUtilsException();
+            }
+        } catch (final NumberFormatException e) {
+            throw new SystemUtilsException(e);
+        }
+    }
 
-	/**
-	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
-	 */
-	public static int getCPUFrequencyCurrent() throws SystemUtilsException {
-		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
-	}
+    /**
+     * @return in kiloHertz.
+     * @throws SystemUtilsException
+     */
+    public static int getCPUFrequencyCurrent() throws SystemUtilsException {
+        return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+    }
 
-	/**
-	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
-	 */
-	public static int getCPUFrequencyMin() throws SystemUtilsException {
-		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq");
-	}
+    /**
+     * @return in kiloHertz.
+     * @throws SystemUtilsException
+     */
+    public static int getCPUFrequencyMin() throws SystemUtilsException {
+        return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq");
+    }
 
-	/**
-	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
-	 */
-	public static int getCPUFrequencyMax() throws SystemUtilsException {
-		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq");
-	}
+    /**
+     * @return in kiloHertz.
+     * @throws SystemUtilsException
+     */
+    public static int getCPUFrequencyMax() throws SystemUtilsException {
+        return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq");
+    }
 
-	/**
-	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
-	 */
-	public static int getCPUFrequencyMinScaling() throws SystemUtilsException {
-		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-	}
+    /**
+     * @return in kiloHertz.
+     * @throws SystemUtilsException
+     */
+    public static int getCPUFrequencyMinScaling() throws SystemUtilsException {
+        return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+    }
 
-	/**
-	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
-	 */
-	public static int getCPUFrequencyMaxScaling() throws SystemUtilsException {
-		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-	}
+    /**
+     * @return in kiloHertz.
+     * @throws SystemUtilsException
+     */
+    public static int getCPUFrequencyMaxScaling() throws SystemUtilsException {
+        return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+    }
 
-	private static MatchResult matchSystemFile(final String pSystemFile, final String pPattern, final int pHorizon) throws SystemUtilsException {
-		InputStream in = null;
-		try {
-			final Process process = new ProcessBuilder(new String[] { "/system/bin/cat", pSystemFile }).start();
+    private static MatchResult matchSystemFile(final String pSystemFile, final String pPattern, final int pHorizon) throws SystemUtilsException {
+        InputStream in = null;
+        try {
+            final Process process = new ProcessBuilder(new String[] { "/system/bin/cat", pSystemFile }).start();
 
-			in = process.getInputStream();
-			final Scanner scanner = new Scanner(in);
+            in = process.getInputStream();
+            final Scanner scanner = new Scanner(in);
 
-			final boolean matchFound = scanner.findWithinHorizon(pPattern, pHorizon) != null;
-			if(matchFound) {
-				return scanner.match();
-			} else {
-				throw new SystemUtilsException();
-			}
-		} catch (final IOException e) {
-			throw new SystemUtilsException(e);
-		} finally {
-			StreamUtils.close(in);
-		}
-	}
+            final boolean matchFound = scanner.findWithinHorizon(pPattern, pHorizon) != null;
+            if(matchFound) {
+                return scanner.match();
+            } else {
+                throw new SystemUtilsException();
+            }
+        } catch (final IOException e) {
+            throw new SystemUtilsException(e);
+        } finally {
+            StreamUtils.close(in);
+        }
+    }
 
-	private static int readSystemFileAsInt(final String pSystemFile) throws SystemUtilsException {
-		InputStream in = null;
-		try {
-			final Process process = new ProcessBuilder(new String[] { "/system/bin/cat", pSystemFile }).start();
+    private static int readSystemFileAsInt(final String pSystemFile) throws SystemUtilsException {
+        InputStream in = null;
+        try {
+            final Process process = new ProcessBuilder(new String[] { "/system/bin/cat", pSystemFile }).start();
 
-			in = process.getInputStream();
-			final String content = StreamUtils.readFully(in);
-			return Integer.parseInt(content);
-		} catch (final IOException e) {
-			throw new SystemUtilsException(e);
-		} catch (final NumberFormatException e) {
-			throw new SystemUtilsException(e);
-		} finally {
-			StreamUtils.close(in);
-		}
-	}
+            in = process.getInputStream();
+            final String content = StreamUtils.readFully(in);
+            return Integer.parseInt(content);
+        } catch (final IOException e) {
+            throw new SystemUtilsException(e);
+        } catch (final NumberFormatException e) {
+            throw new SystemUtilsException(e);
+        } finally {
+            StreamUtils.close(in);
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 
-	public static class SystemUtilsException extends Exception {
-		// ===========================================================
-		// Constants
-		// ===========================================================
+    public static class SystemUtilsException extends Exception {
+        // ===========================================================
+        // Constants
+        // ===========================================================
 
-		private static final long serialVersionUID = -7256483361095147596L;
+        private static final long serialVersionUID = -7256483361095147596L;
 
-		// ===========================================================
-		// Methods
-		// ===========================================================
+        // ===========================================================
+        // Methods
+        // ===========================================================
 
-		public SystemUtilsException() {
+        public SystemUtilsException() {
 
-		}
+        }
 
-		public SystemUtilsException(final Throwable pThrowable) {
-			super(pThrowable);
-		}
-	}
+        public SystemUtilsException(final Throwable pThrowable) {
+            super(pThrowable);
+        }
+    }
 }

@@ -11,96 +11,96 @@ package org.anddev.andengine.util.modifier;
  * @param <T>
  */
 public abstract class BaseDurationModifier<T> extends BaseModifier<T> {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private float mSecondsElapsed;
-	protected float mDuration;
+    private float mSecondsElapsed;
+    protected float mDuration;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseDurationModifier(final float pDuration) {
-		this.mDuration = pDuration;
-	}
+    public BaseDurationModifier(final float pDuration) {
+        this.mDuration = pDuration;
+    }
 
-	public BaseDurationModifier(final float pDuration, final IModifierListener<T> pModifierListener) {
-		super(pModifierListener);
-		this.mDuration = pDuration;
-	}
+    public BaseDurationModifier(final float pDuration, final IModifierListener<T> pModifierListener) {
+        super(pModifierListener);
+        this.mDuration = pDuration;
+    }
 
-	protected BaseDurationModifier(final BaseDurationModifier<T> pBaseModifier) {
-		this(pBaseModifier.mDuration);
-	}
+    protected BaseDurationModifier(final BaseDurationModifier<T> pBaseModifier) {
+        this(pBaseModifier.mDuration);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	@Override
-	public float getSecondsElapsed() {
-		return this.mSecondsElapsed;
-	}
+    @Override
+    public float getSecondsElapsed() {
+        return this.mSecondsElapsed;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getDuration() {
-		return this.mDuration;
-	}
+    @Override
+    public float getDuration() {
+        return this.mDuration;
+    }
 
-	protected abstract void onManagedUpdate(final float pSecondsElapsed, final T pItem);
+    protected abstract void onManagedUpdate(final float pSecondsElapsed, final T pItem);
 
-	protected abstract void onManagedInitialize(final T pItem);
+    protected abstract void onManagedInitialize(final T pItem);
 
-	@Override
-	public final float onUpdate(final float pSecondsElapsed, final T pItem) {
-		if(this.mFinished){
-			return 0;
-		} else {
-			if(this.mSecondsElapsed == 0) {
-				this.onManagedInitialize(pItem);
-				this.onModifierStarted(pItem);
-			}
+    @Override
+    public final float onUpdate(final float pSecondsElapsed, final T pItem) {
+        if(this.mFinished){
+            return 0;
+        } else {
+            if(this.mSecondsElapsed == 0) {
+                this.onManagedInitialize(pItem);
+                this.onModifierStarted(pItem);
+            }
 
-			final float secondsElapsedUsed;
-			if(this.mSecondsElapsed + pSecondsElapsed < this.mDuration) {
-				secondsElapsedUsed = pSecondsElapsed;
-			} else {
-				secondsElapsedUsed = this.mDuration - this.mSecondsElapsed;
-			}
+            final float secondsElapsedUsed;
+            if(this.mSecondsElapsed + pSecondsElapsed < this.mDuration) {
+                secondsElapsedUsed = pSecondsElapsed;
+            } else {
+                secondsElapsedUsed = this.mDuration - this.mSecondsElapsed;
+            }
 
-			this.mSecondsElapsed += secondsElapsedUsed;
-			this.onManagedUpdate(secondsElapsedUsed, pItem);
+            this.mSecondsElapsed += secondsElapsedUsed;
+            this.onManagedUpdate(secondsElapsedUsed, pItem);
 
-			if(this.mDuration != -1 && this.mSecondsElapsed >= this.mDuration) {
-				this.mSecondsElapsed = this.mDuration;
-				this.mFinished = true;
-				this.onModifierFinished(pItem);
-			}
-			return secondsElapsedUsed;
-		}
-	}
+            if(this.mDuration != -1 && this.mSecondsElapsed >= this.mDuration) {
+                this.mSecondsElapsed = this.mDuration;
+                this.mFinished = true;
+                this.onModifierFinished(pItem);
+            }
+            return secondsElapsedUsed;
+        }
+    }
 
-	@Override
-	public void reset() {
-		this.mFinished = false;
-		this.mSecondsElapsed = 0;
-	}
+    @Override
+    public void reset() {
+        this.mFinished = false;
+        this.mSecondsElapsed = 0;
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

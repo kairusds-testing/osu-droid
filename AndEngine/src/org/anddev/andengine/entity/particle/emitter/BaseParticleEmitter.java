@@ -8,70 +8,70 @@ package org.anddev.andengine.entity.particle.emitter;
  * @since 15:58:12 - 01.10.2010
  */
 public abstract class BaseParticleEmitter implements IParticleEmitter {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected float mCenterX;
-	protected float mCenterY;
+    protected float mCenterX;
+    protected float mCenterY;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseParticleEmitter(final float pCenterX, final float pCenterY) {
-		this.mCenterX = pCenterX;
-		this.mCenterY = pCenterY;
-	}
+    public BaseParticleEmitter(final float pCenterX, final float pCenterY) {
+        this.mCenterX = pCenterX;
+        this.mCenterY = pCenterY;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public float getCenterX() {
-		return this.mCenterX;
-	}
+    public float getCenterX() {
+        return this.mCenterX;
+    }
 
-	public float getCenterY() {
-		return this.mCenterY;
-	}
+    public float getCenterY() {
+        return this.mCenterY;
+    }
 
-	public void setCenterX(final float pCenterX) {
-		this.mCenterX = pCenterX;
-	}
+    public void setCenterX(final float pCenterX) {
+        this.mCenterX = pCenterX;
+    }
 
-	public void setCenterY(final float pCenterY) {
-		this.mCenterY = pCenterY;
-	}
+    public void setCenterY(final float pCenterY) {
+        this.mCenterY = pCenterY;
+    }
 
-	public void setCenter(final float pCenterX, final float pCenterY) {
-		this.mCenterX = pCenterX;
-		this.mCenterY = pCenterY;
-	}
+    public void setCenter(final float pCenterX, final float pCenterY) {
+        this.mCenterX = pCenterX;
+        this.mCenterY = pCenterY;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void onUpdate(final float pSecondsElapsed) {
+    @Override
+    public void onUpdate(final float pSecondsElapsed) {
 
-	}
+    }
 
-	@Override
-	public void reset() {
+    @Override
+    public void reset() {
 
-	}
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

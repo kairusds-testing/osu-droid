@@ -16,53 +16,53 @@ import org.xml.sax.helpers.DefaultHandler;
  * @since 14:35:32 - 11.10.2010
  */
 public class LevelParser extends DefaultHandler implements LevelConstants {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final IEntityLoader mDefaultEntityLoader;
-	private final HashMap<String, IEntityLoader> mEntityLoaders;
+    private final IEntityLoader mDefaultEntityLoader;
+    private final HashMap<String, IEntityLoader> mEntityLoaders;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public LevelParser(final IEntityLoader pDefaultEntityLoader, final HashMap<String, IEntityLoader> pEntityLoaders) {
-		this.mDefaultEntityLoader = pDefaultEntityLoader;
-		this.mEntityLoaders = pEntityLoaders;
-	}
+    public LevelParser(final IEntityLoader pDefaultEntityLoader, final HashMap<String, IEntityLoader> pEntityLoaders) {
+        this.mDefaultEntityLoader = pDefaultEntityLoader;
+        this.mEntityLoaders = pEntityLoaders;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void startElement(final String pUri, final String pLocalName, final String pQualifiedName, final Attributes pAttributes) throws SAXException {
-		final IEntityLoader entityLoader = this.mEntityLoaders.get(pLocalName);
-		if(entityLoader != null) {
-			entityLoader.onLoadEntity(pLocalName, pAttributes);
-		} else {
-			if(this.mDefaultEntityLoader != null) {
-				this.mDefaultEntityLoader.onLoadEntity(pLocalName, pAttributes);
-			} else {
-				throw new IllegalArgumentException("Unexpected tag: '" + pLocalName + "'.");
-			}
-		}
-	}
+    @Override
+    public void startElement(final String pUri, final String pLocalName, final String pQualifiedName, final Attributes pAttributes) throws SAXException {
+        final IEntityLoader entityLoader = this.mEntityLoaders.get(pLocalName);
+        if(entityLoader != null) {
+            entityLoader.onLoadEntity(pLocalName, pAttributes);
+        } else {
+            if(this.mDefaultEntityLoader != null) {
+                this.mDefaultEntityLoader.onLoadEntity(pLocalName, pAttributes);
+            } else {
+                throw new IllegalArgumentException("Unexpected tag: '" + pLocalName + "'.");
+            }
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

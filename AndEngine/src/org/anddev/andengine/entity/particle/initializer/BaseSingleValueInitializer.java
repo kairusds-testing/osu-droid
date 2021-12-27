@@ -12,54 +12,54 @@ import org.anddev.andengine.entity.particle.Particle;
  * @since 10:18:06 - 29.06.2010
  */
 public abstract class BaseSingleValueInitializer implements IParticleInitializer {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected float mMinValue;
-	protected float mMaxValue;
+    protected float mMinValue;
+    protected float mMaxValue;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseSingleValueInitializer(final float pMinValue, final float pMaxValue) {
-		this.mMinValue = pMinValue;
-		this.mMaxValue = pMaxValue;
-	}
+    public BaseSingleValueInitializer(final float pMinValue, final float pMaxValue) {
+        this.mMinValue = pMinValue;
+        this.mMaxValue = pMaxValue;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected abstract void onInitializeParticle(final Particle pParticle, final float pValue);
+    protected abstract void onInitializeParticle(final Particle pParticle, final float pValue);
 
-	@Override
-	public final void onInitializeParticle(final Particle pParticle) {
-		this.onInitializeParticle(pParticle, this.getRandomValue());
-	}
+    @Override
+    public final void onInitializeParticle(final Particle pParticle) {
+        this.onInitializeParticle(pParticle, this.getRandomValue());
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	private final float getRandomValue() {
-		if(this.mMinValue == this.mMaxValue) {
-			return this.mMaxValue;
-		} else {
-			return RANDOM.nextFloat() * (this.mMaxValue - this.mMinValue) + this.mMinValue;
-		}
-	}
+    private final float getRandomValue() {
+        if(this.mMinValue == this.mMaxValue) {
+            return this.mMaxValue;
+        } else {
+            return RANDOM.nextFloat() * (this.mMaxValue - this.mMinValue) + this.mMinValue;
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

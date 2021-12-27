@@ -12,33 +12,33 @@ import android.os.Bundle;
  * @since 10:39:23 - 31.10.2010
  */
 public interface ILocationListener {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	/**
-	 * @see {@link LocationListener#onProviderEnabled(String)}
-	 */
-	public void onLocationProviderEnabled();
+    /**
+     * @see {@link LocationListener#onProviderEnabled(String)}
+     */
+    public void onLocationProviderEnabled();
 
-	/**
-	 * @see {@link LocationListener#onLocationChanged(Location)}
-	 */
-	public void onLocationChanged(final Location pLocation);
+    /**
+     * @see {@link LocationListener#onLocationChanged(Location)}
+     */
+    public void onLocationChanged(final Location pLocation);
 
-	public void onLocationLost();
+    public void onLocationLost();
 
-	/**
-	 * @see {@link LocationListener#onProviderDisabled(String)}
-	 */
-	public void onLocationProviderDisabled();
+    /**
+     * @see {@link LocationListener#onProviderDisabled(String)}
+     */
+    public void onLocationProviderDisabled();
 
-	/**
-	 * @see {@link LocationListener#onStatusChanged(String, int, android.os.Bundle)}
-	 */
-	public void onLocationProviderStatusChanged(final LocationProviderStatus pLocationProviderStatus, final Bundle pBundle);
+    /**
+     * @see {@link LocationListener#onStatusChanged(String, int, android.os.Bundle)}
+     */
+    public void onLocationProviderStatusChanged(final LocationProviderStatus pLocationProviderStatus, final Bundle pBundle);
 }

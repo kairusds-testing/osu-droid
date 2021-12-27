@@ -5,13 +5,13 @@ package ru.nsu.ccfit.zuev.osu.model.vo;
  */
 public class UserVO {
 
-	private Long uid;
+    private Long uid;
 
-	public Long getUid() {
-		return uid;
-	}
+    public Long getUid() {
+        return uid;
+    }
 
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
 }

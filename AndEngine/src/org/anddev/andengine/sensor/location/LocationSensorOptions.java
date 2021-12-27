@@ -12,102 +12,102 @@ import android.location.Criteria;
  * @since 11:02:12 - 31.10.2010
  */
 public class LocationSensorOptions extends Criteria {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final long MINIMUMTRIGGERTIME_DEFAULT = 1 * TimeConstants.MILLISECONDSPERSECOND;
-	private static final long MINIMUMTRIGGERDISTANCE_DEFAULT = 10;
+    private static final long MINIMUMTRIGGERTIME_DEFAULT = 1 * TimeConstants.MILLISECONDSPERSECOND;
+    private static final long MINIMUMTRIGGERDISTANCE_DEFAULT = 10;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private boolean mEnabledOnly = true;
+    private boolean mEnabledOnly = true;
 
-	private long mMinimumTriggerTime = MINIMUMTRIGGERTIME_DEFAULT;
-	private long mMinimumTriggerDistance = MINIMUMTRIGGERDISTANCE_DEFAULT;
+    private long mMinimumTriggerTime = MINIMUMTRIGGERTIME_DEFAULT;
+    private long mMinimumTriggerDistance = MINIMUMTRIGGERDISTANCE_DEFAULT;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	/**
-	 * @see {@link LocationSensorOptions#setAccuracy(int)},
-	 *      {@link LocationSensorOptions#setAltitudeRequired(boolean)},
-	 *      {@link LocationSensorOptions#setBearingRequired(boolean)},
-	 *      {@link LocationSensorOptions#setCostAllowed(boolean)},
-	 *      {@link LocationSensorOptions#setEnabledOnly(boolean)},
-	 *      {@link LocationSensorOptions#setMinimumTriggerDistance(long)},
-	 *      {@link LocationSensorOptions#setMinimumTriggerTime(long)},
-	 *      {@link LocationSensorOptions#setPowerRequirement(int)},
-	 *      {@link LocationSensorOptions#setSpeedRequired(boolean)}.
-	 */
-	public LocationSensorOptions() {
+    /**
+     * @see {@link LocationSensorOptions#setAccuracy(int)},
+     *      {@link LocationSensorOptions#setAltitudeRequired(boolean)},
+     *      {@link LocationSensorOptions#setBearingRequired(boolean)},
+     *      {@link LocationSensorOptions#setCostAllowed(boolean)},
+     *      {@link LocationSensorOptions#setEnabledOnly(boolean)},
+     *      {@link LocationSensorOptions#setMinimumTriggerDistance(long)},
+     *      {@link LocationSensorOptions#setMinimumTriggerTime(long)},
+     *      {@link LocationSensorOptions#setPowerRequirement(int)},
+     *      {@link LocationSensorOptions#setSpeedRequired(boolean)}.
+     */
+    public LocationSensorOptions() {
 
-	}
+    }
 
-	/**
-	 * @param pAccuracy
-	 * @param pAltitudeRequired
-	 * @param pBearingRequired
-	 * @param pCostAllowed
-	 * @param pPowerRequirement
-	 * @param pSpeedRequired
-	 * @param pEnabledOnly
-	 * @param pMinimumTriggerTime
-	 * @param pMinimumTriggerDistance
-	 */
-	public LocationSensorOptions(final int pAccuracy, final boolean pAltitudeRequired, final boolean pBearingRequired, final boolean pCostAllowed, final int pPowerRequirement, final boolean pSpeedRequired, final boolean pEnabledOnly, final long pMinimumTriggerTime, final long pMinimumTriggerDistance) {
-		this.mEnabledOnly = pEnabledOnly;
-		this.mMinimumTriggerTime = pMinimumTriggerTime;
-		this.mMinimumTriggerDistance = pMinimumTriggerDistance;
+    /**
+     * @param pAccuracy
+     * @param pAltitudeRequired
+     * @param pBearingRequired
+     * @param pCostAllowed
+     * @param pPowerRequirement
+     * @param pSpeedRequired
+     * @param pEnabledOnly
+     * @param pMinimumTriggerTime
+     * @param pMinimumTriggerDistance
+     */
+    public LocationSensorOptions(final int pAccuracy, final boolean pAltitudeRequired, final boolean pBearingRequired, final boolean pCostAllowed, final int pPowerRequirement, final boolean pSpeedRequired, final boolean pEnabledOnly, final long pMinimumTriggerTime, final long pMinimumTriggerDistance) {
+        this.mEnabledOnly = pEnabledOnly;
+        this.mMinimumTriggerTime = pMinimumTriggerTime;
+        this.mMinimumTriggerDistance = pMinimumTriggerDistance;
 
-		this.setAccuracy(pAccuracy);
-		this.setAltitudeRequired(pAltitudeRequired);
-		this.setBearingRequired(pBearingRequired);
-		this.setCostAllowed(pCostAllowed);
-		this.setPowerRequirement(pPowerRequirement);
-		this.setSpeedRequired(pSpeedRequired);
-	}
+        this.setAccuracy(pAccuracy);
+        this.setAltitudeRequired(pAltitudeRequired);
+        this.setBearingRequired(pBearingRequired);
+        this.setCostAllowed(pCostAllowed);
+        this.setPowerRequirement(pPowerRequirement);
+        this.setSpeedRequired(pSpeedRequired);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public void setEnabledOnly(final boolean pEnabledOnly) {
-		this.mEnabledOnly = pEnabledOnly;
-	}
+    public void setEnabledOnly(final boolean pEnabledOnly) {
+        this.mEnabledOnly = pEnabledOnly;
+    }
 
-	public boolean isEnabledOnly() {
-		return this.mEnabledOnly;
-	}
+    public boolean isEnabledOnly() {
+        return this.mEnabledOnly;
+    }
 
-	public long getMinimumTriggerTime() {
-		return this.mMinimumTriggerTime;
-	}
+    public long getMinimumTriggerTime() {
+        return this.mMinimumTriggerTime;
+    }
 
-	public void setMinimumTriggerTime(final long pMinimumTriggerTime) {
-		this.mMinimumTriggerTime = pMinimumTriggerTime;
-	}
+    public void setMinimumTriggerTime(final long pMinimumTriggerTime) {
+        this.mMinimumTriggerTime = pMinimumTriggerTime;
+    }
 
-	public long getMinimumTriggerDistance() {
-		return this.mMinimumTriggerDistance;
-	}
+    public long getMinimumTriggerDistance() {
+        return this.mMinimumTriggerDistance;
+    }
 
-	public void setMinimumTriggerDistance(final long pMinimumTriggerDistance) {
-		this.mMinimumTriggerDistance = pMinimumTriggerDistance;
-	}
+    public void setMinimumTriggerDistance(final long pMinimumTriggerDistance) {
+        this.mMinimumTriggerDistance = pMinimumTriggerDistance;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -11,20 +11,20 @@ import org.anddev.andengine.entity.scene.Scene;
  * @since 12:03:08 - 14.03.2010
  */
 public interface IGameInterface {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public Engine onLoadEngine();
-	public void onLoadResources();
-	public void onUnloadResources();
-	public Scene onLoadScene();
-	public void onLoadComplete();
+    public Engine onLoadEngine();
+    public void onLoadResources();
+    public void onUnloadResources();
+    public Scene onLoadScene();
+    public void onLoadComplete();
 
-	public void onPauseGame();
-	public void onResumeGame();
+    public void onPauseGame();
+    public void onResumeGame();
 }

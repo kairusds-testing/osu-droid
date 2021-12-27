@@ -10,53 +10,53 @@ import org.anddev.andengine.entity.IEntity;
  * @since 16:12:52 - 19.03.2010
  */
 public class RotationByModifier extends SingleValueChangeEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public RotationByModifier(final float pDuration, final float pRotation) {
-		super(pDuration, pRotation);
-	}
+    public RotationByModifier(final float pDuration, final float pRotation) {
+        super(pDuration, pRotation);
+    }
 
-	public RotationByModifier(final float pDuration, final float pRotation, final IEntityModifierListener pEntityModifierListener) {
-		super(pDuration, pRotation, pEntityModifierListener);
-	}
+    public RotationByModifier(final float pDuration, final float pRotation, final IEntityModifierListener pEntityModifierListener) {
+        super(pDuration, pRotation, pEntityModifierListener);
+    }
 
-	protected RotationByModifier(final RotationByModifier pRotationByModifier) {
-		super(pRotationByModifier);
-	}
+    protected RotationByModifier(final RotationByModifier pRotationByModifier) {
+        super(pRotationByModifier);
+    }
 
-	@Override
-	public RotationByModifier deepCopy(){
-		return new RotationByModifier(this);
-	}
+    @Override
+    public RotationByModifier deepCopy(){
+        return new RotationByModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected void onChangeValue(final float pSecondsElapsed, final IEntity pEntity, final float pRotation) {
-		pEntity.setRotation(pEntity.getRotation() + pRotation);
-	}
+    @Override
+    protected void onChangeValue(final float pSecondsElapsed, final IEntity pEntity, final float pRotation) {
+        pEntity.setRotation(pEntity.getRotation() + pRotation);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

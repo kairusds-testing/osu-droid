@@ -14,95 +14,95 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @since 11:17:32 - 02.04.2010
  */
 public abstract class BaseMenuAnimator implements IMenuAnimator {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	protected static final float DURATION = 1.0f;
+    protected static final float DURATION = 1.0f;
 
-	private static final float MENUITEMSPACING_DEFAULT = 1.0f;
+    private static final float MENUITEMSPACING_DEFAULT = 1.0f;
 
-	private static final HorizontalAlign HORIZONTALALIGN_DEFAULT = HorizontalAlign.CENTER;
+    private static final HorizontalAlign HORIZONTALALIGN_DEFAULT = HorizontalAlign.CENTER;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected final float mMenuItemSpacing;
-	protected final HorizontalAlign mHorizontalAlign;
-	protected final IEaseFunction mEaseFunction;
+    protected final float mMenuItemSpacing;
+    protected final HorizontalAlign mHorizontalAlign;
+    protected final IEaseFunction mEaseFunction;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseMenuAnimator() {
-		this(MENUITEMSPACING_DEFAULT);
-	}
+    public BaseMenuAnimator() {
+        this(MENUITEMSPACING_DEFAULT);
+    }
 
-	public BaseMenuAnimator(final IEaseFunction pEaseFunction) {
-		this(MENUITEMSPACING_DEFAULT, pEaseFunction);
-	}
+    public BaseMenuAnimator(final IEaseFunction pEaseFunction) {
+        this(MENUITEMSPACING_DEFAULT, pEaseFunction);
+    }
 
-	public BaseMenuAnimator(final float pMenuItemSpacing) {
-		this(HORIZONTALALIGN_DEFAULT, pMenuItemSpacing);
-	}
+    public BaseMenuAnimator(final float pMenuItemSpacing) {
+        this(HORIZONTALALIGN_DEFAULT, pMenuItemSpacing);
+    }
 
-	public BaseMenuAnimator(final float pMenuItemSpacing, final IEaseFunction pEaseFunction) {
-		this(HORIZONTALALIGN_DEFAULT, pMenuItemSpacing, pEaseFunction);
-	}
+    public BaseMenuAnimator(final float pMenuItemSpacing, final IEaseFunction pEaseFunction) {
+        this(HORIZONTALALIGN_DEFAULT, pMenuItemSpacing, pEaseFunction);
+    }
 
-	public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign) {
-		this(pHorizontalAlign, MENUITEMSPACING_DEFAULT);
-	}
+    public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign) {
+        this(pHorizontalAlign, MENUITEMSPACING_DEFAULT);
+    }
 
-	public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final IEaseFunction pEaseFunction) {
-		this(pHorizontalAlign, MENUITEMSPACING_DEFAULT, pEaseFunction);
-	}
+    public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final IEaseFunction pEaseFunction) {
+        this(pHorizontalAlign, MENUITEMSPACING_DEFAULT, pEaseFunction);
+    }
 
-	public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final float pMenuItemSpacing) {
-		this(pHorizontalAlign, pMenuItemSpacing, IEaseFunction.DEFAULT);
-	}
+    public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final float pMenuItemSpacing) {
+        this(pHorizontalAlign, pMenuItemSpacing, IEaseFunction.DEFAULT);
+    }
 
-	public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final float pMenuItemSpacing, final IEaseFunction pEaseFunction) {
-		this.mHorizontalAlign = pHorizontalAlign;
-		this.mMenuItemSpacing = pMenuItemSpacing;
-		this.mEaseFunction = pEaseFunction;
-	}
+    public BaseMenuAnimator(final HorizontalAlign pHorizontalAlign, final float pMenuItemSpacing, final IEaseFunction pEaseFunction) {
+        this.mHorizontalAlign = pHorizontalAlign;
+        this.mMenuItemSpacing = pMenuItemSpacing;
+        this.mEaseFunction = pEaseFunction;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	protected float getMaximumWidth(final ArrayList<IMenuItem> pMenuItems) {
-		float maximumWidth = Float.MIN_VALUE;
-		for(int i = pMenuItems.size() - 1; i >= 0; i--) {
-			final IMenuItem menuItem = pMenuItems.get(i);
-			maximumWidth = Math.max(maximumWidth, menuItem.getWidthScaled());
-		}
-		return maximumWidth;
-	}
+    protected float getMaximumWidth(final ArrayList<IMenuItem> pMenuItems) {
+        float maximumWidth = Float.MIN_VALUE;
+        for(int i = pMenuItems.size() - 1; i >= 0; i--) {
+            final IMenuItem menuItem = pMenuItems.get(i);
+            maximumWidth = Math.max(maximumWidth, menuItem.getWidthScaled());
+        }
+        return maximumWidth;
+    }
 
-	protected float getOverallHeight(final ArrayList<IMenuItem> pMenuItems) {
-		float overallHeight = 0;
-		for(int i = pMenuItems.size() - 1; i >= 0; i--) {
-			final IMenuItem menuItem = pMenuItems.get(i);
-			overallHeight += menuItem.getHeight();
-		}
+    protected float getOverallHeight(final ArrayList<IMenuItem> pMenuItems) {
+        float overallHeight = 0;
+        for(int i = pMenuItems.size() - 1; i >= 0; i--) {
+            final IMenuItem menuItem = pMenuItems.get(i);
+            overallHeight += menuItem.getHeight();
+        }
 
-		overallHeight += (pMenuItems.size() - 1) * this.mMenuItemSpacing;
-		return overallHeight;
-	}
+        overallHeight += (pMenuItems.size() - 1) * this.mMenuItemSpacing;
+        return overallHeight;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -16,63 +16,63 @@ import org.anddev.andengine.util.Callback;
  * @since 16:42:08 - 12.07.2011
  */
 public class BuildableTextureAtlasTextureRegionFactory {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Methods using BuildableBitmapTexture
-	// ===========================================================
+    // ===========================================================
+    // Methods using BuildableBitmapTexture
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public static <T extends ITextureAtlasSource, A extends ITextureAtlas<T>> TextureRegion createFromSource(final BuildableTextureAtlas<T, A> pBuildableTextureAtlas, final T pTextureAtlasSource, final boolean pTextureRegionBufferManaged) {
-		final TextureRegion textureRegion = new TextureRegion(pBuildableTextureAtlas, 0, 0, pTextureAtlasSource.getWidth(), pTextureAtlasSource.getHeight());
-		pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
-			@Override
-			public void onCallback(final T pCallbackValue) {
-				textureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
-			}
-		});
-		textureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);
-		return textureRegion;
-	}
+    public static <T extends ITextureAtlasSource, A extends ITextureAtlas<T>> TextureRegion createFromSource(final BuildableTextureAtlas<T, A> pBuildableTextureAtlas, final T pTextureAtlasSource, final boolean pTextureRegionBufferManaged) {
+        final TextureRegion textureRegion = new TextureRegion(pBuildableTextureAtlas, 0, 0, pTextureAtlasSource.getWidth(), pTextureAtlasSource.getHeight());
+        pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
+            @Override
+            public void onCallback(final T pCallbackValue) {
+                textureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
+            }
+        });
+        textureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);
+        return textureRegion;
+    }
 
-	public static <T extends ITextureAtlasSource, A extends ITextureAtlas<T>> TiledTextureRegion createTiledFromSource(final BuildableTextureAtlas<T, A> pBuildableTextureAtlas, final T pTextureAtlasSource, final int pTileColumns, final int pTileRows, final boolean pTextureRegionBufferManaged) {
-		final TiledTextureRegion tiledTextureRegion = new TiledTextureRegion(pBuildableTextureAtlas, 0, 0, pTextureAtlasSource.getWidth(), pTextureAtlasSource.getHeight(), pTileColumns, pTileRows);
-		pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
-			@Override
-			public void onCallback(final T pCallbackValue) {
-				tiledTextureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
-			}
-		});
-		tiledTextureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);
-		return tiledTextureRegion;
-	}
+    public static <T extends ITextureAtlasSource, A extends ITextureAtlas<T>> TiledTextureRegion createTiledFromSource(final BuildableTextureAtlas<T, A> pBuildableTextureAtlas, final T pTextureAtlasSource, final int pTileColumns, final int pTileRows, final boolean pTextureRegionBufferManaged) {
+        final TiledTextureRegion tiledTextureRegion = new TiledTextureRegion(pBuildableTextureAtlas, 0, 0, pTextureAtlasSource.getWidth(), pTextureAtlasSource.getHeight(), pTileColumns, pTileRows);
+        pBuildableTextureAtlas.addTextureAtlasSource(pTextureAtlasSource, new Callback<T>() {
+            @Override
+            public void onCallback(final T pCallbackValue) {
+                tiledTextureRegion.setTexturePosition(pCallbackValue.getTexturePositionX(), pCallbackValue.getTexturePositionY());
+            }
+        });
+        tiledTextureRegion.setTextureRegionBufferManaged(pTextureRegionBufferManaged);
+        return tiledTextureRegion;
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -9,64 +9,64 @@ package org.anddev.andengine.entity.particle.emitter;
  * @since 18:53:18 - 01.10.2010
  */
 public abstract class BaseRectangleParticleEmitter extends BaseParticleEmitter {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected float mWidth;
-	protected float mHeight;
-	protected float mWidthHalf;
-	protected float mHeightHalf;
+    protected float mWidth;
+    protected float mHeight;
+    protected float mWidthHalf;
+    protected float mHeightHalf;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseRectangleParticleEmitter(final float pCenterX, final float pCenterY, final float pSize) {
-		this(pCenterX, pCenterY, pSize, pSize);
-	}
+    public BaseRectangleParticleEmitter(final float pCenterX, final float pCenterY, final float pSize) {
+        this(pCenterX, pCenterY, pSize, pSize);
+    }
 
-	public BaseRectangleParticleEmitter(final float pCenterX, final float pCenterY, final float pWidth, final float pHeight) {
-		super(pCenterX, pCenterY);
-		this.setWidth(pWidth);
-		this.setHeight(pHeight);
-	}
+    public BaseRectangleParticleEmitter(final float pCenterX, final float pCenterY, final float pWidth, final float pHeight) {
+        super(pCenterX, pCenterY);
+        this.setWidth(pWidth);
+        this.setHeight(pHeight);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public float getWidth() {
-		return this.mWidth;
-	}
+    public float getWidth() {
+        return this.mWidth;
+    }
 
-	public void setWidth(final float pWidth) {
-		this.mWidth = pWidth;
-		this.mWidthHalf = pWidth * 0.5f;
-	}
+    public void setWidth(final float pWidth) {
+        this.mWidth = pWidth;
+        this.mWidthHalf = pWidth * 0.5f;
+    }
 
-	public float getHeight() {
-		return this.mHeight;
-	}
+    public float getHeight() {
+        return this.mHeight;
+    }
 
-	public void setHeight(final float pHeight) {
-		this.mHeight = pHeight;
-		this.mHeightHalf = pHeight * 0.5f;
-	}
+    public void setHeight(final float pHeight) {
+        this.mHeight = pHeight;
+        this.mHeightHalf = pHeight * 0.5f;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

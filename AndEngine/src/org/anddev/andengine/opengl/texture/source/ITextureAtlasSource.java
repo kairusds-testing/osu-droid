@@ -11,21 +11,21 @@ import org.anddev.andengine.util.modifier.IModifier.DeepCopyNotSupportedExceptio
  * @since 11:46:56 - 12.07.2011
  */
 public interface ITextureAtlasSource {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public int getTexturePositionX();
-	public int getTexturePositionY();
-	public void setTexturePositionX(final int pTexturePositionX);
-	public void setTexturePositionY(final int pTexturePositionY);
+    public int getTexturePositionX();
+    public int getTexturePositionY();
+    public void setTexturePositionX(final int pTexturePositionX);
+    public void setTexturePositionY(final int pTexturePositionY);
 
-	public int getWidth();
-	public int getHeight();
+    public int getWidth();
+    public int getHeight();
 
-	public ITextureAtlasSource deepCopy() throws DeepCopyNotSupportedException;
+    public ITextureAtlasSource deepCopy() throws DeepCopyNotSupportedException;
 }

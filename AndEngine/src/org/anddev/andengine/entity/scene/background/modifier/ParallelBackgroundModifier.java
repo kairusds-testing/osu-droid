@@ -11,48 +11,48 @@ import org.anddev.andengine.util.modifier.ParallelModifier;
  * @since 15:03:57 - 03.09.2010
  */
 public class ParallelBackgroundModifier extends ParallelModifier<IBackground> implements IBackgroundModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ParallelBackgroundModifier(final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pBackgroundModifiers);
-	}
+    public ParallelBackgroundModifier(final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pBackgroundModifiers);
+    }
 
-	public ParallelBackgroundModifier(final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
-		super(pBackgroundModifierListener, pBackgroundModifiers);
-	}
+    public ParallelBackgroundModifier(final IBackgroundModifierListener pBackgroundModifierListener, final IBackgroundModifier... pBackgroundModifiers) throws IllegalArgumentException {
+        super(pBackgroundModifierListener, pBackgroundModifiers);
+    }
 
-	protected ParallelBackgroundModifier(final ParallelBackgroundModifier pParallelBackgroundModifier) throws DeepCopyNotSupportedException {
-		super(pParallelBackgroundModifier);
-	}
+    protected ParallelBackgroundModifier(final ParallelBackgroundModifier pParallelBackgroundModifier) throws DeepCopyNotSupportedException {
+        super(pParallelBackgroundModifier);
+    }
 
-	@Override
-	public ParallelBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
-		return new ParallelBackgroundModifier(this);
-	}
+    @Override
+    public ParallelBackgroundModifier deepCopy() throws DeepCopyNotSupportedException {
+        return new ParallelBackgroundModifier(this);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

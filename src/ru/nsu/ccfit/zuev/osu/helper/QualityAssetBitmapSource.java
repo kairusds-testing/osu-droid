@@ -14,121 +14,121 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class QualityAssetBitmapSource extends BaseTextureAtlasSource implements
-		IBitmapTextureAtlasSource {
+        IBitmapTextureAtlasSource {
 
-	private final int mWidth;
-	private final int mHeight;
+    private final int mWidth;
+    private final int mHeight;
 
-	private final String mAssetPath;
-	private final Context mContext;
+    private final String mAssetPath;
+    private final Context mContext;
 
-	private Bitmap bitmap = null;
+    private Bitmap bitmap = null;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public QualityAssetBitmapSource(final Context pContext,
-									final String pAssetPath) {
-		this(pContext, pAssetPath, 0, 0);
-	}
+    public QualityAssetBitmapSource(final Context pContext,
+                                    final String pAssetPath) {
+        this(pContext, pAssetPath, 0, 0);
+    }
 
-	public QualityAssetBitmapSource(final Context pContext,
-									final String pAssetPath, final int pTexturePositionX,
-									final int pTexturePositionY) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mAssetPath = pAssetPath;
+    public QualityAssetBitmapSource(final Context pContext,
+                                    final String pAssetPath, final int pTexturePositionX,
+                                    final int pTexturePositionY) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mAssetPath = pAssetPath;
 
-		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-		decodeOptions.inJustDecodeBounds = true;
-		decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-				.getTextureQuality();
+        final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+        decodeOptions.inJustDecodeBounds = true;
+        decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
+                .getTextureQuality();
 
-		InputStream in = null;
-		try {
-			in = pContext.getAssets().open(pAssetPath);
-			BitmapFactory.decodeStream(in, null, decodeOptions);
-		} catch (final IOException e) {
-			// Debug.e("Failed loading Bitmap in AssetBitmapTextureAtlasSource. AssetPath: " + pAssetPath, e);
-		} finally {
-			StreamUtils.close(in);
-		}
+        InputStream in = null;
+        try {
+            in = pContext.getAssets().open(pAssetPath);
+            BitmapFactory.decodeStream(in, null, decodeOptions);
+        } catch (final IOException e) {
+            // Debug.e("Failed loading Bitmap in AssetBitmapTextureAtlasSource. AssetPath: " + pAssetPath, e);
+        } finally {
+            StreamUtils.close(in);
+        }
 
-		this.mWidth = decodeOptions.outWidth;
-		this.mHeight = decodeOptions.outHeight;
-	}
+        this.mWidth = decodeOptions.outWidth;
+        this.mHeight = decodeOptions.outHeight;
+    }
 
-	QualityAssetBitmapSource(final Context pContext, final String pAssetPath,
-							 final int pTexturePositionX, final int pTexturePositionY,
-							 final int pWidth, final int pHeight) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mAssetPath = pAssetPath;
-		this.mWidth = pWidth;
-		this.mHeight = pHeight;
-	}
-
-
-	public QualityAssetBitmapSource deepCopy() {
-		return new QualityAssetBitmapSource(this.mContext, this.mAssetPath,
-				this.mTexturePositionX, this.mTexturePositionY, this.mWidth,
-				this.mHeight);
-	}
-
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
-
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    QualityAssetBitmapSource(final Context pContext, final String pAssetPath,
+                             final int pTexturePositionX, final int pTexturePositionY,
+                             final int pWidth, final int pHeight) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mAssetPath = pAssetPath;
+        this.mWidth = pWidth;
+        this.mHeight = pHeight;
+    }
 
 
-	public int getWidth() {
-		return this.mWidth;
-	}
+    public QualityAssetBitmapSource deepCopy() {
+        return new QualityAssetBitmapSource(this.mContext, this.mAssetPath,
+                this.mTexturePositionX, this.mTexturePositionY, this.mWidth,
+                this.mHeight);
+    }
+
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
+
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
 
-	public int getHeight() {
-		return this.mHeight;
-	}
-
-	public boolean preload() {
-		bitmap = onLoadBitmap(Bitmap.Config.ARGB_8888);
-		return bitmap != null;
-	}
+    public int getWidth() {
+        return this.mWidth;
+    }
 
 
-	public Bitmap onLoadBitmap(final Config pBitmapConfig) {
-		if (bitmap != null) {
-			final Bitmap bmp = bitmap;
-			bitmap = null;
-			return bmp;
-		}
-		InputStream in = null;
-		try {
-			final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-			decodeOptions.inPreferredConfig = pBitmapConfig;
-			decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
-					.getTextureQuality();
+    public int getHeight() {
+        return this.mHeight;
+    }
 
-			in = this.mContext.getAssets().open(this.mAssetPath);
-			return BitmapFactory.decodeStream(in, null, decodeOptions);
-		} catch (final IOException e) {
-			Debug.e("Failed loading Bitmap in "
-					+ this.getClass().getSimpleName() + ". AssetPath: "
-					+ this.mAssetPath, e);
-			return null;
-		} finally {
-			StreamUtils.close(in);
-		}
-	}
+    public boolean preload() {
+        bitmap = onLoadBitmap(Bitmap.Config.ARGB_8888);
+        return bitmap != null;
+    }
 
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "(" + this.mAssetPath + ")";
-	}
+    public Bitmap onLoadBitmap(final Config pBitmapConfig) {
+        if (bitmap != null) {
+            final Bitmap bmp = bitmap;
+            bitmap = null;
+            return bmp;
+        }
+        InputStream in = null;
+        try {
+            final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+            decodeOptions.inPreferredConfig = pBitmapConfig;
+            decodeOptions.inSampleSize = ru.nsu.ccfit.zuev.osu.Config
+                    .getTextureQuality();
+
+            in = this.mContext.getAssets().open(this.mAssetPath);
+            return BitmapFactory.decodeStream(in, null, decodeOptions);
+        } catch (final IOException e) {
+            Debug.e("Failed loading Bitmap in "
+                    + this.getClass().getSimpleName() + ". AssetPath: "
+                    + this.mAssetPath, e);
+            return null;
+        } finally {
+            StreamUtils.close(in);
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "(" + this.mAssetPath + ")";
+    }
 
 }

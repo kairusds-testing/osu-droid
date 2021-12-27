@@ -29,130 +29,130 @@ import ru.nsu.ccfit.zuev.osu.storyboard.OsuSprite;
  */
 public class StoryBoardTestActivity extends BaseGameActivity implements IUpdateHandler {
 
-	// public static final String FOLDER = "/sdcard/osu!player/51142 Suzuta Miyako - one's future (Full Ver.)";
-	// public static final String PATH = "/Suzuta Miyako - one's future (Full Ver.) (DJPop) [Insane].osu";
-	public static final String FOLDER = "/sdcard/osu!player/EOS";
-	public static final String PATH = "/1.osu";
-	private static final int INVALID_POINTER_ID = -1;
-	private static final int CAMERA_WIDTH = 640;
-	private static final int CAMERA_HEIGHT = 480;
-	public static StoryBoardTestActivity activity;
-	public String mBackground;
-	// public static final String FOLDER = "/sdcard/osu!player/Okaerinasai";
-	// public static final String PATH = "/1.osu";
-	public String mAudioFileName;
-	public Entity background, fail, pass, foreground;
-	public AtomicInteger onScreenDrawCalls = new AtomicInteger(0);
-	private LinkedList<OsuSprite> osuSprites;
-	private OsuSprite nextSprite;
+    // public static final String FOLDER = "/sdcard/osu!player/51142 Suzuta Miyako - one's future (Full Ver.)";
+    // public static final String PATH = "/Suzuta Miyako - one's future (Full Ver.) (DJPop) [Insane].osu";
+    public static final String FOLDER = "/sdcard/osu!player/EOS";
+    public static final String PATH = "/1.osu";
+    private static final int INVALID_POINTER_ID = -1;
+    private static final int CAMERA_WIDTH = 640;
+    private static final int CAMERA_HEIGHT = 480;
+    public static StoryBoardTestActivity activity;
+    public String mBackground;
+    // public static final String FOLDER = "/sdcard/osu!player/Okaerinasai";
+    // public static final String PATH = "/1.osu";
+    public String mAudioFileName;
+    public Entity background, fail, pass, foreground;
+    public AtomicInteger onScreenDrawCalls = new AtomicInteger(0);
+    private LinkedList<OsuSprite> osuSprites;
+    private OsuSprite nextSprite;
 
-	private Scene scene;
+    private Scene scene;
 
-	private float totalElapsed = 0f;
+    private float totalElapsed = 0f;
 
-	{
-		activity = this;
-	}
+    {
+        activity = this;
+    }
 
-	@Override
-	public Engine onLoadEngine() {
-		Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new Engine(new EngineOptions(true,
-				EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
-				camera));
-	}
+    @Override
+    public Engine onLoadEngine() {
+        Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        return new Engine(new EngineOptions(true,
+                EngineOptions.ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),
+                camera));
+    }
 
-	@Override
-	public void onLoadResources() {
-	}
+    @Override
+    public void onLoadResources() {
+    }
 
-	@Override
-	public Scene onLoadScene() {
-		this.mEngine.registerUpdateHandler(new FPSLogger(1f));
-		scene = new Scene();
-		scene.setBackground(new ColorBackground(0, 0, 0));
-		scene.registerUpdateHandler(this);
+    @Override
+    public Scene onLoadScene() {
+        this.mEngine.registerUpdateHandler(new FPSLogger(1f));
+        scene = new Scene();
+        scene.setBackground(new ColorBackground(0, 0, 0));
+        scene.registerUpdateHandler(this);
 
-		ResourceManager.getInstance().Init(this.mEngine, this);
-		ResourceManager.getInstance().loadHighQualityAsset("cursor", "gfx/cursor.png");
-		ResourceManager.getInstance().loadHighQualityFileUnderFolder(new File(FOLDER));
+        ResourceManager.getInstance().Init(this.mEngine, this);
+        ResourceManager.getInstance().loadHighQualityAsset("cursor", "gfx/cursor.png");
+        ResourceManager.getInstance().loadHighQualityFileUnderFolder(new File(FOLDER));
 
-		BassAudioPlayer.initDevice();
+        BassAudioPlayer.initDevice();
 
-		try {
-			System.gc();
-			OsbParser.instance.parse(FOLDER + PATH);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// File file = new File(FOLDER, mAudioFileName);
+        try {
+            System.gc();
+            OsbParser.instance.parse(FOLDER + PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // File file = new File(FOLDER, mAudioFileName);
 
-		background = new Entity(0, 0);
-//		fail = new Entity(0, 0);
-		pass = new Entity(0, 0);
-		foreground = new Entity(0, 0);
-		scene.attachChild(background);
-//		scene.attachChild(fail);
-		scene.attachChild(pass);
-		scene.attachChild(foreground);
+        background = new Entity(0, 0);
+//        fail = new Entity(0, 0);
+        pass = new Entity(0, 0);
+        foreground = new Entity(0, 0);
+        scene.attachChild(background);
+//        scene.attachChild(fail);
+        scene.attachChild(pass);
+        scene.attachChild(foreground);
 
-		osuSprites = OsbParser.instance.getSprites();
-		if (osuSprites != null && osuSprites.size() > 0) {
-			nextSprite = osuSprites.remove(0);
-			// Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
-		}
-		return scene;
-	}
+        osuSprites = OsbParser.instance.getSprites();
+        if (osuSprites != null && osuSprites.size() > 0) {
+            nextSprite = osuSprites.remove(0);
+            // Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
+        }
+        return scene;
+    }
 
-	@Override
-	public void onLoadComplete() {
+    @Override
+    public void onLoadComplete() {
 
-	}
+    }
 
-	@Override
-	public void onUpdate(float pSecondsElapsed) {
-		totalElapsed += pSecondsElapsed;
-		if (null != nextSprite) {
-			checkSpriteTime(totalElapsed * 1000);
-		}
-	}
+    @Override
+    public void onUpdate(float pSecondsElapsed) {
+        totalElapsed += pSecondsElapsed;
+        if (null != nextSprite) {
+            checkSpriteTime(totalElapsed * 1000);
+        }
+    }
 
-	private void checkSpriteTime(float pSecondsElapsed) {
-		if (pSecondsElapsed >= nextSprite.spriteStartTime) {
-			nextSprite.play();
-			if (osuSprites.size() > 0) {
-				nextSprite = osuSprites.remove(0);
-				// Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
-				checkSpriteTime(pSecondsElapsed);
-			} else {
-				nextSprite = null;
-			}
-		}
-	}
+    private void checkSpriteTime(float pSecondsElapsed) {
+        if (pSecondsElapsed >= nextSprite.spriteStartTime) {
+            nextSprite.play();
+            if (osuSprites.size() > 0) {
+                nextSprite = osuSprites.remove(0);
+                // Log.i("switch sprite", "start line: " + nextSprite.getDebugLine());
+                checkSpriteTime(pSecondsElapsed);
+            } else {
+                nextSprite = null;
+            }
+        }
+    }
 
-	@Override
-	public void reset() {
+    @Override
+    public void reset() {
 
-	}
+    }
 
-	public void attachBackground(BaseSprite sprite) {
-		background.attachChild(sprite);
-		background.sortChildren();
-	}
+    public void attachBackground(BaseSprite sprite) {
+        background.attachChild(sprite);
+        background.sortChildren();
+    }
 
-//	public void attachFail(BaseSprite sprite)
-//	{
-//		fail.attachChild(sprite);
-//		fail.sortChildren();
-//	}
+//    public void attachFail(BaseSprite sprite)
+//    {
+//        fail.attachChild(sprite);
+//        fail.sortChildren();
+//    }
 
-	public void attachPass(BaseSprite sprite) {
-		pass.attachChild(sprite);
-		pass.sortChildren();
-	}
+    public void attachPass(BaseSprite sprite) {
+        pass.attachChild(sprite);
+        pass.sortChildren();
+    }
 
-	public void attachForeground(BaseSprite sprite) {
-		foreground.attachChild(sprite);
-		foreground.sortChildren();
-	}
+    public void attachForeground(BaseSprite sprite) {
+        foreground.attachChild(sprite);
+        foreground.sortChildren();
+    }
 }

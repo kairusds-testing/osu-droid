@@ -9,55 +9,55 @@ package org.anddev.andengine.util.modifier.ease;
  * @since 16:52:11 - 26.07.2010
  */
 public class EaseExponentialInOut implements IEaseFunction {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private static EaseExponentialInOut INSTANCE;
+    private static EaseExponentialInOut INSTANCE;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	private EaseExponentialInOut() {
+    private EaseExponentialInOut() {
 
-	}
+    }
 
-	public static EaseExponentialInOut getInstance() {
-		if(INSTANCE == null) {
-			INSTANCE = new EaseExponentialInOut();
-		}
-		return INSTANCE;
-	}
+    public static EaseExponentialInOut getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EaseExponentialInOut();
+        }
+        return INSTANCE;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
-		final float percentage = pSecondsElapsed / pDuration;
+    @Override
+    public float getPercentage(final float pSecondsElapsed, final float pDuration) {
+        final float percentage = pSecondsElapsed / pDuration;
 
-		if(percentage < 0.5f) {
-			return 0.5f * EaseExponentialIn.getValue(2 * percentage);
-		} else {
-			return 0.5f + 0.5f * EaseExponentialOut.getValue(percentage * 2 - 1);
-		}
-	}
+        if(percentage < 0.5f) {
+            return 0.5f * EaseExponentialIn.getValue(2 * percentage);
+        } else {
+            return 0.5f + 0.5f * EaseExponentialOut.getValue(percentage * 2 - 1);
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

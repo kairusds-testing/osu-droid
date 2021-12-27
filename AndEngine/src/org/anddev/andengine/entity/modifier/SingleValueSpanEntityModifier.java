@@ -12,51 +12,51 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @since 23:29:22 - 19.03.2010
  */
 public abstract class SingleValueSpanEntityModifier extends BaseSingleValueSpanModifier<IEntity> implements IEntityModifier {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue) {
-		super(pDuration, pFromValue, pToValue);
-	}
+    public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue) {
+        super(pDuration, pFromValue, pToValue);
+    }
 
-	public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEaseFunction pEaseFunction) {
-		super(pDuration, pFromValue, pToValue, pEaseFunction);
-	}
+    public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEaseFunction pEaseFunction) {
+        super(pDuration, pFromValue, pToValue, pEaseFunction);
+    }
 
-	public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEntityModifierListener pEntityModifierListener) {
-		super(pDuration, pFromValue, pToValue, pEntityModifierListener);
-	}
+    public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEntityModifierListener pEntityModifierListener) {
+        super(pDuration, pFromValue, pToValue, pEntityModifierListener);
+    }
 
-	public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEntityModifierListener pEntityModifierListener, final IEaseFunction pEaseFunction) {
-		super(pDuration, pFromValue, pToValue, pEntityModifierListener, pEaseFunction);
-	}
+    public SingleValueSpanEntityModifier(final float pDuration, final float pFromValue, final float pToValue, final IEntityModifierListener pEntityModifierListener, final IEaseFunction pEaseFunction) {
+        super(pDuration, pFromValue, pToValue, pEntityModifierListener, pEaseFunction);
+    }
 
-	protected SingleValueSpanEntityModifier(final SingleValueSpanEntityModifier pSingleValueSpanEntityModifier) {
-		super(pSingleValueSpanEntityModifier);
-	}
+    protected SingleValueSpanEntityModifier(final SingleValueSpanEntityModifier pSingleValueSpanEntityModifier) {
+        super(pSingleValueSpanEntityModifier);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

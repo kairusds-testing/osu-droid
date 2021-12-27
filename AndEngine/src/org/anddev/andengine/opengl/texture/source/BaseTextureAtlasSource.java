@@ -10,64 +10,64 @@ package org.anddev.andengine.opengl.texture.source;
  * @since 13:55:12 - 12.07.2011
  */
 public abstract class BaseTextureAtlasSource implements ITextureAtlasSource {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected int mTexturePositionX;
-	protected int mTexturePositionY;
+    protected int mTexturePositionX;
+    protected int mTexturePositionY;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseTextureAtlasSource(final int pTexturePositionX, final int pTexturePositionY) {
-		this.mTexturePositionX = pTexturePositionX;
-		this.mTexturePositionY = pTexturePositionY;
-	}
+    public BaseTextureAtlasSource(final int pTexturePositionX, final int pTexturePositionY) {
+        this.mTexturePositionX = pTexturePositionX;
+        this.mTexturePositionY = pTexturePositionY;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	@Override
-	public int getTexturePositionX() {
-		return this.mTexturePositionX;
-	}
+    @Override
+    public int getTexturePositionX() {
+        return this.mTexturePositionX;
+    }
 
-	@Override
-	public int getTexturePositionY() {
-		return this.mTexturePositionY;
-	}
+    @Override
+    public int getTexturePositionY() {
+        return this.mTexturePositionY;
+    }
 
-	@Override
-	public void setTexturePositionX(final int pTexturePositionX) {
-		this.mTexturePositionX = pTexturePositionX;
-	}
+    @Override
+    public void setTexturePositionX(final int pTexturePositionX) {
+        this.mTexturePositionX = pTexturePositionX;
+    }
 
-	@Override
-	public void setTexturePositionY(final int pTexturePositionY) {
-		this.mTexturePositionY = pTexturePositionY;
-	}
+    @Override
+    public void setTexturePositionY(final int pTexturePositionY) {
+        this.mTexturePositionY = pTexturePositionY;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "( " + this.getWidth() + "x" + this.getHeight() + " @ "+ this.mTexturePositionX + "/" + this.mTexturePositionY + " )";
-	}
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "( " + this.getWidth() + "x" + this.getHeight() + " @ "+ this.mTexturePositionX + "/" + this.mTexturePositionY + " )";
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

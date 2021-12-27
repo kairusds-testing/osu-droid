@@ -13,108 +13,108 @@ import org.anddev.andengine.util.HorizontalAlign;
  * @since 18:05:08 - 07.04.2010
  */
 public class TextVertexBuffer extends VertexBuffer {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	public static final int VERTICES_PER_CHARACTER = 6;
+    public static final int VERTICES_PER_CHARACTER = 6;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final HorizontalAlign mHorizontalAlign;
+    private final HorizontalAlign mHorizontalAlign;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TextVertexBuffer(final int pCharacterCount, final HorizontalAlign pHorizontalAlign, final int pDrawType, final boolean pManaged) {
-		super(2 * VERTICES_PER_CHARACTER * pCharacterCount, pDrawType, pManaged);
+    public TextVertexBuffer(final int pCharacterCount, final HorizontalAlign pHorizontalAlign, final int pDrawType, final boolean pManaged) {
+        super(2 * VERTICES_PER_CHARACTER * pCharacterCount, pDrawType, pManaged);
 
-		this.mHorizontalAlign = pHorizontalAlign;
-	}
+        this.mHorizontalAlign = pHorizontalAlign;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public synchronized void update(final Font font, final int pMaximumLineWidth, final int[] pWidths, final String[] pLines) {
-		final int[] bufferData = this.mBufferData;
-		int i = 0;
+    public synchronized void update(final Font font, final int pMaximumLineWidth, final int[] pWidths, final String[] pLines) {
+        final int[] bufferData = this.mBufferData;
+        int i = 0;
 
-		final int lineHeight = font.getLineHeight();
+        final int lineHeight = font.getLineHeight();
 
-		final int lineCount = pLines.length;
-		for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-			final String line = pLines[lineIndex];
+        final int lineCount = pLines.length;
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+            final String line = pLines[lineIndex];
 
-			int lineX;
-			switch(this.mHorizontalAlign) {
-				case RIGHT:
-					lineX = pMaximumLineWidth - pWidths[lineIndex];
-					break;
-				case CENTER:
-					lineX = (pMaximumLineWidth - pWidths[lineIndex]) >> 1;
-					break;
-				case LEFT:
-				default:
-					lineX = 0;
-			}
+            int lineX;
+            switch(this.mHorizontalAlign) {
+                case RIGHT:
+                    lineX = pMaximumLineWidth - pWidths[lineIndex];
+                    break;
+                case CENTER:
+                    lineX = (pMaximumLineWidth - pWidths[lineIndex]) >> 1;
+                    break;
+                case LEFT:
+                default:
+                    lineX = 0;
+            }
 
-			final int lineY = lineIndex * (font.getLineHeight() + font.getLineGap());
-			final int lineYBits = Float.floatToRawIntBits(lineY);
+            final int lineY = lineIndex * (font.getLineHeight() + font.getLineGap());
+            final int lineYBits = Float.floatToRawIntBits(lineY);
 
-			final int lineLength = line.length();
-			for (int letterIndex = 0; letterIndex < lineLength; letterIndex++) {
-				final Letter letter = font.getLetter(line.charAt(letterIndex));
+            final int lineLength = line.length();
+            for (int letterIndex = 0; letterIndex < lineLength; letterIndex++) {
+                final Letter letter = font.getLetter(line.charAt(letterIndex));
 
-				final int lineY2 = lineY + lineHeight;
-				final int lineX2 = lineX + letter.mWidth;
+                final int lineY2 = lineY + lineHeight;
+                final int lineX2 = lineX + letter.mWidth;
 
-				final int lineXBits = Float.floatToRawIntBits(lineX);
-				final int lineX2Bits = Float.floatToRawIntBits(lineX2);
-				final int lineY2Bits = Float.floatToRawIntBits(lineY2);
+                final int lineXBits = Float.floatToRawIntBits(lineX);
+                final int lineX2Bits = Float.floatToRawIntBits(lineX2);
+                final int lineY2Bits = Float.floatToRawIntBits(lineY2);
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineYBits;
+                bufferData[i++] = lineXBits;
+                bufferData[i++] = lineYBits;
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineY2Bits;
+                bufferData[i++] = lineXBits;
+                bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineY2Bits;
+                bufferData[i++] = lineX2Bits;
+                bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineY2Bits;
+                bufferData[i++] = lineX2Bits;
+                bufferData[i++] = lineY2Bits;
 
-				bufferData[i++] = lineX2Bits;
-				bufferData[i++] = lineYBits;
+                bufferData[i++] = lineX2Bits;
+                bufferData[i++] = lineYBits;
 
-				bufferData[i++] = lineXBits;
-				bufferData[i++] = lineYBits;
+                bufferData[i++] = lineXBits;
+                bufferData[i++] = lineYBits;
 
-				lineX += letter.mAdvance;
-			}
-		}
+                lineX += letter.mAdvance;
+            }
+        }
 
-		final FastFloatBuffer vertexFloatBuffer = this.mFloatBuffer;
-		vertexFloatBuffer.position(0);
-		vertexFloatBuffer.put(bufferData);
-		vertexFloatBuffer.position(0);
+        final FastFloatBuffer vertexFloatBuffer = this.mFloatBuffer;
+        vertexFloatBuffer.position(0);
+        vertexFloatBuffer.put(bufferData);
+        vertexFloatBuffer.position(0);
 
-		super.setHardwareBufferNeedsUpdate();
-	}
+        super.setHardwareBufferNeedsUpdate();
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -13,53 +13,53 @@ import org.anddev.andengine.opengl.vertex.SpriteBatchVertexBuffer;
  * @since 21:48:21 - 27.07.2011
  */
 public abstract class DynamicSpriteBatch extends SpriteBatch {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public DynamicSpriteBatch(final ITexture pTexture, final int pCapacity) {
-		super(pTexture, pCapacity);
-	}
+    public DynamicSpriteBatch(final ITexture pTexture, final int pCapacity) {
+        super(pTexture, pCapacity);
+    }
 
-	public DynamicSpriteBatch(final ITexture pTexture, final int pCapacity, final SpriteBatchVertexBuffer pSpriteBatchVertexBuffer, final SpriteBatchTextureRegionBuffer pSpriteBatchTextureRegionBuffer) {
-		super(pTexture, pCapacity, pSpriteBatchVertexBuffer, pSpriteBatchTextureRegionBuffer);
-	}
+    public DynamicSpriteBatch(final ITexture pTexture, final int pCapacity, final SpriteBatchVertexBuffer pSpriteBatchVertexBuffer, final SpriteBatchTextureRegionBuffer pSpriteBatchTextureRegionBuffer) {
+        super(pTexture, pCapacity, pSpriteBatchVertexBuffer, pSpriteBatchTextureRegionBuffer);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	/**
-	 * @return <code>true</code> to submit, if you made any changes, or <code>false</code> otherwise.
-	 */
-	protected abstract boolean onUpdateSpriteBatch();
+    /**
+     * @return <code>true</code> to submit, if you made any changes, or <code>false</code> otherwise.
+     */
+    protected abstract boolean onUpdateSpriteBatch();
 
-	@Override
-	protected void begin(final GL10 pGL) {
-		super.begin(pGL);
+    @Override
+    protected void begin(final GL10 pGL) {
+        super.begin(pGL);
 
-		if(this.onUpdateSpriteBatch()) {
-			this.submit();
-		}
-	}
+        if(this.onUpdateSpriteBatch()) {
+            this.submit();
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

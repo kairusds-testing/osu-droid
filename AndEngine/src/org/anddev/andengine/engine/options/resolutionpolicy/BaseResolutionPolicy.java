@@ -10,40 +10,40 @@ import android.view.View.MeasureSpec;
  * @since 22:46:43 - 06.10.2010
  */
 public abstract class BaseResolutionPolicy implements IResolutionPolicy {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	protected static void throwOnNotMeasureSpecEXACTLY(final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
-		final int specWidthMode = MeasureSpec.getMode(pWidthMeasureSpec);
-		final int specHeightMode = MeasureSpec.getMode(pHeightMeasureSpec);
+    protected static void throwOnNotMeasureSpecEXACTLY(final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
+        final int specWidthMode = MeasureSpec.getMode(pWidthMeasureSpec);
+        final int specHeightMode = MeasureSpec.getMode(pHeightMeasureSpec);
 
-		if (specWidthMode != MeasureSpec.EXACTLY || specHeightMode != MeasureSpec.EXACTLY) {
-			//throw new IllegalStateException("This IResolutionPolicy requires MeasureSpec.EXACTLY ! That means ");
-		}
-	}
+        if (specWidthMode != MeasureSpec.EXACTLY || specHeightMode != MeasureSpec.EXACTLY) {
+            //throw new IllegalStateException("This IResolutionPolicy requires MeasureSpec.EXACTLY ! That means ");
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

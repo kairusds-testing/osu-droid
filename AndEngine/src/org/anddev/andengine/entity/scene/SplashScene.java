@@ -14,45 +14,45 @@ import org.anddev.andengine.util.modifier.ease.IEaseFunction;
  * @since 09:45:02 - 03.05.2010
  */
 public class SplashScene extends Scene {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public SplashScene(final Camera pCamera, final TextureRegion pTextureRegion) {
-		this(pCamera, pTextureRegion, -1, 1, 1);
-	}
+    public SplashScene(final Camera pCamera, final TextureRegion pTextureRegion) {
+        this(pCamera, pTextureRegion, -1, 1, 1);
+    }
 
-	public SplashScene(final Camera pCamera, final TextureRegion pTextureRegion, final float pDuration, final float pScaleFrom, final float pScaleTo) {
-		final Sprite loadingScreenSprite = new Sprite(pCamera.getMinX(), pCamera.getMinY(), pCamera.getWidth(), pCamera.getHeight(), pTextureRegion);
-		if(pScaleFrom != 1 || pScaleTo != 1) {
-			loadingScreenSprite.setScale(pScaleFrom);
-			loadingScreenSprite.registerEntityModifier(new ScaleModifier(pDuration, pScaleFrom, pScaleTo, IEaseFunction.DEFAULT));
-		}
+    public SplashScene(final Camera pCamera, final TextureRegion pTextureRegion, final float pDuration, final float pScaleFrom, final float pScaleTo) {
+        final Sprite loadingScreenSprite = new Sprite(pCamera.getMinX(), pCamera.getMinY(), pCamera.getWidth(), pCamera.getHeight(), pTextureRegion);
+        if(pScaleFrom != 1 || pScaleTo != 1) {
+            loadingScreenSprite.setScale(pScaleFrom);
+            loadingScreenSprite.registerEntityModifier(new ScaleModifier(pDuration, pScaleFrom, pScaleTo, IEaseFunction.DEFAULT));
+        }
 
-		this.attachChild(loadingScreenSprite);
-	}
+        this.attachChild(loadingScreenSprite);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -8,13 +8,13 @@ package org.anddev.andengine.sensor.orientation;
  * @since 11:30:42 - 25.05.2010
  */
 public interface IOrientationListener {
-	// ===========================================================
-	// Final Fields
-	// ===========================================================
+    // ===========================================================
+    // Final Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void onOrientationChanged(final OrientationData pOrientationData);
+    public void onOrientationChanged(final OrientationData pOrientationData);
 }

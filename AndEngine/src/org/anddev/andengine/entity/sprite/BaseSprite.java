@@ -17,96 +17,96 @@ import org.anddev.andengine.opengl.vertex.RectangleVertexBuffer;
  * @since 11:38:53 - 08.03.2010
  */
 public abstract class BaseSprite extends BaseRectangle {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	protected final BaseTextureRegion mTextureRegion;
+    protected final BaseTextureRegion mTextureRegion;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseSprite(final float pX, final float pY, final float pWidth, final float pHeight, final BaseTextureRegion pTextureRegion) {
-		super(pX, pY, pWidth, pHeight);
+    public BaseSprite(final float pX, final float pY, final float pWidth, final float pHeight, final BaseTextureRegion pTextureRegion) {
+        super(pX, pY, pWidth, pHeight);
 
-		this.mTextureRegion = pTextureRegion;
-		this.initBlendFunction();
-	}
+        this.mTextureRegion = pTextureRegion;
+        this.initBlendFunction();
+    }
 
-	public BaseSprite(final float pX, final float pY, final float pWidth, final float pHeight, final BaseTextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
-		super(pX, pY, pWidth, pHeight, pRectangleVertexBuffer);
+    public BaseSprite(final float pX, final float pY, final float pWidth, final float pHeight, final BaseTextureRegion pTextureRegion, final RectangleVertexBuffer pRectangleVertexBuffer) {
+        super(pX, pY, pWidth, pHeight, pRectangleVertexBuffer);
 
-		this.mTextureRegion = pTextureRegion;
-		this.initBlendFunction();
-	}
+        this.mTextureRegion = pTextureRegion;
+        this.initBlendFunction();
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public BaseTextureRegion getTextureRegion() {
-		return this.mTextureRegion;
-	}
+    public BaseTextureRegion getTextureRegion() {
+        return this.mTextureRegion;
+    }
 
-	public void setFlippedHorizontal(final boolean pFlippedHorizontal) {
-		this.mTextureRegion.setFlippedHorizontal(pFlippedHorizontal);
-	}
+    public void setFlippedHorizontal(final boolean pFlippedHorizontal) {
+        this.mTextureRegion.setFlippedHorizontal(pFlippedHorizontal);
+    }
 
-	public void setFlippedVertical(final boolean pFlippedVertical) {
-		this.mTextureRegion.setFlippedVertical(pFlippedVertical);
-	}
+    public void setFlippedVertical(final boolean pFlippedVertical) {
+        this.mTextureRegion.setFlippedVertical(pFlippedVertical);
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public void reset() {
-		super.reset();
+    @Override
+    public void reset() {
+        super.reset();
 
-		this.initBlendFunction();
-	}
+        this.initBlendFunction();
+    }
 
-	@Override
-	protected void onInitDraw(final GL10 pGL) {
-		super.onInitDraw(pGL);
-		GLHelper.enableTextures(pGL);
-		GLHelper.enableTexCoordArray(pGL);
-	}
+    @Override
+    protected void onInitDraw(final GL10 pGL) {
+        super.onInitDraw(pGL);
+        GLHelper.enableTextures(pGL);
+        GLHelper.enableTexCoordArray(pGL);
+    }
 
-	@Override
-	protected void doDraw(final GL10 pGL, final Camera pCamera) {
-		this.mTextureRegion.onApply(pGL);
+    @Override
+    protected void doDraw(final GL10 pGL, final Camera pCamera) {
+        this.mTextureRegion.onApply(pGL);
 
-		super.doDraw(pGL, pCamera);
-	}
+        super.doDraw(pGL, pCamera);
+    }
 
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
 
-		final TextureRegionBuffer textureRegionBuffer = this.mTextureRegion.getTextureBuffer();
-		if(textureRegionBuffer.isManaged()) {
-			textureRegionBuffer.unloadFromActiveBufferObjectManager();
-		}
-	}
+        final TextureRegionBuffer textureRegionBuffer = this.mTextureRegion.getTextureBuffer();
+        if(textureRegionBuffer.isManaged()) {
+            textureRegionBuffer.unloadFromActiveBufferObjectManager();
+        }
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	private void initBlendFunction() {
-		if(this.mTextureRegion.getTexture().getTextureOptions().mPreMultipyAlpha) {
-			this.setBlendFunction(BLENDFUNCTION_SOURCE_PREMULTIPLYALPHA_DEFAULT, BLENDFUNCTION_DESTINATION_PREMULTIPLYALPHA_DEFAULT);
-		}
-	}
+    private void initBlendFunction() {
+        if(this.mTextureRegion.getTexture().getTextureOptions().mPreMultipyAlpha) {
+            this.setBlendFunction(BLENDFUNCTION_SOURCE_PREMULTIPLYALPHA_DEFAULT, BLENDFUNCTION_DESTINATION_PREMULTIPLYALPHA_DEFAULT);
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -13,105 +13,105 @@ import android.media.MediaPlayer.OnCompletionListener;
  * @since 14:53:12 - 13.06.2010
  */
 public class Music extends BaseAudioEntity {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final MediaPlayer mMediaPlayer;
+    private final MediaPlayer mMediaPlayer;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	Music(final MusicManager pMusicManager, final MediaPlayer pMediaPlayer) {
-		super(pMusicManager);
-		this.mMediaPlayer = pMediaPlayer;
-	}
+    Music(final MusicManager pMusicManager, final MediaPlayer pMediaPlayer) {
+        super(pMusicManager);
+        this.mMediaPlayer = pMediaPlayer;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public boolean isPlaying() {
-		return this.mMediaPlayer.isPlaying();
-	}
+    public boolean isPlaying() {
+        return this.mMediaPlayer.isPlaying();
+    }
 
-	public MediaPlayer getMediaPlayer() {
-		return this.mMediaPlayer;
-	}
+    public MediaPlayer getMediaPlayer() {
+        return this.mMediaPlayer;
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	protected MusicManager getAudioManager() {
-		return (MusicManager)super.getAudioManager();
-	}
+    @Override
+    protected MusicManager getAudioManager() {
+        return (MusicManager)super.getAudioManager();
+    }
 
-	@Override
-	public void play() {
-		this.mMediaPlayer.start();
-	}
+    @Override
+    public void play() {
+        this.mMediaPlayer.start();
+    }
 
-	@Override
-	public void stop() {
-		this.mMediaPlayer.stop();
-	}
+    @Override
+    public void stop() {
+        this.mMediaPlayer.stop();
+    }
 
-	@Override
-	public void resume() {
-		this.mMediaPlayer.start();
-	}
+    @Override
+    public void resume() {
+        this.mMediaPlayer.start();
+    }
 
-	@Override
-	public void pause() {
-		this.mMediaPlayer.pause();
-	}
+    @Override
+    public void pause() {
+        this.mMediaPlayer.pause();
+    }
 
-	@Override
-	public void release() {
-		this.mMediaPlayer.release();
-	}
+    @Override
+    public void release() {
+        this.mMediaPlayer.release();
+    }
 
-	@Override
-	public void setLooping(final boolean pLooping) {
-		this.mMediaPlayer.setLooping(pLooping);
-	}
+    @Override
+    public void setLooping(final boolean pLooping) {
+        this.mMediaPlayer.setLooping(pLooping);
+    }
 
-	@Override
-	public void setVolume(final float pLeftVolume, final float pRightVolume) {
-		super.setVolume(pLeftVolume, pRightVolume);
+    @Override
+    public void setVolume(final float pLeftVolume, final float pRightVolume) {
+        super.setVolume(pLeftVolume, pRightVolume);
 
-		final float masterVolume = this.getAudioManager().getMasterVolume();
-		final float actualLeftVolume = pLeftVolume * masterVolume;
-		final float actualRightVolume = pRightVolume * masterVolume;
+        final float masterVolume = this.getAudioManager().getMasterVolume();
+        final float actualLeftVolume = pLeftVolume * masterVolume;
+        final float actualRightVolume = pRightVolume * masterVolume;
 
-		this.mMediaPlayer.setVolume(actualLeftVolume, actualRightVolume);
-	}
+        this.mMediaPlayer.setVolume(actualLeftVolume, actualRightVolume);
+    }
 
-	@Override
-	public void onMasterVolumeChanged(final float pMasterVolume) {
-		this.setVolume(this.mLeftVolume, this.mRightVolume);
-	}
+    @Override
+    public void onMasterVolumeChanged(final float pMasterVolume) {
+        this.setVolume(this.mLeftVolume, this.mRightVolume);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void seekTo(final int pMilliseconds) {
-		this.mMediaPlayer.seekTo(pMilliseconds);
-	}
+    public void seekTo(final int pMilliseconds) {
+        this.mMediaPlayer.seekTo(pMilliseconds);
+    }
 
-	public void setOnCompletionListener(final OnCompletionListener pOnCompletionListener) {
-		this.mMediaPlayer.setOnCompletionListener(pOnCompletionListener);
-	}
+    public void setOnCompletionListener(final OnCompletionListener pOnCompletionListener) {
+        this.mMediaPlayer.setOnCompletionListener(pOnCompletionListener);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

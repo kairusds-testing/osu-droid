@@ -10,134 +10,134 @@ import org.anddev.andengine.opengl.texture.ITexture;
  * @since 18:14:42 - 09.03.2010
  */
 public class TiledTextureRegion extends BaseTextureRegion {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final int mTileColumns;
-	private final int mTileRows;
-	private int mCurrentTileColumn;
-	private int mCurrentTileRow;
-	private final int mTileCount;
+    private final int mTileColumns;
+    private final int mTileRows;
+    private int mCurrentTileColumn;
+    private int mCurrentTileRow;
+    private final int mTileCount;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TiledTextureRegion(final ITexture pTexture, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight, final int pTileColumns, final int pTileRows) {
-		super(pTexture, pTexturePositionX, pTexturePositionY, pWidth, pHeight);
-		this.mTileColumns = pTileColumns;
-		this.mTileRows = pTileRows;
-		this.mTileCount = this.mTileColumns * this.mTileRows;
-		this.mCurrentTileColumn = 0;
-		this.mCurrentTileRow = 0;
+    public TiledTextureRegion(final ITexture pTexture, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight, final int pTileColumns, final int pTileRows) {
+        super(pTexture, pTexturePositionX, pTexturePositionY, pWidth, pHeight);
+        this.mTileColumns = pTileColumns;
+        this.mTileRows = pTileRows;
+        this.mTileCount = this.mTileColumns * this.mTileRows;
+        this.mCurrentTileColumn = 0;
+        this.mCurrentTileRow = 0;
 
-		this.initTextureBuffer();
-	}
+        this.initTextureBuffer();
+    }
 
-	@Override
-	protected void initTextureBuffer() {
-		if(this.mTileRows != 0 && this.mTileColumns != 0) {
-			super.initTextureBuffer();
-		}
-	}
+    @Override
+    protected void initTextureBuffer() {
+        if(this.mTileRows != 0 && this.mTileColumns != 0) {
+            super.initTextureBuffer();
+        }
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	public int getTileCount() {
-		return this.mTileCount;
-	}
+    public int getTileCount() {
+        return this.mTileCount;
+    }
 
-	public int getTileWidth() {
-		return super.getWidth() / this.mTileColumns;
-	}
+    public int getTileWidth() {
+        return super.getWidth() / this.mTileColumns;
+    }
 
-	public int getTileHeight() {
-		return super.getHeight() / this.mTileRows;
-	}
+    public int getTileHeight() {
+        return super.getHeight() / this.mTileRows;
+    }
 
-	public int getCurrentTileColumn() {
-		return this.mCurrentTileColumn;
-	}
+    public int getCurrentTileColumn() {
+        return this.mCurrentTileColumn;
+    }
 
-	public int getCurrentTileRow() {
-		return this.mCurrentTileRow;
-	}
+    public int getCurrentTileRow() {
+        return this.mCurrentTileRow;
+    }
 
-	public int getCurrentTileIndex() {
-		return this.mCurrentTileRow * this.mTileColumns + this.mCurrentTileColumn;
-	}
+    public int getCurrentTileIndex() {
+        return this.mCurrentTileRow * this.mTileColumns + this.mCurrentTileColumn;
+    }
 
-	public void setCurrentTileIndex(final int pTileColumn, final int pTileRow) {
-		if(pTileColumn != this.mCurrentTileColumn || pTileRow != this.mCurrentTileRow) {
-			this.mCurrentTileColumn = pTileColumn;
-			this.mCurrentTileRow = pTileRow;
-			super.updateTextureRegionBuffer();
-		}
-	}
+    public void setCurrentTileIndex(final int pTileColumn, final int pTileRow) {
+        if(pTileColumn != this.mCurrentTileColumn || pTileRow != this.mCurrentTileRow) {
+            this.mCurrentTileColumn = pTileColumn;
+            this.mCurrentTileRow = pTileRow;
+            super.updateTextureRegionBuffer();
+        }
+    }
 
-	public void setCurrentTileIndex(final int pTileIndex) {
-		if(pTileIndex < this.mTileCount) {
-			final int tileColumns = this.mTileColumns;
-			this.setCurrentTileIndex(pTileIndex % tileColumns, pTileIndex / tileColumns);
-		}
-	}
+    public void setCurrentTileIndex(final int pTileIndex) {
+        if(pTileIndex < this.mTileCount) {
+            final int tileColumns = this.mTileColumns;
+            this.setCurrentTileIndex(pTileIndex % tileColumns, pTileIndex / tileColumns);
+        }
+    }
 
-	public int getTexturePositionOfCurrentTileX() {
-		return super.getTexturePositionX() + this.mCurrentTileColumn * this.getTileWidth();
-	}
+    public int getTexturePositionOfCurrentTileX() {
+        return super.getTexturePositionX() + this.mCurrentTileColumn * this.getTileWidth();
+    }
 
-	public int getTexturePositionOfCurrentTileY() {
-		return super.getTexturePositionY() + this.mCurrentTileRow * this.getTileHeight();
-	}
+    public int getTexturePositionOfCurrentTileY() {
+        return super.getTexturePositionY() + this.mCurrentTileRow * this.getTileHeight();
+    }
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public TiledTextureRegion deepCopy() {
-		final TiledTextureRegion deepCopy = new TiledTextureRegion(this.mTexture, this.getTexturePositionX(), this.getTexturePositionY(), this.getWidth(), this.getHeight(), this.mTileColumns, this.mTileRows);
-		deepCopy.setCurrentTileIndex(this.mCurrentTileColumn, this.mCurrentTileRow);
-		return deepCopy;
-	}
+    @Override
+    public TiledTextureRegion deepCopy() {
+        final TiledTextureRegion deepCopy = new TiledTextureRegion(this.mTexture, this.getTexturePositionX(), this.getTexturePositionY(), this.getWidth(), this.getHeight(), this.mTileColumns, this.mTileRows);
+        deepCopy.setCurrentTileIndex(this.mCurrentTileColumn, this.mCurrentTileRow);
+        return deepCopy;
+    }
 
-	@Override
-	public float getTextureCoordinateX1() {
-		return (float)this.getTexturePositionOfCurrentTileX() / this.mTexture.getWidth();
-	}
+    @Override
+    public float getTextureCoordinateX1() {
+        return (float)this.getTexturePositionOfCurrentTileX() / this.mTexture.getWidth();
+    }
 
-	@Override
-	public float getTextureCoordinateY1() {
-		return (float)this.getTexturePositionOfCurrentTileY() / this.mTexture.getHeight();
-	}
+    @Override
+    public float getTextureCoordinateY1() {
+        return (float)this.getTexturePositionOfCurrentTileY() / this.mTexture.getHeight();
+    }
 
-	@Override
-	public float getTextureCoordinateX2() {
-		return (float)(this.getTexturePositionOfCurrentTileX() + this.getTileWidth()) / this.mTexture.getWidth();
-	}
+    @Override
+    public float getTextureCoordinateX2() {
+        return (float)(this.getTexturePositionOfCurrentTileX() + this.getTileWidth()) / this.mTexture.getWidth();
+    }
 
-	@Override
-	public float getTextureCoordinateY2() {
-		return (float)(this.getTexturePositionOfCurrentTileY() + this.getTileHeight()) / this.mTexture.getHeight();
-	}
-	
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    @Override
+    public float getTextureCoordinateY2() {
+        return (float)(this.getTexturePositionOfCurrentTileY() + this.getTileHeight()) / this.mTexture.getHeight();
+    }
+    
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public void nextTile() {
-		final int tileIndex = (this.getCurrentTileIndex() + 1) % this.getTileCount();
-		this.setCurrentTileIndex(tileIndex);
-	}
+    public void nextTile() {
+        final int tileIndex = (this.getCurrentTileIndex() + 1) % this.getTileCount();
+        this.setCurrentTileIndex(tileIndex);
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

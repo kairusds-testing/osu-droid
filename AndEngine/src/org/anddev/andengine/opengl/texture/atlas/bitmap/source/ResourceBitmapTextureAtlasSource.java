@@ -15,92 +15,92 @@ import android.graphics.BitmapFactory;
  * @since 15:07:23 - 09.03.2010
  */
 public class ResourceBitmapTextureAtlasSource extends BaseTextureAtlasSource implements IBitmapTextureAtlasSource {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final int mWidth;
-	private final int mHeight;
+    private final int mWidth;
+    private final int mHeight;
 
-	private final int mDrawableResourceID;
-	private final Context mContext;
+    private final int mDrawableResourceID;
+    private final Context mContext;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID) {
-		this(pContext, pDrawableResourceID, 0, 0);
-	}
+    public ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID) {
+        this(pContext, pDrawableResourceID, 0, 0);
+    }
 
-	public ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID, final int pTexturePositionX, final int pTexturePositionY) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mDrawableResourceID = pDrawableResourceID;
+    public ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID, final int pTexturePositionX, final int pTexturePositionY) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mDrawableResourceID = pDrawableResourceID;
 
-		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-		decodeOptions.inJustDecodeBounds = true;
-//		decodeOptions.inScaled = false; // TODO Check how this behaves with drawable-""/nodpi/ldpi/mdpi/hdpi folders
+        final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+        decodeOptions.inJustDecodeBounds = true;
+//        decodeOptions.inScaled = false; // TODO Check how this behaves with drawable-""/nodpi/ldpi/mdpi/hdpi folders
 
-		BitmapFactory.decodeResource(pContext.getResources(), pDrawableResourceID, decodeOptions);
+        BitmapFactory.decodeResource(pContext.getResources(), pDrawableResourceID, decodeOptions);
 
-		this.mWidth = decodeOptions.outWidth;
-		this.mHeight = decodeOptions.outHeight;
-	}
+        this.mWidth = decodeOptions.outWidth;
+        this.mHeight = decodeOptions.outHeight;
+    }
 
-	protected ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight) {
-		super(pTexturePositionX, pTexturePositionY);
-		this.mContext = pContext;
-		this.mDrawableResourceID = pDrawableResourceID;
-		this.mWidth = pWidth;
-		this.mHeight = pHeight;
-	}
+    protected ResourceBitmapTextureAtlasSource(final Context pContext, final int pDrawableResourceID, final int pTexturePositionX, final int pTexturePositionY, final int pWidth, final int pHeight) {
+        super(pTexturePositionX, pTexturePositionY);
+        this.mContext = pContext;
+        this.mDrawableResourceID = pDrawableResourceID;
+        this.mWidth = pWidth;
+        this.mHeight = pHeight;
+    }
 
-	@Override
-	public ResourceBitmapTextureAtlasSource deepCopy() {
-		return new ResourceBitmapTextureAtlasSource(this.mContext, this.mDrawableResourceID, this.mTexturePositionX, this.mTexturePositionY, this.mWidth, this.mHeight);
-	}
+    @Override
+    public ResourceBitmapTextureAtlasSource deepCopy() {
+        return new ResourceBitmapTextureAtlasSource(this.mContext, this.mDrawableResourceID, this.mTexturePositionX, this.mTexturePositionY, this.mWidth, this.mHeight);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public int getWidth() {
-		return this.mWidth;
-	}
+    @Override
+    public int getWidth() {
+        return this.mWidth;
+    }
 
-	@Override
-	public int getHeight() {
-		return this.mHeight;
-	}
+    @Override
+    public int getHeight() {
+        return this.mHeight;
+    }
 
-	@Override
-	public Bitmap onLoadBitmap(final Config pBitmapConfig) {
-		final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-		decodeOptions.inPreferredConfig = pBitmapConfig;
-//		decodeOptions.inScaled = false; // TODO Check how this behaves with drawable-""/nodpi/ldpi/mdpi/hdpi folders
-		return BitmapFactory.decodeResource(this.mContext.getResources(), this.mDrawableResourceID, decodeOptions);
-	}
+    @Override
+    public Bitmap onLoadBitmap(final Config pBitmapConfig) {
+        final BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+        decodeOptions.inPreferredConfig = pBitmapConfig;
+//        decodeOptions.inScaled = false; // TODO Check how this behaves with drawable-""/nodpi/ldpi/mdpi/hdpi folders
+        return BitmapFactory.decodeResource(this.mContext.getResources(), this.mDrawableResourceID, decodeOptions);
+    }
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "(" + this.mDrawableResourceID + ")";
-	}
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "(" + this.mDrawableResourceID + ")";
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

@@ -13,50 +13,50 @@ import org.anddev.andengine.opengl.vertex.RectangleVertexBuffer;
  * @since 19:05:49 - 11.04.2010
  */
 public abstract class BaseRectangle extends RectangularShape {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public BaseRectangle(final float pX, final float pY, final float pWidth, final float pHeight) {
-		super(pX, pY, pWidth, pHeight, new RectangleVertexBuffer(GL11.GL_STATIC_DRAW, true));
-		this.updateVertexBuffer();
-	}
+    public BaseRectangle(final float pX, final float pY, final float pWidth, final float pHeight) {
+        super(pX, pY, pWidth, pHeight, new RectangleVertexBuffer(GL11.GL_STATIC_DRAW, true));
+        this.updateVertexBuffer();
+    }
 
-	public BaseRectangle(final float pX, final float pY, final float pWidth, final float pHeight, final RectangleVertexBuffer pRectangleVertexBuffer) {
-		super(pX, pY, pWidth, pHeight, pRectangleVertexBuffer);
-	}
+    public BaseRectangle(final float pX, final float pY, final float pWidth, final float pHeight, final RectangleVertexBuffer pRectangleVertexBuffer) {
+        super(pX, pY, pWidth, pHeight, pRectangleVertexBuffer);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public RectangleVertexBuffer getVertexBuffer() {
-		return (RectangleVertexBuffer)this.mVertexBuffer;
-	}
+    @Override
+    public RectangleVertexBuffer getVertexBuffer() {
+        return (RectangleVertexBuffer)this.mVertexBuffer;
+    }
 
-	@Override
-	protected void onUpdateVertexBuffer(){
-		this.getVertexBuffer().update(this.mWidth, this.mHeight);
-	}
+    @Override
+    protected void onUpdateVertexBuffer(){
+        this.getVertexBuffer().update(this.mWidth, this.mHeight);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }
