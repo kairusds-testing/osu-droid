@@ -40,9 +40,9 @@ public class SkinPathPreference extends ListPreference {
 
 	public void reloadSkinList() {
 		try {
-			new AsyncTaskLoader().execute(new OsuAsyncCallback() {
+			/* new AsyncTaskLoader().execute(new OsuAsyncCallback() {
 				public void run() {
-					/* File skinMain = new File(Config.getSkinTopPath());
+					File skinMain = new File(Config.getSkinTopPath());
 					if(!skinMain.exists() && !skinMain.mkdir()) {
 						skinMain = new File(Config.getDefaultCorePath() + "Skin/");
 					}
@@ -68,9 +68,9 @@ public class SkinPathPreference extends ListPreference {
 					Arrays.sort(entryValues, 1, entryValues.length);
 					setEntries(entries);
 					setEntryValues(entryValues);
-				}
+				/* }
 				 public void onComplete() {}
-			});
+			}); */
 		} catch (Exception e) {
 			Debug.e("SkinPathPreference.reloadSkinList: ", e);
 			e.printStackTrace();
